@@ -1,0 +1,194 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="totalimpact.css" />
+<title>Total Impact</title>
+    <script type="text/javascript" src="./library/jquery/jquery-1.4.2.js"></script>
+	<script type="text/javascript" src="./library/jquery/jquery.tools.min.js"></script>
+	 <script type="text/javascript" src="./library/protovis-3.2/protovis-r3.2.js"></script>
+	
+	<script language="javascript" type="text/javascript">
+        
+        $(document).ready(function() {
+			console.log("Starting up");
+			
+			source1 = {};
+			source1['type'] = "presentation";
+			source1['metric_value'] = 200;
+			source1['metric_name'] = 'number of views';
+			source1['source_name'] = "Slideshare";
+			source1['icon'] = 'http://public.slidesharecdn.com/images/favicon.ico';
+			
+			artifact1 = {};
+			artifact1['sources'] = [source1];
+        	
+        	artifacts = {};
+			artifacts['http://www.slideshare.net/Frank.van.Harmelen/semantic-web-good-news'] = artifact1;
+			
+			source2 = {};
+			source2['type'] = "article";
+			source2['metric_value'] = 20;
+			source2['metric_name'] = 'number of views';
+			source2['source_name'] = "Mendeley";
+			source2['icon'] = 'http://www.mendeley.com/favicon.ico';
+			
+			artifact2 = {};
+			artifact2['sources'] = [source2];
+        	
+       		artifacts['http://www.ncbi.nlm.nih.gov/pubmed/18466268'] = artifact2;
+			
+			
+			artTotal = 0;
+			presTotal = 0;
+			dataTotal = 0;
+			postTotal = 0;
+			
+				
+        	
+            for (id in artifacts) {
+            	art = artifacts[id];
+            	console.log(art);
+            	
+            	for (source_index in art['sources']) {
+            		source = art['sources'][source_index]
+            		
+            		if (source['type'] == 'presentation') {
+            			var e = $("<div class='entry'></div>")
+							.append("<div class='id'>" + id + "</div>")
+ 	           				.append("<div class='metric_value'>" + source['metric_value'] + "</div>")
+ 	           				.append("<div class='metric_info'><div class='metric_img'><img src='" + source['icon'] + "'/></div><div class='metric_name'>" + source['metric_name'] + "</div></div>")
+            				.appendTo('#presentations');
+            		
+            			presTotal = presTotal + source['metric_value'];
+            			
+            		}
+            		else if (source['type'] == 'article') {
+            			var e = $("<div class='entry'></div>")
+							.append("<div class='id'>" + id + "</div>")
+ 	           				.append("<div class='metric_value'>" + source['metric_value'] + "</div>")
+ 	           				.append("<div class='metric_info'><div class='metric_img'><img src='" + source['icon'] + "'/></div><div class='metric_name'>" + source['metric_name'] + "</div></div>")
+            				.appendTo('#articles');
+            			
+            			artTotal = artTotal + source['metric_value'];
+            		}
+            		else if (source['type'] == 'dataset') {
+            			var e = $("<div class='entry'></div>")
+							.append("<div class='id'>" + id + "</div>")
+ 	           				.append("<div class='metric_value'>" + source['metric_value'] + "</div>")
+ 	           				.append("<div class='metric_info'><div class='metric_img'><img src='" + source['icon'] + "'/></div><div class='metric_name'>" + source['metric_name'] + "</div></div>")
+            				.appendTo('#datasets');
+            			
+            			dataTotal = dataTotal + source['metric_value'];
+            		}
+            		
+            		else if (source['type'] == 'post') {
+            			var e = $("<div class='entry'></div>")
+							.append("<div class='id'>" + id + "</div>")
+ 	           				.append("<div class='metric_value'>" + source['metric_value'] + "</div>")
+ 	           				.append("<div class='metric_info'><div class='metric_img'><img src='" + source['icon'] + "'/></div><div class='metric_name'>" + source['metric_name'] + "</div></div>")
+            				.appendTo('#posts');
+            			
+            			dataTotal = dataTotal + source['metric_value'];
+            		}
+            		
+            		
+                } 
+            	
+            }
+            
+            metrics = [artTotal, presTotal, dataTotal, postTotal];
+            generateGraph(metrics);
+        
+	    });
+	    
+	    jQuery(document).ready(function(){
+	        
+	    	$('#metrics :header').click(function() {
+				console.log("got called");
+				$(this).next().toggle('slow');
+				return false;
+				
+			}).next().show();
+		});
+	
+	
+		function generateGraph(metrics) {
+			
+			
+			viz = new pv.Panel()
+    		.width(145)
+    		.height(400)
+    		.canvas('graph');
+    
+			var bar = viz.add(pv.Bar)
+			.data(metrics)
+			.top(function(d) { return this.index * 35; })
+			.width(function(d) { return d*2; })
+			.height(20)
+			.left(function(d) { return 1; })
+			.fillStyle("rgba(30, 120, 180, .3)");
+			
+			
+    		
+    		bar.add(pv.Label)
+			.left(function() {return bar.left() + 5;})
+			.top(function() { return bar.top() + 18; })
+    		.textAlign("left")
+    		.font("10px sans-serif")
+    		.textBaseline("bottom")
+    		.textStyle("black")
+            .text(function(d) { if (this.index == 0) return "Articles: " + d; 
+            	if (this.index == 1) return "Presentations: " + d; 
+            	if (this.index == 2) return "Datasets: " + d;
+            	if (this.index == 3) return "Posts: " + d; });
+			viz.root.render();
+		}
+			
+	
+	
+	</script>	
+	
+	
+	
+	
+</head>
+
+<body>
+
+<div id="header">
+<img src="logo.png" alt="Total-Impact" width='150px' /> 
+Bob
+</div>
+
+<div id="viz">
+Totals by type<br>
+<div id="graph">
+
+</div>
+</div>
+
+
+<div id="metrics">
+<h3 class="section-title">- Articles</h3>
+<div id="articles" class="section">
+</div>
+
+<h3 class="section-title">- Presentations</h3>
+
+<div id="presentations" class="section">
+</div>
+
+<h3 class="section-title" >- Datasets</h3>
+
+<div id="datasets" class="section" >
+</div>
+
+
+<h3 class="section-title">- Posts</h3>
+
+<div id="posts" class="section">
+</div>
+
+</div>
+
+</body>
+</html>
