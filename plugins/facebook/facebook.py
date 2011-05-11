@@ -2,8 +2,8 @@
 
 import urllib2
 import re
-#import BeautifulSoup
-#from BeautifulSoup import BeautifulStoneSoup 
+import BeautifulSoup
+from BeautifulSoup import BeautifulStoneSoup 
 from optparse import OptionParser
 
 DOI_LOOKUP_URL = "http://dx.doi.org/%s"
@@ -43,24 +43,11 @@ def get_stats(page):
     if not page:
         return(None)
     #print page
-    if (False):
-        soup = BeautifulStoneSoup(page)
-        like_count = soup.like_count.text
-        share_count = soup.share_count.text
-        click_count = soup.click_count.text
-        comment_count = soup.comment_count.text
-        
-    matches = FACEBOOK_SHARE_PATTERN.search(page)
-    share_count = matches.group("stats")
-        
-    matches = FACEBOOK_LIKE_PATTERN.search(page)
-    like_count = matches.group("stats")
-        
-    matches = FACEBOOK_COMMENT_PATTERN.search(page)
-    comment_count = matches.group("stats")
-        
-    matches = FACEBOOK_CLICK_PATTERN.search(page)
-    click_count = matches.group("stats")
+    soup = BeautifulStoneSoup(page)
+    like_count = soup.like_count.text
+    share_count = soup.share_count.text
+    click_count = soup.click_count.text
+    comment_count = soup.comment_count.text
         
     stats = {"like count":like_count, "share count":share_count, "click_count":click_count, "comment_count":comment_count}
     return(stats)  
@@ -70,18 +57,10 @@ def get_stats(page):
 def main():
     parser = OptionParser(usage="usage: %prog [options] filename",
                           version="%prog 1.0")
-    #parser.add_option("-x", "--xhtml",
-    #                  action="store_true",
-    #                  dest="xhtml_flag",
-    #                  default=False,
-    #                  help="create a XHTML template instead of HTML")
     (options, args) = parser.parse_args()
 
     if len(args) != 1:
         parser.error("wrong number of arguments")
-
-    #print options
-    #print args
     
     id = args[0]
     redirect_url = get_redirect_url(id)

@@ -53,19 +53,11 @@ def get_stats(parsed_page, doi):
 def main():
     parser = OptionParser(usage="usage: %prog [options] filename",
                           version="%prog 1.0")
-    #parser.add_option("-x", "--xhtml",
-    #                  action="store_true",
-    #                  dest="xhtml_flag",
-    #                  default=False,
-    #                  help="create a XHTML template instead of HTML")
     (options, args) = parser.parse_args()
 
     if len(args) != 1:
         parser.error("wrong number of arguments")
 
-    #print options
-    #print args
-    
     id = args[0]
     page = get_parsed_page(id)
     response = get_stats(page, id)
