@@ -1,10 +1,42 @@
-<html>
+<?php
+/**
+ * Class Dryad.php
+ * Wraps the mendeley plugin in python 
+ *
+ */
 
-<head>
-<title>Example #1 TDavid's Very First PHP Script ever!</title>
-</head>
-<? print(Date("1 F d, Y")); ?>
+class Dryad {
+    public $id;
+    public $method;
+    public $metric_name;
+    public $metric_value;
+    public $source_name;
+    public $icon;
+    public $type;
 
-<body>
-</body>
-</html>
+    //protected $map = array();
+    //protected $errorClasses = array();
+    //protected $cached;
+
+    public function __construct() {  
+       // CONSTRUCTOR CONTENT HERE  
+    }  
+
+    public function getMetrics() {
+        // run python code and get real metrics
+        // system('python mendeley.py ')
+        // parse to json
+        $this->getTestMetrics();
+    }
+    
+    public function getTestMetrics() {
+        $this->id = '10.22212/332';
+        $this->method = 'GET';
+        $this->metric_name = 'Readership';
+        $this->metric_value = 50;
+        $this->source_name = 'Mendeley';
+        $this->icon = 'http://www.mendeley.com/favicon.ico';
+        $this->type = 'Article';
+    }
+}
+?>

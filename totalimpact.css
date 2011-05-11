@@ -49,9 +49,21 @@ body {
         
         
 .section-title {
+    background: lightgrey;
 	clear:both;
 }
 
+h3 {
+	margin: 0px;
+	margin-top:20px;
+}
+
 .section {
+	background: #eee;
 	padding-bottom: 55px;
+}
+
+#outputs {
+font-size: 10pt;
+float: right;
 }

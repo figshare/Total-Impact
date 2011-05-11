@@ -8,6 +8,8 @@
 	
 	<script language="javascript" type="text/javascript">
         
+        artifacts = {};
+        
         $(document).ready(function() {
 			console.log("Starting up");
 			
@@ -21,7 +23,7 @@
 			artifact1 = {};
 			artifact1['sources'] = [source1];
         	
-        	artifacts = {};
+        	
 			artifacts['http://www.slideshare.net/Frank.van.Harmelen/semantic-web-good-news'] = artifact1;
 			
 			source2 = {};
@@ -143,7 +145,26 @@
 			viz.root.render();
 		}
 			
-	
+	function DownloadJSON2CSV()
+	{
+		//console.log("got called");
+    	
+    	var str = '';
+    	
+    	for (var id in artifacts) {
+    		sources = artifacts[id]['sources'];
+    		for (var src_index in sources) {
+    			src = sources[src_index];
+    			str +=  id + ',' + src['source_name'] + ',"' + src['metric_name'] + '",' + src['metric_value'] + '\r\n';
+    		}
+        		
+        }
+
+        
+
+		//console.log(str);
+		window.open( "data:text/csv;charset=utf-8," + escape(str))
+	}
 	
 	</script>	
 	
@@ -157,6 +178,10 @@
 <div id="header">
 <img src="logo.png" alt="Total-Impact" width='150px' /> 
 Bob
+<div id="outputs">
+<a href="http://twitter.com/share" class="twitter-share-button" data-text="See my Total Impact" data-count="horizontal" data-via="pgroth">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script><br>
+<a href="javascript:DownloadJSON2CSV()">Download to CSV</a>
+</div>
 </div>
 
 <div id="viz">
