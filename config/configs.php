@@ -2,8 +2,7 @@
 $configs = array(
     
     'plugins' => array(
-        'Mendeley' => 'http://www.jasonpriem.com',
-        'Facebook' => 'http://www.jasonpriem.com'
+        'Mendeley' => 'http://researchremix.org/total-impact/mendeley/metrics'
     ),
     'db' => array(
         'dsn' => 'fulloonedeargespenceiver:awINWuX8MMfXQJiSmONPnlLu@alm.cloudant.com',
