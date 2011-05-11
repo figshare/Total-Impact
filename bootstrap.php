@@ -8,6 +8,8 @@ $loader = Zend_Loader_Autoloader::getInstance();
 
 // we want the auto-loader to load ALL namespaces
 $loader->setFallbackAutoloader(true);
+$couch = new Couch_Client($configs['db']['dsn'], $configs['db']['db_name']);
+
 
 
 

@@ -8,9 +8,26 @@
         <h1><em>Total</em> impact, bitches!</h1>
         <?php
         require_once './bootstrap.php';
-        print_r($configs);
+        require_once './input.php';
        
-        $couch = new Couch_Client($configs['db']['dsn'], $configs['db']['db_name']);
+        if (isset($_POST['submitted'])){
+            // do stuff with the submitted form
+        }
+        else {
+            ?>
+        
+        <form method="POST" name="main" action="./index.php">
+            <label for="name">What's your name?</label>
+            <input name="ids" id="name"
+            <label for="ids">Put your IDs here.</label>
+            <textarea name="ids"></textarea>
+        </form>
+        
+        <?php
+            
+            
+            
+        }
 
         
         
