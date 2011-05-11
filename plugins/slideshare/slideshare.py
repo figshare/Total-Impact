@@ -12,7 +12,7 @@ from optparse import OptionParser
 
 TOTALIMPACT_SLIDESHARE_KEY = "nyHCUoNM"
 TOTALIMPACT_SLIDESHARE_SECRET = "z7sRiGCG"
-MENDELEY_DOI_URL = "http://www.slideshare.net/api/2/get_slideshow?api_key=nyHCUoNM&detailed=1&ts=%s&hash=%s&slideshow_url=%s"
+SLIDESHARE_DOI_URL = "http://www.slideshare.net/api/2/get_slideshow?api_key=nyHCUoNM&detailed=1&ts=%s&hash=%s&slideshow_url=%s"
 
 
 def get_page(id):
@@ -20,7 +20,7 @@ def get_page(id):
         return(None)
     ts = time.time()
     hash_combo = sha.new(TOTALIMPACT_SLIDESHARE_SECRET + str(ts)).hexdigest()
-    url = MENDELEY_DOI_URL %(ts, hash_combo, id)
+    url = SLIDESHARE_DOI_URL %(ts, hash_combo, id)
     #print url
     try:
         page = urllib2.urlopen(url).read()
@@ -65,6 +65,7 @@ def main():
     page = get_page(id)
     response = get_stats(page)
     print response
+    return(response)
 
 
 if __name__ == '__main__':
@@ -72,12 +73,4 @@ if __name__ == '__main__':
 
 #example = "http://www.slideshare.net/hpiwowar/7-data-citation-challenges-illustrated-with-data-includes-elephants"
 
-mendeley_test_id = "http://www.slideshare.net/hpiwowar/7-data-citation-challenges-illustrated-with-data-includes-elephants"
-#mendeley_test_doi = "10.1371/journal.pcbi.1000361"
-#mendeley_test_doi = "10.1371/journal.pmed.0040215"
-#mendeley_test_doi = "10.1371/journal.pone.0000308"
-
-#page = get_mendeley_page(mendeley_test_doi)
-#response = get_stats(page)
-#print response
     
