@@ -112,6 +112,7 @@ class RestServer
 
 		list($obj, $method, $params, $this->params, $noAuth) = $this->findUrl();
 
+        
 		if ($obj) {
 			if (is_string($obj)) {
 				if (class_exists($obj)) {
@@ -151,20 +152,22 @@ class RestServer
 	public function addClass($class, $basePath = '')
 	{
 		$this->loadCache();
-
+        
 		if (!$this->cached) {
 			if (is_string($class) && !class_exists($class)){
 				throw new Exception('Invalid method or class');
 			} elseif (!is_string($class) && !is_object($class)) {
 				throw new Exception('Invalid method or class; must be a classname or object');
 			}
-
+	          
 			if (substr($basePath, 0, 1) == '/') {
 				$basePath = substr($basePath, 1);
 			}
+	
 			if ($basePath && substr($basePath, -1) != '/') {
 				$basePath .= '/';
 			}
+
 
 			$this->generateMap($class, $basePath);
 		}
@@ -228,12 +231,14 @@ class RestServer
 
 	protected function findUrl()
 	{
-		$urls = $this->map[$this->method];
-		if (!$urls) return null;
+	
+	    $urls = $this->map[$this->method];
+
+	    if (!$urls) return null;
 
 		foreach ($urls as $url => $call) {
 			$args = $call[2];
-
+			
 			if (!strstr($url, '$')) {
 				if ($url == $this->url) {
 					if (isset($args['data'])) {
@@ -288,25 +293,31 @@ class RestServer
 		}
 
 		$methods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
-
+        $count = 0;
+        
 		foreach ($methods as $method) {
+		
 			$doc = $method->getDocComment();
 			$noAuth = strpos($doc, '@noAuth') !== false;
+			
 			if (preg_match_all('/@url[ \t]+(GET|POST|PUT|DELETE|HEAD|OPTIONS)[ \t]+\/?(\S*)/s', $doc, $matches, PREG_SET_ORDER)) {
 
 				$params = $method->getParameters();
-
+				
 				foreach ($matches as $match) {
 					$httpMethod = $match[1];
 					$url = $basePath . $match[2];
 					if ($url && $url[strlen($url) - 1] == '/') {
 						$url = substr($url, 0, -1);
 					}
+					
 					$call = array($class, $method->getName());
 					$args = array();
+					
 					foreach ($params as $param) {
 						$args[$param->getName()] = $param->getPosition();
 					}
+					
 					$call[] = $args;
 					$call[] = null;
 					$call[] = $noAuth;
@@ -315,6 +326,7 @@ class RestServer
 				}
 			}
 		}
+		
 	}
 
 	public function getPath()

@@ -2,8 +2,8 @@
 $configs = array(
     
     'plugins' => array(
-        'http://www.example.com',
-        'http://www.example.com'
+        'Mendeley' => 'http://www.jasonpriem.com',
+        'Facebook' => 'http://www.jasonpriem.com'
     ),
     'db' => array(
         'dsn' => 'fulloonedeargespenceiver:awINWuX8MMfXQJiSmONPnlLu@alm.cloudant.com',
