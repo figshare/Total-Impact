@@ -19,9 +19,17 @@ class DryadPluginController
      */
     public function getMetrics($data)
     {  
-
- 
-        return $dryad; // serializes object into JSON
+        // read data 
+        $dArray = array();
+        foreach ($data as $id) {        
+            $dryad = new Dryad();
+            $dryad->setId($id);
+            $dryad->setMethod('Post');
+            $dryad->getMetrics(); // possible metrics loading method
+            $dArray[$id]=$dryad;
+        }
+        
+        return $dArray; // serializes object into JSON
     }
 }
 ?>
