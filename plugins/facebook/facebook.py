@@ -49,7 +49,7 @@ def get_stats(page):
     click_count = soup.click_count.text
     comment_count = soup.comment_count.text
         
-    stats = {"like count":like_count, "share count":share_count, "click_count":click_count, "comment_count":comment_count}
+    stats = {"likes":like_count, "shares":share_count, "clicks":click_count, "comments":comment_count}
     return(stats)  
 
 

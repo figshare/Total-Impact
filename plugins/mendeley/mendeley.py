@@ -38,7 +38,7 @@ def get_stats(page):
         number_readers = json_page["stats"]["readers"]
     except ValueError:
         return(None)
-    response = {"number_readers":number_readers}
+    response = {"readers":number_readers}
     return(response)  
         
 

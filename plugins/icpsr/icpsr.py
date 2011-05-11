@@ -30,7 +30,7 @@ def get_stats(page):
         stats = float(stats_matches.group("stats"))
     except ValueError:
         return(None)
-    return(stats)  
+    return({"related_refs": stats})  
 
 def main():
     parser = OptionParser(usage="usage: %prog [options] filename",

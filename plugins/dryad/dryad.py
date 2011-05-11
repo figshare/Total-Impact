@@ -23,7 +23,7 @@ def get_number_views(page):
         views = float(view_matches.group("views"))
     except ValueError:
         return(None)
-    return({"views":views})  
+    return({"page_views":views})  
         
 
 from optparse import OptionParser
