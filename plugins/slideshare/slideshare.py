@@ -4,7 +4,7 @@ import urllib2
 import re
 import urllib
 import time
-import sha
+import hashlib
 #import BeautifulSoup
 #from BeautifulSoup import BeautifulStoneSoup 
 
@@ -23,7 +23,7 @@ def get_page(id):
     if not id:
         return(None)
     ts = time.time()
-    hash_combo = sha.new(TOTALIMPACT_SLIDESHARE_SECRET + str(ts)).hexdigest()
+    hash_combo = hashlib.sha1(TOTALIMPACT_SLIDESHARE_SECRET + str(ts)).hexdigest()
     url = SLIDESHARE_DOI_URL %(ts, hash_combo, id)
     #print url
     try:
