@@ -21,7 +21,7 @@ def get_page(id):
     ts = time.time()
     hash_combo = sha.new(TOTALIMPACT_SLIDESHARE_SECRET + str(ts)).hexdigest()
     url = MENDELEY_DOI_URL %(ts, hash_combo, id)
-    print url
+    #print url
     try:
         page = urllib2.urlopen(url).read()
     except urllib2.HTTPError, err:
@@ -58,8 +58,8 @@ def main():
     if len(args) != 1:
         parser.error("wrong number of arguments")
 
-    print options
-    print args
+    #print options
+    #print args
     
     id = args[0]
     page = get_page(id)
