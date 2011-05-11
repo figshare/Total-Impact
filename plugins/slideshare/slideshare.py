@@ -5,8 +5,8 @@ import re
 import urllib
 import time
 import sha
-import BeautifulSoup
-from BeautifulSoup import BeautifulStoneSoup 
+#import BeautifulSoup
+#from BeautifulSoup import BeautifulStoneSoup 
 
 from optparse import OptionParser
 
