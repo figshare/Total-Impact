@@ -23,9 +23,38 @@ def get_number_views(page):
         views = float(view_matches.group("views"))
     except ValueError:
         return(None)
-    return(views)  
+    return({"views":views})  
         
-test_doi = "10.5061/dryad.j1fd7"
-page = get_dryad_page(test_doi)
-views = get_number_views(page)
-print views
+
+from optparse import OptionParser
+
+def main():
+    parser = OptionParser(usage="usage: %prog [options] filename",
+                          version="%prog 1.0")
+    #parser.add_option("-x", "--xhtml",
+    #                  action="store_true",
+    #                  dest="xhtml_flag",
+    #                  default=False,
+    #                  help="create a XHTML template instead of HTML")
+    (options, args) = parser.parse_args()
+
+    if len(args) != 1:
+        parser.error("wrong number of arguments")
+
+    #print options
+    #print args
+    
+    id = args[0]
+    page = get_dryad_page(id)
+    response = get_number_views(page)
+    print response
+    return(response)
+
+
+if __name__ == '__main__':
+    main()
+    
+#test_doi = "10.5061/dryad.j1fd7"
+#page = get_dryad_page(test_doi)
+#views = get_number_views(page)
+#print views    
