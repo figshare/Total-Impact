@@ -1,0 +1,57 @@
+body {
+	font-family: "Helvetica", serif;       
+}
+
+#header {
+	font-size: 72px;
+	color: #b2b2ff;
+	padding-bottom: 20px;
+}
+
+
+#metrics {
+	margin-top: -440px;
+	margin-left: 180px;
+}
+
+.entry .id {
+	font-size: 8pt;
+	padding-left: 18px;
+	padding-bottom: 8px;
+	
+}
+
+.entry .metric_value {
+	font-size: 32pt;
+	float: left;
+	color: #4c4cff;
+	padding-left: 18px;
+	padding-right: 8px;
+	
+	border-right-style:solid;
+}
+
+.entry .metric_info {
+	float:left;
+	
+}
+.entry .metric_name {
+	padding-top: 3px;
+	padding-left: 20px;
+	font-size: 12pt;
+	
+}
+
+.entry .metric_img {
+    padding-top: 8px;
+	padding-left: 20px;
+}
+        
+        
+.section-title {
+	clear:both;
+}
+
+.section {
+	padding-bottom: 55px;
+}
