@@ -21,12 +21,16 @@ class MendeleyPluginController
     {  
         // read data 
         $mArray = array();
-        foreach ($data as $id) {        
-            $mendeley = new Mendeley();
-            $mendeley->setId($id);
-            $mendeley->setMethod('Post');
-            $mendeley->getMetrics(); // possible metrics loading method
-            $mArray[$id]=$mendeley;
+        foreach ($data as $id) {   
+            $mList = new MetricList();
+            $mList->setId($id);
+            $mList->setMethod('Post');
+            $mList->setSourceName('Mendeley');
+            $mList->setIcon('http://www.mendeley.com/favicon.ico');
+            $mList->setType('Article');            
+            $mList->setPlugin('mendeley.py');
+            $mList->getMetrics(); // possible metrics loading method
+            $mArray[$id]=$mList;
         }
         
         return $mArray; // serializes object into JSON

@@ -19,17 +19,20 @@ class DryadPluginController
      */
     public function getMetrics($data)
     {  
-        // read data 
-        $dArray = array();
-        foreach ($data as $id) {        
-            $dryad = new Dryad();
-            $dryad->setId($id);
-            $dryad->setMethod('Post');
-            $dryad->getMetrics(); // possible metrics loading method
-            $dArray[$id]=$dryad;
+        $mArray = array();
+        foreach ($data as $id) {   
+            $mList = new MetricList();
+            $mList->setId($id);
+            $mList->setMethod('Post');
+            $mList->setSourceName('Dryad');
+            $mList->setIcon('http://datadryad.org/themes/Dryad/images/dryadLogo.png');
+            $mList->setType('Dataset');            
+            $mList->setPlugin('dryad.py');
+            $mList->getMetrics(); // possible metrics loading method
+            $mArray[$id]=$mList;
         }
         
-        return $dArray; // serializes object into JSON
+        return $mArray; // serializes object into JSON
     }
 }
 ?>

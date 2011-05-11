@@ -1,7 +1,8 @@
 <?php
-include 'RestServer.php';
 include 'MendeleyPluginController.php';
-include 'Mendeley.php';
+include '../common/Metric.php';
+include '../common/MetricList.php';
+include '../common/RestServer.php';
 
 spl_autoload_register(); // don't load our classes unless we use them
 
