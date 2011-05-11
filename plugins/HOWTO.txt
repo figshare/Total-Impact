@@ -1,0 +1,14 @@
+How to test plugins from command line:
+
+python dryad/dryad.py 10.5061/dryad.j1fd7
+
+python mendeley/mendeley.py 10.1371/journal.pcbi.1000361
+
+python slideshare/slideshare.py http://www.slideshare.net/hpiwowar/7-data-citation-challenges-illustrated-with-data-includes-elephants
+
+python facebook/facebook.py 10.1371/journal.pcbi.1000361
+
+python icpsr/icpsr.py 10.3886/ICPSR01225
+
+python crossref/crossref.py 10.1371/journal.pcbi.1000361
+
