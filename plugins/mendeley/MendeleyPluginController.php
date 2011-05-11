@@ -1,31 +1,34 @@
 <?php
 class MendeleyPluginController
 {
-        /**
-         * Returns a JSON string object to the browser when hitting the root of the domain
-         *
-         * @url GET /
-         */
-        public function test()
-        {
-                return "Hello World!!!t!";
+    /**
+     * Returns a JSON string object to the browser when hitting the root of the domain
+     *
+     * @url GET total-impact/mendeley
+     */
+    public function index()
+    {
+        return "Hello World!!!!";
+    }
+
+
+    /**
+     * Returns metrics values for a Mendeley String ID
+     *
+     * @url GET total-impact/mendeley/metrics/:id
+     * @url GET total-impact/mendeley/metrics
+     */
+    public function getMetrics($id = null)
+    {
+    
+        $mendeley = new Mendeley();
+        if ($id) {
+           $mendeley->getMetrics(); // possible metrics loading method
+        } else {
+           $mendeley->getMetrics(); // possible metrics loading method
         }
 
-
-        /**
-         * Returns metrics values for a Mendeley String ID
-         * @url GET /metrics/:id=<string id>
-         */
-        public function getMetrics($id = null)
-        {
-                if ($id) {
-                        $mendeley = Mendeley::getMetrics($id); // possible metrics loading method
-                } else {
-                        $mendeley = $_SESSION['mendeley'];
-                }
-
-                return $mendeley; // serializes object into JSON
-        }
-
+        return $mendeley; // serializes object into JSON
+    }
 }
 ?>
