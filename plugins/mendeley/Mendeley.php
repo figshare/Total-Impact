@@ -30,13 +30,18 @@ class Mendeley {
     }
     
     public function getTestMetrics() {
-        $this->id = '10.22212/332';
-        $this->method = 'GET';
         $this->metric_name = 'Readership';
-        $this->metric_value = 50;
+        $this->metric_value = rand(50,100);
         $this->source_name = 'Mendeley';
         $this->icon = 'http://www.mendeley.com/favicon.ico';
         $this->type = 'Article';
+    }
+    
+    public function setId($id=null){
+        $this->id=$id;
+    }
+    public function setMethod($method=null){
+        $this->method=$method;
     }
 }
 ?>

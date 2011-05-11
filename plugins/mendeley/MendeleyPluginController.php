@@ -20,18 +20,16 @@ class MendeleyPluginController
     public function getMetrics($data)
     {  
         // read data 
-        
-        
-        
-        
-        $mendeley = new Mendeley();
-        if ($id) {
-           $mendeley->getMetrics(); // possible metrics loading method
-        } else {
-           $mendeley->getMetrics(); // possible metrics loading method
+        $mArray = array();
+        foreach ($data as $id) {        
+            $mendeley = new Mendeley();
+            $mendeley->setId($id);
+            $mendeley->setMethod('Post');
+            $mendeley->getMetrics(); // possible metrics loading method
+            $mArray[$id]=$mendeley;
         }
-
-        return $mendeley; // serializes object into JSON
+        
+        return $mArray; // serializes object into JSON
     }
 }
 ?>
