@@ -28,17 +28,20 @@ class Updater {
         
             foreach ($result->rows as $row){
                 $doc = $row->doc;
+                echo "<h2>updating " . $doc->_id . "</h2>"; 
                 foreach ($this->config['plugins'] as $sourceName=>$sourceUri){
+                    echo "with $sourceName...";
                     $this->http->setUri($sourceUri);
-                    print_r($doc->artifact_ids);
 
                     $this->http->setRawData(json_encode($doc->artifact_ids), 'text/json');  
                     $result = $this->http->request("POST");
                     $doc->sources->{$sourceName} = $result->getBody();
                     $doc->updated = true;
+                    echo "Uploading a doc to the database:<br>";
                     print_r($doc);
                     echo "<br><br>";
                     $this->couch->storeDoc($doc);
+                    sleep(1);
 
                 }
             }

@@ -3,7 +3,7 @@ $configs = array(
     
     'plugins' => array(
 //        'Mendeley' => 'http://researchremix.org/total-impact/mendeley/metrics',
-//        'Slideshare' => 'http://researchremix.org/total-impact/slideshare/metrics',
+        'Slideshare' => 'http://researchremix.org/total-impact/slideshare/metrics',
         'Dryad' => 'http://researchremix.org/total-impact/dryad/metrics'
     ),
     'db' => array(
