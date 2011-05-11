@@ -15,12 +15,15 @@ class MendeleyPluginController
     /**
      * Returns metrics values for a Mendeley String ID
      *
-     * @url GET total-impact/mendeley/metrics/:id
-     * @url GET total-impact/mendeley/metrics
+     * @url POST total-impact/mendeley/metrics
      */
-    public function getMetrics($id = null)
-    {
-    
+    public function getMetrics($data)
+    {  
+        // read data 
+        
+        
+        
+        
         $mendeley = new Mendeley();
         if ($id) {
            $mendeley->getMetrics(); // possible metrics loading method

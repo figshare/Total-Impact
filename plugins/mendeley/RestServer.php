@@ -370,7 +370,6 @@ class RestServer
 	public function getData()
 	{
 		$data = file_get_contents('php://input');
-
 		if ($this->format == RestFormat::AMF) {
 			require_once 'Zend/Amf/Parse/InputStream.php';
 			require_once 'Zend/Amf/Parse/Amf3/Deserializer.php';
