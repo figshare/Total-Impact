@@ -29,23 +29,3 @@ test_doi = "10.5061/dryad.j1fd7"
 page = get_dryad_page(test_doi)
 views = get_number_views(page)
 print views
-
-class doiToPmidChanger:
-    def __init__(self):
-        self.cache={}
-
-    def convert(self, doi):
-        if doi in self.cache:
-            return self.cache[doi]
-
-        url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?term=%s&email=maximilianh@gmail.com" %doi
-        xml = urllib2.urlopen(url)
-        for l in xml:
-            if l.find("<Id>")!=-1:
-                # <Id>16027735</Id>
-                pmid = l.strip().replace("<Id>","").replace("</Id>", "")
-                # strip of part after first _!
-                self.cache[doi]=pmid
- 
- 
-                return pmid
