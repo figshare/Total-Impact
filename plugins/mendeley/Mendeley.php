@@ -26,7 +26,19 @@ class Mendeley {
         // run python code and get real metrics
         // system('python mendeley.py ')
         // parse to json
-        $this->getTestMetrics();
+        $exec = 'python mendeley.py '.$this->id;
+        $result = exec($exec, $output, $retval);
+        $result = str_replace("'", "", $result, $count);
+        list($metric_name, $metric_value) = split(":", $result, 5);
+        $metric_value = str_replace("}", "", $metric_value, $count);
+        $metric_name = str_replace("{", "", $metric_name, $count);
+        
+        $this->metric_name = $metric_name;
+        $this->metric_value = $metric_value;
+        $this->source_name = 'Mendeley';
+        $this->icon = 'http://www.mendeley.com/favicon.ico';
+        $this->type = 'Article';
+        //$this->getTestMetrics();
     }
     
     public function getTestMetrics() {
