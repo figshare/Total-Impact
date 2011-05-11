@@ -21,14 +21,17 @@ class Updater {
             ->include_docs(true)
             ->getView("main", "unupdated");
         
-        $docs = $result->rows;
-        foreach ($docs as $doc){
+        foreach ($result->rows as $row){
+            $doc = $row->doc;
             foreach ($this->config['plugins'] as $sourceName=>$sourceUri){
                 $this->http->setUri($sourceUri);
-                echo file_get_contents($sourceUri);
-//                $result = $this->http->request("GET");
-//                echo $result->getMessage();
-                echo "<br>";
+                print_r($doc->artifact_ids);
+                
+                print_r(json_encode($doc->artifact_ids));
+                echo "<br><br>";
+                $this->http->setRawData(json_encode($doc->artifact_ids), 'text/json');  
+                $result = $this->http->request("POST");
+                $doc->sources->{$sourceName} = $result->getBody();
                 
             }
         }
