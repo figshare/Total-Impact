@@ -38,6 +38,8 @@ class Updater {
 
                     $this->http->setRawData(json_encode($doc->artifact_ids), 'text/json');  
                     $result = $this->http->request("POST");
+                    $resultObj = json_decode($result->getBody());
+                    var_dump($resultObj);
                     
                     $doc->sources->{$sourceName} = json_decode($result->getBody());
                     
@@ -46,7 +48,7 @@ class Updater {
                 }
                 sleep(1);
                 echo $doc->_rev . "<br>";
-                $this->couch->storeDoc($doc);
+//                $this->couch->storeDoc($doc);
                 echo "Uploading collection to the database...<br>";
                 
             }
