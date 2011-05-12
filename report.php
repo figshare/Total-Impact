@@ -287,6 +287,14 @@ Metrics are computed based on the following data sources:
 </ul>
 <ul type="square" class="body">
 <li>
+<a href="http://www.plos.org/"><img src="http://www.plosbiology.org/images/favicon.ico" border='0'>PLoS</a> - XXXX.
+ For a <strong>DOI</strong> it returns:
+<ul>
+	<li><strong><span class="param">readers</span></strong>: <span class="desc">the number of downloads of the PLoS article,</span></li>
+</ul></li>
+</ul>
+<ul type="square" class="body">
+<li>
 <a href="http://www.slideshare.net/"><img src="http://www.slideshare.net/favicon.ico" border='0'>Slideshare</a> - the best way to share presentations, documents and professional videos. 
 <ul>
 	<li><strong><span class="param">downloads</span></strong>: <span class="desc">the number of downloads of the presentation,</span></li>

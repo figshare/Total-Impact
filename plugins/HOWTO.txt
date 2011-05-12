@@ -12,6 +12,7 @@ python icpsr/icpsr.py 10.3886/ICPSR01225
 
 python crossref/crossref.py 10.1371/journal.pcbi.1000361
 
+python plosalm/plosalm.py 10.1371/journal.pcbi.1000361
 
 How to create a new plugin controller:
 $ cp mendeley/MendeleyPluginController.php <plugin-name>/<Plugin-name>PluginController.php
