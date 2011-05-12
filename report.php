@@ -31,6 +31,9 @@ $title = $doc->title;
         artifacts = {};
         
         $(document).ready(function() {
+			if (!window.console) 
+    			console = { log: function() { } };
+
 			console.log("Starting up");
 			
 			/* 
@@ -245,23 +248,25 @@ Metrics are computed based on the following data sources:
 
 <ul type="square" class="body">
 <li>
-<a href="http://www.crossref.org/"><img src="http://www.crossref.org/favicon.ico" border='0'>CrossRef</a> - an official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation. For a <strong>DOI</strong> it returns: 
+<a href="http://www.crossref.org/"><img src="http://www.crossref.org/favicon.ico" border='0'>CrossRef</a> - an official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation. 
+<br>For a <strong>DOI</strong> it returns: 
 <ul>
 	<li><strong><span class="param">journal</span></strong>: <span class="desc">the journal, where the paper is published,</span></li>
-	<li><strong><span class="param">pubdate</span></strong>: <span class="desc">the year of the publication,</span></li> 
+	<li><strong><span class="param">date</span></strong>: <span class="desc">the date of the publication,</span></li> 
 	<li><strong><span class="param">title</span></strong>: <span class="desc">the title of the publication.</span></li>
 </ul></li>
 </ul>
 <ul type="square" class="body">
 <li>
-<a href="http://datadryad.org/"><img src="dryadfavicon.ico" border='0'>Dryad</a> - an international repository of data underlying peer-reviewed articles in the basic and applied biosciences. For a <strong>DOI</strong> it returns:
+<a href="http://datadryad.org/"><img src="http://dryad.googlecode.com/svn-history/r4402/trunk/dryad/dspace/modules/xmlui/src/main/webapp/themes/Dryad/images/favicon.ico" border='0'>Dryad</a> - an international repository of data underlying peer-reviewed articles in the basic and applied biosciences. <br>For a <strong>DOI</strong> to a data package in Dryad, it returns:
 <ul>
-	<li><strong><span class="param">pageviews</span></strong>: <span class="desc">the number of views of the item by Dryad users.</span></li>
+	<li><strong><span class="param">page views</span></strong>: <span class="desc">the number of views of the item by Dryad users.</span></li>
 </ul></li>
 </ul>
 <ul type="square" class="body">
 <li>
-<a href="http://www.facebook.com/"><img src="http://www.facebook.com/favicon.ico" border='0'>Facebook</a> - a social networking service. For a <strong>DOI</strong> it returns: 
+<a href="http://www.facebook.com/"><img src="http://www.facebook.com/favicon.ico" border='0'>Facebook</a> - a social networking service. 
+<br>For a <strong>DOI</strong> it returns: 
    <ul>
    	<li><strong><span class="param">likes</span></strong>: <span class="desc">the number of users who liked the article,</span></li>
    	<li><strong><span class="param">shares</span></strong>: <span class="desc">the number of users who shared the article,</span></li>
@@ -272,7 +277,7 @@ Metrics are computed based on the following data sources:
 <ul type="square" class="body">
 <li>
 <a href="http://www.icpsr.umich.edu/icpsrweb/ICPSR/"><img src="http://www.icpsr.umich.edu/favicon.ico" border='0'>Inter-University Consortium for Political and Social Research (ICPSR)</a> - an organization that provides access to an extensive collection of downloadable data.
- For a <strong>DOI</strong> it returns: 
+<br>For a <strong>DOI</strong> to a dataset in ICPSR, it returns: 
 <ul>
 	<li><strong><span class="param">related_refs</span></strong>: <span class="desc">number of related articles, as collected by ICPSR.</span></li>
 </ul></li>
@@ -280,20 +285,16 @@ Metrics are computed based on the following data sources:
 <ul type="square" class="body">
 <li>
 <a href="http://www.mendeley.com/"><img src="http://www.mendeley.com/favicon.ico" border='0'>Mendeley</a> - a research management tool for desktop and web.
- For a <strong>DOI</strong> it returns:
+<br>For a <strong>DOI</strong> it returns:
 <ul>
 	<li><strong><span class="param">readers</span></strong>: <span class="desc">the number of readers of the article,</span></li>
 	<li><strong><span class="param">groups</span></strong>: <span class="desc">the number of groups of the article,</span></li>
-	<!--<li><strong><span class="param">title</span></strong>: <span class="desc">the title of the article,</span></li>
-	<li><strong><span class="param">publication_outlet</span></strong>: <span class="desc">the place where the article was published,</span></li>
-	<li><strong><span class="param">year</span></strong>: <span class="desc">the year of the article on Mendeley,</span></li>
-	<li><strong><span class="param">authors</span></strong>: <span class="desc">the authors of the article.</span></li>-->
 </ul></li>
 </ul>
 <ul type="square" class="body">
 <li>
-<a href="http://www.plos.org/"><img src="http://www.plosbiology.org/images/favicon.ico" border='0'>PLoS</a> - XXXX.
- For a <strong>DOI</strong> it returns:
+<a href="http://www.plos.org/"><img src="http://www.plosbiology.org/images/favicon.ico" border='0'>PLoS</a> - nonprofit publisher of open access articles in science and medicine.
+<br>For a <strong>DOI</strong> to an article published in PLoS, it returns:
 <ul>
 	<li><strong><span class="param">readers</span></strong>: <span class="desc">the number of downloads of the PLoS article,</span></li>
 </ul></li>
@@ -301,6 +302,7 @@ Metrics are computed based on the following data sources:
 <ul type="square" class="body">
 <li>
 <a href="http://www.slideshare.net/"><img src="http://www.slideshare.net/favicon.ico" border='0'>Slideshare</a> - the best way to share presentations, documents and professional videos. 
+<br>For an <strong>URL</strong> to a slide presentation, it returns:
 <ul>
 	<li><strong><span class="param">downloads</span></strong>: <span class="desc">the number of downloads of the presentation,</span></li>
 	<li><strong><span class="param">favorites</span></strong>: <span class="desc">the number of users who added the presentation in their favorites,</span></li>
