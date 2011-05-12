@@ -35,10 +35,25 @@ def get_stats(page):
         return(None)
 
     soup = BeautifulStoneSoup(page)
-    downloads = soup.numdownloads.text
-    views = soup.numviews.text
-    comments = soup.numcomments.text
-    favorites = soup.numfavorites.text
+    try:
+        downloads = int(soup.numdownloads.text)
+    except:
+        downloads = None
+        
+    try:
+        views = int(soup.numviews.text)
+    except:
+        views = None
+        
+    try:    
+        comments = int(soup.numcomments.text)
+    except:
+        comments = None
+        
+    try:
+        favorites = int(soup.numfavorites.text)
+    except:
+        favorites = None
 
     response = {"downloads":downloads, "views":views, "comments":comments, "favorites":favorites}
     return(response)  

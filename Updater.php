@@ -38,7 +38,7 @@ class Updater {
 
                     $this->http->setRawData(json_encode($doc->artifact_ids), 'text/json');  
                     $result = $this->http->request("POST");
-                    $doc->sources->{$sourceName} = $result->getBody();
+                    $doc->sources->{$sourceName} = json_encode($result->getBody());
                     $doc->updated = true;
 
                 }
