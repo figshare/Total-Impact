@@ -1,5 +1,4 @@
 <?php
-include 'plugins/common/Metric.php';
 
 /**
  * Class Artifact.php
@@ -31,7 +30,6 @@ class ArtifactList {
     public function addArtifact($id,$artifact) {
         $this->list[$id] = $artifact;
     }
-
     public function getList() {
         return $this->list; 
     }
@@ -43,19 +41,20 @@ class ArtifactList {
 
 /** 
  * ArtifactGroup.php
- *
+ * 
+ * Create groups of artifacts by a single criteria
  */
 class ArtifactGroup {
-    public list = array();
-    public function addGroup($type,$artifacList) {
-        $this->list[$type] = $artifactList;
+    public $list = array();
+    public function addGroup($criteria,$artifactList) {
+        $this->list[$criteria] = $artifactList;
     }
 
     public function getList() {
         return $this->list; 
     }
-    public function getArtifactList($type) {
-        return $this->list[$type]; 
+    public function getArtifactList($criteria) {
+        return $this->list[$criteria]; 
     }
 }
 

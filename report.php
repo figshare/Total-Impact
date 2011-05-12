@@ -1,5 +1,6 @@
 <?php
 require './bootstrap.php';
+include 'artifacts.php';
 
 function display($id, Couch_Client $couch) {
     $doc = $couch->getDoc($id);
@@ -18,15 +19,36 @@ foreach ($sourcesData as $sourceName => $source){
     }
 }
 
+
+$artifactsByType = new ArtifactGroup();
+
 foreach ($artifacts as $artifact){
     $list = $artifact->list;
     foreach($list as $metric){
         $metrics[] = $metric;
+        
+        $groupCriteria = $metric->type;
+        $artGroup = $artifactsByType->getArtifactList($groupCriteria);
+
+        if(!$artGroup) {
+            $artGroup = new ArtifactList();
+            $artifactsByType->addGroup($groupCriteria,$artGroup);
+        } 
+            
+        $art = new Artifact();
+        $artId = $metric->id;
+        $art->addMetric($metric);
+
+        $artGroup->addArtifact($artId,$art);
+         
     }
 }
-print_r($metrics);
+//var_dump($metrics);
 
 $title = $doc->title;
+
+$sourcesData = json_encode($doc->sources);
+$artifactByTypeJSON = json_encode($artifactsByType);
 
 ?><html>
 <head>
@@ -76,6 +98,7 @@ $title = $doc->title;
 			*/
             
 			artifacts = eval(<?php echo $sourcesData ?>);
+			artifactsByType = eval(<?php echo $artifactsByTypeJSON ?>);
                         
 			artTotal = 0;
 			presTotal = 0;
