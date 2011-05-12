@@ -17,9 +17,11 @@ class Updater {
     }
     
     public function update(){
+        echo "<h2><img src='./img/ajax-loader.gif'>Getting information now</h2>";
         $result = $this->couch->descending(true)
             ->include_docs(true)
             ->getView("main", "unupdated");
+        sleep(1);
         
         if (count($result->rows) == 0){
             echo "Everything's up to date.";
@@ -27,8 +29,9 @@ class Updater {
         else { // there's stuff that hasn't been updated.
         
             foreach ($result->rows as $row){
+                sleep(1);
                 $doc = $row->doc;
-                echo "<h2>updating " . $doc->_id . "</h2>"; 
+                echo "<h3>updating collection " . $doc->_id . "</h3>"; 
                 foreach ($this->config['plugins'] as $sourceName=>$sourceUri){
                     echo "with $sourceName...";
                     $this->http->setUri($sourceUri);
@@ -37,13 +40,13 @@ class Updater {
                     $result = $this->http->request("POST");
                     $doc->sources->{$sourceName} = $result->getBody();
                     $doc->updated = true;
-                    echo "Uploading a doc to the database:<br>";
-                    print_r($doc);
-                    echo "<br><br>";
-                    $this->couch->storeDoc($doc);
-                    sleep(1);
 
                 }
+                sleep(1);
+                echo $doc->_rev . "<br>";
+                $this->couch->storeDoc($doc);
+                echo "Uploading collection to the database...<br>";
+                
             }
         }
     }

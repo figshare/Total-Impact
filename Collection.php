@@ -42,7 +42,6 @@ class Collection {
         
         // put it in couchdb
         $response = $this->couch->storeDoc($doc);
-        print_r($response);
         return $response->id;
     }
     
