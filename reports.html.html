@@ -1,24 +1,4 @@
-<?php
-require './bootstrap.php';
-
-function display($id, Couch_Client $couch) {
-    $doc = $couch->getDoc($id);
-    return $doc;
-    
-}
-
-$artifactId = $_GET['id'];
-//$doc = display($artifactId, $couch);
-
-phpinfo();
-
-
-$sourcesData = json_encode($doc->sources);
-$title = $doc->title;
-
-
-
-?><html>
+<html>
 <head>
 <link rel="stylesheet" type="text/css" href="totalimpact.css" />
 <title>Total Impact</title>
@@ -27,178 +7,82 @@ $title = $doc->title;
 	<script type="text/javascript" src="./library/protovis-3.2/protovis-r3.2.js"></script>
 	
 	<script language="javascript" type="text/javascript">
-        
+            var data = {
+               "article": {
+                   "http://www.example.com": [
+                       {
+                           "metric_name": "Mendeley bookmarks",
+                           "metric_value": 12,
+                           "icon": 'http://www.mendeley.com/favicon.ico'
 
-        
-        
-        $(document).ready(function() {
-			if (!window.console) 
-    			console = { log: function() { } };
+                       },
+                       {
+                           "metric_name": "Delicious bookmarks",
+                           "metric_value": 2,
+                           "icon": 'http://www.mendeley.com/favicon.ico'
 
-			console.log("Starting up");
-			
-			/* 
-			source1 = {};
-			source1['type'] = "presentation";
-			source1['metric_value'] = 200;
-			source1['metric_name'] = 'number of views';
-			source1['source_name'] = "Slideshare";
-			source1['icon'] = 'http://public.slidesharecdn.com/images/favicon.ico';
-			
-			artifact1 = {};
-			artifact1['sources'] = [source1];
-        	
-        	
-			artifacts['http://www.slideshare.net/Frank.van.Harmelen/semantic-web-good-news'] = artifact1;
-			
-			source2 = {};
-			source2['type'] = "article";
-			source2['metric_value'] = 20;
-			source2['metric_name'] = 'number of views';
-			source2['source_name'] = "Mendeley";
-			source2['icon'] = 'http://www.mendeley.com/favicon.ico';
-			
-			artifact2 = {};
-			artifact2['sources'] = [source2];
-        	
-       		artifacts['http://www.ncbi.nlm.nih.gov/pubmed/18466268'] = artifact2;
-			
-			*/
-            
-			artifacts = eval(<?php echo $sourcesData ?>);
-                        
-			artTotal = 0;
-			presTotal = 0;
-			dataTotal = 0;
-			postTotal = 0;
-			
-				
-        	
-            for (id in artifacts) {
-            	art = artifacts[id];
-            	console.log(art);
-            	
-            	for (source_index in art['sources']) {
-            		source = art['sources'][source_index]
-            		
-            		if (source['type'] == 'presentation') {
-            			var e = $("<div class='entry'></div>")
-							.append("<div class='id'>" + id + "</div>")
- 	           				.append("<div class='metric_value'>" + source['metric_value'] + "</div>")
- 	           				.append("<div class='metric_info'><div class='metric_img'><img src='" + unescape(source['icon']) + "'/></div><div class='metric_name'>" + source['metric_name'] + "</div></div>")
-            				.appendTo('#presentations');
-            		
-            			presTotal = presTotal + source['metric_value'];
-            			
-            		}
-            		else if (source['type'] == 'article') {
-            			var e = $("<div class='entry'></div>")
-							.append("<div class='id'>" + id + "</div>")
- 	           				.append("<div class='metric_value'>" + source['metric_value'] + "</div>")
- 	           				.append("<div class='metric_info'><div class='metric_img'><img src='" + unescape(source['icon']) + "'/></div><div class='metric_name'>" + source['metric_name'] + "</div></div>")
-            				.appendTo('#articles');
-            			
-            			artTotal = artTotal + source['metric_value'];
-            		}
-            		else if (source['type'] == 'dataset') {
-            			var e = $("<div class='entry'></div>")
-							.append("<div class='id'>" + id + "</div>")
- 	           				.append("<div class='metric_value'>" + source['metric_value'] + "</div>")
- 	           				.append("<div class='metric_info'><div class='metric_img'><img src='" + unescape(source['icon']) + "'/></div><div class='metric_name'>" + source['metric_name'] + "</div></div>")
-            				.appendTo('#datasets');
-            			
-            			dataTotal = dataTotal + source['metric_value'];
-            		}
-            		
-            		else if (source['type'] == 'post') {
-            			var e = $("<div class='entry'></div>")
-							.append("<div class='id'>" + id + "</div>")
- 	           				.append("<div class='metric_value'>" + source['metric_value'] + "</div>")
- 	           				.append("<div class='metric_info'><div class='metric_img'><img src='" + unescape(source['icon']) + "'/></div><div class='metric_name'>" + source['metric_name'] + "</div></div>")
-            				.appendTo('#posts');
-            			
-            			dataTotal = dataTotal + source['metric_value'];
-            		}
-            		
-            		
+                       }
+                     ],
+                   "http://www.example.com": [
+                       {
+                           "metric_name": "Mendeley bookmarks",
+                           "metric_value": 12,
+                           "icon": 'http://www.mendeley.com/favicon.ico'
+
+                       },
+                       {
+                           "metric_name": "Delicious bookmarks",
+                           "metric_value": 2,
+                           "icon": 'http://www.mendeley.com/favicon.ico'
+
+                       }
+                     ]
+                           
+               }, 
+              "presentations": {
+                   "http://www.example-slideshare.com?12345": [
+                       {
+                           "metric_name": "Mendeley bookmarks",
+                           "metric_value": null,
+                           "icon": 'http://www.mendeley.com/favicon.ico'
+
+                       },
+                       {
+                           "metric_name": "Delicious bookmarks",
+                           "metric_value": null,
+                           "icon": 'http://www.mendeley.com/favicon.ico'
+
+                       }
+                    ],
+                   "http://www.example-slideshare.com?12345": [
+                       {
+                           "metric_name": "Mendeley bookmarks",
+                           "metric_value": null,
+                           "icon": 'http://www.mendeley.com/favicon.ico'
+
+                       },
+                       {
+                           "metric_name": "Delicious bookmarks",
+                           "metric_value": null,
+                           "icon": 'http://www.mendeley.com/favicon.ico'
+
+                       }
+                    ]
+                           
                 } 
-            	
-            }
+            };
             
-            metrics = [artTotal, presTotal, dataTotal, postTotal];
-            generateGraph(metrics);
-        
-	    });
-	    
-	    jQuery(document).ready(function(){
-	        
-	    	$('#metrics :header').click(function() {
-				console.log("got called");
-				$(this).next().toggle('slow');
-				return false;
-				
-			}).next().show();
-		});
-	
-	
-		function generateGraph(metrics) {
-			
-			
-			viz = new pv.Panel()
-    		.width(145)
-    		.height(400)
-    		.canvas('graph');
-    
-			var bar = viz.add(pv.Bar)
-			.data(metrics)
-			.top(function(d) { return this.index * 35; })
-			.width(function(d) { return d*2; })
-			.height(20)
-			.left(function(d) { return 1; })
-			.fillStyle("rgba(30, 120, 180, .3)");
-			
-			
-    		
-    		bar.add(pv.Label)
-			.left(function() {return bar.left() + 5;})
-			.top(function() { return bar.top() + 18; })
-    		.textAlign("left")
-    		.font("10px sans-serif")
-    		.textBaseline("bottom")
-    		.textStyle("black")
-            .text(function(d) { if (this.index == 0) return "Articles: " + d; 
-            	if (this.index == 1) return "Presentations: " + d; 
-            	if (this.index == 2) return "Datasets: " + d;
-            	if (this.index == 3) return "Posts: " + d; });
-			viz.root.render();
-		}
-			
-	function DownloadJSON2CSV()
-	{
-		//console.log("got called");
-    	
-    	var str = '';
-    	
-    	for (var id in artifacts) {
-    		sources = artifacts[id]['sources'];
-    		for (var src_index in sources) {
-    			src = sources[src_index];
-    			str +=  id + ',' + src['source_name'] + ',"' + src['metric_name'] + '",' + src['metric_value'] + '\r\n';
-    		}
-        		
-        }
+            printArtifactType = function(data){
+                
+                
+            }
+                   
 
+            
+            
+        </script>
         
 
-		//console.log(str);
-		window.open( "data:text/csv;charset=utf-8," + escape(str))
-	}
-	
-	</script>	
-	
-	
-	
-	
 </head>
 
 <body>
@@ -221,22 +105,6 @@ $title = $doc->title;
     </div>
 
 
-    <div id="presentations" class="artifact-type">
-        <h3 class="section-title">- Presentations</h3>
-    </div>
-
-    <h3 class="section-title" >- Datasets</h3>
-
-    <div id="datasets" class="artifact-type" >
-    </div>
-
-
-    <h3 class="section-title">- Posts</h3>
-
-    <div id="posts" class="artifact-type">
-    </div>
-
-    <h3 class="section-title"></h3>
 </div>
 
     <!-- 2011-05-12 ADDED by Aliaksandr Birukou-->
