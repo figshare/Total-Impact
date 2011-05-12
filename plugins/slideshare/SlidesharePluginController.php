@@ -4,7 +4,7 @@ class SlidesharePluginController
     /**
      * Returns a JSON string object to the browser when hitting the root of the domain
      *
-     * @url GET total-impact/slideshare
+     * @url GET total-impact/plugins/slideshare
      */
     public function index() 
     {
@@ -15,7 +15,7 @@ class SlidesharePluginController
     /**
      * Returns metrics values for a Slideshare	 String ID
      *
-     * @url POST total-impact/slideshare/metrics
+     * @url POST total-impact/plugins/slideshare/metrics
      */
     public function getMetrics($data)
     {  
