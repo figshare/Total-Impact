@@ -30,7 +30,11 @@ def get_stats(alm_xml):
     # fails to parse nested tags with the same name. It appears to consistently find the
     # correct data with this cludge 
     # http://www.mail-archive.com/debian-bugs-dist@lists.debian.org/msg869932.html
-    total_downloads = int(soup.total.nextSibling.text)
+    try:
+        total_downloads = int(soup.total.nextSibling.text)
+    except
+        total_downloads = None
+        
     if total_downloads == 0:
         return None
     #print total_downloads

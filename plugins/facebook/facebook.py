@@ -44,10 +44,26 @@ def get_stats(page):
         return(None)
     #print page
     soup = BeautifulStoneSoup(page)
-    like_count = soup.like_count.text
-    share_count = soup.share_count.text
-    click_count = soup.click_count.text
-    comment_count = soup.comment_count.text
+    
+    try:
+        like_count = int(soup.like_count.text)
+    except:
+        like_count = None
+        
+    try:
+        share_count = int(soup.share_count.text)
+    except:
+        share_count = None
+        
+    try:
+        click_count = int(soup.click_count.text)
+    except:
+        click_count = None
+        
+    try:
+        comment_count = int(soup.comment_count.text)
+    except:
+        comment_count = None
         
     stats = {"likes":like_count, "shares":share_count, "clicks":click_count, "comments":comment_count}
     return(stats)  
