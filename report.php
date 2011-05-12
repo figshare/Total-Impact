@@ -235,6 +235,8 @@ Totals by type<br>
 <div id="posts" class="section">
 </div>
 
+<h3 class="section-title"></h3>
+
 <!-- 2011-05-12 ADDED by Aliaksandr Birukou-->
 <div id="legend" class="section">
 Metrics are computed based on the following data sources:
@@ -305,7 +307,7 @@ Metrics are computed based on the following data sources:
 </ul></li>
 </ul>
 
-In this initial release the data is only fetched the first time you use the service. In the future we are planning to refresh the data once a day.
+In this initial release, a snapshot of the impact data is captured the first time an url is displayed. In the future we are planning to periodically refresh the impact values.
 
 
 </div>
