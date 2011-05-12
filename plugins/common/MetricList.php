@@ -28,7 +28,7 @@ class MetricList {
         $result = exec($exec, $output, $retval);
         
         $result = str_replace("'", "", $result, $count);
-        $metrics = split(",", $result);
+        $metrics = split(",", $result,10);
         
         $count = 0;
         foreach ($metrics as $metric) {        
@@ -38,8 +38,8 @@ class MetricList {
             $m->setSourceName($this->source_name);
             $m->setIcon($this->icon);
             $m->setType($this->type);
-            
-            list($metric_name, $metric_value) = split(":", $metric);
+           
+            list($metric_name, $metric_value) = split(":", $metric,10);
             $metric_value = str_replace("}", "", $metric_value, $count);
             $metric_name = str_replace("{", "", $metric_name, $count);
             

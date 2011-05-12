@@ -7,9 +7,7 @@ function display($id, Couch_Client $couch) {
     
 }
 $artifactId = $_GET['id'];
-//$doc = display($artifactId, $couch);
-
-phpinfo();
+$doc = display($artifactId, $couch);
 
 $sourcesData = json_encode($doc->sources);
 $title = $doc->title;
