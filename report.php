@@ -6,15 +6,11 @@ function display($id, Couch_Client $couch) {
     return $doc;
     
 }
-
 $artifactId = $_GET['id'];
 $doc = display($artifactId, $couch);
 
-
 $sourcesData = json_encode($doc->sources);
 $title = $doc->title;
-
-
 
 ?><html>
 <head>
