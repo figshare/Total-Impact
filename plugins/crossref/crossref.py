@@ -11,8 +11,20 @@ import StringIO
 from optparse import OptionParser
 
 DOI_LOOKUP_URL = "http://dx.doi.org/%s"
-
 DEBUG = False
+
+DOI_PATTERN = re.compile("(10.(\d)+/(\S)+)", re.DOTALL)
+
+def run_plugin(doi):
+    # Right now this is only designed to look up dois
+    if not DOI_PATTERN.search(doi):
+        return(None)
+    page = get_parsed_page(doi)
+    if page:
+        response = get_stats(page, doi)
+    else:
+        response = None
+    return(response)
 
 
 def get_parsed_page(doi):
@@ -21,21 +33,27 @@ def get_parsed_page(doi):
     url = DOI_LOOKUP_URL % doi
     if (DEBUG):
         print url
-    op = urllib.FancyURLopener()
-    op.addheader('Accept', 'application/rdf+xml')
-    f = op.open(url)
-    parsed_page = f.read()
-    if (DEBUG):
-        print parsed_page
+    try:
+        op = urllib.FancyURLopener()
+        op.addheader('Accept', 'application/rdf+xml')
+        f = op.open(url)
+        parsed_page = f.read()
+        if (DEBUG):
+            print parsed_page
+    except:
+        parsed_page = None
     return(parsed_page)  
 
 def get_stats(parsed_page, doi):
     if not parsed_page:
         return(None)
         
-    g = Graph()
-    g.parse(StringIO.StringIO(parsed_page), format="xml")
-
+    try:
+        g = Graph()
+        g.parse(StringIO.StringIO(parsed_page), format="xml")
+    except:
+        return(None)
+        
     title = None
     journal = None
     pubdate = None
@@ -59,8 +77,7 @@ def main():
         parser.error("wrong number of arguments")
 
     id = args[0]
-    page = get_parsed_page(id)
-    response = get_stats(page, id)
+    response = run_plugin(id)
    
     print response
     return(response)

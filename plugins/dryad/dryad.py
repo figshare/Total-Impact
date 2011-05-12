@@ -6,11 +6,27 @@ import re
 DRYAD_DOI_URL = "http://dx.doi.org/"
 DRYAD_VIEWS_PATTERN = re.compile("(?P<views>\d+) views", re.DOTALL)
 
+DRYAD_DOI_PATTERN = re.compile("(10.(\d)+/dryad(\S)+)", re.DOTALL | re.IGNORECASE)
+
+def run_plugin(doi):
+    # Right now this is only designed to look up dois
+    if not DRYAD_DOI_PATTERN.search(doi):
+        return(None)
+    page = get_dryad_page(doi)
+    if page:
+        response = get_number_views(page)
+    else:
+        response = None
+    return(response)
+    
 def get_dryad_page(doi):
     if not doi:
         return(None)
     query_url = DRYAD_DOI_URL + doi
-    page = urllib2.urlopen(query_url).read()
+    try:
+        page = urllib2.urlopen(query_url).read()
+    except urllib2.HTTPError:
+        page = None
     return(page)  
 
 def get_number_views(page):
@@ -37,8 +53,7 @@ def main():
         parser.error("wrong number of arguments")
 
     id = args[0]
-    page = get_dryad_page(id)
-    response = get_number_views(page)
+    response = run_plugin(id)
     print response
     return(response)
 

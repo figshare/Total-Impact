@@ -8,6 +8,20 @@ SOURCE_URL = "http://www.icpsr.umich.edu/icpsrweb/ICPSR/studies/%s"
 STATS_PATTERN = re.compile(r"View related literature</a> \((?P<stats>\d+)\)", re.DOTALL)
 DEBUG = False
 
+ICPSR_DOI_PATTERN = re.compile("(10.(\d)+/icpsr(\S)+)", re.DOTALL | re.IGNORECASE)
+
+def run_plugin(doi):
+    # Right now this is only designed to look up dois
+    if not ICPSR_DOI_PATTERN.search(doi):
+        return(None)
+
+    page = get_page(id)
+    if page:
+        response = get_stats(page)
+    else:
+        response = None
+    return(response)
+    
 def get_page(doi):
     if not doi:
         return(None)
@@ -41,9 +55,7 @@ def main():
         parser.error("wrong number of arguments")
 
     id = args[0]
-    page = get_page(id)
-    response = get_stats(page)
-   
+    response = run_plugin(id)
     print response
     return(response)
 

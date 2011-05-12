@@ -10,7 +10,19 @@ from optparse import OptionParser
 TOTALIMPACT_MENDELEY_KEY = "3a81767f6212797750ef228c8cb466bc04dca4ba1"
 MENDELEY_DOI_URL = "http://www.mendeley.com/oapi/documents/details/%s?type=doi&consumer_key=" + TOTALIMPACT_MENDELEY_KEY
 
+DOI_PATTERN = re.compile("(10.(\d)+/(\S)+)", re.DOTALL)
 
+def run_plugin(doi):
+    # Right now this is only designed to look up dois
+    if not DOI_PATTERN.search(doi):
+        return(None)
+    page = get_mendeley_page(doi)
+    if page:
+        response = get_stats(page)
+    else:
+        response = None
+    return(response)
+    
 def get_mendeley_page(doi):
     if not doi:
         return(None)
@@ -53,8 +65,8 @@ def main():
         parser.error("wrong number of arguments")
 
     doi = args[0]
-    page = get_mendeley_page(doi)
-    response = get_stats(page)
+
+    response = run_plugin(doi)
     print response
     return(response)
 
