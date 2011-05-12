@@ -36,9 +36,11 @@ def get_stats(page):
         return(None)
     try:
         number_readers = json_page["stats"]["readers"]
+        group_list = json_page["groups"]
+        number_groups = len(group_list)
     except ValueError:
         return(None)
-    response = {"readers":number_readers}
+    response = {"readers":number_readers, "groups":number_groups}
     return(response)  
         
 

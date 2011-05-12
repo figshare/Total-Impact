@@ -279,6 +279,7 @@ Metrics are computed based on the following data sources:
  For a <strong>DOI</strong> it returns:
 <ul>
 	<li><strong><span class="param">readers</span></strong>: <span class="desc">the number of readers of the article,</span></li>
+	<li><strong><span class="param">groups</span></strong>: <span class="desc">the number of groups of the article,</span></li>
 	<!--<li><strong><span class="param">title</span></strong>: <span class="desc">the title of the article,</span></li>
 	<li><strong><span class="param">publication_outlet</span></strong>: <span class="desc">the place where the article was published,</span></li>
 	<li><strong><span class="param">year</span></strong>: <span class="desc">the year of the article on Mendeley,</span></li>
