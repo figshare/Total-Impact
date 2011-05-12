@@ -24,7 +24,7 @@
             sleep(1);
             $updater = new Updater($couch, new Zend_Http_Client, $configs);
             $updater->update();
-            echo "<script>location.href='report.php?id=$id'</script>";
+            // echo "<script>location.href='report.php?id=$id'</script>";
 
         }
         else {
