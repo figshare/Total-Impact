@@ -16,12 +16,28 @@ FACEBOOK_LIKE_PATTERN = re.compile("<like_count>(?P<stats>\d+)</like_count>", re
 FACEBOOK_COMMENT_PATTERN = re.compile("<comment_count>(?P<stats>\d+)</comment_count>", re.DOTALL)
 FACEBOOK_CLICK_PATTERN = re.compile("<click_count>(?P<stats>\d+)</click_count>", re.DOTALL)
 
+DOI_PATTERN = re.compile("(10.(\d)+/(\S)+)", re.DOTALL)
+
+def run_plugin(doi):
+    # Right now this is only designed to look up dois
+    if not DOI_PATTERN.search(doi):
+        return(None)
+    redirect_url = get_redirect_url(id)
+    if redirect_url:
+        page = get_page(redirect_url)
+        response = get_stats(page)
+    else:
+        response = None
+    return(response)
+    
 def get_redirect_url(doi):
     if not doi:
         return(None)
     doi_url = DOI_LOOKUP_URL % doi
-    doi_redirect_url = urllib2.urlopen(doi_url).url
-    
+    try:
+        doi_redirect_url = urllib2.urlopen(doi_url).url
+    except:
+        doi_redirect_url = None
     #if (DEBUG):
     #    print doi_url
     #    print doi_redirect_url
@@ -44,10 +60,26 @@ def get_stats(page):
         return(None)
     #print page
     soup = BeautifulStoneSoup(page)
-    like_count = soup.like_count.text
-    share_count = soup.share_count.text
-    click_count = soup.click_count.text
-    comment_count = soup.comment_count.text
+    
+    try:
+        like_count = int(soup.like_count.text)
+    except:
+        like_count = None
+        
+    try:
+        share_count = int(soup.share_count.text)
+    except:
+        share_count = None
+        
+    try:
+        click_count = int(soup.click_count.text)
+    except:
+        click_count = None
+        
+    try:
+        comment_count = int(soup.comment_count.text)
+    except:
+        comment_count = None
         
     stats = {"likes":like_count, "shares":share_count, "clicks":click_count, "comments":comment_count}
     return(stats)  
@@ -62,10 +94,8 @@ def main():
     if len(args) != 1:
         parser.error("wrong number of arguments")
     
-    id = args[0]
-    redirect_url = get_redirect_url(id)
-    page = get_page(redirect_url)
-    response = get_stats(page)
+    doi = args[0]
+    response = run_plugin(doi)
    
     print response
     return(response)

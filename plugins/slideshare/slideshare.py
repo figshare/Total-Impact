@@ -14,6 +14,19 @@ TOTALIMPACT_SLIDESHARE_KEY = "nyHCUoNM"
 TOTALIMPACT_SLIDESHARE_SECRET = "z7sRiGCG"
 SLIDESHARE_DOI_URL = "http://www.slideshare.net/api/2/get_slideshow?api_key=nyHCUoNM&detailed=1&ts=%s&hash=%s&slideshow_url=%s"
 
+URL_PATTERN = re.compile("http://.+")
+
+def run_plugin(id):
+    if not URL_PATTERN.search(id):
+        return(None)
+        
+    page = get_page(id)
+    if page:
+        response = get_stats(page)
+    else:
+        response = None
+    return(response)
+
 def get_page(id):
     if not id:
         return(None)
@@ -35,10 +48,25 @@ def get_stats(page):
         return(None)
 
     soup = BeautifulStoneSoup(page)
-    downloads = soup.numdownloads.text
-    views = soup.numviews.text
-    comments = soup.numcomments.text
-    favorites = soup.numfavorites.text
+    try:
+        downloads = int(soup.numdownloads.text)
+    except:
+        downloads = None
+        
+    try:
+        views = int(soup.numviews.text)
+    except:
+        views = None
+        
+    try:    
+        comments = int(soup.numcomments.text)
+    except:
+        comments = None
+        
+    try:
+        favorites = int(soup.numfavorites.text)
+    except:
+        favorites = None
 
     response = {"downloads":downloads, "views":views, "comments":comments, "favorites":favorites}
     return(response)  
@@ -55,8 +83,7 @@ def main():
         parser.error("wrong number of arguments")
 
     id = args[0]
-    page = get_page(id)
-    response = get_stats(page)
+    response = run_plugin(id)
     print response
     return(response)
 

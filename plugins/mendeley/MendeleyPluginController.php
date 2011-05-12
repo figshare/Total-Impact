@@ -4,7 +4,7 @@ class MendeleyPluginController
     /**
      * Returns a JSON string object to the browser when hitting the root of the domain
      *
-     * @url GET total-impact/mendeley
+     * @url GET total-impact/plugins/mendeley
      */
     public function index()
     {
@@ -15,7 +15,7 @@ class MendeleyPluginController
     /**
      * Returns metrics values for a Mendeley String ID
      *
-     * @url POST total-impact/mendeley/metrics
+     * @url POST total-impact/plugins/mendeley/metrics
      */
     public function getMetrics($data)
     {  

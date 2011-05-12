@@ -9,6 +9,20 @@ from optparse import OptionParser
 
 PLOS_ALM_COUNTER_URL = "http://www.plosreports.org/services/rest?method=usage.stats&doi=%s"
 
+PLOS_DOI_PATTERN = re.compile("(10.(\d)+/journal.p(\S)+)", re.DOTALL | re.IGNORECASE)
+
+def run_plugin(doi):
+    # Right now this is only designed to look up dois
+    if not PLOS_DOI_PATTERN.search(doi):
+        return(None)
+    page = get_plos_alms(doi)
+    if page:
+        response = get_stats(page)
+    else:
+        response = None
+    return(response)
+
+
 def get_plos_alms(doi):
     if not doi:
         return(None)
@@ -30,7 +44,11 @@ def get_stats(alm_xml):
     # fails to parse nested tags with the same name. It appears to consistently find the
     # correct data with this cludge 
     # http://www.mail-archive.com/debian-bugs-dist@lists.debian.org/msg869932.html
-    total_downloads = int(soup.total.nextSibling.text)
+    try:
+        total_downloads = int(soup.total.nextSibling.text)
+    except:
+        total_downloads = None
+        
     if total_downloads == 0:
         return None
     #print total_downloads
@@ -51,8 +69,8 @@ def main():
         parser.error("wrong number of arguments")
 
     doi = args[0]
-    page = get_plos_alms(doi)
-    response = get_stats(page)
+    
+    response = run_plugin(doi)
     print response
     return(response)
 

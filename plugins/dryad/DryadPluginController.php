@@ -4,7 +4,7 @@ class DryadPluginController
     /**
      * Returns a JSON string object to the browser when hitting the root of the domain
      *
-     * @url GET total-impact/dryad
+     * @url GET total-impact/plugins/dryad
      */
     public function index()
     {
@@ -15,7 +15,7 @@ class DryadPluginController
     /**
      * Returns metrics values for a Dyrad	 String ID
      *
-     * @url POST total-impact/dryad/metrics
+     * @url POST total-impact/plugins/dryad/metrics
      */
     public function getMetrics($data)
     {  
