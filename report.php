@@ -7,11 +7,25 @@ function display($id, Couch_Client $couch) {
     
 }
 $artifactId = $_GET['id'];
-//$doc = display($artifactId, $couch);
+$doc = $couch->getDoc($artifactId);
 
-phpinfo();
+$artifacts = array();
+$metrics = array();
+$sourcesData = $doc->sources;
+foreach ($sourcesData as $sourceName => $source){
+    foreach($source as $k => $artifact ) {
+        $artifacts[] = $artifact;
+    }
+}
 
-$sourcesData = json_encode($doc->sources);
+foreach ($artifacts as $artifact){
+    $list = $artifact->list;
+    foreach($list as $metric){
+        $metrics[] = $metric;
+    }
+}
+print_r($metrics);
+
 $title = $doc->title;
 
 ?><html>
