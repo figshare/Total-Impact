@@ -48,7 +48,7 @@ foreach ($artifacts as $artifact){
 $title = $doc->title;
 
 $sourcesData = json_encode($doc->sources);
-$artifactsByTypeJSON = json_encode($artifactsByType);
+$artifactByTypeJSON = json_encode($artifactsByType);
 
 ?><html>
 <head>
