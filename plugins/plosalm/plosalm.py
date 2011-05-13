@@ -86,4 +86,3 @@ if __name__ == '__main__':
 #page = get_mendeley_page(mendeley_test_doi)
 #response = get_stats(page)
 #print response
-    
