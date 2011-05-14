@@ -2,9 +2,9 @@
 $configs = array(
     
     'plugins' => array(
-        'Mendeley' => 'http://whohastodoit.com/total-impact/plugins/mendeley/metrics',
-        'Slideshare' => 'http://whohastodoit.com/total-impact/plugins/slideshare/metrics',
-        'Dryad' => 'http://whohastodoit.com/total-impact/plugins/dryad/metrics'
+        'Mendeley' => 'http://total-impact/plugins/mendeley/metrics',
+        'Slideshare' => 'http://total-impact/plugins/slideshare/metrics',
+        'Dryad' => 'http://total-impact/plugins/dryad/metrics'
     ),
     'db' => array(
         'dsn' => 'fulloonedeargespenceiver:awINWuX8MMfXQJiSmONPnlLu@alm.cloudant.com',
