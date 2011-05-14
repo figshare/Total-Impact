@@ -52,13 +52,13 @@ $artifactsByTypeJSON = json_encode($artifactsByType);
 
 ?><html>
 <head>
-<link rel="stylesheet" type="text/css" href="totalimpact.css" />
+<link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
 <title>Total Impact</title>
-    <script type="text/javascript" src="./library/jquery/jquery-1.4.2.js"></script>
-	<script type="text/javascript" src="./library/jquery/jquery.tools.min.js"></script>
-	<script type="text/javascript" src="./library/protovis-3.2/protovis-r3.2.js"></script>
+    <script type="text/javascript" src="./ui/jquery/jquery-1.4.2.js"></script>
+    <script type="text/javascript" src="./ui/jquery/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="./ui/protovis-3.2/protovis-r3.2.js"></script>
 	
-	<script language="javascript" type="text/javascript">
+    <script language="javascript" type="text/javascript">
         
 
         
@@ -237,7 +237,7 @@ $artifactsByTypeJSON = json_encode($artifactsByType);
 <body>
 
 <div id="header">
-    <img src="logo.png" alt="Total-Impact" width='150px' /> 
+    <img src="./ui/img/logo.png" alt="Total-Impact" width='150px' /> 
     <h1><?php $title ?></h1>
     <div id="outputs">
         <a href="http://twitter.com/share" class="twitter-share-button" data-text="See my Total Impact" data-count="horizontal" data-via="pgroth">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script><br>
