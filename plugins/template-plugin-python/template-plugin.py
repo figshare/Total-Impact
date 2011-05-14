@@ -43,6 +43,9 @@ def get_data_from_source(id):
 def get_stats(page):
     """Routine for getting the desired data out of the returned page"""
 
+    if not page:
+        return(None)
+
     try:
         # Process the page to obtain the desired data. This might involve 
         # any formof parsing, scraping, or whatever is required. It's polite 
@@ -73,7 +76,6 @@ def main():
     
     response = run_plugin(id)
     return(response)
-
 
 if __name__ == '__main__':
     main()
