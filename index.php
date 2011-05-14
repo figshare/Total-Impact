@@ -3,11 +3,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>total-impact.org</title>
-        <link rel="stylesheet" type="text/css" href="totalimpact.css" />
+        <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
     </head>
     <body>
         <div id="header">
-            <img src="logo.png" alt="Total-Impact" width='200px' /> 
+            <img src="./ui/img/logo.png" alt="Total-Impact" width='200px' /> 
             <p>
             Welcome to Total-Impact. This site allows you to track the impact of various online 
             research artifacts. It grabs metrics from many different sites all in one place.
