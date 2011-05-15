@@ -59,5 +59,14 @@ function(doc, req) {
         }
     }    
     
-    return toJSON(artifactTypes);
+    // get the collection metadata and add it to the return object
+    var meta = doc;
+    delete meta.sources; // we've already got these, and better organised.
+    
+    var ret = {
+        'meta': meta,
+        'metrics': artifactTypes 
+    }
+    
+    return toJSON(ret);
 }
