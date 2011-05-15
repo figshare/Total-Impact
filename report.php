@@ -4,17 +4,17 @@ $report = new Report($couch, $_GET['id']);
 $res = $report->fetch();
 
 // handle missing IDs more intelligently later
-if (!$res){ header('Location: index.php'); }
+if (!$res){ header('Location: ../'); }
 
 
 
 ?><html>
 <head>
     <title>Total Impact: <?php echo $report->getBestIdentifier() ?></title>
-    <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
-    <script type="text/javascript" src="./ui/jquery/jquery-1.4.2.js"></script>
-    <script type="text/javascript" src="./ui/jquery/jquery.tools.min.js"></script>
-    <script type="text/javascript" src="./ui/protovis-3.2/protovis-r3.2.js"></script>
+    <link rel="stylesheet" type="text/css" href="../ui/totalimpact.css" />
+    <script type="text/javascript" src="../ui/jquery/jquery-1.4.2.js"></script>
+    <script type="text/javascript" src="../ui/jquery/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="../ui/protovis-3.2/protovis-r3.2.js"></script>
 </head>
 <body>
     <div id="header">
