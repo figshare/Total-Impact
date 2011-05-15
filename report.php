@@ -1,23 +1,37 @@
 <?php
 require './bootstrap.php';
 $report = new Report($couch, $_GET['id']);
-$report->fetch();
+$res = $report->fetch();
+
+// handle missing IDs more intelligently later
+if (!$res){ header('Location: index.php'); }
 
 
 
 ?><html>
 <head>
-    <title>Total Impact: <?php echo $collection->meta->title ?></title>
+    <title>Total Impact: <?php echo $report->getBestIdentifier() ?></title>
     <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
     <script type="text/javascript" src="./ui/jquery/jquery-1.4.2.js"></script>
     <script type="text/javascript" src="./ui/jquery/jquery.tools.min.js"></script>
     <script type="text/javascript" src="./ui/protovis-3.2/protovis-r3.2.js"></script>
 </head>
 <body>
+    <div id="header">
+        <h1><a href="./">Total-Impact.org</a></h1>
+    </div>
+
     <div id="report">
+        <h2>Impact report for <?php echo $report->getBestIdentifier(); ?></h2>
+        <div id="report-meta">
+            <p>Created <span class="created-at"><?php echo $report->getCreatedAt('j M, Y');?></span>
+                with <span class="artifacts-count"><?php echo $report->getArtifactsCount(); ?></span>
+                research artifacts.</p>
+
+        </div>
         <div id="metrics">
             <?php
-                $report->printArtifactTypeSection();
+                $report->render();
             ?>
         </div>
     </div>
