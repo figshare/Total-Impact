@@ -1,22 +1,26 @@
 <?php
 require './bootstrap.php';
-function getReportData(Couch_Client $couch, $id){
-    $ret = $couch->getShow('main', 'by_type', $id);
-    return $ret;
-}
+$report = new Report($couch, $_GET['id']);
+$report->fetch();
 
 
 
 ?><html>
 <head>
-    <title>Total Impact</title>
+    <title>Total Impact: <?php echo $collection->meta->title ?></title>
     <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
     <script type="text/javascript" src="./ui/jquery/jquery-1.4.2.js"></script>
     <script type="text/javascript" src="./ui/jquery/jquery.tools.min.js"></script>
     <script type="text/javascript" src="./ui/protovis-3.2/protovis-r3.2.js"></script>
-	
-
-
+</head>
+<body>
+    <div id="report">
+        <div id="metrics">
+            <?php
+                $report->printArtifactTypeSection();
+            ?>
+        </div>
+    </div>
     <!-- 2011-05-12 ADDED by Aliaksandr Birukou-->
 <div id="footer" class="section">
     <h3>Metrics are computed based on the following data sources:</h3>
@@ -90,7 +94,6 @@ In this initial release, a snapshot of the impact data is captured the first tim
 
 
 </div><!-- END OF ADDED by Aliaksandr Birukou-->
-
 
 </body>
 </html>
