@@ -16,6 +16,7 @@
 
         <?php
         if (isset($_POST['submitted'])){
+            echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
             $collection = new Collection(
                     $couch,
                     $_POST['name'],

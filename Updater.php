@@ -17,7 +17,6 @@ class Updater {
     }
     
     public function update(){
-        echo "<h2><img src='./img/ajax-loader.gif'>Getting information now</h2>";
         $result = $this->couch->descending(true)
             ->include_docs(true)
             ->getView("main", "unupdated");
