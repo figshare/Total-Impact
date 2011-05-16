@@ -39,7 +39,10 @@ def get_plos_alms(doi):
     return(alm_xml)  
 
 def get_stats(alm_xml):
+    
     soup = BeautifulStoneSoup(alm_xml)
+    print(soup)
+    
     # This use of nextSibling is a result of a documented bug in BeautifulStoneSoup which
     # fails to parse nested tags with the same name. It appears to consistently find the
     # correct data with this cludge 
