@@ -81,12 +81,8 @@ def main():
 if __name__ == '__main__':
     main()
 
-#mendeley_test_doi = "10.1038/ng0411-281"
-#mendeley_test_doi = "10.1371/journal.pcbi.1000361"
-#mendeley_test_doi = "10.1371/journal.pmed.0040215"
-#mendeley_test_doi = "10.1371/journal.pone.0000308"
-
-#page = get_mendeley_page(mendeley_test_doi)
-#response = get_stats(page)
-#print response
-    
+#test_doi = "10.1038/ng0411-281"
+#est_doi = "10.1371/journal.pcbi.1000361"
+#test_doi = "10.1371/journal.pmed.0040215"
+#test_doi = "10.1371/journal.pone.0000308"
+   

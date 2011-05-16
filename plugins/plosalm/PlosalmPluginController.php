@@ -4,7 +4,7 @@ class PlosalmPluginController
     /**
      * Returns a JSON string object to the browser when hitting the root of the domain
      *
-     * @url GET total-impact/plugins/mendeley
+     * @url GET total-impact/plugins/plosalm
      */
     public function index()
     {
@@ -13,9 +13,9 @@ class PlosalmPluginController
 
 
     /**
-     * Returns metrics values for a Mendeley String ID
+     * Returns metrics values for a PLoS DOI String ID
      *
-     * @url POST total-impact/plugins/mendeley/metrics
+     * @url POST total-impact/plugins/plosalm/metrics
      */
     public function getMetrics($data)
     {  

@@ -3,6 +3,7 @@ $configs = array(
     
     'plugins' => array(
         'Mendeley' => 'http://total-impact.org/plugins/mendeley/metrics',
+        'Plosalm' => 'http://total-impact.org/plugins/plosalm/metrics',
         'Slideshare' => 'http://total-impact.org/plugins/slideshare/metrics',
         'Dryad' => 'http://total-impact.org/plugins/dryad/metrics'
     ),
