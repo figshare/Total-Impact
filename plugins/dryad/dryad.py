@@ -2,6 +2,7 @@
 
 import urllib2
 import re
+import string
 
 DRYAD_DOI_URL = "http://dx.doi.org/"
 DRYAD_VIEWS_PATTERN = re.compile("(?P<views>\d+) views", re.DOTALL)
@@ -55,11 +56,12 @@ def get_stats(page):
     if not title_matches:
         title = None
     try:
-        title = title_matches.group("title")
+        title = string.replace(title_matches.group("title"), ":", "-")
     except ValueError:
         title = None
                 
-    return({"page_views":views, "total_downloads":downloads, "artifact_title":title})  
+    #return({"page_views":views, "total_downloads":downloads, "artifact_title":title})  
+    return({"page_views":views, "total_downloads":downloads})
         
 
 from optparse import OptionParser
