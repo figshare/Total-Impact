@@ -24,8 +24,7 @@ class DryadPluginController
             $mList = new MetricList();
             $mList->setId($id);
             $mList->setMethod('Post');
-            $mList->setSourceName('Dryad');
-            $mList->setIcon('http://datadryad.org/themes/Dryad/images/dryadLogo.png');
+            $mList->setSourceName('Dryad');       $mList->setIcon('http://dryad.googlecode.com/svn-history/r4402/trunk/dryad/dspace/modules/xmlui/src/main/webapp/themes/Dryad/images/favicon.ico');
             $mList->setType('Dataset');            
             $mList->setPlugin('dryad.py');
             $mList->getMetrics(); // possible metrics loading method
