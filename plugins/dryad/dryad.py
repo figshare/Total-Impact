@@ -5,6 +5,8 @@ import re
 
 DRYAD_DOI_URL = "http://dx.doi.org/"
 DRYAD_VIEWS_PATTERN = re.compile("(?P<views>\d+) views", re.DOTALL)
+DRYAD_DOWNLOADS_PATTERN = re.compile("(?P<downloads>\d+) downloads", re.DOTALL)
+DRYAD_TITLE_PATTERN = re.compile('please cite the Dryad data package: </p>\n<blockquote>(?P<title>.+?)<span>Dryad Digital Repository. </span>', re.DOTALL)
 
 DRYAD_DOI_PATTERN = re.compile("(10.(\d)+/dryad(\S)+)", re.DOTALL | re.IGNORECASE)
 
@@ -14,7 +16,7 @@ def run_plugin(doi):
         return(None)
     page = get_dryad_page(doi)
     if page:
-        response = get_number_views(page)
+        response = get_stats(page)
     else:
         response = None
     return(response)
@@ -29,17 +31,35 @@ def get_dryad_page(doi):
         page = None
     return(page)  
 
-def get_number_views(page):
+def get_stats(page):
     if not page:
         return(None)
-    view_matches = DRYAD_VIEWS_PATTERN.search(page)
+        
+    view_matches = DRYAD_VIEWS_PATTERN.finditer(page)
     if not view_matches:
-        return(None)
+        views = None
     try:
-        views = float(view_matches.group("views"))
+        views = sum([int(view_match.group("views")) for view_match in view_matches])
     except ValueError:
-        return(None)
-    return({"page_views":views})  
+        views = None
+
+    download_matches = DRYAD_DOWNLOADS_PATTERN.finditer(page)
+    if not download_matches:
+        downloads = None
+    try:
+        downloads = sum([int(download_match.group("downloads")) for download_match in download_matches])
+    except ValueError:
+        downloads = None
+
+    title_matches = DRYAD_TITLE_PATTERN.search(page)
+    if not title_matches:
+        title = None
+    try:
+        title = title_matches.group("title")
+    except ValueError:
+        title = None
+                
+    return({"page_views":views, "total_downloads":downloads, "artifact_title":title})  
         
 
 from optparse import OptionParser
