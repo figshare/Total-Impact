@@ -41,7 +41,7 @@ def get_plos_alms(doi):
 def get_stats(alm_xml):
     
     soup = BeautifulStoneSoup(alm_xml)
-    print(soup)
+    #print(soup)
     
     # This use of nextSibling is a result of a documented bug in BeautifulStoneSoup which
     # fails to parse nested tags with the same name. It appears to consistently find the
@@ -74,7 +74,7 @@ def main():
     doi = args[0]
     
     response = run_plugin(doi)
-    print response
+    #print response
     return(response)
 
 
