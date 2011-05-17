@@ -1,6 +1,6 @@
 <?php
 require './bootstrap.php';
-$report = new Report($couch, $_GET['id']);
+$report = new ReportClass($couch, $_GET['id']);
 $res = $report->fetch();
 
 // handle missing IDs more intelligently later
