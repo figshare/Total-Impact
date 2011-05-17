@@ -57,7 +57,7 @@ def get_stats(alm_xml):
     #print total_downloads
 
     response = {"downloads":total_downloads}
-    # print response
+    print response
     return(response)  
         
 
