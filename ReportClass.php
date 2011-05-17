@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Description of Report
+ * Description of ReportClass
  *
  * @author jason
  */
-class Report {
+class ReportClass {
     private $couch;
     private $id;
     private $data;
