@@ -26,7 +26,7 @@ class PlosalmPluginController
             $mList = new MetricList();
             $mList->setId($id);
             $mList->setMethod('Post');
-            $mList->setSourceName('Plosalm');
+            $mList->setSourceName('PLoS');
             $mList->setIcon('http://www.plos.org/favicon.ico');
 
             // Here should be place the code to identify the type of artifact to process 

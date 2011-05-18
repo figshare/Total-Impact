@@ -26,12 +26,12 @@ class IcpsrPluginController
             $mList = new MetricList();
             $mList->setId($id);
             $mList->setMethod('Post');
-            $mList->setSourceName('Icpsr');
+            $mList->setSourceName('ICPSR');
 
             // Here should be place the code to identify the type of artifact to process 
             // and filter those that can't be processed
             $mList->setIcon('http://www.icpsr.umich.edu/favicon.ico');
-            $mList->setType('Article');            
+            $mList->setType('Dataset');            
             $mList->setPlugin('icpsr.py');
             $mList->getMetrics(); // possible metrics loading method
             $mArray[$id]=$mList;
