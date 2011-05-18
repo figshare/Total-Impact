@@ -49,7 +49,7 @@ def get_stats(page):
         return(None)
 
     soup = BeautifulStoneSoup(page)
-    print(soup)
+    #print(soup)
     try:
         downloads = int(soup.numdownloads.text)
     except:
@@ -79,7 +79,7 @@ def get_stats(page):
     except:
         title = None
         
-    response = {"downloads":downloads, "views":views, "comments":comments, "favorites":favorites, "TITLE":title}
+    response = {"downloads":downloads, "views":views, "comments":comments, "favorites":favorites, "ARTIFACT-TITLE":title}
     return(response)  
         
 

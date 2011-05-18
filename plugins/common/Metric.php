@@ -1,7 +1,7 @@
 <?php
 /**
  * Class SlideshareMetric.php
- * Wraps the mendeley plugin in python 
+ * Wraps the  plugin in python 
  * 
  */
 
