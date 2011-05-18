@@ -9,6 +9,7 @@ from rdflib import Graph
 from rdflib import Namespace
 import StringIO
 from optparse import OptionParser
+import string
 
 DOI_LOOKUP_URL = "http://dx.doi.org/%s"
 DEBUG = False
@@ -64,7 +65,9 @@ def get_stats(parsed_page, doi):
             journal = o.title()
         if (doi not in s) and (str(p)=="http://purl.org/dc/terms/date"):
             pubdate = o.title()
-            
+    for punc in [":", ","]:
+        title = title.replace(punc, "-")        
+        journal = journal.replace(punc, "-")
     response = {"title":title, "journal":journal, "pubdate":pubdate}
     return(response)  
 
