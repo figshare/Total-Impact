@@ -4,6 +4,7 @@ import urllib2
 import re
 import urllib
 import time
+import string
 import hashlib
 import BeautifulSoup
 from BeautifulSoup import BeautifulStoneSoup 
@@ -14,7 +15,7 @@ TOTALIMPACT_SLIDESHARE_KEY = "nyHCUoNM"
 TOTALIMPACT_SLIDESHARE_SECRET = "z7sRiGCG"
 SLIDESHARE_DOI_URL = "http://www.slideshare.net/api/2/get_slideshow?api_key=nyHCUoNM&detailed=1&ts=%s&hash=%s&slideshow_url=%s"
 
-URL_PATTERN = re.compile("http://.+")
+URL_PATTERN = re.compile("http://www.slideshare.net/.+")
 
 def run_plugin(id):
     if not URL_PATTERN.search(id):
@@ -48,6 +49,7 @@ def get_stats(page):
         return(None)
 
     soup = BeautifulStoneSoup(page)
+    print(soup)
     try:
         downloads = int(soup.numdownloads.text)
     except:
@@ -68,7 +70,16 @@ def get_stats(page):
     except:
         favorites = None
 
-    response = {"downloads":downloads, "views":views, "comments":comments, "favorites":favorites}
+    try:
+        title = soup.title.text
+        if title:
+            title = title.encode("latin1")
+            for punc in [":", ","]:
+                title = title.replace(punc, "-")        
+    except:
+        title = None
+        
+    response = {"downloads":downloads, "views":views, "comments":comments, "favorites":favorites, "TITLE":title}
     return(response)  
         
 
