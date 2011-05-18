@@ -32,7 +32,7 @@ class Updater {
                 $doc = $row->doc;
                 echo "<h3>updating collection " . $doc->_id . "</h3>"; 
                 foreach ($this->config['plugins'] as $sourceName=>$sourceUri){
-                    echo "with $sourceName...";
+                    echo "<p>with $sourceName...";
                     $this->http->setUri($sourceUri);
 
                     $this->http->setRawData(json_encode($doc->artifact_ids), 'text/json');  
