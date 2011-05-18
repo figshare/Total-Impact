@@ -4,7 +4,7 @@ class PlosalmPluginController
     /**
      * Returns a JSON string object to the browser when hitting the root of the domain
      *
-     * @url GET total-impact/plugins/plosalm
+     * @url GET /plugins/plos
      */
     public function index()
     {
@@ -13,9 +13,10 @@ class PlosalmPluginController
 
 
     /**
-     * Returns metrics values for a PLoS DOI String ID
+     * Returns metrics values for a Plos String ID
      *
-     * @url POST total-impact/plugins/plosalm/metrics
+     * @url POST /plugins/plosalm/metrics
+     * @url POST /metrics
      */
     public function getMetrics($data)
     {  
@@ -26,7 +27,10 @@ class PlosalmPluginController
             $mList->setId($id);
             $mList->setMethod('Post');
             $mList->setSourceName('Plosalm');
-            $mList->setIcon('http://www.plosbiology.org/images/favicon.ico');
+            $mList->setIcon('http://www.plos.org/favicon.ico');
+
+            // Here should be place the code to identify the type of artifact to process 
+            // and filter those that can't be processed
             $mList->setType('Article');            
             $mList->setPlugin('plosalm.py');
             $mList->getMetrics(); // possible metrics loading method
