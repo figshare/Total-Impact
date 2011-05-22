@@ -1,0 +1,10 @@
+{
+  "*.php|pyg" : {},
+  "*.py|pyg" : {},
+  "*.sh|pyg" : {},
+  "*.md|jinja|markdown|hd|ft" : {
+    "allinputs" : true
+  },
+  "_header.html|dexy" : {},
+  "_footer.html|dexy" : {}
+}
