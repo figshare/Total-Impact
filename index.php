@@ -13,7 +13,7 @@
             research artifacts. It grabs metrics from many different sites all in one place.
             </p>
         </div>
-
+        
         <?php
         if (isset($_POST['submitted'])){
             $collection = new Collection(
