@@ -40,7 +40,7 @@
                     $_POST['ids']);
             $id = $collection->make();
             sleep(1);
-            $updater = new Updater($couch, new Zend_Http_Client, $configs);
+            $updater = new Updater($couch, new Zend_Http_Client, $config);
             $updater->update();
             echo "<script>location.href='report/$id'</script>";
 

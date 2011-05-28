@@ -10,7 +10,7 @@ class Updater {
     private $http;
     private $config;
     
-    public function __construct(Couch_Client $couch, Zend_Http_Client $http, $config){
+    public function __construct(Couch_Client $couch, Zend_Http_Client $http, Zend_Config $config){
         $this->couch = $couch;
         $this->http = $http;
         $this->config = $config;
@@ -31,7 +31,7 @@ class Updater {
                 sleep(1);
                 $doc = $row->doc;
                 echo "<h3>updating collection " . $doc->_id . "</h3>"; 
-                foreach ($this->config['plugins'] as $sourceName=>$sourceUri){
+                foreach ($this->config->plugins as $sourceName=>$sourceUri){
                     echo "<p>with $sourceName...";
                     $this->http->setUri($sourceUri);
 
