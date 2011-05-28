@@ -3,11 +3,28 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>total-impact.org</title>
-        <link rel="stylesheet" type="text/css" href="totalimpact.css" />
+        <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
+
+
+		<script type="text/javascript">
+		//Google Analytics code
+
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-23384030-1']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+		</script>
+
     </head>
     <body>
         <div id="header">
-            <img src="logo.png" alt="Total-Impact" width='200px' /> 
+            <img src="./ui/img/logo.png" alt="Total-Impact" width='200px' /> 
             <p>
             Welcome to Total-Impact. This site allows you to track the impact of various online 
             research artifacts. It grabs metrics from many different sites all in one place.
@@ -16,15 +33,16 @@
         
         <?php
         if (isset($_POST['submitted'])){
+            echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
             $collection = new Collection(
                     $couch,
                     $_POST['name'],
                     $_POST['ids']);
             $id = $collection->make();
             sleep(1);
-            $updater = new Updater($couch, new Zend_Http_Client, $configs);
+            $updater = new Updater($couch, new Zend_Http_Client, $config);
             $updater->update();
-            // echo "<script>location.href='report.php?id=$id'</script>";
+            echo "<script>location.href='report/$id'</script>";
 
         }
         else {
@@ -38,6 +56,7 @@
 http://www.slideshare.net/phylogenomics/eisen
 http://www.slideshare.net/phylogenomics/ben-franklin-award-slides
 10.5061/dryad.8384
+10.3886/ICPSR27601
             </pre>
         </div>        
         <form method="POST" name="main" action="./index.php">

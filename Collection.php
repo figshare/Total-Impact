@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of Collection
+ *  Handles the uploading of artifact collections.
  *
  * @author jay
  */

@@ -15,7 +15,7 @@ def run_plugin(doi):
     if not ICPSR_DOI_PATTERN.search(doi):
         return(None)
 
-    page = get_page(id)
+    page = get_page(doi)
     if page:
         response = get_stats(page)
     else:
