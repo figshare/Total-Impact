@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# Conforms to API specified here:  https://github.com/mhahnel/Total-Impact/wiki/Plugin-requirements
+
 import urllib2
 import urllib
 import re
@@ -64,7 +66,7 @@ def build_json_response(artifacts={}, error="false"):
     return(json_response)
 
 
-def get_parsed_page(doi):
+def get_page(doi):
     if not doi:
         return(None)
     url = DOI_LOOKUP_URL % doi
@@ -74,23 +76,22 @@ def get_parsed_page(doi):
         op = urllib.FancyURLopener()
         op.addheader('Accept', 'application/rdf+xml')
         f = op.open(url)
-        parsed_page = f.read()
+        page = f.read()
         if (DEBUG):
-            print parsed_page
+            print page
     except:
-        parsed_page = None
-    return(parsed_page)  
+        page = None
+    return(page)  
 
-def extract_stats(parsed_page, doi):
+def extract_stats(page, doi):
 # crossref extraction code based on example at https://gist.github.com/931878
-    if not parsed_page:
+    if not page:
         return(None)        
     try:
         g = Graph()
-        g.parse(StringIO.StringIO(parsed_page), format="xml")
+        g.parse(StringIO.StringIO(page), format="xml")
     except:
-        return(None)
-        
+        return(None)        
     title = None
     journal = None
     pubdate = None
@@ -101,23 +102,24 @@ def extract_stats(parsed_page, doi):
             journal = o.title()
         if (doi not in s) and (str(p)=="http://purl.org/dc/terms/date"):
             pubdate = o.title()
-            print pubdate
-        
+            print pubdate       
     response = dict(title=title, journal=journal, pubdate=pubdate)
     return(response)  
+    
+def get_metric_values(doi):
+    page = get_page(doi)
+    if page:
+        response = extract_stats(page, doi)    
+    return(response)    
 
 def get_doi_from_pmid(pmid):
     return(10)
 
+def get_doi_from_url(pmid):
+    return(4)
+
 def get_pmid_from_doi(pmid):
     return(7)
-    
-def get_metric_results(doi):
-    page = get_parsed_page(doi)
-    if page:
-        response = extract_stats(page, doi)    
-    #return(dict(title="my paper"))    
-    return(response)    
 
 def test_build_artifact_response():
     response = build_artifact_response(TEST_GOLD_PARSED_INPUT['10.1371/journal.pcbi.1000361'])
@@ -127,16 +129,22 @@ def build_artifact_response(artifact_query):
     doi = artifact_query["doi"]
     pmid = artifact_query["pmid"]
     url = artifact_query["url"]
-    if not doi and not pmid:
+    if not doi and not pmid and not url:
         return(None)
     if not doi:
-        doi = get_doi_from_pmid(pmid)
-    if not pmid:
-        pmid = get_pmid_from_doi(doi)
-    response = dict(type="article", pmid=pmid, doi=doi, url=url)    
+        if pmid:
+            doi = get_doi_from_pmid(pmid)
+        else:
+            doi = get_doi_from_url(url)
     if DOI_PATTERN.search(doi):
-        metrics_response = get_metric_results(doi)        
-        response.update(metrics_response)
+        if not pmid:
+            pmid = get_pmid_from_doi(doi)
+        metrics_response = get_metric_values(doi)
+        if pmid or metrics_response:
+            response = dict(type="article", pmid=pmid, doi=doi, url=url)    
+            response.update(metrics_response)
+        else:
+            response = None
     return(response)
     
 def test_parse_input():
@@ -148,7 +156,7 @@ def parse_input(json_in):
     return(query)
 
 def test_get_artifacts_metrics():
-    response = get_metrics(TEST_GOLD_PARSED_INPUT)
+    response = get_artifacts_metrics(TEST_GOLD_PARSED_INPUT)
     assert_equals(response, {u'10.1371/journal.pcbi.1000361': {'doi': u'10.1371/journal.pcbi.1000361', 'pubdate': None, 'title': u'Adventures In Semantic Publishing: Exemplar Semantic Enhancements Of A Research Article', 'url': u'FALSE', 'pmid': u'19381256', 'type': 'article', 'journal': u'Public Library Of Science (Plos)'}})
             
 def get_artifacts_metrics(query):
@@ -157,9 +165,10 @@ def get_artifacts_metrics(query):
         artifact_response = build_artifact_response(query[artifact_id])
         if artifact_response:
             response_dict[artifact_id] = artifact_response
-    return(response_dict)
+    error = "NA"
+    return(response_dict, error)
     
-    
+
 def run_plugin(json_in):
     query = parse_input(json_in)
     (artifacts, error) = get_artifacts_metrics(query)
@@ -173,6 +182,10 @@ def main():
     if len(args) != 1:
         parser.error("wrong number of arguments")
     json_in = args[0]
+    
+    #json_in = TEST_INPUT
+    #print(json_in)
+    
     json_out = run_plugin(json_in)
     print json_out
     return(json_out)
