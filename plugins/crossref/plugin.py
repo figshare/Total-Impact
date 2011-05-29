@@ -34,6 +34,10 @@ TEST_GOLD_JSON_RESPONSE_STARTS_WITH = '{"artifacts": {}, "about": {"metrics": {"
 TEST_INPUT = '{"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361","url":"FALSE","pmid":"19381256"}}'
 TEST_GOLD_PARSED_INPUT = {u'10.1371/journal.pcbi.1000361': {u'url': u'FALSE', u'pmid': u'19381256', u'doi': u'10.1371/journal.pcbi.1000361'}}
 
+DOI_LOOKUP_URL = "http://dx.doi.org/%s"
+DEBUG = False
+DOI_PATTERN = re.compile("(10.(\d)+/(\S)+)", re.DOTALL)
+
 def test_build_about():
     response = build_about()
     assert_equals(response, TEST_GOLD_ABOUT)
@@ -59,65 +63,6 @@ def build_json_response(artifacts={}, error="false"):
     json_response = simplejson.dumps(response)
     return(json_response)
 
-def test_build_artifact_good_id():
-    response = build_artifact_response(TEST_GOLD_PARSED_INPUT['10.1371/journal.pcbi.1000361'])
-    assert_equals(response, {'doi': u'10.1371/journal.pcbi.1000361', 'pubdate': None, 'title': u'Adventures In Semantic Publishing: Exemplar Semantic Enhancements Of A Research Article', 'url': u'FALSE', 'pmid': u'19381256', 'type': 'article', 'journal': u'Public Library Of Science (Plos)'})
-
-def get_doi_from_pmid(pmid):
-    return(10)
-
-def get_pmid_from_doi(pmid):
-    return(7)
-    
-def get_metric_results(doi):
-    page = get_parsed_page(doi)
-    if page:
-        response = extract_stats(page, doi)    
-    #return(dict(title="my paper"))    
-    return(response)    
-    
-def build_artifact_response(artifact_query):
-    doi = artifact_query["doi"]
-    pmid = artifact_query["pmid"]
-    url = artifact_query["url"]
-    if not doi and not pmid:
-        return(None)
-    if not doi:
-        doi = get_doi_from_pmid(pmid)
-    if not pmid:
-        pmid = get_pmid_from_doi(doi)
-    response = dict(type="article", pmid=pmid, doi=doi, url=url)    
-    if DOI_PATTERN.search(doi):
-        metrics_response = get_metric_results(doi)        
-        response.update(metrics_response)
-    return(response)
-        
-# crossref code based on example at https://gist.github.com/931878
-DOI_LOOKUP_URL = "http://dx.doi.org/%s"
-DEBUG = False
-DOI_PATTERN = re.compile("(10.(\d)+/(\S)+)", re.DOTALL)
-
-
-def test_parse_input():
-    response = parse_input(TEST_INPUT)
-    assert_equals(response, TEST_GOLD_PARSED_INPUT)
-        
-def parse_input(json_in):
-    query = simplejson.loads(json_in)
-    return(query)
-
-def test_get_metrics():
-    response = get_metrics(TEST_GOLD_PARSED_INPUT)
-    assert_equals(response, {u'10.1371/journal.pcbi.1000361': {'doi': u'10.1371/journal.pcbi.1000361', 'pubdate': None, 'title': u'Adventures In Semantic Publishing: Exemplar Semantic Enhancements Of A Research Article', 'url': u'FALSE', 'pmid': u'19381256', 'type': 'article', 'journal': u'Public Library Of Science (Plos)'}})
-            
-def get_metrics(query):
-    response_dict = dict()
-    for artifact_id in query:
-        artifact_response = build_artifact_response(query[artifact_id])
-        if artifact_response:
-            response_dict[artifact_id] = artifact_response
-    return(response_dict)
-                
 
 def get_parsed_page(doi):
     if not doi:
@@ -136,8 +81,8 @@ def get_parsed_page(doi):
         parsed_page = None
     return(parsed_page)  
 
-
 def extract_stats(parsed_page, doi):
+# crossref extraction code based on example at https://gist.github.com/931878
     if not parsed_page:
         return(None)        
     try:
@@ -161,9 +106,63 @@ def extract_stats(parsed_page, doi):
     response = dict(title=title, journal=journal, pubdate=pubdate)
     return(response)  
 
-def run_plugin(doi):
+def get_doi_from_pmid(pmid):
+    return(10)
+
+def get_pmid_from_doi(pmid):
+    return(7)
+    
+def get_metric_results(doi):
+    page = get_parsed_page(doi)
+    if page:
+        response = extract_stats(page, doi)    
+    #return(dict(title="my paper"))    
+    return(response)    
+
+def test_build_artifact_response():
+    response = build_artifact_response(TEST_GOLD_PARSED_INPUT['10.1371/journal.pcbi.1000361'])
+    assert_equals(response, {'doi': u'10.1371/journal.pcbi.1000361', 'pubdate': None, 'title': u'Adventures In Semantic Publishing: Exemplar Semantic Enhancements Of A Research Article', 'url': u'FALSE', 'pmid': u'19381256', 'type': 'article', 'journal': u'Public Library Of Science (Plos)'})
+    
+def build_artifact_response(artifact_query):
+    doi = artifact_query["doi"]
+    pmid = artifact_query["pmid"]
+    url = artifact_query["url"]
+    if not doi and not pmid:
+        return(None)
+    if not doi:
+        doi = get_doi_from_pmid(pmid)
+    if not pmid:
+        pmid = get_pmid_from_doi(doi)
+    response = dict(type="article", pmid=pmid, doi=doi, url=url)    
+    if DOI_PATTERN.search(doi):
+        metrics_response = get_metric_results(doi)        
+        response.update(metrics_response)
+    return(response)
+    
+def test_parse_input():
+    response = parse_input(TEST_INPUT)
+    assert_equals(response, TEST_GOLD_PARSED_INPUT)
+        
+def parse_input(json_in):
+    query = simplejson.loads(json_in)
+    return(query)
+
+def test_get_artifacts_metrics():
+    response = get_metrics(TEST_GOLD_PARSED_INPUT)
+    assert_equals(response, {u'10.1371/journal.pcbi.1000361': {'doi': u'10.1371/journal.pcbi.1000361', 'pubdate': None, 'title': u'Adventures In Semantic Publishing: Exemplar Semantic Enhancements Of A Research Article', 'url': u'FALSE', 'pmid': u'19381256', 'type': 'article', 'journal': u'Public Library Of Science (Plos)'}})
+            
+def get_artifacts_metrics(query):
+    response_dict = dict()
+    for artifact_id in query:
+        artifact_response = build_artifact_response(query[artifact_id])
+        if artifact_response:
+            response_dict[artifact_id] = artifact_response
+    return(response_dict)
+    
+    
+def run_plugin(json_in):
     query = parse_input(json_in)
-    (artifacts, error) = get_metrics(query)
+    (artifacts, error) = get_artifacts_metrics(query)
     json_out = build_json_response(artifacts, error)
     return(json_out)
 
