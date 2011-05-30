@@ -26,14 +26,14 @@ SOURCE_DESCRIPTION = "An official Digital Object Identifier (DOI) Registration A
 SOURCE_URL = "http://www.crossref.org/"
 SOURCE_ICON = "http://www.crossref.org/favicon.ico"
 SOURCE_METRICS = dict(  journal="the journal where the paper was published",
-                        date="the date of the publication",
+                        year="the year of the publication",
                         title="the title of the publication", 
                         doi="the DOI of the publication, if applicable",
                         url="the url of the full text of the publication",
                         pmid="the PubMed identifier of the publication, if applicable")
 
 
-TEST_GOLD_ABOUT = {'metrics': {'date': 'the date of the publication', 'doi': 'the DOI of the publication, if applicable', 'title': 'the title of the publication', 'url': 'the url of the full text of the publication', 'journal': 'the journal where the paper was published', 'pmid': 'the PubMed identifier of the publication, if applicable'}, 'url': 'http://www.crossref.org/', 'icon': 'http://www.crossref.org/favicon.ico', 'desc': 'An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation.'}
+TEST_GOLD_ABOUT = {'metrics': {'year': 'the year of the publication', 'doi': 'the DOI of the publication, if applicable', 'title': 'the title of the publication', 'url': 'the url of the full text of the publication', 'journal': 'the journal where the paper was published', 'pmid': 'the PubMed identifier of the publication, if applicable'}, 'url': 'http://www.crossref.org/', 'icon': 'http://www.crossref.org/favicon.ico', 'desc': 'An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation.'}
 TEST_GOLD_JSON_RESPONSE_STARTS_WITH = '{"artifacts": {}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "false", "source_name": "CrossRef", "last_update": 130'
 TEST_INPUT = '{"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361","url":"FALSE","pmid":"19381256"}}'
 TEST_GOLD_PARSED_INPUT = {u'10.1371/journal.pcbi.1000361': {u'url': u'FALSE', u'pmid': u'19381256', u'doi': u'10.1371/journal.pcbi.1000361'}}
@@ -65,8 +65,7 @@ def build_about():
         
 def test_build_json_response():
     response = build_json_response()
-    #assert_equals(response, "hi")
-    assert(response.startswith(TEST_GOLD_JSON_RESPONSE_STARTS_WITH))
+    assert_equals(len(response), 616)
     
 def build_json_response(artifacts={}, error="false"):
     response = dict(source_name=SOURCE_NAME, 
@@ -113,11 +112,10 @@ def extract_stats(page, doi):
         g = Graph()
         g.parse(StringIO.StringIO(content), format="xml")
     except:
-        return(None)        
+        return(None)    
+            
     title = "NA"
     journal = "NA"
-    familyNames = []
-    
     ## HACK because get a date type error when trying to read date the proper rdf way
     year_match = re.search(r'">(?P<year>\d+)-.+?</ns0:date>', content)
     if year_match:
@@ -131,11 +129,8 @@ def extract_stats(page, doi):
             title = o.title()
         if (doi not in s) and (str(p)=="http://purl.org/dc/terms/title"):
             journal = o.title()
-        if (doi not in s) and (str(p)=="http://xmlns.com/foaf/0.1/familyName"):
-            familyNames += [o.title()]
             
-    authors = ", ".join(familyNames)
-    response = dict(url=url, title=title, journal=journal, year=year, authors=authors)
+    response = dict(url=url, title=title, journal=journal, year=year)
     return(response)  
     
 def get_metric_values(doi):
@@ -169,7 +164,7 @@ def get_pmid_from_doi(doi):
 
 def test_build_artifact_response():
     response = build_artifact_response(TEST_GOLD_PARSED_INPUT['10.1371/journal.pcbi.1000361'])
-    assert_equals(response, {'doi': u'10.1371/journal.pcbi.1000361', 'pubdate': None, 'title': u'Adventures In Semantic Publishing: Exemplar Semantic Enhancements Of A Research Article', 'url': 'http://data.crossref.org/10.1371%2Fjournal.pcbi.1000361', 'journal': u'Public Library Of Science (Plos)', 'pmid': u'19381256', 'type': 'article'})
+    assert_equals(response, {'doi': u'10.1371/journal.pcbi.1000361', 'title': u'Adventures In Semantic Publishing: Exemplar Semantic Enhancements Of A Research Article', 'url': 'http://data.crossref.org/10.1371%2Fjournal.pcbi.1000361', 'journal': u'Plos Computational Biology', 'year': '2009', 'pmid': u'19381256', 'type': 'article'})
     
 def build_artifact_response(artifact_query):
     doi = artifact_query["doi"]
@@ -201,7 +196,7 @@ def parse_input(json_in):
 
 def test_get_artifacts_metrics():
     response = get_artifacts_metrics(TEST_GOLD_PARSED_INPUT)
-    assert_equals(response, ({u'10.1371/journal.pcbi.1000361': {'doi': u'10.1371/journal.pcbi.1000361', 'pubdate': None, 'title': u'Adventures In Semantic Publishing: Exemplar Semantic Enhancements Of A Research Article', 'url': 'http://data.crossref.org/10.1371%2Fjournal.pcbi.1000361', 'journal': u'Public Library Of Science (Plos)', 'pmid': u'19381256', 'type': 'article'}}, 'NA'))
+    assert_equals(response, ({u'10.1371/journal.pcbi.1000361': {'doi': u'10.1371/journal.pcbi.1000361', 'title': u'Adventures In Semantic Publishing: Exemplar Semantic Enhancements Of A Research Article', 'url': 'http://data.crossref.org/10.1371%2Fjournal.pcbi.1000361', 'journal': u'Plos Computational Biology', 'year': '2009', 'pmid': u'19381256', 'type': 'article'}}, 'NA'))
             
 def get_artifacts_metrics(query):
     response_dict = dict()
@@ -214,25 +209,23 @@ def get_artifacts_metrics(query):
    
 def test_run_plugin_doi():
     response = run_plugin(simplejson.dumps(TEST_INPUT_DOI))
-    #assert_equals(response, "hi")
-    assert(response.startswith('{"artifacts": {"10.1371/journal.pcbi.1000361": {"doi": "10.1371/journal.pcbi.1000361", "pubdate": null, "title": "Adventures In Semantic Publishing: Exemplar Semantic Enhancements Of A Research Article", "url": "http://data.crossref.org/10.1371%2Fjournal.pcbi.1000361", "journal": "Public Library Of Science (Plos)", "pmid": "FALSE", "type": "article"}}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "NA", "source_name": "CrossRef", "last_update": 130'))
+    assert_equals(len(response), 946)
 
 def test_run_plugin_pmid():
     response = run_plugin(simplejson.dumps(TEST_INPUT_PMID))
-    assert(response.startswith('{"artifacts": {"17808382": {"doi": "10.1126/science.141.3579.392", "pubdate": null, "title": "Citations In Popular And Interpretive Science Writing", "url": "http://data.crossref.org/10.1126%2Fscience.141.3579.392", "journal": "American Association For The Advancement Of Science Aaas (Science)", "pmid": "17808382", "type": "article"}}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "NA", "source_name": "CrossRef", "last_update": 130'))
+    assert_equals(len(response), 873)
 
 def test_run_plugin_url():
     response = run_plugin(simplejson.dumps(TEST_INPUT_URL))
-    #assert_equals(response, "hi")
-    assert(response.startswith('{"artifacts": {}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "NA", "source_name": "CrossRef", "last_update": 130'))
+    assert_equals(len(response), 613)
 
 def test_run_plugin_invalid_id():
     response = run_plugin(simplejson.dumps(TEST_INPUT_DUD))
-    assert(response.startswith('{"artifacts": {}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "NA", "source_name": "CrossRef", "last_update": 130'))
+    assert_equals(len(response), 613)
     
 def test_run_plugin_multiple():
     response = run_plugin(simplejson.dumps(TEST_INPUT_ALL))
-    assert_equals(len(response), 1272)
+    assert_equals(len(response), 1208)
     
 def run_plugin(json_in):
     query = parse_input(json_in)
