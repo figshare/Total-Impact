@@ -4,6 +4,7 @@
 
 import re
 from rdflib import Graph
+from rdflib import Namespace
 import StringIO
 from optparse import OptionParser
 import string
@@ -12,8 +13,7 @@ import time
 import nose
 from nose.tools import assert_equals
 import httplib2
-import logging
-logging.basicConfig() # to suppress warning from rdflib
+
     
 def skip(f):
     f.skip = True
@@ -114,17 +114,28 @@ def extract_stats(page, doi):
         g.parse(StringIO.StringIO(content), format="xml")
     except:
         return(None)        
-    title = None
-    journal = None
-    pubdate = None
+    title = "NA"
+    journal = "NA"
+    familyNames = []
+    
+    ## HACK because get a date type error when trying to read date the proper rdf way
+    year_match = re.search(r'">(?P<year>\d+)-.+?</ns0:date>', content)
+    if year_match:
+        year = year_match.group("year")
+    else:
+        year = "NA"
+        
+    ## Do the rest of them the proper RDF way
     for s, p, o in g:
         if (doi in s) and (str(p)=="http://purl.org/dc/terms/title"):
             title = o.title()
-        if (doi in s) and (str(p)=="http://purl.org/dc/terms/publisher"):
+        if (doi not in s) and (str(p)=="http://purl.org/dc/terms/title"):
             journal = o.title()
-        if (doi not in s) and (str(p)=="http://purl.org/dc/terms/date"):
-            pubdate = o.title()
-    response = dict(title=title, journal=journal, pubdate=pubdate, url=url)
+        if (doi not in s) and (str(p)=="http://xmlns.com/foaf/0.1/familyName"):
+            familyNames += [o.title()]
+            
+    authors = ", ".join(familyNames)
+    response = dict(url=url, title=title, journal=journal, year=year, authors=authors)
     return(response)  
     
 def get_metric_values(doi):
@@ -146,9 +157,6 @@ def get_doi_from_pmid(pmid):
         doi = ""
     return(doi)
 
-def get_doi_from_url(url):
-    return("")
-
 def get_pmid_from_doi(doi):
     TOOL_EMAIL = "total-impact@googlegroups.com"
     url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?term=%s&email=%s" % (doi, TOOL_EMAIL)
@@ -166,21 +174,17 @@ def test_build_artifact_response():
 def build_artifact_response(artifact_query):
     doi = artifact_query["doi"]
     pmid = artifact_query["pmid"]
-    url = artifact_query["url"]
-    if doi=="FALSE" and pmid=="FALSE" and url=="FALSE":
+    if doi=="FALSE" and pmid=="FALSE":
         return(None)
     if doi=="FALSE":
-        if pmid!="FALSE":
-            doi = get_doi_from_pmid(pmid)
-        else:
-            doi = get_doi_from_url(url)
+        doi = get_doi_from_pmid(pmid)
+    if pmid=="FALSE":
+        pmid = get_pmid_from_doi(doi)
     if not DOI_PATTERN.search(doi):
         return(None)
     metrics_response = get_metric_values(doi)
-    if not pmid:
-        pmid = get_pmid_from_doi(doi)
     if pmid or metrics_response:
-        response = dict(type="article", pmid=pmid, doi=doi, url=url)    
+        response = dict(type="article", pmid=pmid, doi=doi)    
     else:
         return(None)
     if metrics_response:
@@ -245,7 +249,7 @@ def main():
     json_in = args[0]
     
     # uncomment to test
-    #json_in = simplejson.dumps(TEST_INPUT_ALL)
+    #json_in = simplejson.dumps(TEST_INPUT_DOI)
     #print(json_in)
     
     json_out = run_plugin(json_in)
