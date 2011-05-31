@@ -3,9 +3,7 @@
 # Conforms to API specified here:  https://github.com/mhahnel/Total-Impact/wiki/Plugin-requirements
 
 import re
-from rdflib import Graph
-from rdflib import Namespace
-import StringIO
+from BeautifulSoup import BeautifulStoneSoup
 from optparse import OptionParser
 import string
 import simplejson
@@ -28,12 +26,13 @@ SOURCE_ICON = "http://www.crossref.org/favicon.ico"
 SOURCE_METRICS = dict(  journal="the journal where the paper was published",
                         year="the year of the publication",
                         title="the title of the publication", 
+                        authors="the authors of the publication", 
                         doi="the DOI of the publication, if applicable",
                         url="the url of the full text of the publication",
                         pmid="the PubMed identifier of the publication, if applicable")
 
 
-TEST_GOLD_ABOUT = {'metrics': {'year': 'the year of the publication', 'doi': 'the DOI of the publication, if applicable', 'title': 'the title of the publication', 'url': 'the url of the full text of the publication', 'journal': 'the journal where the paper was published', 'pmid': 'the PubMed identifier of the publication, if applicable'}, 'url': 'http://www.crossref.org/', 'icon': 'http://www.crossref.org/favicon.ico', 'desc': 'An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation.'}
+TEST_GOLD_ABOUT = {'metrics': {'doi': 'the DOI of the publication, if applicable', 'title': 'the title of the publication', 'url': 'the url of the full text of the publication', 'journal': 'the journal where the paper was published', 'authors': 'the authors of the publication', 'year': 'the year of the publication', 'pmid': 'the PubMed identifier of the publication, if applicable'}, 'url': 'http://www.crossref.org/', 'icon': 'http://www.crossref.org/favicon.ico', 'desc': 'An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation.'}
 TEST_GOLD_JSON_RESPONSE_STARTS_WITH = '{"artifacts": {}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "false", "source_name": "CrossRef", "last_update": 130'
 TEST_INPUT = '{"10.1371/journal.pcbi.1000361":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}'
 TEST_GOLD_PARSED_INPUT = {u'10.1371/journal.pcbi.1000361': {u'url': u'FALSE', u'pmid': u'FALSE', u'doi': u'FALSE'}}
@@ -46,7 +45,7 @@ TEST_INPUT_ALL = TEST_INPUT_DUD.copy()
 TEST_INPUT_ALL.update(TEST_INPUT_URL)
 TEST_INPUT_ALL.update(TEST_INPUT_PMID)
 TEST_INPUT_ALL.update(TEST_INPUT_DOI)
-#TEST_INPUT_ALL.update(TEST_INPUT_BAD_DOI)
+TEST_INPUT_ALL.update(TEST_INPUT_BAD_DOI)
 
 DOI_LOOKUP_URL = "http://dx.doi.org/%s"
 DEBUG = False
@@ -67,7 +66,7 @@ def build_about():
         
 def test_build_json_response():
     response = build_json_response()
-    assert_equals(len(response), 616)
+    assert_equals(len(response), 661)
     
 def build_json_response(artifacts={}, error="false"):
     response = dict(source_name=SOURCE_NAME, 
@@ -96,7 +95,7 @@ def get_page(doi):
     if (DEBUG):
         print url
     try:
-        page = get_cache_timeout_response(url, header_addons={'Accept':'application/rdf+xml'})
+        page = get_cache_timeout_response(url, header_addons={'Accept':'application/unixref+xml'})
         if (DEBUG):
             print page
     except:
@@ -111,34 +110,39 @@ def extract_stats(page, doi):
     if not page:
         return(None)        
     (response_header, content) = page
-    try:
-        doi_initial_url = DOI_LOOKUP_URL % doi
-        (redirected_header, redirected_page) = get_cache_timeout_response(doi_initial_url)
-        url = redirected_header["content-location"]
-
-        g = Graph()
-        g.parse(StringIO.StringIO(content), format="xml")
-    except:
-        print 1/0
-        return(None)    
     
-    title = "NA"
-    journal = "NA"
-    ## HACK because get a date type error when trying to read date the proper rdf way
-    year_match = re.search(r'">(?P<year>\d+)-.+?</ns0:date>', content)
-    if year_match:
-        year = year_match.group("year")
-    else:
-        year = "NA"
+    soup = BeautifulStoneSoup(content)
+    try:
+        title = str(soup.title.text)
+        if (title == "DOI Not Found"):
+            return(None)
+    except:
+        title = ""
+
+    try:
+        year = str(soup.year.text)
+    except:
+        year = ""        
         
-    ## Do the rest of them the proper RDF way
-    for s, p, o in g:
-        if (doi in s) and (str(p)=="http://purl.org/dc/terms/title"):
-            title = o.title()
-        if (doi not in s) and (str(p)=="http://purl.org/dc/terms/title"):
-            journal = o.title()
-            
-    response = dict(url=url, title=title, journal=journal, year=year)
+    try:
+        journal = str(soup.abbrev_title.text)
+    except:
+        journal = ""
+        
+    try:
+        authors = ", ".join([str(a.surname.text) for a in soup.findAll(contributor_role="author")])
+    except:
+        authors = ""
+    
+    # To get full text, try to follow the doi url then get the final landing page
+    doi_initial_url = DOI_LOOKUP_URL % doi
+    (redirected_header, redirected_page) = get_cache_timeout_response(doi_initial_url)
+    try:
+        url = redirected_header["content-location"]
+    except:
+        url = ""
+       
+    response = dict(url=url, title=title, journal=journal, year=year, authors=authors)
     return(response)  
     
 def get_metric_values(doi):
@@ -171,8 +175,8 @@ def get_pmid_from_doi(doi):
     return(pmid)
 
 def test_build_artifact_response():
-    response = build_artifact_response(TEST_GOLD_PARSED_INPUT['10.1371/journal.pcbi.1000361'])
-    assert_equals(response, {'doi': u'10.1371/journal.pcbi.1000361', 'title': u'Adventures In Semantic Publishing: Exemplar Semantic Enhancements Of A Research Article', 'url': 'http://data.crossref.org/10.1371%2Fjournal.pcbi.1000361', 'journal': u'Plos Computational Biology', 'year': '2009', 'pmid': u'19381256', 'type': 'article'})
+    response = build_artifact_response('10.1371/journal.pcbi.1000361')
+    assert_equals(response, {'doi': '10.1371/journal.pcbi.1000361', 'title': 'Adventures in Semantic Publishing: Exemplar Semantic Enhancements of a Research Article', 'url': 'http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1000361', 'journal': 'PLoS Comput Biol', 'authors': 'Shotton, Portwin, Klyne, Miles', 'year': '2009', 'pmid': '19381256', 'type': 'article'})
 
 # All CrossRef DOI prefixes begin with "10" followed by a number of four or more digits
 #f rom http://www.crossref.org/02publishers/doi-guidelines.pdf
@@ -198,8 +202,6 @@ def build_artifact_response(artifact_id):
     elif is_pmid(artifact_id):
         pmid = artifact_id
         doi = get_doi_from_pmid(pmid)
-    print("doi", doi)
-    print("pmid", pmid)
     if not is_crossref_doi(doi):
         return(None)
     metrics_response = get_metric_values(doi)
@@ -220,7 +222,7 @@ def parse_input(json_in):
 
 def test_get_artifacts_metrics():
     response = get_artifacts_metrics(TEST_GOLD_PARSED_INPUT)
-    assert_equals(response, ({u'10.1371/journal.pcbi.1000361': {'doi': u'10.1371/journal.pcbi.1000361', 'title': u'Adventures In Semantic Publishing: Exemplar Semantic Enhancements Of A Research Article', 'url': 'http://data.crossref.org/10.1371%2Fjournal.pcbi.1000361', 'journal': u'Plos Computational Biology', 'year': '2009', 'pmid': u'19381256', 'type': 'article'}}, 'NA'))
+    assert_equals(response, ({u'10.1371/journal.pcbi.1000361': {'doi': u'10.1371/journal.pcbi.1000361', 'title': 'Adventures in Semantic Publishing: Exemplar Semantic Enhancements of a Research Article', 'url': 'http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1000361', 'journal': 'PLoS Comput Biol', 'authors': 'Shotton, Portwin, Klyne, Miles', 'year': '2009', 'pmid': '19381256', 'type': 'article'}}, 'NA'))
 
    
     
@@ -242,23 +244,23 @@ def get_artifacts_metrics(query):
    
 def test_run_plugin_doi():
     response = run_plugin(simplejson.dumps(TEST_INPUT_DOI))
-    assert_equals(len(response), 946)
+    assert_equals(len(response), 1050)
 
 def test_run_plugin_pmid():
     response = run_plugin(simplejson.dumps(TEST_INPUT_PMID))
-    assert_equals(len(response), 873)
+    assert_equals(len(response), 934)
 
 def test_run_plugin_url():
     response = run_plugin(simplejson.dumps(TEST_INPUT_URL))
-    assert_equals(len(response), 613)
+    assert_equals(len(response), 658)
 
 def test_run_plugin_invalid_id():
     response = run_plugin(simplejson.dumps(TEST_INPUT_DUD))
-    assert_equals(len(response), 613)
+    assert_equals(len(response), 658)
     
 def test_run_plugin_multiple():
     response = run_plugin(simplejson.dumps(TEST_INPUT_ALL))
-    assert_equals(len(response), 1208)
+    assert_equals(len(response), 1328)
     
 def run_plugin(json_in):
     query = parse_input(json_in)
@@ -275,8 +277,8 @@ def main():
     json_in = args[0]
     
     # uncomment to test
-    json_in = simplejson.dumps(TEST_INPUT_ALL)
-    print(json_in)
+    #json_in = simplejson.dumps(TEST_INPUT_ALL)
+    #print(json_in)
     
     json_out = run_plugin(json_in)
     print json_out
