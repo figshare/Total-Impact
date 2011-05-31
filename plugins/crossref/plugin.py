@@ -35,16 +35,18 @@ SOURCE_METRICS = dict(  journal="the journal where the paper was published",
 
 TEST_GOLD_ABOUT = {'metrics': {'year': 'the year of the publication', 'doi': 'the DOI of the publication, if applicable', 'title': 'the title of the publication', 'url': 'the url of the full text of the publication', 'journal': 'the journal where the paper was published', 'pmid': 'the PubMed identifier of the publication, if applicable'}, 'url': 'http://www.crossref.org/', 'icon': 'http://www.crossref.org/favicon.ico', 'desc': 'An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation.'}
 TEST_GOLD_JSON_RESPONSE_STARTS_WITH = '{"artifacts": {}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "false", "source_name": "CrossRef", "last_update": 130'
-TEST_INPUT = '{"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361","url":"FALSE","pmid":"19381256"}}'
-TEST_GOLD_PARSED_INPUT = {u'10.1371/journal.pcbi.1000361': {u'url': u'FALSE', u'pmid': u'19381256', u'doi': u'10.1371/journal.pcbi.1000361'}}
-TEST_INPUT_DOI = {"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361","url":"FALSE","pmid":"FALSE"}}
-TEST_INPUT_PMID = {"17808382":{"doi":"FALSE","url":"FALSE","pmid":"17808382"}}
-TEST_INPUT_URL = {"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract":{"doi":"FALSE","url":"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract","pmid":"FALSE"}}
+TEST_INPUT = '{"10.1371/journal.pcbi.1000361":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}'
+TEST_GOLD_PARSED_INPUT = {u'10.1371/journal.pcbi.1000361': {u'url': u'FALSE', u'pmid': u'FALSE', u'doi': u'FALSE'}}
+TEST_INPUT_DOI = {"10.1371/journal.pcbi.1000361":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
+TEST_INPUT_BAD_DOI = {"10.1371/abc.abc.123":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
+TEST_INPUT_PMID = {"17808382":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
+TEST_INPUT_URL = {"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
 TEST_INPUT_DUD = {"NotAValidID":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
 TEST_INPUT_ALL = TEST_INPUT_DUD.copy()
 TEST_INPUT_ALL.update(TEST_INPUT_URL)
 TEST_INPUT_ALL.update(TEST_INPUT_PMID)
 TEST_INPUT_ALL.update(TEST_INPUT_DOI)
+#TEST_INPUT_ALL.update(TEST_INPUT_BAD_DOI)
 
 DOI_LOOKUP_URL = "http://dx.doi.org/%s"
 DEBUG = False
@@ -101,19 +103,25 @@ def get_page(doi):
         page = None
     return(page)
 
+# I think we can eventually get authors from this format:
+## curl -D - -L -H "Accept: application/unixref+xml" "http://dx.doi.org/10.1126/science.1157784" 
+
 def extract_stats(page, doi):
     # crossref extraction code based on example at https://gist.github.com/931878
     if not page:
         return(None)        
     (response_header, content) = page
-    
     try:
-        url = response_header["content-location"]
+        doi_initial_url = DOI_LOOKUP_URL % doi
+        (redirected_header, redirected_page) = get_cache_timeout_response(doi_initial_url)
+        url = redirected_header["content-location"]
+
         g = Graph()
         g.parse(StringIO.StringIO(content), format="xml")
     except:
+        print 1/0
         return(None)    
-            
+    
     title = "NA"
     journal = "NA"
     ## HACK because get a date type error when trying to read date the proper rdf way
@@ -165,23 +173,39 @@ def get_pmid_from_doi(doi):
 def test_build_artifact_response():
     response = build_artifact_response(TEST_GOLD_PARSED_INPUT['10.1371/journal.pcbi.1000361'])
     assert_equals(response, {'doi': u'10.1371/journal.pcbi.1000361', 'title': u'Adventures In Semantic Publishing: Exemplar Semantic Enhancements Of A Research Article', 'url': 'http://data.crossref.org/10.1371%2Fjournal.pcbi.1000361', 'journal': u'Plos Computational Biology', 'year': '2009', 'pmid': u'19381256', 'type': 'article'})
+
+# All CrossRef DOI prefixes begin with "10" followed by a number of four or more digits
+#f rom http://www.crossref.org/02publishers/doi-guidelines.pdf
+CROSSREF_DOI_PATTERN = re.compile(r"^10\.(\d)+/(\S)+$", re.DOTALL)
+def is_crossref_doi(id):
+    response = (CROSSREF_DOI_PATTERN.search(id) != None)
+    return(response)
     
-def build_artifact_response(artifact_query):
-    doi = artifact_query["doi"]
-    pmid = artifact_query["pmid"]
-    if doi=="FALSE" and pmid=="FALSE":
-        return(None)
-    if doi=="FALSE":
-        doi = get_doi_from_pmid(pmid)
-    if pmid=="FALSE":
+# PMIDs are 1 to 8 digit numbers, as per http://www.nlm.nih.gov/bsd/mms/medlineelements.html#pmid    
+PMID_PATTERN = re.compile(r"^\d{1,8}$", re.DOTALL)
+def is_pmid(id):
+    response = (PMID_PATTERN.search(id) != None)
+    return(response)
+            
+def artifact_type_recognized(id):
+    is_recognized = (is_crossref_doi(id) or is_pmid(id))
+    return(is_recognized)   
+        
+def build_artifact_response(artifact_id):
+    if is_crossref_doi(artifact_id):
+        doi = artifact_id
         pmid = get_pmid_from_doi(doi)
-    if not DOI_PATTERN.search(doi):
+    elif is_pmid(artifact_id):
+        pmid = artifact_id
+        doi = get_doi_from_pmid(pmid)
+    print("doi", doi)
+    print("pmid", pmid)
+    if not is_crossref_doi(doi):
         return(None)
     metrics_response = get_metric_values(doi)
-    if pmid or metrics_response:
-        response = dict(type="article", pmid=pmid, doi=doi)    
-    else:
+    if not pmid and not metrics_response:
         return(None)
+    response = dict(type="article", pmid=pmid, doi=doi)    
     if metrics_response:
         response.update(metrics_response)
     return(response)
@@ -197,14 +221,23 @@ def parse_input(json_in):
 def test_get_artifacts_metrics():
     response = get_artifacts_metrics(TEST_GOLD_PARSED_INPUT)
     assert_equals(response, ({u'10.1371/journal.pcbi.1000361': {'doi': u'10.1371/journal.pcbi.1000361', 'title': u'Adventures In Semantic Publishing: Exemplar Semantic Enhancements Of A Research Article', 'url': 'http://data.crossref.org/10.1371%2Fjournal.pcbi.1000361', 'journal': u'Plos Computational Biology', 'year': '2009', 'pmid': u'19381256', 'type': 'article'}}, 'NA'))
-            
+
+   
+    
+MAX_TIME = 30 # seconds, part of plugin specification
+## Crossref API doesn't seem to have limits, though we should check every few months to make sure still true            
 def get_artifacts_metrics(query):
     response_dict = dict()
-    for artifact_id in query:
-        artifact_response = build_artifact_response(query[artifact_id])
-        if artifact_response:
-            response_dict[artifact_id] = artifact_response
     error = "NA"
+    time_started = time.time()
+    for artifact_id in query:
+        if artifact_type_recognized(artifact_id):
+            artifact_response = build_artifact_response(artifact_id)
+            if artifact_response:
+                response_dict[artifact_id] = artifact_response
+        if (time.time() - time_started > MAX_TIME):
+            error = "TIMEOUT"
+            break
     return(response_dict, error)
    
 def test_run_plugin_doi():
@@ -242,8 +275,8 @@ def main():
     json_in = args[0]
     
     # uncomment to test
-    #json_in = simplejson.dumps(TEST_INPUT_DOI)
-    #print(json_in)
+    json_in = simplejson.dumps(TEST_INPUT_ALL)
+    print(json_in)
     
     json_out = run_plugin(json_in)
     print json_out
