@@ -30,7 +30,7 @@
             research artifacts. It grabs metrics from many different sites all in one place.
             </p>
         </div>
-
+        
         <?php
         if (isset($_POST['submitted'])){
             echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
