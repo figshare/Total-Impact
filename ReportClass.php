@@ -60,6 +60,11 @@ class ReportClass {
         }
 
     }
+    public function omgNetbeansIsSoFuckingSlow($foo){
+        echo "ok, why the fuck are you so fucking slow, netbeans?";
+        echo "is this so slow it will kill me, or not?";
+        
+    }
 
 
     private function printArtifactType($name, $artifacts){
