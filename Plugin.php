@@ -6,6 +6,7 @@
  */
 class Plugin extends Zend_Http_Client {
     private $name;
+    private $artifactIds;
 
     public function getName() {
         return $this->name;
@@ -13,6 +14,11 @@ class Plugin extends Zend_Http_Client {
     public function setName($name) {
         $this->name = $name;
     }
+    public function setArtifactIds($artifactIds) {
+        $this->artifactIds = $artifactIds;
+    }
+
+
 
 
 }

@@ -10,9 +10,11 @@ class Collection {
     private $title;
     private $idsStr;
     private $couch;
+    private $plugin;
     
-    function __construct(Couch_Client $couch) {
+    function __construct(Couch_Client $couch, Plugin $plugin) {
         $this->couch = $couch;
+        $this->plugin = $plugin;
     }
 
     /**
@@ -21,7 +23,7 @@ class Collection {
      * @param CollectionInput $input
      * @return Object couchdb response object
      */
-    function make(CollectionInput $input) {
+    public function make(CollectionInput $input) {
         
         // build the object
         $ts = time();
@@ -37,6 +39,18 @@ class Collection {
         // put it in couchdb
         $response = $this->couch->storeDoc($this->doc);
         return $response;
+    }
+
+    public function updateCollection() {
+        $res = $this->couch
+                ->limit(1)
+                ->key('mySourceName')
+                ->include_docs(true)
+                ->getView("main", "to_update");
+
+
+
+        
     }
     
 }

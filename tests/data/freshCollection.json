@@ -1,3 +1,12 @@
 {
-    "name": "jason"
+    "_id": "abcdef",
+    "_rev": "somereallylongstringlikethis",
+    "title": "my title",
+    "created_at": "1234567890",
+    "artifact_ids": [
+        "10.1371/journal.pcbi.1000361",
+        "17808382"
+    ],
+    "sources":{}
+
 }
