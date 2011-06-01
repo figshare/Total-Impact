@@ -5,13 +5,13 @@
  * @author jason
  */
 class CollectionInput {
-   private $title;
+   private $collectionTitle;
    private $idsStr;
    private $artifactIds;
    private $collectionId;
 
    function __construct($title, $idsStr) {
-       $this->title = $title;
+       $this->collectionTitle = $title;
        $this->idsStr = $idsStr;
        $this->artifactIds = $this->idsFromStr($idsStr);
        $this->collectionId = $this->randStr(5);
@@ -23,7 +23,11 @@ class CollectionInput {
    public function getCollectionId() {
        return $this->collectionId;
    }
+   public function getCollectionTitle() {
+       return $this->collectionTitle;
+   }
 
+   
    
 
    /**
