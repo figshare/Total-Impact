@@ -279,17 +279,18 @@ def run_plugin(json_in):
     json_out = build_json_response(artifacts, error_msg)
     return(json_out)
 
+# can call "python plugin.py" from command line, no args, to get sample output
 def main():
     parser = OptionParser(usage="usage: %prog [options] filename",
                           version="%prog 1.0")
     (options, args) = parser.parse_args()
-    if len(args) != 1:
-        parser.error("wrong number of arguments")
-    json_in = args[0]
-    
-    # uncomment to test
-    #json_in = simplejson.dumps(TEST_INPUT_ALL)
-    #print(json_in)
+    if len(args) == 1:
+        json_in = args[0]
+    else:    
+        json_in = simplejson.dumps(TEST_INPUT_ALL)
+        print("Didn't get any input args, so going to use sample input: ")
+        print(json_in)
+        print()
     
     json_out = run_plugin(json_in)
     print json_out
@@ -299,7 +300,6 @@ if __name__ == '__main__':
     main() 
             
 #test_input = "10.1371/journal.pcbi.1000361"
-
 
     
         
