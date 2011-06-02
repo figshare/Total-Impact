@@ -23,18 +23,13 @@ class CollectionTest extends PHPUnit_Framework_TestCase {
      * helper to get json-encoded test data
      */
     function getData($fileName){
-            return json_decode(file_get_contents('./data/' . $fileName . '.json'));
+        $fileContents = file_get_contents('./data/' . $fileName . '.json');
+        $commentsRemoved = preg_replace('# //.+?$#m', '', $fileContents);
+        echo $commentsRemoved;
+        return json_decode($commentsRemoved);
     }
 
-    /*
-     * helper to allow testing of chained methods
-     */
-    function makeChainable($class){
-        $class->expects($this->any())
-                ->method($this->anything())
-                ->will($this->returnValue($class));
-        return $class;
-    }
+
 
     function testMake() {
         $couch = $this->couch;

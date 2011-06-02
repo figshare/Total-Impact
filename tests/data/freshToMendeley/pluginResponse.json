@@ -1,8 +1,8 @@
 {
    "source_name": "Mendeley",
-   "last_update": "1306599479",
-   "has_error": false,
-   "error_msg": "NA",
+   "last_update": "1306599479", // unix timestamp as string
+   "has_error": false, // (bool, not str) or TRUE if there is a valid error_msg
+   "error_msg": "NA", // message string if has_error=="TRUE", like "API limit reached"
    "about": {
       "descr": "A research management tool for desktop and web.",
       "url": "http://www.mendeley.com/",
@@ -12,10 +12,10 @@
          "groups": "the number of groups the article is in"
       }
    },
-   "artifacts": {
+   "artifacts": { // only return artifacts the plugin can grok (eg, this plugin would discard URLs)
       "10.1371/journal.pbio.0060048": {
-         "type": "article",
-         "readers": 24,
+         "type": "article", // required for all plugins; all other attributes are plugin-specific, and match the list in about.metrics
+         "readers": 24, // can be number(±int, 0, float), string, or array of objects (tweets, for instance)
          "groups": 3
       },
       "10.1371/journal.pone.00008109": {
