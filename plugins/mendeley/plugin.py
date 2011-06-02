@@ -104,7 +104,7 @@ def artifact_type_recognized(id):
 ## this changes for every plugin        
 def test_build_artifact_response():
     response = build_artifact_response('10.1371/journal.pmed.0040215')
-    assert_equals(response, {'doi': '10.1371/journal.pmed.0040215', 'type': 'article', 'groups': 1, 'readers': 42})
+    assert_equals(response, {'type': 'article', 'groups': 1, 'readers': 42})
         
 ## this changes for every plugin        
 def build_artifact_response(artifact_id):
@@ -118,14 +118,14 @@ def build_artifact_response(artifact_id):
     metrics_response = get_metric_values(doi)
     if not metrics_response:
         return(None)        
-    response = dict(type="article", doi=doi)    
+    response = dict(type="article")    
     response.update(metrics_response)
     return(response)
 
 ## this changes for every plugin        
 def test_get_artifacts_metrics():
     response = get_artifacts_metrics(TEST_GOLD_PARSED_INPUT)
-    assert_equals(response, ({u'10.1371/journal.pcbi.1000361': {'doi': u'10.1371/journal.pcbi.1000361', 'type': 'article', 'groups': 1, 'readers': 19}}, None))
+    assert_equals(response, ({u'10.1371/journal.pcbi.1000361': {'type': 'article', 'groups': 1, 'readers': 19}}, None))
     
 ## every plugin should check API limitations and make sure they are respected here
 ## check Mendeley requirements!
@@ -210,7 +210,7 @@ def get_metric_values(doi):
 def test_run_plugin_doi():
     response = run_plugin(simplejson.dumps(TEST_INPUT_DOI))
     print response
-    assert_equals(len(response), 497)
+    assert_equals(len(response), 458)
 
 def test_run_plugin_pmid():
     response = run_plugin(simplejson.dumps(TEST_INPUT_PMID))
@@ -230,7 +230,7 @@ def test_run_plugin_invalid_id():
 def test_run_plugin_multiple():
     response = run_plugin(simplejson.dumps(TEST_INPUT_ALL))
     print response
-    assert_equals(len(response), 497)
+    assert_equals(len(response), 458)
     
 def run_plugin(json_in):
     query = parse_input(json_in)
