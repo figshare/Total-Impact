@@ -45,7 +45,8 @@ TEST_INPUT_ALL.update(TEST_INPUT_DOI)
 TEST_INPUT_ALL.update(TEST_INPUT_BAD_DOI)
 
 DEBUG = False
-MAX_ELAPSED_TIME = 30 # seconds, part of plugin specification
+
+MAX_ELAPSED_TIME = 30 # seconds, part of plugin API specification
 
 # All CrossRef DOI prefixes begin with "10" followed by a number of four or more digits
 #f rom http://www.crossref.org/02publishers/doi-guidelines.pdf
@@ -95,11 +96,12 @@ def is_mendeley_doi(id):
     response = (CROSSREF_DOI_PATTERN.search(id) != None)
     return(response)
     
-#this changes for every plugin            
+# each plugin needs to write relevant versions of this            
 def artifact_type_recognized(id):
     is_recognized = is_mendeley_doi(id)
     return(is_recognized)   
 
+## this changes for every plugin        
 def test_build_artifact_response():
     response = build_artifact_response('10.1371/journal.pmed.0040215')
     assert_equals(response, {'doi': '10.1371/journal.pmed.0040215', 'type': 'article', 'groups': 1, 'readers': 42})
@@ -120,11 +122,13 @@ def build_artifact_response(artifact_id):
     response.update(metrics_response)
     return(response)
 
+## this changes for every plugin        
 def test_get_artifacts_metrics():
     response = get_artifacts_metrics(TEST_GOLD_PARSED_INPUT)
     assert_equals(response, ({u'10.1371/journal.pcbi.1000361': {'doi': u'10.1371/journal.pcbi.1000361', 'type': 'article', 'groups': 1, 'readers': 19}}, None))
     
 ## every plugin should check API limitations and make sure they are respected here
+## check Mendeley requirements!
 def get_artifacts_metrics(query):
     response_dict = dict()
     error_msg = None
@@ -187,7 +191,6 @@ def get_cache_timeout_response(url,
                                 http_timeout_in_seconds = 20, 
                                 max_cache_age_seconds = (1) * (24 * 60 * 60), # (number of days) * (number of seconds in a day), 
                                 header_addons = {}):
-    """docstring for fname"""
     http_cached = httplib2.Http(".cache", timeout=http_timeout_in_seconds)
     header_dict = {'cache-control':'max-age='+str(max_cache_age_seconds)}
     header_dict.update(header_addons)
@@ -203,6 +206,7 @@ def get_metric_values(doi):
         response = None
     return(response)        
            
+#each plugin should make sure its range of inputs are covered
 def test_run_plugin_doi():
     response = run_plugin(simplejson.dumps(TEST_INPUT_DOI))
     print response
