@@ -5,8 +5,10 @@
     "created_at": "1234567890",
     "artifact_ids": [
         "10.1371/journal.pcbi.1000361",
-        "17808382"
+        "pmid/17808382",
+        "http://www.slideshare.net/phylogenomics/eisen"
     ],
-    "sources":{}
+    "sources":{},
+    "updates":{}
 
 }

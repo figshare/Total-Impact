@@ -14,8 +14,16 @@ class Plugin extends Zend_Http_Client {
     public function setName($name) {
         $this->name = $name;
     }
-    public function setArtifactIds($artifactIds) {
+    public function setArtifactIds(stdClass $artifactIds) {
         $this->artifactIds = $artifactIds;
+    }
+    public function fetchData(){
+        if (!isset($this->artifactIds)){
+            throw new Exception("There are no artifact IDs loaded to send the Source API.");
+        }
+        parent::setRawData(json_encode($this->artifactIds), 'text/json');
+        return parent::request("POST");
+
     }
 
 

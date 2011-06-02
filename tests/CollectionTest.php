@@ -9,27 +9,21 @@ class CollectionTest extends PHPUnit_Framework_TestCase {
     private $couch;
     private $collectionToUpdate;
     
-    private $testData;
     
     
     function setUp(){
-        $testDataFiles = array(
-            "collectionWithCrossRef",
-            "crossRefPluginResponse",
-            "freshCollection",
-            "to_updateCouchResponse"
-        );
-
-        $this->testData = new stdClass();
-        foreach ($testDataFiles as $file) {
-            $testDataFromFile = json_decode(file_get_contents('./data/' . $file . '.json'));
-            $this->testData->$file = $testDataFromFile;
-        }
-
         $this->couch = $this->getMockBuilder('Couch_Client')
              ->disableOriginalConstructor()
              ->getMock();
+        $this->fakeCouch = new FakeCouch();
         
+    }
+
+    /*
+     * helper to get json-encoded test data
+     */
+    function getData($fileName){
+            return json_decode(file_get_contents('./data/' . $fileName . '.json'));
     }
 
     /*
@@ -59,20 +53,35 @@ class CollectionTest extends PHPUnit_Framework_TestCase {
         $collection->make($input);
     }
 
-    function testUpdateCollectionPreparesPlugin(){
-        $this->couch->expects($this->once())
-                ->method('getView')
-                ->with("main", "to_update")
-                ->will($this->returnValue($this->testData->to_updateCouchResponse));
-        $this->couch = $this->makeChainable($this->couch);
+    function testUpdateCollection(){
+        $to_updateResponse = $this->getData('fresh/to_update');
+        $myPluginQuery = $this->getData('fresh/myPluginQuery');
+        $myPluginResponse = $this->getData('fresh/myPluginResponse');
+        $updatedDoc = $this->getData('fresh/updatedDoc');
+        
+
+        $this->fakeCouch->setViewReturns(array($to_updateResponse));
         
         $plugin = $this->getMock("Plugin");
-//        $plugin->expects($this->once())
-//                ->method('setArtifactIds');
+        $plugin->expects($this->once())
+                ->method('setArtifactIds')
+                ->with($myPluginQuery);
+        $plugin->expects($this->any())
+                ->method('getName')
+                ->will($this->returnValue("myPlugin"));
+        $plugin->expects($this->once())
+                ->method('fetchData')
+                ->will($this->returnValue($myPluginResponse));
 
-        $collection = new collection ($this->couch, $plugin);
-        $collection->updateCollection();
+
+        $collection = new collection ($this->fakeCouch, $plugin);
+        $collection->updatedQueuedCollection("1306821630");
+        $this->assertEquals(
+                $updatedDoc,
+                $collection->getCouch()->getStoredDocs(0)
+                );
     }
+
 
 
 

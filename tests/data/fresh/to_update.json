@@ -1,0 +1,42 @@
+{
+    "total_rows": 1,
+    "offset": 0,
+    "rows": [
+        {
+            "_id":"abcdef",
+            "key": "myPlugin",
+            "value": {
+                "10.1126/science.141.3579.392": {
+                    "doi":false,
+                    "url": false,
+                    "pmid": false
+                },
+                "pmid/17808382": {
+                    "doi":false,
+                    "url": false,
+                    "pmid": false
+                },
+                "http://www.slideshare.net/phylogenomics/eisen": {
+                    "doi":false,
+                    "url": false,
+                    "pmid": false
+                }
+
+
+            },
+            "doc":{
+                "_id": "abcdef",
+                "_rev": "somereallylongstringlikethis",
+                "title": "my title",
+                "created_at": "1234567890",
+                "artifact_ids": [
+                    "10.1371/journal.pcbi.1000361",
+                    "pmid/17808382",
+                    "http://www.slideshare.net/phylogenomics/eisen"
+                ],
+                "sources":{},
+                "updates":{}
+            }
+        }
+    ]
+}

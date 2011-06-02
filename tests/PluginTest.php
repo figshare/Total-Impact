@@ -10,17 +10,17 @@ class PluginTest extends PHPUnit_Framework_TestCase {
         $this->obj = new Plugin();
     }
 
-    // yes, testing getters and setters is stupid. This here because I think
-    //      we may want more tests on this later.
-    function testSetName(){
-        $name = "my plugin name";
-        $this->obj->setName($name);
-        $this->assertEquals(
-                $name,
-                $this->obj->getName()
-                );
-        
+
+    /**
+     * A goofy basic test to make sure that I got inheritance right
+     */
+    function testFetchData(){
+        $this->obj->setArtifactIds(new stdClass);
+        $this->obj->setUri("http://www.example.com");
+        $this->obj->fetchData();
     }
+
+
 }
 
 ?>
