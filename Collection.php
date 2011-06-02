@@ -21,7 +21,6 @@ class Collection {
     public function getCouch() {
         return $this->couch;
     }
-
     
     /**
      * Creates a new collection based on user input
