@@ -11,7 +11,6 @@ import time
 import nose
 from nose.tools import assert_equals
 import httplib2
-
     
 def skip(f):
     f.skip = True
@@ -149,8 +148,8 @@ def extract_stats(page, doi):
     
     # To get full text, try to follow the doi url then get the final landing page
     doi_initial_url = DOI_LOOKUP_URL % doi
-    (redirected_header, redirected_page) = get_cache_timeout_response(doi_initial_url)
     try:
+        (redirected_header, redirected_page) = get_cache_timeout_response(doi_initial_url)
         url = redirected_header["content-location"]
     except:
         url = ""
