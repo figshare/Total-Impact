@@ -49,9 +49,10 @@ TEST_INPUT_ALL.update(TEST_INPUT_BAD_DOI)
 
 DOI_LOOKUP_URL = "http://dx.doi.org/%s"
 DEBUG = False
+
 # All CrossRef DOI prefixes begin with "10" followed by a number of four or more digits
 #f rom http://www.crossref.org/02publishers/doi-guidelines.pdf
-DOI_PATTERN = re.compile("(10.(\d)+/(\S)+)", re.DOTALL)
+CROSSREF_DOI_PATTERN = re.compile(r"^10\.(\d)+/(\S)+$", re.DOTALL)
 
 def test_build_about():
     response = build_about()
@@ -190,9 +191,6 @@ def test_build_artifact_response():
     response = build_artifact_response('10.1371/journal.pcbi.1000361')
     assert_equals(response, {'doi': '10.1371/journal.pcbi.1000361', 'title': 'Adventures in Semantic Publishing: Exemplar Semantic Enhancements of a Research Article', 'url': 'http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1000361', 'journal': 'PLoS Comput Biol', 'authors': 'Shotton, Portwin, Klyne, Miles', 'year': '2009', 'pmid': '19381256', 'type': 'article'})
 
-# All CrossRef DOI prefixes begin with "10" followed by a number of four or more digits
-#f rom http://www.crossref.org/02publishers/doi-guidelines.pdf
-CROSSREF_DOI_PATTERN = re.compile(r"^10\.(\d)+/(\S)+$", re.DOTALL)
 def is_crossref_doi(id):
     response = (CROSSREF_DOI_PATTERN.search(id) != None)
     return(response)
@@ -289,7 +287,7 @@ def main():
         json_in = simplejson.dumps(TEST_INPUT_ALL)
         print("Didn't get any input args, so going to use sample input: ")
         print(json_in)
-        print()
+        print("")
     
     json_out = run_plugin(json_in)
     print json_out
