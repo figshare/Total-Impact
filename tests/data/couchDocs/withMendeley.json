@@ -1,0 +1,43 @@
+{
+    "_id": "abcdef",
+    "_rev": "revStr",
+    "title": "my title",
+    "created_at": "1234567890",
+    "artifact_ids": [
+        "10.1371/journal.pbio.0060048",
+        "10.1371/journal.pone.00008109",
+        "http://www.slideshare.net/phylogenomics/eisen"
+    ],
+    "sources":{
+        "mendeley": {
+           "source_name": "Mendeley",
+           "last_update": "1306599479", 
+           "has_error": false,
+           "error_msg": "NA",
+           "about": {
+              "descr": "A research management tool for desktop and web.",
+              "url": "http://www.mendeley.com/",
+              "icon": "http://www.mendeley.com/favicon.ico",
+              "metrics": {
+                 "readers": "the number of readers of the article",
+                 "groups": "the number of groups the article is in"
+              }
+           },
+           "artifacts": {
+              "10.1371/journal.pbio.0060048": {
+                 "type": "article",
+                 "readers": 24,
+                 "groups": 3
+              },
+              "10.1371/journal.pone.00008109": {
+                 "type": "article",
+                 "readers": 0,
+                 "groups": 0
+              }
+           }
+        }
+    },
+    "updates":{
+        "mendeley":"1306821630"
+    }
+}

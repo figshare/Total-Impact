@@ -4,14 +4,14 @@
     "rows": [
         {
             "_id":"abcdef",
-            "key": "myPlugin",
+            "key": "mendeley",
             "value": {
-                "10.1126/science.141.3579.392": {
+                "10.1371/journal.pbio.0060048": {
                     "doi":false,
                     "url": false,
                     "pmid": false
                 },
-                "pmid/17808382": {
+                "10.1371/journal.pone.00008109": {
                     "doi":false,
                     "url": false,
                     "pmid": false
@@ -26,12 +26,12 @@
             },
             "doc":{
                 "_id": "abcdef",
-                "_rev": "somereallylongstringlikethis",
+                "_rev": "revStr",
                 "title": "my title",
                 "created_at": "1234567890",
                 "artifact_ids": [
-                    "10.1371/journal.pcbi.1000361",
-                    "pmid/17808382",
+                    "10.1371/journal.pbio.0060048",
+                    "10.1371/journal.pone.00008109",
                     "http://www.slideshare.net/phylogenomics/eisen"
                 ],
                 "sources":{},

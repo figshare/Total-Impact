@@ -53,11 +53,12 @@ class CollectionTest extends PHPUnit_Framework_TestCase {
         $collection->make($input);
     }
 
+
     function testUpdateCollection(){
-        $to_updateResponse = $this->getData('fresh/to_update');
-        $myPluginQuery = $this->getData('fresh/myPluginQuery');
-        $myPluginResponse = $this->getData('fresh/myPluginResponse');
-        $updatedDoc = $this->getData('fresh/updatedDoc');
+        $to_updateResponse = $this->getData('freshToMendeley/to_updateResponse');
+        $myPluginQuery = $this->getData('freshToMendeley/pluginQuery');
+        $myPluginResponse = $this->getData('freshToMendeley/pluginResponse');
+        $updatedDoc = $this->getData('couchDocs/withMendeley');
         
 
         $this->fakeCouch->setViewReturns(array($to_updateResponse));
@@ -68,7 +69,7 @@ class CollectionTest extends PHPUnit_Framework_TestCase {
                 ->with($myPluginQuery);
         $plugin->expects($this->any())
                 ->method('getName')
-                ->will($this->returnValue("myPlugin"));
+                ->will($this->returnValue("mendeley"));
         $plugin->expects($this->once())
                 ->method('fetchData')
                 ->will($this->returnValue($myPluginResponse));
