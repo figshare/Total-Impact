@@ -17,6 +17,7 @@ def skip(f):
     f.skip = True
     return f
                 
+# To do automated tests with nosy                
 # nosy plugin.py -A \'not skip\'
                 
 SOURCE_NAME = "CrossRef"
@@ -66,12 +67,24 @@ def build_about():
         
 def test_build_json_response():
     response = build_json_response()
-    assert_equals(len(response), 661)
+    response_no_timestamp = re.sub('130\d+', '130', response)
+    assert_equals(response_no_timestamp, '{"about": {"metrics": {"doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "authors": "the authors of the publication", "year": "the year of the publication", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "source_name": "CrossRef", "artifacts": {}, "error_msg": "NA", "has_error": "FALSE", "last_update": "130"}')
+
+def test_build_json_response_error_handling():
+    response = build_json_response({}, "TIMEOUT")
+    response_no_timestamp = re.sub('130\d+', '130', response)
+    assert_equals(response_no_timestamp, '{"about": {"metrics": {"doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "authors": "the authors of the publication", "year": "the year of the publication", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "source_name": "CrossRef", "artifacts": {}, "error_msg": "TIMEOUT", "has_error": "TRUE", "last_update": "130"}')
     
-def build_json_response(artifacts={}, error="false"):
+def build_json_response(artifacts={}, error_msg=None):
+    if (error_msg):
+        has_error = "TRUE"
+    else:
+        has_error = "FALSE"
+        error_msg = "NA"
     response = dict(source_name=SOURCE_NAME, 
-        last_update=int(time.time()),
-        error=error, 
+        last_update=str(int(time.time())),
+        has_error=has_error,
+        error_msg=error_msg, 
         about=build_about(),
         artifacts=artifacts)
     json_response = simplejson.dumps(response)
@@ -222,15 +235,13 @@ def parse_input(json_in):
 
 def test_get_artifacts_metrics():
     response = get_artifacts_metrics(TEST_GOLD_PARSED_INPUT)
-    assert_equals(response, ({u'10.1371/journal.pcbi.1000361': {'doi': u'10.1371/journal.pcbi.1000361', 'title': 'Adventures in Semantic Publishing: Exemplar Semantic Enhancements of a Research Article', 'url': 'http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1000361', 'journal': 'PLoS Comput Biol', 'authors': 'Shotton, Portwin, Klyne, Miles', 'year': '2009', 'pmid': '19381256', 'type': 'article'}}, 'NA'))
-
-   
+    assert_equals(response, ({u'10.1371/journal.pcbi.1000361': {'doi': u'10.1371/journal.pcbi.1000361', 'title': 'Adventures in Semantic Publishing: Exemplar Semantic Enhancements of a Research Article', 'url': 'http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1000361', 'journal': 'PLoS Comput Biol', 'authors': 'Shotton, Portwin, Klyne, Miles', 'year': '2009', 'pmid': '19381256', 'type': 'article'}}, None))
     
 MAX_TIME = 30 # seconds, part of plugin specification
 ## Crossref API doesn't seem to have limits, though we should check every few months to make sure still true            
 def get_artifacts_metrics(query):
     response_dict = dict()
-    error = "NA"
+    error_msg = None
     time_started = time.time()
     for artifact_id in query:
         if artifact_type_recognized(artifact_id):
@@ -238,34 +249,34 @@ def get_artifacts_metrics(query):
             if artifact_response:
                 response_dict[artifact_id] = artifact_response
         if (time.time() - time_started > MAX_TIME):
-            error = "TIMEOUT"
+            error_msg = "TIMEOUT"
             break
-    return(response_dict, error)
+    return(response_dict, error_msg)
    
 def test_run_plugin_doi():
     response = run_plugin(simplejson.dumps(TEST_INPUT_DOI))
-    assert_equals(len(response), 1050)
+    assert_equals(len(response), 1078)
 
 def test_run_plugin_pmid():
     response = run_plugin(simplejson.dumps(TEST_INPUT_PMID))
-    assert_equals(len(response), 934)
+    assert_equals(len(response), 962)
 
 def test_run_plugin_url():
     response = run_plugin(simplejson.dumps(TEST_INPUT_URL))
-    assert_equals(len(response), 658)
+    assert_equals(len(response), 686)
 
 def test_run_plugin_invalid_id():
     response = run_plugin(simplejson.dumps(TEST_INPUT_DUD))
-    assert_equals(len(response), 658)
+    assert_equals(len(response), 686)
     
 def test_run_plugin_multiple():
     response = run_plugin(simplejson.dumps(TEST_INPUT_ALL))
-    assert_equals(len(response), 1328)
+    assert_equals(len(response), 1356)
     
 def run_plugin(json_in):
     query = parse_input(json_in)
-    (artifacts, error) = get_artifacts_metrics(query)
-    json_out = build_json_response(artifacts, error)
+    (artifacts, error_msg) = get_artifacts_metrics(query)
+    json_out = build_json_response(artifacts, error_msg)
     return(json_out)
 
 def main():
