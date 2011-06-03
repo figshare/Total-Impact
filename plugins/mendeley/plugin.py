@@ -33,7 +33,8 @@ SOURCE_METRICS = dict(  readers="the number of readers of the article",
 TEST_GOLD_ABOUT = {'metrics': {'groups': 'the number of groups of the article', 'readers': 'the number of readers of the article'}, 'url': 'http://www.mendeley.com/', 'icon': 'http://www.mendeley.com/favicon.ico', 'desc': 'A research management tool for desktop and web.'}
 TEST_GOLD_JSON_RESPONSE_STARTS_WITH = '{"artifacts": {}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "false", "source_name": "CrossRef", "last_update": 130'
 TEST_INPUT = '{"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361","url":"FALSE","pmid":"FALSE"}}'
-TEST_GOLD_PARSED_INPUT = {u'10.1371/journal.pcbi.1000361': {u'url': u'FALSE', u'pmid': u'FALSE', u'doi': u'10.1371/journal.pcbi.1000361'}}
+TEST_GOLD_PARSED_INPUT = eval(TEST_INPUT)
+
 TEST_INPUT_DOI = {"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361","url":"FALSE","pmid":"FALSE"}}
 TEST_INPUT_DRYAD_DOI = {"10.5061/dryad.1295":{"doi":"10.5061/dryad.1295","url":"FALSE","pmid":"FALSE"}}
 TEST_INPUT_BAD_DOI = {"10.1371/abc.abc.123":{"doi":"10.1371/abc.abc.123","url":"FALSE","pmid":"FALSE"}}

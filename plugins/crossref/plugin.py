@@ -35,7 +35,8 @@ SOURCE_METRICS = dict(  journal="the journal where the paper was published",
 TEST_GOLD_ABOUT = {'metrics': {'doi': 'the DOI of the publication, if applicable', 'title': 'the title of the publication', 'url': 'the url of the full text of the publication', 'journal': 'the journal where the paper was published', 'authors': 'the authors of the publication', 'year': 'the year of the publication', 'pmid': 'the PubMed identifier of the publication, if applicable'}, 'url': 'http://www.crossref.org/', 'icon': 'http://www.crossref.org/favicon.ico', 'desc': 'An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation.'}
 TEST_GOLD_JSON_RESPONSE_STARTS_WITH = '{"artifacts": {}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "false", "source_name": "CrossRef", "last_update": 130'
 TEST_INPUT = '{"10.1371/journal.pcbi.1000361":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}'
-TEST_GOLD_PARSED_INPUT = {u'10.1371/journal.pcbi.1000361': {u'url': u'FALSE', u'pmid': u'FALSE', u'doi': u'FALSE'}}
+TEST_GOLD_PARSED_INPUT = eval(TEST_INPUT)
+
 TEST_INPUT_DOI = {"10.1371/journal.pcbi.1000361":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
 TEST_INPUT_BAD_DOI = {"10.1371/abc.abc.123":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
 TEST_INPUT_PMID = {"17808382":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}

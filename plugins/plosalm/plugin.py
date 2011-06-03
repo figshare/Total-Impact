@@ -33,7 +33,7 @@ SOURCE_METRICS = dict(  downloads="the number of downloads of the article from t
 TEST_GOLD_ABOUT = {'metrics': {'downloads': 'the number of downloads of the article from the PLoS website'}, 'url': 'http://www.plos.org/', 'icon': 'http://www.plosbiology.org/images/favicon.ico', 'desc': 'Nonprofit publisher of open access articles in science and medicine.'}
 TEST_GOLD_JSON_RESPONSE_STARTS_WITH = '{"artifacts": {}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "false", "source_name": "CrossRef", "last_update": 130'
 TEST_INPUT = '{"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361","url":"FALSE","pmid":"FALSE"}}'
-TEST_GOLD_PARSED_INPUT = {u'10.1371/journal.pcbi.1000361': {u'url': u'FALSE', u'pmid': u'FALSE', u'doi': u'10.1371/journal.pcbi.1000361'}}
+TEST_GOLD_PARSED_INPUT = eval(TEST_INPUT)
 
 TEST_INPUT_PLOS_DOI = {"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361","url":"FALSE","pmid":"FALSE"}}
 TEST_INPUT_DRYAD_DOI = {"10.5061/dryad.1295":{"doi":"10.5061/dryad.1295","url":"FALSE","pmid":"FALSE"}}
