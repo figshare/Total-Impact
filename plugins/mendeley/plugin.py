@@ -29,20 +29,25 @@ SOURCE_ICON = "http://www.mendeley.com/favicon.ico"
 SOURCE_METRICS = dict(  readers="the number of readers of the article",
                         groups="the number of groups of the article")
 
+# each plugin needs to make sure these are all set up appropriately
 TEST_GOLD_ABOUT = {'metrics': {'groups': 'the number of groups of the article', 'readers': 'the number of readers of the article'}, 'url': 'http://www.mendeley.com/', 'icon': 'http://www.mendeley.com/favicon.ico', 'desc': 'A research management tool for desktop and web.'}
 TEST_GOLD_JSON_RESPONSE_STARTS_WITH = '{"artifacts": {}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "false", "source_name": "CrossRef", "last_update": 130'
-TEST_INPUT = '{"10.1371/journal.pcbi.1000361":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}'
-TEST_GOLD_PARSED_INPUT = {u'10.1371/journal.pcbi.1000361': {u'url': u'FALSE', u'pmid': u'FALSE', u'doi': u'FALSE'}}
-TEST_INPUT_DOI = {"10.1371/journal.pcbi.1000361":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
-TEST_INPUT_BAD_DOI = {"10.1371/abc.abc.123":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
-TEST_INPUT_PMID = {"17808382":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
-TEST_INPUT_URL = {"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
-TEST_INPUT_DUD = {"NotAValidID":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
+TEST_INPUT = '{"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361","url":"FALSE","pmid":"FALSE"}}'
+TEST_GOLD_PARSED_INPUT = {u'10.1371/journal.pcbi.1000361': {u'url': u'FALSE', u'pmid': u'FALSE', u'doi': u'10.1371/journal.pcbi.1000361'}}
+TEST_INPUT_DOI = {"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361","url":"FALSE","pmid":"FALSE"}}
+TEST_INPUT_DRYAD_DOI = {"10.5061/dryad.1295":{"doi":"10.5061/dryad.1295","url":"FALSE","pmid":"FALSE"}}
+TEST_INPUT_BAD_DOI = {"10.1371/abc.abc.123":{"doi":"10.1371/abc.abc.123","url":"FALSE","pmid":"FALSE"}}
+TEST_INPUT_PMID = {"17808382":{"doi":"FALSE","url":"FALSE","pmid":"17808382"}}
+TEST_INPUT_URL = {"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract":{"doi":"FALSE","url":"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract","pmid":"FALSE"}}
+TEST_INPUT_DUD = {"NotAValidDOI":{"doi":"NotAValidDOI","url":"FALSE","pmid":"FALSE"}}
+TEST_INPUT_NOTHING = {"NotAValidDOI":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
 TEST_INPUT_ALL = TEST_INPUT_DUD.copy()
 TEST_INPUT_ALL.update(TEST_INPUT_URL)
 TEST_INPUT_ALL.update(TEST_INPUT_PMID)
 TEST_INPUT_ALL.update(TEST_INPUT_DOI)
-TEST_INPUT_ALL.update(TEST_INPUT_BAD_DOI)
+TEST_INPUT_ALL.update(TEST_INPUT_DRYAD_DOI)
+TEST_INPUT_ALL.update(TEST_INPUT_DUD)
+TEST_INPUT_ALL.update(TEST_INPUT_NOTHING)
 
 DEBUG = False
 
@@ -97,8 +102,8 @@ def is_mendeley_doi(id):
     return(response)
     
 # each plugin needs to write relevant versions of this            
-def artifact_type_recognized(id):
-    is_recognized = is_mendeley_doi(id)
+def artifact_type_recognized(doi):
+    is_recognized = is_mendeley_doi(doi)
     return(is_recognized)   
 
 ## this changes for every plugin        
@@ -107,14 +112,9 @@ def test_build_artifact_response():
     assert_equals(response, {'type': 'article', 'groups': 1, 'readers': 42})
         
 ## this changes for every plugin        
-def build_artifact_response(artifact_id):
-    if is_mendeley_doi(artifact_id):
-        doi = artifact_id
-    #elif is_mendeley_url(artifact_id):
-    #    doi = lookmeup
+def build_artifact_response(doi):
     if not doi:
         return(None)
-        
     metrics_response = get_metric_values(doi)
     if not metrics_response:
         return(None)        
@@ -127,6 +127,7 @@ def test_get_artifacts_metrics():
     response = get_artifacts_metrics(TEST_GOLD_PARSED_INPUT)
     assert_equals(response, ({u'10.1371/journal.pcbi.1000361': {'type': 'article', 'groups': 1, 'readers': 19}}, None))
     
+## this may be need to customized by plugins to support varied id types etc    
 ## every plugin should check API limitations and make sure they are respected here
 ## check Mendeley requirements!
 def get_artifacts_metrics(query):
@@ -134,8 +135,9 @@ def get_artifacts_metrics(query):
     error_msg = None
     time_started = time.time()
     for artifact_id in query:
-        if artifact_type_recognized(artifact_id):
-            artifact_response = build_artifact_response(artifact_id)
+        doi = query[artifact_id]["doi"]
+        if artifact_type_recognized(doi):
+            artifact_response = build_artifact_response(doi)
             if artifact_response:
                 response_dict[artifact_id] = artifact_response
         if (time.time() - time_started > MAX_ELAPSED_TIME):

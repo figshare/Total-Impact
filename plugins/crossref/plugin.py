@@ -160,7 +160,7 @@ def test_build_artifact_response():
     assert_equals(response, {'doi': '10.1371/journal.pcbi.1000361', 'title': 'Adventures in Semantic Publishing: Exemplar Semantic Enhancements of a Research Article', 'url': 'http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1000361', 'journal': 'PLoS Comput Biol', 'authors': 'Shotton, Portwin, Klyne, Miles', 'year': '2009', 'pmid': '19381256', 'type': 'article'})
         
 ## this changes for every plugin        
-def build_artifact_response(artifact_id):
+def build_artifact_response(artifact_id, artifact_id_object=None):
     if is_crossref_doi(artifact_id):
         doi = artifact_id
         pmid = get_pmid_from_doi(doi)
@@ -182,6 +182,7 @@ def test_get_artifacts_metrics():
     response = get_artifacts_metrics(TEST_GOLD_PARSED_INPUT)
     assert_equals(response, ({u'10.1371/journal.pcbi.1000361': {'doi': u'10.1371/journal.pcbi.1000361', 'title': 'Adventures in Semantic Publishing: Exemplar Semantic Enhancements of a Research Article', 'url': 'http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1000361', 'journal': 'PLoS Comput Biol', 'authors': 'Shotton, Portwin, Klyne, Miles', 'year': '2009', 'pmid': '19381256', 'type': 'article'}}, None))
     
+## crossref version is quite unique because it looks up dois for the first time    
 ## every plugin should check API limitations and make sure they are respected here    
 ## Crossref API doesn't seem to have limits, though we should check every few months to make sure still true            
 def get_artifacts_metrics(query):
@@ -190,7 +191,7 @@ def get_artifacts_metrics(query):
     time_started = time.time()
     for artifact_id in query:
         if artifact_type_recognized(artifact_id):
-            artifact_response = build_artifact_response(artifact_id)
+            artifact_response = build_artifact_response(artifact_id, query[artifact_id])
             if artifact_response:
                 response_dict[artifact_id] = artifact_response
         if (time.time() - time_started > MAX_ELAPSED_TIME):

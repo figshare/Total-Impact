@@ -28,24 +28,27 @@ SOURCE_URL = "http://www.plos.org/"
 SOURCE_ICON = "http://www.plosbiology.org/images/favicon.ico"
 SOURCE_METRICS = dict(  downloads="the number of downloads of the article from the PLoS website")
 
+# plugins should make sure this list includes relevant input coverage
+# each plugin needs to make sure these are all set up appropriately
 TEST_GOLD_ABOUT = {'metrics': {'downloads': 'the number of downloads of the article from the PLoS website'}, 'url': 'http://www.plos.org/', 'icon': 'http://www.plosbiology.org/images/favicon.ico', 'desc': 'Nonprofit publisher of open access articles in science and medicine.'}
 TEST_GOLD_JSON_RESPONSE_STARTS_WITH = '{"artifacts": {}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "false", "source_name": "CrossRef", "last_update": 130'
-TEST_INPUT = '{"10.1371/journal.pcbi.1000361":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}'
-TEST_GOLD_PARSED_INPUT = {u'10.1371/journal.pcbi.1000361': {u'url': u'FALSE', u'pmid': u'FALSE', u'doi': u'FALSE'}}
+TEST_INPUT = '{"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361","url":"FALSE","pmid":"FALSE"}}'
+TEST_GOLD_PARSED_INPUT = {u'10.1371/journal.pcbi.1000361': {u'url': u'FALSE', u'pmid': u'FALSE', u'doi': u'10.1371/journal.pcbi.1000361'}}
 
-# plugins should make sure this list includes relevant input coverage
-TEST_INPUT_PLOS_DOI = {"10.1371/journal.pcbi.1000361":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
-TEST_INPUT_BAD_DOI = {"10.1371/abc.abc.123":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
-TEST_INPUT_DRYAD_DOI = {"10.5061/dryad.1295":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
-TEST_INPUT_PMID = {"17808382":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
-TEST_INPUT_URL = {"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
-TEST_INPUT_DUD = {"NotAValidID":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
+TEST_INPUT_PLOS_DOI = {"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361","url":"FALSE","pmid":"FALSE"}}
+TEST_INPUT_DRYAD_DOI = {"10.5061/dryad.1295":{"doi":"10.5061/dryad.1295","url":"FALSE","pmid":"FALSE"}}
+TEST_INPUT_BAD_DOI = {"10.1371/abc.abc.123":{"doi":"10.1371/abc.abc.123","url":"FALSE","pmid":"FALSE"}}
+TEST_INPUT_PMID = {"17808382":{"doi":"FALSE","url":"FALSE","pmid":"17808382"}}
+TEST_INPUT_URL = {"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract":{"doi":"FALSE","url":"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract","pmid":"FALSE"}}
+TEST_INPUT_DUD = {"NotAValidDOI":{"doi":"NotAValidDOI","url":"FALSE","pmid":"FALSE"}}
+TEST_INPUT_NOTHING = {"NotAValidDOI":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
 TEST_INPUT_ALL = TEST_INPUT_DUD.copy()
 TEST_INPUT_ALL.update(TEST_INPUT_URL)
 TEST_INPUT_ALL.update(TEST_INPUT_PMID)
 TEST_INPUT_ALL.update(TEST_INPUT_PLOS_DOI)
 TEST_INPUT_ALL.update(TEST_INPUT_DRYAD_DOI)
-TEST_INPUT_ALL.update(TEST_INPUT_BAD_DOI)
+TEST_INPUT_ALL.update(TEST_INPUT_DUD)
+TEST_INPUT_ALL.update(TEST_INPUT_NOTHING)
 
 DEBUG = False
 
@@ -109,14 +112,9 @@ def test_build_artifact_response():
     assert_equals(response, {'downloads': 8611, 'type': 'article'})
         
 ## this changes for every plugin        
-def build_artifact_response(artifact_id):
-    if is_plos_doi(artifact_id):
-        doi = artifact_id
-    #elif is_mendeley_url(artifact_id):
-    #    doi = lookmeup
+def build_artifact_response(doi):
     if not doi:
         return(None)
-        
     metrics_response = get_metric_values(doi)
     if not metrics_response:
         return(None)        
@@ -136,8 +134,9 @@ def get_artifacts_metrics(query):
     error_msg = None
     time_started = time.time()
     for artifact_id in query:
-        if artifact_type_recognized(artifact_id):
-            artifact_response = build_artifact_response(artifact_id)
+        doi = query[artifact_id]["doi"]
+        if artifact_type_recognized(doi):
+            artifact_response = build_artifact_response(doi)
             if artifact_response:
                 response_dict[artifact_id] = artifact_response
         if (time.time() - time_started > MAX_ELAPSED_TIME):
