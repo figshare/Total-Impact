@@ -111,7 +111,7 @@ def extract_stats(page):
     except:
         upload_year = ""
         
-    response = {"upload_year":upload_year, "downloads":downloads, "views":views, "comments":comments, "favorites":favorites, "ARTIFACT-TITLE":title}
+    response = {"upload_year":upload_year, "downloads":downloads, "views":views, "comments":comments, "favorites":favorites, "title":title}
     return(response)         
 
 # each plugin needs to write relevant versions of this
