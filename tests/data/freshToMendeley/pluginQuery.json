@@ -1,0 +1,17 @@
+{ // these are all false, but if there were data, it would go as strings next to each key
+    "10.1371/journal.pbio.0060048": {
+        "doi":false, // boolean false, not string "false"
+        "url": false,
+        "pmid": false
+    },
+    "10.1371/journal.pone.00008109": {
+        "doi":false,
+        "url": false,
+        "pmid": false
+    },
+    "http://www.slideshare.net/phylogenomics/eisen": {
+        "doi":false,
+        "url": false,
+        "pmid": false
+    }
+}

@@ -38,7 +38,7 @@ class ReportClass {
     
     public function fetch(){
         try {
-            $ret = $this->couch->getShow('main', 'by_type', $this->id);
+            $ret = $this->couch->getShow('main', 'by_artifact_type', $this->id);
         }
         catch (Exception $e) {
             // log the exception
@@ -60,7 +60,6 @@ class ReportClass {
         }
 
     }
-
 
     private function printArtifactType($name, $artifacts){
             echo "<div class='artifact-type $name'><h2>$name</h2>";
