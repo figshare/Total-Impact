@@ -8,9 +8,20 @@ function(doc) {
         this.url = false;
         this.pmid = false;
     }
+    var sources = [
+        "Mendeley",
+        "CrossRef",
+        "Plosalm",
+        "Slideshare",
+        "Facebook",
+        "ICPSR",
+        "Dryad"
+    ];
+
+    // setup the return object
     ret = {};
     var artifactsCount =  doc.artifact_ids.length;
-    for (var i = 0; i < artifactsCount; i++ ){
+    for (var i=0; i<artifactsCount; i++ ){
         var artifactId = doc.artifact_ids[i];
         mySynonyms = new Synonyms;
         try {
@@ -23,6 +34,19 @@ function(doc) {
 
         ret[artifactId] = mySynonyms;
     }
-    emit(doc._id, ret);
+
+    // return it only if it's missing sources
+
+    var sourcesCount = sources.length;
+    var key;
+    for (var i=0; i<sourcesCount; i++) {
+        key = [
+            sources[i],
+            doc.updates[sources[i]]
+        ]
+
+        emit(key, ret);
+    }
+
     
 }
