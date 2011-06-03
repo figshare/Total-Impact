@@ -4,7 +4,7 @@
  *  their type.
  */
 function(doc, req) {
-    
+
     // make a denormalised list of artifacts
     var multiArtifacts = []
     for (source in doc.sources) {
@@ -12,7 +12,7 @@ function(doc, req) {
             multiArtifacts.push(doc.sources[source][artifact]);
         }
     }
-    
+
     // make a list of metrics
     var metrics = [];
     for (artifact in multiArtifacts){
@@ -21,7 +21,7 @@ function(doc, req) {
             metrics.push(thisMetricsList[i]);
         }
     }
-    
+
     // make a list of unique artifacts, each with all its metrics beneath it
     var artifacts = {};
     for (i in metrics) {
@@ -34,20 +34,20 @@ function(doc, req) {
             artifacts[thisMetric.id][fullMetricName] = thisMetric;
         }
     }
-    
+
     // make a list of artifact types, and place artifacts underneath each type.
     // discard artifacts that don't have metrics
     var artifactTypes = {};
     for (artifactID in artifacts) {
         var thisArtifact = artifacts[artifactID];
         var thisType = null;
-        
+
         // get the type of the artifact, if it has one
         for (metric in thisArtifact){
             // the type of the last metric is assumed to be the type of that artifact...
             thisType = thisArtifact[metric].type;
         }
-        
+
         if (thisType){
             // add the article's type to the list
             if (typeof(artifactTypes[thisType]) == 'undefined') {
@@ -57,16 +57,16 @@ function(doc, req) {
             // add the artifact to the list under the correct type
             artifactTypes[thisType][artifactID] = thisArtifact;
         }
-    }    
-    
+    }
+
     // get the collection metadata and add it to the return object
     var meta = doc;
     delete meta.sources; // we've already got these, and better organised.
-    
+
     var ret = {
         'meta': meta,
-        'metrics': artifactTypes 
+        'metrics': artifactTypes
     }
-    
+
     return toJSON(ret);
 }

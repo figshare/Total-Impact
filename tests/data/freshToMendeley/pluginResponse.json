@@ -1,0 +1,27 @@
+{
+   "source_name": "Mendeley",
+   "last_update": "1306599479", // unix timestamp as string
+   "has_error": false, // (bool, not str) or TRUE if there is a valid error_msg
+   "error_msg": "NA", // message string if has_error=="TRUE", like "API limit reached"
+   "about": {
+      "descr": "A research management tool for desktop and web.",
+      "url": "http://www.Mendeley.com/",
+      "icon": "http://www.Mendeley.com/favicon.ico",
+      "metrics": {
+         "readers": "the number of readers of the article",
+         "groups": "the number of groups the article is in"
+      }
+   },
+   "artifacts": { // only return artifacts the plugin can grok (eg, this plugin would discard URLs)
+      "10.1371/journal.pbio.0060048": {
+         "type": "article", // required for all plugins; all other attributes are plugin-specific, and match the list in about.metrics
+         "readers": 24, // can be number(±int, 0, float), string, or array of objects (tweets, for instance)
+         "groups": 3
+      },
+      "10.1371/journal.pone.00008109": {
+         "type": "article",
+         "readers": 0,
+         "groups": 0
+      }
+   }
+}
