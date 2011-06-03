@@ -9,15 +9,15 @@
         "http://www.slideshare.net/phylogenomics/eisen"
     ],
     "sources":{
-        "mendeley": {
+        "Mendeley": {
            "source_name": "Mendeley",
            "last_update": "1306599479", 
            "has_error": false,
            "error_msg": "NA",
            "about": {
               "descr": "A research management tool for desktop and web.",
-              "url": "http://www.mendeley.com/",
-              "icon": "http://www.mendeley.com/favicon.ico",
+              "url": "http://www.Mendeley.com/",
+              "icon": "http://www.Mendeley.com/favicon.ico",
               "metrics": {
                  "readers": "the number of readers of the article",
                  "groups": "the number of groups the article is in"
@@ -38,6 +38,6 @@
         }
     },
     "updates":{
-        "mendeley":"1306821630"
+        "Mendeley":"1306821630"
     }
 }

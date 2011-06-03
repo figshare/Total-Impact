@@ -4,7 +4,7 @@
     "rows": [
         {
             "_id":"abcdef",
-            "key": "mendeley",
+            "key": "Mendeley",
             "value": {
                 "10.1371/journal.pbio.0060048": {
                     "doi":false,

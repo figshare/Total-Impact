@@ -57,7 +57,7 @@ if (!$res){ header('Location: ../'); }
 
     <ul type="square" class="body">
     <li>
-    <a href="http://www.crossref.org/"><img src="http://www.crossref.org/favicon.ico" border='0'>CrossRef</a> - an official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation. 
+    <a href="http://www.CrossRef.org/"><img src="http://www.CrossRef.org/favicon.ico" border='0'>CrossRef</a> - an official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation. 
     <br>For a <strong>DOI</strong> it returns: 
     <ul>
             <li><strong><span class="param">journal</span></strong>: <span class="desc">the journal, where the paper is published,</span></li>
@@ -93,7 +93,7 @@ if (!$res){ header('Location: ../'); }
     </ul>
     <ul type="square" class="body">
     <li>
-    <a href="http://www.mendeley.com/"><img src="http://www.mendeley.com/favicon.ico" border='0'>Mendeley</a> - a research management tool for desktop and web.
+    <a href="http://www.Mendeley.com/"><img src="http://www.Mendeley.com/favicon.ico" border='0'>Mendeley</a> - a research management tool for desktop and web.
     <br>For a <strong>DOI</strong> it returns:
     <ul>
             <li><strong><span class="param">readers</span></strong>: <span class="desc">the number of readers of the article,</span></li>

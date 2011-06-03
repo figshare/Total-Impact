@@ -5,8 +5,8 @@
    "error_msg": "NA", // message string if has_error=="TRUE", like "API limit reached"
    "about": {
       "descr": "A research management tool for desktop and web.",
-      "url": "http://www.mendeley.com/",
-      "icon": "http://www.mendeley.com/favicon.ico",
+      "url": "http://www.Mendeley.com/",
+      "icon": "http://www.Mendeley.com/favicon.ico",
       "metrics": {
          "readers": "the number of readers of the article",
          "groups": "the number of groups the article is in"

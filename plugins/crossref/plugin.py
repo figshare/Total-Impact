@@ -21,8 +21,8 @@ def skip(f):
                 
 SOURCE_NAME = "CrossRef"
 SOURCE_DESCRIPTION = "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."
-SOURCE_URL = "http://www.crossref.org/"
-SOURCE_ICON = "http://www.crossref.org/favicon.ico"
+SOURCE_URL = "http://www.CrossRef.org/"
+SOURCE_ICON = "http://www.CrossRef.org/favicon.ico"
 SOURCE_METRICS = dict(  journal="the journal where the paper was published",
                         year="the year of the publication",
                         title="the title of the publication", 
@@ -32,8 +32,8 @@ SOURCE_METRICS = dict(  journal="the journal where the paper was published",
                         pmid="the PubMed identifier of the publication, if applicable")
 
 
-TEST_GOLD_ABOUT = {'metrics': {'doi': 'the DOI of the publication, if applicable', 'title': 'the title of the publication', 'url': 'the url of the full text of the publication', 'journal': 'the journal where the paper was published', 'authors': 'the authors of the publication', 'year': 'the year of the publication', 'pmid': 'the PubMed identifier of the publication, if applicable'}, 'url': 'http://www.crossref.org/', 'icon': 'http://www.crossref.org/favicon.ico', 'desc': 'An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation.'}
-TEST_GOLD_JSON_RESPONSE_STARTS_WITH = '{"artifacts": {}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "false", "source_name": "CrossRef", "last_update": 130'
+TEST_GOLD_ABOUT = {'metrics': {'doi': 'the DOI of the publication, if applicable', 'title': 'the title of the publication', 'url': 'the url of the full text of the publication', 'journal': 'the journal where the paper was published', 'authors': 'the authors of the publication', 'year': 'the year of the publication', 'pmid': 'the PubMed identifier of the publication, if applicable'}, 'url': 'http://www.CrossRef.org/', 'icon': 'http://www.CrossRef.org/favicon.ico', 'desc': 'An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation.'}
+TEST_GOLD_JSON_RESPONSE_STARTS_WITH = '{"artifacts": {}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.CrossRef.org/", "icon": "http://www.CrossRef.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "false", "source_name": "CrossRef", "last_update": 130'
 TEST_INPUT = '{"10.1371/journal.pcbi.1000361":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}'
 TEST_GOLD_PARSED_INPUT = {u'10.1371/journal.pcbi.1000361': {u'url': u'FALSE', u'pmid': u'FALSE', u'doi': u'FALSE'}}
 TEST_INPUT_DOI = {"10.1371/journal.pcbi.1000361":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
@@ -50,7 +50,7 @@ TEST_INPUT_ALL.update(TEST_INPUT_BAD_DOI)
 DOI_LOOKUP_URL = "http://dx.doi.org/%s"
 DEBUG = False
 # All CrossRef DOI prefixes begin with "10" followed by a number of four or more digits
-#f rom http://www.crossref.org/02publishers/doi-guidelines.pdf
+#f rom http://www.CrossRef.org/02publishers/doi-guidelines.pdf
 DOI_PATTERN = re.compile("(10.(\d)+/(\S)+)", re.DOTALL)
 
 def test_build_about():
@@ -106,7 +106,7 @@ def get_page(doi):
 ## curl -D - -L -H "Accept: application/unixref+xml" "http://dx.doi.org/10.1126/science.1157784" 
 
 def extract_stats(page, doi):
-    # crossref extraction code based on example at https://gist.github.com/931878
+    # CrossRef extraction code based on example at https://gist.github.com/931878
     if not page:
         return(None)        
     (response_header, content) = page
@@ -179,10 +179,10 @@ def test_build_artifact_response():
     assert_equals(response, {'doi': '10.1371/journal.pcbi.1000361', 'title': 'Adventures in Semantic Publishing: Exemplar Semantic Enhancements of a Research Article', 'url': 'http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1000361', 'journal': 'PLoS Comput Biol', 'authors': 'Shotton, Portwin, Klyne, Miles', 'year': '2009', 'pmid': '19381256', 'type': 'article'})
 
 # All CrossRef DOI prefixes begin with "10" followed by a number of four or more digits
-#f rom http://www.crossref.org/02publishers/doi-guidelines.pdf
-CROSSREF_DOI_PATTERN = re.compile(r"^10\.(\d)+/(\S)+$", re.DOTALL)
-def is_crossref_doi(id):
-    response = (CROSSREF_DOI_PATTERN.search(id) != None)
+#f rom http://www.CrossRef.org/02publishers/doi-guidelines.pdf
+CrossRef_DOI_PATTERN = re.compile(r"^10\.(\d)+/(\S)+$", re.DOTALL)
+def is_CrossRef_doi(id):
+    response = (CrossRef_DOI_PATTERN.search(id) != None)
     return(response)
     
 # PMIDs are 1 to 8 digit numbers, as per http://www.nlm.nih.gov/bsd/mms/medlineelements.html#pmid    
@@ -192,17 +192,17 @@ def is_pmid(id):
     return(response)
             
 def artifact_type_recognized(id):
-    is_recognized = (is_crossref_doi(id) or is_pmid(id))
+    is_recognized = (is_CrossRef_doi(id) or is_pmid(id))
     return(is_recognized)   
         
 def build_artifact_response(artifact_id):
-    if is_crossref_doi(artifact_id):
+    if is_CrossRef_doi(artifact_id):
         doi = artifact_id
         pmid = get_pmid_from_doi(doi)
     elif is_pmid(artifact_id):
         pmid = artifact_id
         doi = get_doi_from_pmid(pmid)
-    if not is_crossref_doi(doi):
+    if not is_CrossRef_doi(doi):
         return(None)
     metrics_response = get_metric_values(doi)
     if not pmid and not metrics_response:
@@ -227,7 +227,7 @@ def test_get_artifacts_metrics():
    
     
 MAX_TIME = 30 # seconds, part of plugin specification
-## Crossref API doesn't seem to have limits, though we should check every few months to make sure still true            
+## CrossRef API doesn't seem to have limits, though we should check every few months to make sure still true            
 def get_artifacts_metrics(query):
     response_dict = dict()
     error = "NA"

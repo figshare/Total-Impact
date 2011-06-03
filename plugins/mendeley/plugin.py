@@ -7,8 +7,8 @@ import json
 
 from optparse import OptionParser
 
-TOTALIMPACT_MENDELEY_KEY = "3a81767f6212797750ef228c8cb466bc04dca4ba1"
-MENDELEY_DOI_URL = "http://www.mendeley.com/oapi/documents/details/%s?type=doi&consumer_key=" + TOTALIMPACT_MENDELEY_KEY
+TOTALIMPACT_Mendeley_KEY = "3a81767f6212797750ef228c8cb466bc04dca4ba1"
+Mendeley_DOI_URL = "http://www.Mendeley.com/oapi/documents/details/%s?type=doi&consumer_key=" + TOTALIMPACT_Mendeley_KEY
 
 DOI_PATTERN = re.compile("(10.(\d)+/(\S)+)", re.DOTALL)
 
@@ -16,21 +16,21 @@ def run_plugin(doi):
     # Right now this is only designed to look up dois
     if not DOI_PATTERN.search(doi):
         return(None)
-    page = get_mendeley_page(doi)
+    page = get_Mendeley_page(doi)
     if page:
         response = get_stats(page)
     else:
         response = None
     return(response)
     
-def get_mendeley_page(doi):
+def get_Mendeley_page(doi):
     if not doi:
         return(None)
         
     # Mendeley API required double encoded doi!!!
     double_encoded_doi = urllib.quote(urllib.quote(doi, safe=""), safe="")
     
-    query_url = MENDELEY_DOI_URL % double_encoded_doi
+    query_url = Mendeley_DOI_URL % double_encoded_doi
     #print query_url
     try:
         page = urllib2.urlopen(query_url).read()
@@ -74,12 +74,12 @@ def main():
 if __name__ == '__main__':
     main()
 
-#mendeley_test_doi = "10.1038/ng0411-281"
-#mendeley_test_doi = "10.1371/journal.pcbi.1000361"
-#mendeley_test_doi = "10.1371/journal.pmed.0040215"
-#mendeley_test_doi = "10.1371/journal.pone.0000308"
+#Mendeley_test_doi = "10.1038/ng0411-281"
+#Mendeley_test_doi = "10.1371/journal.pcbi.1000361"
+#Mendeley_test_doi = "10.1371/journal.pmed.0040215"
+#Mendeley_test_doi = "10.1371/journal.pone.0000308"
 
-#page = get_mendeley_page(mendeley_test_doi)
+#page = get_Mendeley_page(Mendeley_test_doi)
 #response = get_stats(page)
 #print response
     

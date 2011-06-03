@@ -64,7 +64,7 @@ class CollectionTest extends PHPUnit_Framework_TestCase {
                 ->with($myPluginQuery);
         $plugin->expects($this->any())
                 ->method('getName')
-                ->will($this->returnValue("mendeley"));
+                ->will($this->returnValue("Mendeley"));
         $plugin->expects($this->once())
                 ->method('fetchData')
                 ->will($this->returnValue($myPluginResponse));
