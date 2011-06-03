@@ -1,6 +1,6 @@
 {
     "_id": "abcdef",
-    "_rev": "refStr",
+    "_rev": "revStr",
     "title": "my title",
     "created_at": "1234567890",
     "artifact_ids": [

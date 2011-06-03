@@ -13,9 +13,12 @@ class Updater {
         $this->couch = $couch;
         $this->plugin = $plugin;
     }
-    
+    public function getCouch() {
+        return $this->couch;
+    }
 
-    private function fetchCollectionsToUpdate($ts=false) {
+    
+    public function update($ts=false) {
         $sourceName = $this->plugin->getName();
         $couchResponse = $this->couch
                 ->key($sourceName)
@@ -36,7 +39,7 @@ class Updater {
 
             // update collection in database
             $doc = $this->couch->getDoc($row->_id);
-            $doc->sources->$sourceName = $updatedCollection;
+            $doc->sources->$sourceName = $pluginResponse;
             $doc->updates->$sourceName = $ts;
             $this->couch->storeDoc($doc);
         }

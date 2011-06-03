@@ -19,7 +19,6 @@ class UpdaterTest extends PHPUnit_Framework_TestCase {
     function getData($fileName){
         $fileContents = file_get_contents('./data/' . $fileName . '.json');
         $commentsRemoved = preg_replace('# //.+?$#m', '', $fileContents);
-        echo $commentsRemoved;
         return json_decode($commentsRemoved);
     }
 
@@ -54,9 +53,12 @@ class UpdaterTest extends PHPUnit_Framework_TestCase {
         $pluginQuery = $this->getData('freshToMendeley/pluginQuery');
         $pluginResponse = $this->getData('freshToMendeley/pluginResponse');
         $updatedDoc = $this->getData('couchDocs/withMendeley');
+        $freshDoc = $this->getData('couchDocs/fresh');
 
 
         $this->fakeCouch->setViewReturns(array($to_updateViewResponse));
+        $this->fakeCouch->setDocsToGet(array("abcdef"=>$freshDoc));
+
         $plugin = $this->getMock("Plugin");
         $plugin->expects($this->once())
                 ->method('setArtifactIds')
@@ -67,20 +69,16 @@ class UpdaterTest extends PHPUnit_Framework_TestCase {
         $plugin->expects($this->once())
                 ->method('fetchData')
                 ->will($this->returnValue($pluginResponse));
-        /*
-        
-
-        
 
 
-        $collection = new collection ($this->fakeCouch, $plugin);
-        $collection->updateCollection("abcdef", $artifactIds, "1306821630");
+        $updater = new Updater ($this->fakeCouch, $plugin);
+        $updater->update("1306821630");
         $this->assertEquals(
                 $updatedDoc,
-                $collection->getCouch()->getStoredDocs(0)
+                $updater->getCouch()->getStoredDocs(0)
                 );
 
-         */
+        
     }
 
 
