@@ -42,7 +42,6 @@ function(doc) {
     var key;
     for (var i=0; i<sourcesCount; i++) {
         key = [sources[i]];
-
         emit(key, ret);
     }
 

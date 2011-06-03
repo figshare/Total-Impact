@@ -1,58 +1,71 @@
 <?php
 
 /**
- * Description of Updater
+ * Handles the creation and update of collections
  *
  * @author jay
  */
 class Updater {
     private $couch;
-    private $http;
-    private $config;
+    private $plugin;
     
-    public function __construct(Couch_Client $couch, Zend_Http_Client $http, Zend_Config $config){
+    public function __construct(Couch_Client $couch, Plugin $plugin){
         $this->couch = $couch;
-        $this->http = $http;
-        $this->config = $config;
+        $this->plugin = $plugin;
     }
     
-    public function update(){
-        $result = $this->couch->descending(true)
-            ->include_docs(true)
-            ->getView("main", "unupdated");
-        sleep(1);
-        
-        if (count($result->rows) == 0){
-            echo "Everything's up to date.";
+
+    private function fetchCollectionsToUpdate($ts=false) {
+        $sourceName = $this->plugin->getName();
+        $couchResponse = $this->couch
+                ->key($sourceName)
+                ->getView("main", "to_update");
+
+        if (!isset($couchResponse->total_rows)) {
+            throw new Exception("The database returned something unexpected: '". print_r($couchResponse, true) ."'");
         }
-        else { // there's stuff that hasn't been updated.
-        
-            foreach ($result->rows as $row){
-                sleep(1);
-                $doc = $row->doc;
-                echo "<h3>updating collection " . $doc->_id . "</h3>"; 
-                foreach ($this->config->plugins as $sourceName=>$sourceUri){
-                    echo "<p>with $sourceName...";
-                    $this->http->setUri($sourceUri);
 
-                    $this->http->setRawData(json_encode($doc->artifact_ids), 'text/json');  
-                    $result = $this->http->request("POST");
-                    
-                    $response = json_decode($result->getBody());
-                    print_r($response);
-                    
-                    $doc->sources->$sourceName = $response;
-                    
-
-                }
-                sleep(1);
-                echo $doc->_rev . "<br>";
-                $doc->updated = true;
-                $this->couch->storeDoc($doc);
-                echo "Uploading collection to the database...<br>";
-                
+        foreach ($couchResponse->rows as $row){
+            // get new data from plugin
+            $artifactIds = $row->value;
+            $this->plugin->setArtifactIds($artifactIds);
+            $pluginResponse = $this->plugin->fetchData();
+            if (!isset($pluginResponse->source_name)) { // very basic plugin response validation
+                throw new Exception("Got no usable response from the plugin '$sourceName'");
             }
+
+            // update collection in database
+            $doc = $this->couch->getDoc($row->_id);
+            $doc->sources->$sourceName = $updatedCollection;
+            $doc->updates->$sourceName = $ts;
+            $this->couch->storeDoc($doc);
         }
+    }
+
+
+    /**
+     * Creates a new collection based on user input
+     *
+     * @param CollectionInput $input
+     * @return Object couchdb response object
+     */
+    public function make(CollectionInput $input) {
+
+        // build the object
+        $ts = time();
+        $id = $input->getCollectionId();
+
+        $doc = new stdClass();
+        $doc->_id = $id;
+        $doc->created_at = $ts;
+        $doc->title = $input->getCollectionTitle();
+        $doc->artifact_ids = $input->getArtifactIds();
+        $doc->sources = new stdClass(); // we'll fill this later
+        $doc->updates = new stdClass(); // also for later
+
+        // put it in couchdb
+        $response = $this->couch->storeDoc($doc);
+        return $response;
     }
     
 }

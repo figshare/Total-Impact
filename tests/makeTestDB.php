@@ -34,7 +34,16 @@ $view = new stdClass();
 $view->map = $map;
 $designDoc->views->to_update = $view;
 
+// get the show
+$shows = new stdClass();
+$shows->by_artifact_type = file_get_contents(APP_PATH . 'couchdb/views/to_update.js');
+$designDoc->shows = $shows;
+
 print_r($couch->storeDoc($designDoc));
+
+// test the show
+echo "<br>here is the show: <br>";
+echo $couch->getShow('main', 'by_artifact_type', '1')
 
 
 ?>
