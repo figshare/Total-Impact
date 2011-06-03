@@ -1,5 +1,6 @@
 /*
- * Displays collections by key and by time of last update
+ * Displays collections by key, where each key is a source that hasn't been
+ * updated yet for that collection.
  * Returns a list of identifier for each artifact in the collection
  */
 function(doc) {
@@ -40,10 +41,7 @@ function(doc) {
     var sourcesCount = sources.length;
     var key;
     for (var i=0; i<sourcesCount; i++) {
-        key = [
-            sources[i],
-            doc.updates[sources[i]]
-        ]
+        key = [sources[i]];
 
         emit(key, ret);
     }
