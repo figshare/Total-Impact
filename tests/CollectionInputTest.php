@@ -8,27 +8,52 @@ class CollectionInputTest extends PHPUnit_Framework_TestCase {
                             "10.1371/journal.pbio.0050082",
                             "http://www.slideshare.net/phylogenomics/eisen"
                         );
+    private $collection;
 
+    function setUp(){
+        $this->collection = json_decode(
+                '{
+                    "title": "my title",
+                    "created_at": "1234567890",
+                    "artifact_ids": [
+                        "10.1371/journal.pbio.0060048",
+                        "10.1371/journal.pbio.0050082",
+                        "http://www.slideshare.net/phylogenomics/eisen"
+                    ],
+                    "sources":{},
+                    "updates":{}
 
-    function testIdsSplit(){
-        $idsStr = implode("\n", $this->ids);
-        $obj = new CollectionInput("my title", $idsStr);
-
-        $this->assertEquals(
-                $this->ids,
-                $obj->getArtifactIds()
+                }'
                 );
     }
 
-    function testCreateCollectionId() {
+
+    function testMake(){
         $idsStr = implode("\n", $this->ids);
-        $obj = new CollectionInput("my title", $idsStr);
+        $fakeCouch = new FakeCouch();
+        $ci = new CollectionInput($fakeCouch);
+        $ci->save("my title", $idsStr, "1234567890");
+        $res = $fakeCouch->getStoredDocs(0);
+        $exp = $this->collection;
 
         $this->assertEquals(
-                5,
-                strlen($obj->getCollectionId())
+                $exp->artifact_ids,
+                $res->artifact_ids
+                );
+        $this->assertEquals(
+                $exp->sources,
+                $res->sources
+                );
+        $this->assertEquals(
+                $exp->updates,
+                $res->updates
+                );
+        $this->assertEquals(
+                6,
+                strlen($res->_id)
                 );
     }
+
 
 }
 

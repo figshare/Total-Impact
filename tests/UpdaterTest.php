@@ -32,20 +32,6 @@ class UpdaterTest extends PHPUnit_Framework_TestCase {
 
 
 
-    function testMake() {
-        $plugin = $this->getMock('Plugin');
-        $couch = $this->fakeCouch;
-
-        $input = $this->getMockBuilder('CollectionInput')
-             ->disableOriginalConstructor()
-             ->getMock();
-        $input->expects($this->once())->method('getCollectionTitle');
-        $input->expects($this->once())->method('getArtifactIds');
-        $input->expects($this->once())->method('getCollectionId');
-
-        $updater = new Updater($couch, $plugin);
-        $updater->make($input);
-    }
 
 
     function testUpdateCollection(){

@@ -69,17 +69,15 @@ class CollectionInput {
      * @param string $ts Unix timestamp as a string, useful for testing
      * @return StdClass A CouchDB response object
      */
-    public function save($title, $idsStr, $ts=false) {
+    public function save($title, $idsStr) {
         // sanitize inputs
         $title = strip_tags($title);
         $idsStr = strip_tags($idsStr);
 
         // build the object
-        $ts = ($ts) ? $ts : (string)time();
-
         $doc = new stdClass();
         $doc->_id = $this->randStr(6);
-        $doc->created_at = $ts;
+        $doc->created_at = (string)time();
         $doc->title = $title;
         $doc->artifact_ids = $this->idsFromStr($idsStr);
         $doc->sources = new stdClass(); // we'll fill this later

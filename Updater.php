@@ -86,30 +86,6 @@ class Updater {
     }
 
 
-    /**
-     * Creates a new collection based on user input
-     *
-     * @param CollectionInput $input
-     * @return Object couchdb response object
-     */
-    public function make(CollectionInput $input) {
-
-        // build the object
-        $ts = time();
-        $id = $input->getCollectionId();
-
-        $doc = new stdClass();
-        $doc->_id = $id;
-        $doc->created_at = $ts;
-        $doc->title = $input->getCollectionTitle();
-        $doc->artifact_ids = $input->getArtifactIds();
-        $doc->sources = new stdClass(); // we'll fill this later
-        $doc->updates = new stdClass(); // also for later
-
-        // put it in couchdb
-        $response = $this->couch->storeDoc($doc);
-        return $response;
-    }
     
 }
 
