@@ -8,13 +8,10 @@ class CollectionInput {
    private $collectionTitle;
    private $idsStr;
    private $artifactIds;
-   private $collectionId;
+   private $couch;
 
-   function __construct($title, $idsStr) {
-       $this->collectionTitle = $title;
-       $this->idsStr = $idsStr;
-       $this->artifactIds = $this->idsFromStr($idsStr);
-       $this->collectionId = $this->randStr(5);
+   function __construct(Couch_Client $couch) {
+       $this->couch = $couch;
    }
    
    public function getArtifactIds() {
@@ -26,9 +23,14 @@ class CollectionInput {
    public function getCollectionTitle() {
        return $this->collectionTitle;
    }
+   public function setCollectionTitle($collectionTitle) {
+       $this->collectionTitle = $collectionTitle;
+   }
 
-   
-   
+   public function setIdsStr($idsStr) {
+       $this->idsStr = $idsStr;
+   }
+
 
    /**
     * Splits a string into lines
@@ -59,6 +61,29 @@ class CollectionInput {
 	return $ret;
     }
 
+    /**
+     * Saves a collection to the database based on user input
+     *
+     * @param string $title Collection title
+     * @param string $idsStr A list of artifact IDs, delimited by linebreaks
+     * @return StdClass A CouchDB response object
+     */
+    public function save($title, $idsStr) {
+        // build the object
+        $ts = time();
+
+        $doc = new stdClass();
+        $doc->_id = $this->randStr(6);
+        $doc->created_at = (string)time();
+        $doc->title = $title;
+        $doc->artifact_ids = $this->idsFromStr($idsStr);
+        $doc->sources = new stdClass(); // we'll fill this later
+        $doc->updates = new stdClass(); // also for later
+
+        // put it in couchdb
+        $response = $this->couch->storeDoc($doc);
+        return $response;
+    }
 
 }
 ?>
