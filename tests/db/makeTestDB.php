@@ -4,17 +4,18 @@
  *
  * @author jason
  */
-require_once 'bootstrap.php';
+require_once '../bootstrap.php';
 
+$config = new Zend_Config_Ini(APP_PATH . '/config/app.ini', "production");
+$couch = new Couch_Client($config->db->dsn, $config->db->name);
 $dbContents = (isset($_GET['contents'])) ? $_GET['contents'] : 'full';
 
 
 
 echo "deleting old test db...<br>";
-print_r($couch->deleteDatabase());
+//print_r($couch->deleteDatabase());
 echo "creating new test db...<br>";
 print_r($couch->createDatabase());
-
 $docs = json_decode(file_get_contents('./data/testDatabases/'.$dbContents.'.json'));
 
 echo "storing docs from $dbContents...<br>";
