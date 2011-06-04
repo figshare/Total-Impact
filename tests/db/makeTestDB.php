@@ -7,16 +7,17 @@
 require_once '../bootstrap.php';
 
 $config = new Zend_Config_Ini(APP_PATH . '/config/app.ini', "production");
-$couch = new Couch_Client($config->db->dsn, $config->db->name);
+$couch = new Couch_Client($config->db->dsn, "tester");
 $dbContents = (isset($_GET['contents'])) ? $_GET['contents'] : 'full';
 
 
-
-echo "deleting old test db...<br>";
-//print_r($couch->deleteDatabase());
+if ($couch->databaseExists()){
+    echo "deleting old test db...<br>";
+    print_r($couch->deleteDatabase());
+}
 echo "creating new test db...<br>";
 print_r($couch->createDatabase());
-$docs = json_decode(file_get_contents('./data/testDatabases/'.$dbContents.'.json'));
+$docs = json_decode(file_get_contents('../data/testDatabases/'.$dbContents.'.json'));
 
 echo "storing docs from $dbContents...<br>";
 print_r($couch->storeDocs($docs));
