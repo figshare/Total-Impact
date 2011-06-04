@@ -1,0 +1,53 @@
+{
+    "_id": "5",
+    "title": "SlideShare only",
+    "created_at": "1302341530",
+    "artifact_ids": [
+        "http://www.slideshare.net/567/flipflops",
+        "http://www.slideshare.net/567/nobel-prize-acceptance-570BC"
+    ],
+    "sources":{
+        "SlideShare": {
+           "source_name": "SlideShare",
+           "last_update": "1306599479",
+           "has_error": false,
+           "error_msg": "NA",
+           "about": {
+              "descr": "The best way to share presentations, documents and professional videos.",
+              "url": "http://www.SlideShare.net/",
+              "icon": "http://www.SlideShare.net/favicon.ico",
+              "metrics": {
+                                    "favorites": "the number of times a presentation has been favorited", 
+                                    "title": "the title of the publication", 
+                                    "downloads": "the number of downloads of the presentation", 
+                                    "views": "the number of views of the presentation", 
+                                    "comments": "the number of comments on the presentation", 
+                                    "year_uploaded": "the year the presentation was uploaded"
+              }
+           },
+           "artifacts": {
+                    "http://www.slideshare.net/567/flipflops": {
+                                    "title": "Flipflops around the world, presented at Flipping 2009", 
+                                    "upload_year": "2010", 
+                                    "views": 71744, 
+                                    "favorites": 2, 
+                                    "downloads": 9, 
+                                    "type": "slides", 
+                                    "comments": 0
+              },
+              "http://www.slideshare.net/567/nobel-prize-acceptance-570AD": {
+                                    "title": "My Nobel Prize Acceptance Speech from long ago", 
+                                    "upload_year": "570", 
+                                    "views": 345, 
+                                    "favorites": 2, 
+                                    "downloads": 5, 
+                                    "type": "slides", 
+                                    "comments": 6234
+              }
+           }
+        }
+    },
+    "updates":{
+        "SlideShare":"1306821530"
+    }
+}

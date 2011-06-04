@@ -1,17 +1,16 @@
 {
-    "_id": "abcdef",
-    "_rev": "revStr",
-    "title": "my title",
-    "created_at": "1234567890",
+    "_id": "2",
+    "title": "Mendeley only",
+    "created_at": "1306821530",
     "artifact_ids": [
-        "10.1371/journal.pbio.0060048",
-        "10.1371/journal.pone.00008109",
-        "http://www.slideshare.net/phylogenomics/eisen"
+        "10.1371/journal.of.water.0060048",
+        "10.1371/journal.of.scissors.00008109",
+        "http://www.slideshare.net/567/flipflops"
     ],
     "sources":{
         "Mendeley": {
            "source_name": "Mendeley",
-           "last_update": "1306599479", 
+           "last_update": "1306599479",
            "has_error": false,
            "error_msg": "NA",
            "about": {
@@ -24,12 +23,12 @@
               }
            },
            "artifacts": {
-              "10.1371/journal.pbio.0060048": {
+              "10.1371/journal.of.water.0060048": {
                  "type": "article",
                  "readers": 24,
                  "groups": 3
               },
-              "10.1371/journal.pone.00008109": {
+              "10.1371/journal.of.scissors.00008109": {
                  "type": "article",
                  "readers": 0,
                  "groups": 0
@@ -38,6 +37,6 @@
         }
     },
     "updates":{
-        "Mendeley":"1306821630"
+        "Mendeley":"1306821530"
     }
 }
