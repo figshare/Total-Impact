@@ -17,7 +17,14 @@ class Updater {
         return $this->couch;
     }
 
-    
+    /**
+     * Gets all the collections that haven't yet been successfully updated by the loaded plugin,
+     *    gets plugin results for each one, then stores the updated docs.
+     *
+     *
+     * @param string optional timestamp, useful for testing
+     * @return bool true on success
+     */
     public function update($ts=false) {
         $sourceName = $this->plugin->getName();
         $couchResponse = $this->couch
@@ -36,40 +43,49 @@ class Updater {
             if (!isset($pluginResponse->source_name)) { // very basic plugin response validation
                 throw new Exception("Got no usable response from the plugin '$sourceName'");
             }
-
-            // update collection in database
-            $doc = $this->couch->getDoc($row->_id);
-            $doc->sources->$sourceName = $pluginResponse;
-            $doc->updates->$sourceName = $ts;
-            $this->couch->storeDoc($doc);
+            
+            $this->updateDoc($row->_id, $sourceName, $pluginResponse, 0, $ts);
         }
+        return true;
     }
-
 
     /**
-     * Creates a new collection based on user input
+     * Updates a given couch doc with information from the plugin
+     * Tries again a few times if storage doesn't work (generally that's because
+     *    the doc was changed after we downloaded it).
      *
-     * @param CollectionInput $input
-     * @return Object couchdb response object
+     * @param string $docId
+     * @param string $sourceName
+     * @param StdClass $pluginResponse
+     * @param int $tries
+     * @param bool|string $ts
+     * @return StdClass CouchDB response object
      */
-    public function make(CollectionInput $input) {
-
-        // build the object
-        $ts = time();
-        $id = $input->getCollectionId();
-
-        $doc = new stdClass();
-        $doc->_id = $id;
-        $doc->created_at = $ts;
-        $doc->title = $input->getCollectionTitle();
-        $doc->artifact_ids = $input->getArtifactIds();
-        $doc->sources = new stdClass(); // we'll fill this later
-        $doc->updates = new stdClass(); // also for later
-
-        // put it in couchdb
-        $response = $this->couch->storeDoc($doc);
+    private function updateDoc($docId, $sourceName, $pluginResponse, $tries, $ts){
+        $maxTries = 5;
+        $ts = ($ts) ? $ts : (string)time();
+        $doc = $this->couch->getDoc($docId);
+        $doc->sources->$sourceName = $pluginResponse;
+        if (!$pluginResponse->has_error){
+            $doc->updates->$sourceName = $ts;
+        }
+        else {
+            $doc->updates->$sourceName = false;
+        }
+        try {
+            $response = $this->couch->storeDoc($doc);
+        }
+        catch (Exception $e){
+            if ($tries > $maxTries) {
+                throw $e;
+            }
+            sleep(1);
+            return $this->updateDoc($docId, $sourceName, $pluginResponse, $tries+1, $ts);
+        }
         return $response;
     }
+
+
     
 }
 

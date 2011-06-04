@@ -33,15 +33,23 @@
         
         <?php
         if (isset($_POST['submitted'])){
+            // show the user some kind of updating screen
             echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
-            $collection = new Collection(
-                    $couch,
-                    $_POST['name'],
-                    $_POST['ids']);
-            $id = $collection->make();
-            sleep(1);
-            $updater = new Updater($couch, new Zend_Http_Client, $config);
-            $updater->update();
+
+            // save the new collection
+            $collectionInput = CollectionInputFactory::make();
+            $collectionInput->save($_POST['name'], $_POST['ids']);
+
+            // update the whole database with all plugins.
+            $config = new Zend_Config_Ini(APP_PATH . '/config/app.ini', "production");
+
+            foreach ($config->plugins as $sourceName => $pluginUrl){
+                $updater = UpdaterFactory::makeUpdater($sourceName);
+                $updater->update();
+                // implement some sort of progress bar here
+            }
+
+            // redirect to the report page for this plugin
             echo "<script>location.href='report/$id'</script>";
 
         }

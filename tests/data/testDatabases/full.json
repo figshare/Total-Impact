@@ -8,9 +8,8 @@
             "10.1371/journal.of.sheep.00008109",
             "http://www.slideshare.net/nonsense/foo"
         ],
-        "sources":{},
-        "updates":{}
-
+        "sources": {},
+        "updates": {}
     },
     {
         "_id": "2",
@@ -21,37 +20,37 @@
             "10.1371/journal.of.scissors.00008109",
             "http://www.slideshare.net/567/flipflops"
         ],
-        "sources":{
+        "sources": {
             "Mendeley": {
-               "source_name": "Mendeley",
-               "last_update": "1306599479",
-               "has_error": false,
-               "error_msg": "NA",
-               "about": {
-                  "descr": "A research management tool for desktop and web.",
-                  "url": "http://www.Mendeley.com/",
-                  "icon": "http://www.Mendeley.com/favicon.ico",
-                  "metrics": {
-                     "readers": "the number of readers of the article",
-                     "groups": "the number of groups the article is in"
-                  }
-               },
-               "artifacts": {
-                  "10.1371/journal.of.water.0060048": {
-                     "type": "article",
-                     "readers": 24,
-                     "groups": 3
-                  },
-                  "10.1371/journal.of.scissors.00008109": {
-                     "type": "article",
-                     "readers": 0,
-                     "groups": 0
-                  }
-               }
+                "source_name": "Mendeley",
+                "last_update": "1306599479",
+                "has_error": false,
+                "error_msg": "NA",
+                "about": {
+                    "descr": "A research management tool for desktop and web.",
+                    "url": "http://www.Mendeley.com/",
+                    "icon": "http://www.Mendeley.com/favicon.ico",
+                    "metrics": {
+                        "readers": "the number of readers of the article",
+                        "groups": "the number of groups the article is in"
+                    }
+                },
+                "artifacts": {
+                    "10.1371/journal.of.water.0060048": {
+                        "type": "article",
+                        "readers": 24,
+                        "groups": 3
+                    },
+                    "10.1371/journal.of.scissors.00008109": {
+                        "type": "article",
+                        "readers": 0,
+                        "groups": 0
+                    }
+                }
             }
         },
-        "updates":{
-            "Mendeley":"1306821530"
+        "updates": {
+            "Mendeley": "1306821530"
         }
     },
     {
@@ -63,8 +62,8 @@
             "10.1371/journal.of.delightfulcrumpets.00008109",
             "http://www.slideshare.net/creative/bookkeeping"
         ],
-        "sources":{
-            "CrossRef":{
+        "sources": {
+            "CrossRef": {
                 "about": {
                     "metrics": {
                         "doi": "the DOI of the publication, if applicable",
@@ -107,10 +106,9 @@
                 "last_update": "1306823030"
             }
         },
-        "updates":{
+        "updates": {
             "CrossRef": "1306823030"
         }
-
     },
     {
         "_id": "4",
@@ -121,78 +119,78 @@
             "10.1371/journal.of.whining.00008109",
             "http://www.slideshare.net/upside/down"
         ],
-        "sources":{
-            "CrossRef":{
-            "about": {
-                "metrics": {
-                    "doi": "the DOI of the publication, if applicable",
-                    "title": "the title of the publication",
-                    "url": "the url of the full text of the publication",
-                    "journal": "the journal where the paper was published",
-                    "authors": "the authors of the publication",
-                    "year": "the year of the publication",
-                    "pmid": "the PubMed identifier of the publication, if applicable"
+        "sources": {
+            "CrossRef": {
+                "about": {
+                    "metrics": {
+                        "doi": "the DOI of the publication, if applicable",
+                        "title": "the title of the publication",
+                        "url": "the url of the full text of the publication",
+                        "journal": "the journal where the paper was published",
+                        "authors": "the authors of the publication",
+                        "year": "the year of the publication",
+                        "pmid": "the PubMed identifier of the publication, if applicable"
+                    },
+                    "url": "http://www.CrossRef.org/",
+                    "icon": "http://www.CrossRef.org/favicon.ico",
+                    "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."
                 },
-                "url": "http://www.CrossRef.org/",
-                "icon": "http://www.CrossRef.org/favicon.ico",
-                "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."
-            },
-            "source_name": "CrossRef",
-            "artifacts": {
-                "17662182": {
-                    "doi": "10.1371/journal.of.repeated.words.0060048",
-                    "title": "Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo",
-                    "url": "http://10.1371/journal.of.repeated.words.0060048",
-                    "journal": "Journal of Repeated Words",
-                    "authors": "Garfield",
-                    "year": "1963",
-                    "pmid": "17662182",
-                    "type": "article"
+                "source_name": "CrossRef",
+                "artifacts": {
+                    "17662182": {
+                        "doi": "10.1371/journal.of.repeated.words.0060048",
+                        "title": "Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo",
+                        "url": "http://10.1371/journal.of.repeated.words.0060048",
+                        "journal": "Journal of Repeated Words",
+                        "authors": "Garfield",
+                        "year": "1963",
+                        "pmid": "17662182",
+                        "type": "article"
+                    },
+                    "10.1371/journal.of.whining.00008109": {
+                        "doi": "10.1371/journal.of.whining.00008109",
+                        "title": "This is so unfair: Do I really have to?",
+                        "url": "http://10.1371/journal.of.whining.00008109",
+                        "journal": "Journal of Whining",
+                        "authors": "Shotton, Portwin, Klyne, Miles",
+                        "year": "2009",
+                        "pmid": "10089256",
+                        "type": "article"
+                    }
                 },
-                "10.1371/journal.of.whining.00008109": {
-                    "doi": "10.1371/journal.of.whining.00008109",
-                    "title": "This is so unfair: Do I really have to?",
-                    "url": "http://10.1371/journal.of.whining.00008109",
-                    "journal": "Journal of Whining",
-                    "authors": "Shotton, Portwin, Klyne, Miles",
-                    "year": "2009",
-                    "pmid": "10089256",
-                    "type": "article"
-                }
-            },
-            "error_msg": "NA",
-            "has_error": "FALSE",
-            "last_update": "1306823020"
+                "error_msg": "NA",
+                "has_error": "FALSE",
+                "last_update": "1306823020"
             },
             "Mendeley": {
-               "source_name": "Mendeley",
-               "last_update": "1306823022",
-               "has_error": false,
-               "error_msg": "NA",
-               "about": {
-                  "descr": "A research management tool for desktop and web.",
-                  "url": "http://www.Mendeley.com/",
-                  "icon": "http://www.Mendeley.com/favicon.ico",
-                  "metrics": {
-                     "readers": "the number of readers of the article",
-                     "groups": "the number of groups the article is in"
-                  }
-               },
-               "artifacts": {
-                  "10.1371/journal.of.whining.00008109": {
-                     "type": "article",
-                     "readers": 24,
-                     "groups": 3
-                  },
-                  "17662182": {
-                     "type": "article",
-                     "readers": 0,
-                     "groups": 0
-                  }
-               }
+                "source_name": "Mendeley",
+                "last_update": "1306823022",
+                "has_error": false,
+                "error_msg": "NA",
+                "about": {
+                    "descr": "A research management tool for desktop and web.",
+                    "url": "http://www.Mendeley.com/",
+                    "icon": "http://www.Mendeley.com/favicon.ico",
+                    "metrics": {
+                        "readers": "the number of readers of the article",
+                        "groups": "the number of groups the article is in"
+                    }
+                },
+                "artifacts": {
+                    "17662182": {
+                        "type": "article",
+                        "readers": 0,
+                        "groups": 0
+                    },
+                    "10.1371/journal.of.whining.00008109": {
+                        "type": "article",
+                        "readers": 24,
+                        "groups": 3
+                    }
+                }
             }
         },
-        "updates":{
+        "updates": {
             "CrossRef": "1306823020",
             "Mendeley": "1306823022"
         }
@@ -205,49 +203,235 @@
             "http://www.slideshare.net/567/flipflops",
             "http://www.slideshare.net/567/nobel-prize-acceptance-570BC"
         ],
-        "sources":{
+        "sources": {
             "SlideShare": {
-               "source_name": "SlideShare",
-               "last_update": "1306599479",
-               "has_error": false,
-               "error_msg": "NA",
-               "about": {
-                  "descr": "The best way to share presentations, documents and professional videos.",
-                  "url": "http://www.SlideShare.net/",
-                  "icon": "http://www.SlideShare.net/favicon.ico",
-                  "metrics": {
-					"favorites": "the number of times a presentation has been favorited", 
-					"title": "the title of the publication", 
-					"downloads": "the number of downloads of the presentation", 
-					"views": "the number of views of the presentation", 
-					"comments": "the number of comments on the presentation", 
-					"year_uploaded": "the year the presentation was uploaded"
-                  }
-               },
-               "artifacts": {
-                  	"http://www.slideshare.net/567/flipflops": {
-					"title": "Flipflops around the world, presented at Flipping 2009", 
-					"upload_year": "2010", 
-					"views": 71744, 
-					"favorites": 2, 
-					"downloads": 9, 
-					"type": "slides", 
-					"comments": 0
-                  },
-                  "http://www.slideshare.net/567/nobel-prize-acceptance-570AD": {
-					"title": "My Nobel Prize Acceptance Speech from long ago", 
-					"upload_year": "570", 
-					"views": 345, 
-					"favorites": 2, 
-					"downloads": 5, 
-					"type": "slides", 
-					"comments": 6234
-                  }
-               }
+                "source_name": "SlideShare",
+                "last_update": "1306599479",
+                "has_error": false,
+                "error_msg": "NA",
+                "about": {
+                    "descr": "The best way to share presentations, documents and professional videos.",
+                    "url": "http://www.SlideShare.net/",
+                    "icon": "http://www.SlideShare.net/favicon.ico",
+                    "metrics": {
+                        "favorites": "the number of times a presentation has been favorited",
+                        "title": "the title of the publication",
+                        "downloads": "the number of downloads of the presentation",
+                        "views": "the number of views of the presentation",
+                        "comments": "the number of comments on the presentation",
+                        "year_uploaded": "the year the presentation was uploaded"
+                    }
+                },
+                "artifacts": {
+                    "http://www.slideshare.net/567/flipflops": {
+                        "title": "Flipflops around the world, presented at Flipping 2009",
+                        "upload_year": "2010",
+                        "views": 71744,
+                        "favorites": 2,
+                        "downloads": 9,
+                        "type": "slides",
+                        "comments": 0
+                    },
+                    "http://www.slideshare.net/567/nobel-prize-acceptance-570AD": {
+                        "title": "My Nobel Prize Acceptance Speech from long ago",
+                        "upload_year": "570",
+                        "views": 345,
+                        "favorites": 2,
+                        "downloads": 5,
+                        "type": "slides",
+                        "comments": 6234
+                    }
+                }
             }
         },
+        "updates": {
+            "SlideShare": "1306821530"
+        }
+    },
+    {
+        "_id": "6",
+        "title": "Facebook only",
+        "created_at": "1234517900",
+        "artifact_ids": [
+            "17662182",
+            "10.1371/journal.of.whining.00008109",
+            "http://www.slideshare.net/upside/down"
+        ],
+        "sources": {
+            "Facebook": {
+                "source_name": "Facebook",
+                "last_update": "1306563022",
+                "has_error": false,
+                "error_msg": "NA",
+                "about": {
+                    "descr": "you don't know what facebook is?  really?",
+                    "url": "http://www.Facebook.com/",
+                    "icon": "http://www.Facebook.com/favicon.ico",
+                    "metrics": {
+                        "likes": "how many like it",
+                        "comments": "how many follows"
+                    }
+                },
+                "artifacts": {
+                    "17632182": {
+                        "type": "NA",
+                        "likes": 23,
+                        "comments": 45
+                    },
+                    "http://myblog.com/postnumber6": {
+                        "type": "NA",
+                        "likes": 4,
+                        "comments": 0
+                    },
+                    "http://myblog.com/postnumber3": {
+                        "type": "NA",
+                        "likes": 4634534,
+                        "comments": 345
+                    }
+                }
+            }
+        },
+        "updates": {
+            "Facebook": "1306823020"
+        }
+    },
+    {
+        "_id": "7",
+        "title": "CrossRef + Mendeley + Facebook",
+        "created_at": "1234517900",
+        "artifact_ids": [
+            "17662182",
+            "10.1371/journal.of.whining.00008109",
+            "http://www.slideshare.net/upside/down"
+        ],
+        "sources": {
+            "CrossRef": {
+                "about": {
+                    "metrics": {
+                        "doi": "the DOI of the publication, if applicable",
+                        "title": "the title of the publication",
+                        "url": "the url of the full text of the publication",
+                        "journal": "the journal where the paper was published",
+                        "authors": "the authors of the publication",
+                        "year": "the year of the publication",
+                        "pmid": "the PubMed identifier of the publication, if applicable"
+                    },
+                    "url": "http://www.CrossRef.org/",
+                    "icon": "http://www.CrossRef.org/favicon.ico",
+                    "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."
+                },
+                "source_name": "CrossRef",
+                "artifacts": {
+                    "17662182": {
+                        "doi": "10.1371/journal.of.repeated.words.0060048",
+                        "title": "Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo",
+                        "url": "http://10.1371/journal.of.repeated.words.0060048",
+                        "journal": "Journal of Repeated Words",
+                        "authors": "Garfield",
+                        "year": "1963",
+                        "pmid": "17662182",
+                        "type": "article"
+                    },
+                    "10.1371/journal.of.whining.00008109": {
+                        "doi": "10.1371/journal.of.whining.00008109",
+                        "title": "This is so unfair: Do I really have to?",
+                        "url": "http://10.1371/journal.of.whining.00008109",
+                        "journal": "Journal of Whining",
+                        "authors": "Shotton, Portwin, Klyne, Miles",
+                        "year": "2009",
+                        "pmid": "10089256",
+                        "type": "article"
+                    }
+                },
+                "error_msg": "NA",
+                "has_error": "FALSE",
+                "last_update": "1306823020"
+            },
+            "Mendeley": {
+                "source_name": "Mendeley",
+                "last_update": "1306823022",
+                "has_error": false,
+                "error_msg": "NA",
+                "about": {
+                    "descr": "A research management tool for desktop and web.",
+                    "url": "http://www.Mendeley.com/",
+                    "icon": "http://www.Mendeley.com/favicon.ico",
+                    "metrics": {
+                        "readers": "the number of readers of the article",
+                        "groups": "the number of groups the article is in"
+                    }
+                },
+                "artifacts": {
+                    "17662182": {
+                        "type": "article",
+                        "readers": 0,
+                        "groups": 0
+                    },
+                    "10.1371/journal.of.whining.00008109": {
+                        "type": "article",
+                        "readers": 24,
+                        "groups": 3
+                    }
+                }
+            },
+            "Facebook": {
+                "source_name": "Facebook",
+                "last_update": "1306823022",
+                "has_error": false,
+                "error_msg": "NA",
+                "about": {
+                    "descr": "you don't know what facebook is?  really?",
+                    "url": "http://www.Facebook.com/",
+                    "icon": "http://www.Facebook.com/favicon.ico",
+                    "metrics": {
+                        "likes": "how many like it",
+                        "comments": "how many follows"
+                    }
+                },
+                "artifacts": {
+                    "17662182": {
+                        "type": "NA",
+                        "likes": 22,
+                        "comments": 44
+                    }
+                }
+            }
+        },
+        "updates": {
+            "CrossRef": "1306823020",
+            "Mendeley": "1306823022",
+            "Facebook": "1306823025"
+        }
+    },
+    {
+        "_id": "6",
+        "title": "Mendeley with error",
+        "created_at": "1306821930",
+        "artifact_ids": [
+            "10.1371/journal.of.hipster.studies.0060048",
+            "10.1371/journal.of.uncomfortable.silences.00008109",
+            "http://www.slideshare.net/567/flipflops"
+        ],
+        "sources":{
+            "Mendeley": {
+               "source_name": "Mendeley",
+               "last_update": "1306599479",
+               "has_error": true,
+               "error_msg": "zomg API limit reached",
+               "about": {
+                  "descr": "A research management tool for desktop and web.",
+                  "url": "http://www.Mendeley.com/",
+                  "icon": "http://www.Mendeley.com/favicon.ico",
+                  "metrics": {
+                     "readers": "the number of readers of the article",
+                     "groups": "the number of groups the article is in"
+                  }
+               },
+               "artifacts": {}
+           }
+        },
         "updates":{
-            "SlideShare":"1306821530"
+            "Mendeley": false
         }
     }
 ]
