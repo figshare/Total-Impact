@@ -13,7 +13,7 @@ function(doc) {
         "Mendeley",
         "CrossRef",
         "Plosalm",
-        "Slideshare",
+        "SlideShare",
         "Facebook",
         "ICPSR",
         "Dryad"
@@ -37,12 +37,12 @@ function(doc) {
     }
 
     // return it only if it's missing sources
-
     var sourcesCount = sources.length;
     var key;
-    for (var i=0; i<sourcesCount; i++) {
-        key = [sources[i]];
-        emit(key, ret);
+    for (i=0; i<sourcesCount; i++) {
+        if (!doc.updates[sources[i]]) {
+            emit(sources[i], ret);
+        }
     }
 
     

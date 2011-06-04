@@ -40,8 +40,15 @@ class Updater {
             // update collection in database
             $doc = $this->couch->getDoc($row->_id);
             $doc->sources->$sourceName = $pluginResponse;
-            $doc->updates->$sourceName = $ts;
+            if (!$pluginResponse->has_error){
+                $doc->updates->$sourceName = $ts;
+            }
+            else {
+                $doc->updates->$sourceName = false;
+            }
             $this->couch->storeDoc($doc);
+
+
         }
     }
 

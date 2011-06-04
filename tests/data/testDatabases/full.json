@@ -249,5 +249,36 @@
         "updates":{
             "SlideShare":"1306821530"
         }
+    },
+    {
+        "_id": "6",
+        "title": "Mendeley with error",
+        "created_at": "1306821930",
+        "artifact_ids": [
+            "10.1371/journal.of.hipster.studies.0060048",
+            "10.1371/journal.of.uncomfortable.silences.00008109",
+            "http://www.slideshare.net/567/flipflops"
+        ],
+        "sources":{
+            "Mendeley": {
+               "source_name": "Mendeley",
+               "last_update": "1306599479",
+               "has_error": true,
+               "error_msg": "zomg API limit reached",
+               "about": {
+                  "descr": "A research management tool for desktop and web.",
+                  "url": "http://www.Mendeley.com/",
+                  "icon": "http://www.Mendeley.com/favicon.ico",
+                  "metrics": {
+                     "readers": "the number of readers of the article",
+                     "groups": "the number of groups the article is in"
+                  }
+               },
+               "artifacts": {}
+           }
+        },
+        "updates":{
+            "Mendeley": false
+        }
     }
 ]
