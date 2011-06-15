@@ -32,8 +32,8 @@ class Models_UpdaterTest extends PHPUnit_Framework_TestCase {
         $to_updateViewResponse = $this->getData('freshToMendeley/to_updateViewResponse');
         $pluginQuery = $this->getData('freshToMendeley/pluginQuery');
         $pluginResponse = $this->getData('freshToMendeley/pluginResponse');
-        $updatedDoc = $this->getData('couchDocs/2');
-        $freshDoc = $this->getData('couchDocs/1');
+        $updatedDoc = $this->getData('freshToMendeley/withMendeley');
+        $freshDoc = $this->getData('freshToMendeley/fresh');
 
 
         $this->fakeCouch->setViewReturns(array($to_updateViewResponse));
