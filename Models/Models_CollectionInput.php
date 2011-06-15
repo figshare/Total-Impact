@@ -4,7 +4,7 @@
  *
  * @author jason
  */
-class CollectionInput {
+class Models_CollectionInput {
    private $collectionTitle;
    private $idsStr;
    private $artifactIds;

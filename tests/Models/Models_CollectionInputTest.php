@@ -1,8 +1,8 @@
 <?php
 
-require_once dirname(__FILE__) . '/../CollectionInput.php';
+//require_once dirname(__FILE__) . '/../CollectionInput.php';
 
-class CollectionInputTest extends PHPUnit_Framework_TestCase {
+class Models_CollectionInputTest extends PHPUnit_Framework_TestCase {
 
     private $ids = array(   "10.1371/journal.pbio.0060048",
                             "10.1371/journal.pbio.0050082",
