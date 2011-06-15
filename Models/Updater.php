@@ -39,9 +39,12 @@ class Models_Updater {
             // get new data from plugin
             $artifactIds = $row->value;
             $this->plugin->setArtifactIds($artifactIds);
-            $pluginResponse = $this->plugin->fetchData();
+            $pluginResponse = $this->plugin->fetchData()->getBody();
             if (!isset($pluginResponse->source_name)) { // very basic plugin response validation
-                throw new Exception("Got no usable response from the plugin '$sourceName'");
+                throw new Exception("Got no usable response from the plugin '$sourceName' at" . $this->plugin->getUri()
+                        . "; instead got this:<br>\n " 
+                        . print_r($pluginResponse, false)
+                        . "<br>\n");
             }
             
             $this->updateDoc($row->_id, $sourceName, $pluginResponse, 0, $ts);
