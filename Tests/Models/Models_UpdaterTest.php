@@ -28,24 +28,18 @@ class Models_UpdaterTest extends PHPUnit_Framework_TestCase {
         
     }
 
-
-
-
-
-
-
     function testUpdateCollection(){
         $to_updateViewResponse = $this->getData('freshToMendeley/to_updateViewResponse');
         $pluginQuery = $this->getData('freshToMendeley/pluginQuery');
         $pluginResponse = $this->getData('freshToMendeley/pluginResponse');
-        $updatedDoc = $this->getData('couchDocs/withMendeley');
-        $freshDoc = $this->getData('couchDocs/fresh');
+        $updatedDoc = $this->getData('couchDocs/2');
+        $freshDoc = $this->getData('couchDocs/1');
 
 
         $this->fakeCouch->setViewReturns(array($to_updateViewResponse));
         $this->fakeCouch->setDocsToGet(array("abcdef"=>$freshDoc));
 
-        $plugin = $this->getMock("Plugin");
+        $plugin = $this->getMock("Models_Plugin");
         $plugin->expects($this->once())
                 ->method('setArtifactIds')
                 ->with($pluginQuery);
@@ -57,7 +51,7 @@ class Models_UpdaterTest extends PHPUnit_Framework_TestCase {
                 ->will($this->returnValue($pluginResponse));
 
 
-        $updater = new Updater ($this->fakeCouch, $plugin);
+        $updater = new Models_Updater ($this->fakeCouch, $plugin);
         $updater->update("1306821630");
         $this->assertEquals(
                 $updatedDoc,

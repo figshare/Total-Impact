@@ -9,7 +9,7 @@ class Models_Updater {
     private $couch;
     private $plugin;
     
-    public function __construct(Couch_Client $couch, Plugin $plugin){
+    public function __construct(Couch_Client $couch, Models_Plugin $plugin){
         $this->couch = $couch;
         $this->plugin = $plugin;
     }
