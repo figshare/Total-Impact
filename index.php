@@ -37,14 +37,14 @@
             echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
 
             // save the new collection
-            $collectionInput = CollectionInputFactory::make();
+            $collectionInput = Models_CollectionInputFactory::make();
             $collectionInput->save($_POST['name'], $_POST['ids']);
 
             // update the whole database with all plugins.
             $config = new Zend_Config_Ini(APP_PATH . '/config/app.ini', "production");
 
             foreach ($config->plugins as $sourceName => $pluginUrl){
-                $updater = UpdaterFactory::makeUpdater($sourceName);
+                $updater = Models_UpdaterFactory::makeUpdater($sourceName);
                 $updater->update();
                 // implement some sort of progress bar here
             }

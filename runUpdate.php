@@ -8,7 +8,7 @@
  */
 
 require_once 'bootstrap.php';
-$updater = UpdaterFactory::makeUpdater($_GET['source']);
+$updater = Models_UpdaterFactory::makeUpdater($_GET['source']);
 $updater->update();
 
 
