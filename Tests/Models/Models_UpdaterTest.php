@@ -20,7 +20,7 @@ class Models_UpdaterTest extends PHPUnit_Framework_TestCase {
         $fileContents = file_get_contents('../data/' . $fileName . '.json');
         $commentsRemoved = preg_replace('# //.+?$#m', '', $fileContents);
         return json_decode($commentsRemoved);
-    }
+    } 
 
 
     function setUp(){
