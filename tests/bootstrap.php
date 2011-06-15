@@ -5,6 +5,7 @@ ini_set('display_errors', 1);
 
 defined('APP_PATH') || define('APP_PATH', realpath(dirname(__FILE__) ) . "/../");
 set_include_path(get_include_path() . PATH_SEPARATOR .APP_PATH . '/library/');
+set_include_path(get_include_path() . PATH_SEPARATOR .APP_PATH);
 date_default_timezone_set('UTC');
 
 // instantiate the loader

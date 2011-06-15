@@ -30,8 +30,8 @@ class Models_CollectionInputTest extends PHPUnit_Framework_TestCase {
 
     function testMake(){
         $idsStr = implode("\n", $this->ids);
-        $fakeCouch = new FakeCouch();
-        $ci = new CollectionInput($fakeCouch);
+        $fakeCouch = new Tests_Fakes_Couch();
+        $ci = new Models_CollectionInput($fakeCouch);
         $ci->save("my title", $idsStr, "1234567890");
         $res = $fakeCouch->getStoredDocs(0);
         $exp = $this->collection;

@@ -4,7 +4,7 @@
  *
  * @author jason
  */
-class FakeCouch extends Couch_Client {
+class Tests_Fakes_Couch extends Couch_Client {
     private $viewsToReturn;
     private $viewReturnIndex;
     private $storedDocs;
