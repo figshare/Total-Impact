@@ -5,7 +5,7 @@
  *
  * @author jay
  */
-class Updater {
+class Models_Updater {
     private $couch;
     private $plugin;
     

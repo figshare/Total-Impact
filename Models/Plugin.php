@@ -4,7 +4,7 @@
  *
  * @author jason
  */
-class Plugin extends Zend_Http_Client {
+class Models_Plugin extends Zend_Http_Client {
     private $name;
     private $artifactIds;
 

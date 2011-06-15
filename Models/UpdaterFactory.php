@@ -4,7 +4,7 @@
  *
  * @author jason
  */
-class UpdaterFactory {
+class Models_UpdaterFactory {
     static function makeUpdater($sourceName){
 
         $config = new Zend_Config_Ini(APP_PATH . '/config/app.ini', "production");
