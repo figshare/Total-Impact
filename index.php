@@ -41,7 +41,7 @@
             $collectionInput->save($_POST['name'], $_POST['ids']);
 
             // update the whole database with all plugins.
-            $config = new Zend_Config_Ini(APP_PATH . '/config/app.ini', "production");
+            $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
 
             foreach ($config->plugins as $sourceName => $pluginUrl){
                 $updater = Models_UpdaterFactory::makeUpdater($sourceName);

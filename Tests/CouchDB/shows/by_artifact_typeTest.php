@@ -11,10 +11,16 @@ class by_artifact_typeTest extends Tests_CouchDB_TestCase {
     protected $couch;
 
     function __construct() {
+        $dbName =
+        $couch = new Couch_Client($dsn, $dbname)
 
 
 
         $this->couch;
+    }
+
+    private function makeDB($name) {
+        $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
     }
 
 

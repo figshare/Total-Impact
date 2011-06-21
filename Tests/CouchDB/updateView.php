@@ -7,7 +7,7 @@
 require_once '../bootstrap.php';
 
 $docName = "main";
-$config = new Zend_Config_Ini(APP_PATH . '/config/app.ini', "production");
+$config = new Zend_Config_Ini(CONFIG_PATH, ENV);
 $couch = new Couch_Client($config->db->dsn, $config->db->name);
 $dbContents = (isset($_GET['contents'])) ? $_GET['contents'] : 'full';
 
