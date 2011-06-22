@@ -11,7 +11,15 @@ ini_set('display_errors', 1);
 
 defined('APP_PATH') || define('APP_PATH', realpath(dirname(__FILE__) ));
 defined('CONFIG_PATH') || define('CONFIG_PATH', APP_PATH . '/config/app.ini');
-defined('ENV') || define('ENV', "development"); // we can get this with getenv() from Apache later
+if (defined(ENV)){
+    // do nothing
+}
+elseif (getenv('APPLICATION_ENV') == "production") {
+     define('ENV', "production");
+}
+else {
+     define('ENV', "development");
+}
 
 set_include_path(get_include_path() . PATH_SEPARATOR .APP_PATH . '/library/' . PATH_SEPARATOR . APP_PATH);
 date_default_timezone_set('UTC');
