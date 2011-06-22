@@ -51,16 +51,6 @@ class Models_UpdaterTest extends PHPUnit_Framework_TestCase {
         $this->fakeCouch->setViewReturns(array(json_decode($to_updateViewResponse)));
         $this->fakeCouch->setDocsToGet(array("abcdef"=>json_decode($freshDoc)));
 
-//        $plugin = $this->getMock("Models_Plugin");
-//        $plugin->expects($this->once())
-//                ->method('setArtifactIds')
-//                ->with($pluginQuery);
-//        $plugin->expects($this->any())
-//                ->method('getName')
-//                ->will($this->returnValue("Mendeley"));
-//        $plugin->expects($this->once())
-//                ->method('fetchData')
-//                ->will($this->returnValue($pluginResponse));
 
 
         $updater = new Models_Updater ($this->fakeCouch, $plugin);

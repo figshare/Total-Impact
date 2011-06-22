@@ -7,7 +7,7 @@
  */
 
 class by_artifact_type {
-    
+
 }
 
 
