@@ -11,7 +11,7 @@ ini_set('display_errors', 1);
 
 defined('APP_PATH') || define('APP_PATH', realpath(dirname(__FILE__) ));
 defined('CONFIG_PATH') || define('CONFIG_PATH', APP_PATH . '/config/app.ini');
-if (defined(ENV)){
+if (defined('ENV')){
     // do nothing
 }
 elseif (getenv('APPLICATION_ENV') == "production") {
