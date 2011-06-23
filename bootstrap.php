@@ -1,14 +1,7 @@
 <?php
-/**
- * This file must be run before unit tests
- */
+// This file must be run before unit tests
 
-
-// just here for development
-error_reporting( E_ALL | E_STRICT );
-ini_set('display_startup_errors', 1);
-ini_set('display_errors', 1);
-
+// define constants
 defined('APP_PATH') || define('APP_PATH', realpath(dirname(__FILE__) ));
 defined('CONFIG_PATH') || define('CONFIG_PATH', APP_PATH . '/config/app.ini');
 if (defined('ENV')){
@@ -21,6 +14,7 @@ else {
      define('ENV', "development");
 }
 
+// set the include path so autoloading will get classes here:
 set_include_path(get_include_path() . PATH_SEPARATOR .APP_PATH . '/library/' . PATH_SEPARATOR . APP_PATH);
 date_default_timezone_set('UTC');
 
