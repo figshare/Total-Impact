@@ -14,7 +14,7 @@ class Tests_CouchDB_TestCase extends PHPUnit_Framework_TestCase {
     static function  setUpBeforeClass() {
         $dbName = "testdb";
         $dataDir = realpath(dirname(__FILE__) . '/../data/couchDocs');
-        $showLoc = '/couchdb/shows/by_artifact_type.js';
+        $showLoc = '/couchdb/shows/by_artifact.js';
 
         // make the test database
         $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
@@ -48,8 +48,8 @@ class Tests_CouchDB_TestCase extends PHPUnit_Framework_TestCase {
 
         // get the show
         $shows = new stdClass();
-        $by_artifact_typeJson = file_get_contents(APP_PATH . $showLoc);
-        $shows->by_artifact_type = $by_artifact_typeJson;
+        $by_artifactJson = file_get_contents(APP_PATH . $showLoc);
+        $shows->by_artifact = $by_artifactJson;
         $designDoc->shows = $shows;
 
         $couch->storeDoc($designDoc);
@@ -65,7 +65,7 @@ class Tests_CouchDB_TestCase extends PHPUnit_Framework_TestCase {
         $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
         $couch = new Couch_Client($config->db->dsn,$dbName);
         if ($couch->databaseExists()){
-            $couch->deleteDatabase();
+//            $couch->deleteDatabase();
         }
     }
 

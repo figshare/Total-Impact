@@ -1,0 +1,48 @@
+{
+   "_id": "8",
+   "_rev": "1-fcb1869fc387d1f3cd95c5d34ecdd3e2",
+   "title": "Facebook only",
+   "created_at": "1234517900",
+   "artifact_ids": [
+       "17662182",
+       "10.1371/journal.of.whining.00008109",
+       "http://www.slideshare.net/upside/down"
+   ],
+   "sources": {
+       "Facebook": {
+           "source_name": "Facebook",
+           "last_update": "1306563022",
+           "has_error": false,
+           "error_msg": "NA",
+           "about": {
+               "descr": "you don't know what facebook is?  really?",
+               "url": "http://www.Facebook.com/",
+               "icon": "http://www.Facebook.com/favicon.ico",
+               "metrics": {
+                   "likes": "how many like it",
+                   "comments": "how many follows"
+               }
+           },
+           "artifacts": {
+               "17632182": {
+                   "type": "NA",
+                   "likes": 23,
+                   "comments": 45
+               },
+               "http://myblog.com/postnumber6": {
+                   "type": "NA",
+                   "likes": 4,
+                   "comments": 0
+               },
+               "http://myblog.com/postnumber3": {
+                   "type": "NA",
+                   "likes": 4634534,
+                   "comments": 345
+               }
+           }
+       }
+   },
+   "updates": {
+       "Facebook": "1306823020"
+   }
+}

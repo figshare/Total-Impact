@@ -6,7 +6,7 @@
  * a file with a PHPUnit class that tests a given CouchDB functionality.
  */
 
-class by_artifact_type {
+class by_artifact {
 
 }
 
