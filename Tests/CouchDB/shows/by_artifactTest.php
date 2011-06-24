@@ -7,18 +7,16 @@ class by_artifactTest extends Tests_CouchDB_TestCase {
     private $expectedShows;
 
     /**
-     * Keeps all-numeric string keys from being transformed to ints by prepending "a" to them.
-     * I'm not sure where this bug is, but somewhere in the comparison it makes the conversion,
-     * causing a "undefined index" error. This fixes that.
+     * Keeps all-numeric string keys from being typecast to ints by prepending "a" to them.
+     * I'm not sure where this bug is, but somewhere in the PHPUnit comparison it typecasts
+     * all-all numeric key strings to ints, causing a "undefined index" error. This fixes that.
      *
      * @param StdClass $obj
      */
     function fixNumStrKeys(StdClass $obj) {
         $str = json_encode($obj);
         $newStr = preg_replace('#"(\d+)":#', '"a$1":', $str);
-        echo $newStr;
         $newObj = json_decode($newStr);
-        var_dump($newObj);
         return $newObj;
     }
 

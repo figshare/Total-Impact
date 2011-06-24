@@ -71,7 +71,8 @@ class Models_CollectionInput {
      */
     public function save($title, $idsStr) {
         // sanitize inputs
-        $title = strip_tags($title);
+        $title = ($title) ? strip_tags($title) : false;
+
         $idsStr = strip_tags($idsStr);
 
         // build the object

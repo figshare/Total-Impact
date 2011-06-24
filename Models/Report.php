@@ -1,7 +1,9 @@
 <?php
 
 /**
- * Description of ReportClass
+ * This is a wrapper around the json returned by the by_artifact show from the database.
+ * It allows report.php to just call these methods, rather than worrying about the format
+ * of what the database returns.
  *
  * @author jason
  */
@@ -16,6 +18,7 @@ class Models_Report {
     }
 
     public function getBestIdentifier() {
+        var_dump($this->data);
         if ($this->data->meta->title) {
             return $this->data->meta->title;
         }
@@ -28,8 +31,28 @@ class Models_Report {
         return $this->id;
     }
 
+    /**
+     * Gets the date of the collection's creation
+     * @param string $format The format for the returned date, as specified with
+     *              PHP's date() function (http://php.net/manual/en/function.date.php)
+     * @return string The date of the collections creation
+     */
     public function getCreatedAt($format) {
         return date($format, $this->data->meta->created_at);
+    }
+
+    /**
+     * Gets an array of update times for each Source we have data for.
+     * @param string $format $format The format for the returned date, as specified with
+     *              PHP's date() function (http://php.net/manual/en/function.date.php)
+     * @return array An associative array of <SourceName> => <date>
+     */
+    public function getLastUpdatedAt($format){
+        $ret = array();
+        foreach ($this->data->meta->updates as $sourceName => $ts){
+            $ret[$sourceName] = date($format, $ts);
+        }
+        return $ret;
     }
 
     public function getArtifactsCount() {
@@ -38,9 +61,10 @@ class Models_Report {
     
     public function fetch(){
         try {
-            $ret = $this->couch->getShow('main', 'by_artifact_type', $this->id);
+            $ret = $this->couch->getShow('main', 'by_artifact', $this->id);
         }
         catch (Exception $e) {
+            throw $e;
             // log the exception
             return false;
         }

@@ -1,7 +1,7 @@
 {
     "meta": {
         "_id": "6",
-        "title": "CrossRef + Mendeley + Slideshare",
+        "title": false,
         "created_at": "1234517900",
         "artifact_ids": [
             "17662182",
