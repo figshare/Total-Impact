@@ -12,6 +12,7 @@ class Models_ReportTest extends PHPUnit_Framework_TestCase {
      * @var Models_Report
      */
     protected $showDir;
+    protected $renderedDir;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -19,6 +20,7 @@ class Models_ReportTest extends PHPUnit_Framework_TestCase {
      */
     protected function setUp() {
         $this->showDir = APP_PATH . '/Tests/data/by_artifactReturns';
+        $this->renderedDir = APP_PATH . '/Tests/data/renderedReports';
 
     }
     protected function prepareReport($fileName){
@@ -61,7 +63,6 @@ class Models_ReportTest extends PHPUnit_Framework_TestCase {
                 );
     }
 
-
     public function testGetArtifactsCount() {
         $report = $this->prepareReport('6.json');
         $this->assertEquals(
@@ -71,24 +72,14 @@ class Models_ReportTest extends PHPUnit_Framework_TestCase {
 
     }
 
-    /**
-     * @todo Implement testFetch().
-     */
-    public function testFetch() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testRender().
-     */
     public function testRender() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $report = $this->prepareReport("6.json");
+        $rendered = $report->render();
+        $this->assertXmlStringEqualsXmlFile(
+                $this->renderedDir .'/6.html',
+                $rendered
+                );
+
     }
 
 }
