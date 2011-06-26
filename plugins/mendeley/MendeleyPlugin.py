@@ -109,41 +109,46 @@ class MendeleyPluginClass(BasePluginClass):
         return(response_dict, error_msg)
 
 class TestMendeleyPluginClass(TestBasePluginClass):
+
+    def setup(self):
+        self.plugin = MendeleyPluginClass()
+        self.test_parse_input = self.testinput.TEST_INPUT_DOI
+    
     ## this changes for every plugin        
     def test_build_artifact_response(self):
-        response = MendeleyPluginClass().build_artifact_response('10.1371/journal.pmed.0040215')
+        response = self.plugin.build_artifact_response('10.1371/journal.pmed.0040215')
         assert_equals(response, {'type': 'article', 'groups': 1, 'readers': 42})
 
     ## this changes for every plugin        
     def test_get_artifacts_metrics(self):
-        response = MendeleyPluginClass().get_artifacts_metrics(self.testinput.TEST_GOLD_PARSED_INPUT)
+        response = self.plugin.get_artifacts_metrics(self.test_parse_input)
         assert_equals(response, ({u'10.1371/journal.pcbi.1000361': {'type': 'article', 'groups': 1, 'readers': 19}}, None))
 
     #each plugin should make sure its range of inputs are covered
     def test_run_plugin_doi(self):
-        response = MendeleyPluginClass().run_plugin(simplejson.dumps(self.testinput.TEST_INPUT_DOI))
+        response = self.plugin.run_plugin(simplejson.dumps(self.testinput.TEST_INPUT_DOI))
         print response
         assert_equals(len(response), 458)
 
     def test_run_plugin_pmid(self):
-        response = MendeleyPluginClass().run_plugin(simplejson.dumps(self.testinput.TEST_INPUT_PMID))
+        response = self.plugin.run_plugin(simplejson.dumps(self.testinput.TEST_INPUT_PMID))
         print response
         assert_equals(len(response), 379)
 
     def test_run_plugin_url(self):
-        response = MendeleyPluginClass().run_plugin(simplejson.dumps(self.testinput.TEST_INPUT_URL))
+        response = self.plugin.run_plugin(simplejson.dumps(self.testinput.TEST_INPUT_URL))
         print response
         assert_equals(len(response), 379)
 
     def test_run_plugin_invalid_id(self):
-        response = MendeleyPluginClass().run_plugin(simplejson.dumps(self.testinput.TEST_INPUT_DUD))
+        response = self.plugin.run_plugin(simplejson.dumps(self.testinput.TEST_INPUT_DUD))
         print response
         assert_equals(len(response), 379)
     
     def test_run_plugin_multiple(self):
-        response = MendeleyPluginClass().run_plugin(simplejson.dumps(self.testinput.TEST_INPUT_ALL))
+        response = self.plugin.run_plugin(simplejson.dumps(self.testinput.TEST_INPUT_ALL))
         print response
-        assert_equals(len(response), 458) 
+        assert_equals(len(response), 458)
         
 
     
