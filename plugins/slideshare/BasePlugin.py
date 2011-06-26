@@ -53,9 +53,21 @@ class BasePluginClass(object):
     #f rom http://www.crossref.org/02publishers/doi-guidelines.pdf
     CROSSREF_DOI_PATTERN = re.compile(r"^10\.(\d)+/(\S)+$", re.DOTALL)
 
+    # PMIDs are 1 to 8 digit numbers, as per http://www.nlm.nih.gov/bsd/mms/medlineelements.html#pmid    
+    PMID_PATTERN = re.compile(r"^\d{1,8}$", re.DOTALL)
+
+    TOOL_EMAIL = "total-impact@googlegroups.com"
     MAX_ELAPSED_TIME = 30 # seconds, part of plugin API specification
 
     DEBUG = False
+
+    def is_crossref_doi(self, id):
+        response = (self.CROSSREF_DOI_PATTERN.search(id) != None)
+        return(response)
+    
+    def is_pmid(self, id):
+        response = (self.PMID_PATTERN.search(id) != None)
+        return(response)
 
     def run_plugin(self, json_in):
         query = self.parse_input(json_in)
@@ -112,20 +124,8 @@ class BasePluginClass(object):
     ## this may be need to customized by plugins to support varied id types etc    
     ## every plugin should check API limitations and make sure they are respected here
     def get_artifacts_metrics(self, query):
-        response_dict = dict()
-        error_msg = None
-        time_started = time.time()
-        for artifact_id in query:
-            doi = query[artifact_id]["doi"]
-            if self.artifact_type_recognized(doi):
-                artifact_response = self.build_artifact_response(doi)
-                if artifact_response:
-                    response_dict[artifact_id] = artifact_response
-            if (time.time() - time_started > self.MAX_ELAPSED_TIME):
-                error_msg = "TIMEOUT"
-                break
-        return(response_dict, error_msg)
-
+        pass
+        
     # each plugin needs to write one of these    
     def get_page(self, doi):
         pass
