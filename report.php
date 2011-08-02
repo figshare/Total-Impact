@@ -1,5 +1,9 @@
 <?php
 require './bootstrap.php';
+
+$config = new Zend_Config_Ini(CONFIG_PATH, ENV);
+$couch = new Couch_Client($config->db->dsn, $config->db->name);
+
 $report = new Models_Report($couch, $_GET['id']);
 $res = $report->fetch();
 
