@@ -73,7 +73,7 @@ class Models_CollectionInput {
         // sanitize inputs
         $title = ($title) ? strip_tags($title) : false;
 
-        $idsStr = strip_tags($idsStr);
+		$idsStr = trim(strip_tags($idsStr));
 
         // build the object
         $doc = new stdClass();
