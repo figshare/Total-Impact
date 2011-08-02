@@ -386,6 +386,33 @@ class Couch_Client extends Couch_Db
 	}
 
 	/**
+	 * fetch a CouchDB document and return the raw result.  Like getDoc but without post-response processing steps.
+	 *
+	 * @param string $id document id
+	 * @return object CouchDB document
+	 */
+	public function getDocRaw($id)
+	{
+		if (!strlen($id)) {
+			throw new InvalidArgumentException ("Document ID is empty");
+		}
+
+		if (preg_match('/^_design/', $id)) {
+			$url = '/' . urlencode($this->dbname) . '/_design/' . urlencode(str_replace('_design/', '', $id));
+		}
+		else
+		{
+			$url = '/' . urlencode($this->dbname) . '/' . urlencode($id);
+		}
+		
+		$doc_query = $this->query_parameters;
+		$this->query_parameters = array();
+
+		$back = $this->_queryAndTest('GET', $url, array(200), $doc_query);
+		return($back);
+	}
+	
+	/**
 	 * fetch a CouchDB document
 	 *
 	 * @param string $id document id
@@ -404,16 +431,18 @@ class Couch_Client extends Couch_Db
 		{
 			$url = '/' . urlencode($this->dbname) . '/' . urlencode($id);
 		}
-
+		
 		$doc_query = $this->query_parameters;
 		$this->query_parameters = array();
 
 		$back = $this->_queryAndTest('GET', $url, array(200), $doc_query);
+		
 		if (!$this->results_as_cd) {
 			return $back;
 		}
 		$this->results_as_cd = false;
 		$c = new  Couch_Document($this);
+
 		return $c->loadFromObject($back);
 	}
 
