@@ -1,6 +1,8 @@
 <?php
+require_once 'FirePHPCore/fb.php';
+FB::log("in plugin");
 $pluginName = "plugin.py";
-#$input = escapeshellarg(file_get_contents("php://input"));
-$input = escapeshellarg($_REQUEST);
-echo exec("python $pluginName $input");
+$input_query = $_GET["query"];
+$input_escaped = escapeshellarg($input_query);
+echo exec("python $pluginName $input_escaped");
 ?>
