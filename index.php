@@ -38,7 +38,7 @@
 
             // save the new collection
             $collectionInput = Models_CollectionInputFactory::make();
-            $collectionInput->save($_POST['name'], $_POST['ids']);
+            $collectionSave = $collectionInput->save($_POST['name'], $_POST['ids']);
 
             // update the whole database with all plugins.
             $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
@@ -50,7 +50,8 @@
             }
 
             // redirect to the report page for this plugin
-            echo "<script>location.href='report/$id'</script>";
+            $collectionId = $collectionSave->id;
+            echo "<script>location.href='report.php?id=$collectionId'</script>";
 
         }
         else {
