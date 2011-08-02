@@ -23,7 +23,7 @@ $designDoc->views->to_update = $view;
 
 // get the show
 $shows = new stdClass();
-$shows->by_artifact_type = file_get_contents(APP_PATH . 'couchdb/views/to_update.js');
+$shows->by_artifact_type = file_get_contents(APP_PATH . 'couchdb/show/by_artifact.js');
 $designDoc->shows = $shows;
 
 // upload the doc
