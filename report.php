@@ -15,10 +15,10 @@ if (!$res){ header('Location: ../'); }
 ?><html>
 <head>
     <title>Total Impact: <?php echo $report->getBestIdentifier() ?></title>
-    <link rel="stylesheet" type="text/css" href="../ui/totalimpact.css" />
-    <script type="text/javascript" src="../ui/jquery/jquery-1.4.2.js"></script>
-    <script type="text/javascript" src="../ui/jquery/jquery.tools.min.js"></script>
-    <script type="text/javascript" src="../ui/protovis-3.2/protovis-r3.2.js"></script>
+    <link rel="stylesheet" type="text/css" href="ui/totalimpact.css" />
+    <script type="text/javascript" src="ui/jquery/jquery-1.4.2.js"></script>
+    <script type="text/javascript" src="ui/jquery/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="ui/protovis-3.2/protovis-r3.2.js"></script>
 
 	<script type="text/javascript">
 	//Google Analytics code
@@ -51,7 +51,8 @@ if (!$res){ header('Location: ../'); }
         </div>
         <div id="metrics">
             <?php
-                $report->render();
+                $text = $report->render();
+				echo "$text";
             ?>
         </div>
     </div>
