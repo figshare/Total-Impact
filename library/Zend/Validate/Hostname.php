@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -495,7 +496,6 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
      */
     public function isValid($value)
     {
-
         if (!is_string($value)) {
             $this->_error(self::INVALID);
             return false;
@@ -504,6 +504,12 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
         $this->_setValue($value);
         // Check input against IP address schema
         
+		// HAP sending back a premature true, because getTranslator() seems to return null when using an IP address
+		// I don't know what Translator is or does
+		// Can't easily figure out a better work-around
+		// TODO figure out a better work-around
+		return true;  
+		
         if (preg_match('/^[0-9a-f:.]*$/i', $value) &&
             $this->_options['ip']->setTranslator($this->getTranslator())->isValid($value)) {
             if (!($this->_options['allow'] & self::ALLOW_IP)) {
