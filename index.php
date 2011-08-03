@@ -1,4 +1,5 @@
-<?php require_once './bootstrap.php'; ?><!DOCTYPE html>
+<?php require_once './bootstrap.php'; 
+?><!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -39,18 +40,18 @@
             // save the new collection
             $collectionInput = Models_CollectionInputFactory::make();
             $collectionSave = $collectionInput->save($_POST['name'], $_POST['ids']);
+            $collectionId = $collectionSave->id;
 
             // update the whole database with all plugins.
             $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
 
             foreach ($config->plugins as $sourceName => $pluginUrl){
                 $updater = Models_UpdaterFactory::makeUpdater($sourceName);
-                $updater->update();
+                $updater->update(false, $collectionId);
                 // implement some sort of progress bar here
             }
 
             // redirect to the report page for this plugin
-            $collectionId = $collectionSave->id;
             echo "<script>location.href='report.php?id=$collectionId'</script>";
 
         }
