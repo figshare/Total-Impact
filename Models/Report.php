@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is a wrapper around the json returned by the by_artifact show from the database.
  * It allows report.php to just call these methods, rather than worrying about the format
@@ -18,8 +17,8 @@ class Models_Report {
     }
 
     public function getBestIdentifier() {
-        if ($this->data->meta->title) {
-            return $this->data->meta->title;
+        if ($this->data->title) {
+            return $this->data->title;
         }
         else {
             return $this->id;
@@ -37,7 +36,7 @@ class Models_Report {
      * @return string The date of the collections creation
      */
     public function getCreatedAt($format) {
-        return date($format, $this->data->meta->created_at);
+        return date($format, $this->data->created_at);
     }
 
     /**
@@ -48,7 +47,7 @@ class Models_Report {
      */
     public function getLastUpdatedAt($format){
         $ret = array();
-        foreach ($this->data->meta->updates as $sourceName => $ts){
+        foreach ($this->data->updates as $sourceName => $ts){
             $ret[$sourceName] = date($format, $ts);
         }
         return $ret;
@@ -59,7 +58,7 @@ class Models_Report {
      * @return int number of artifacts
      */
     public function getArtifactsCount() {
-        return count($this->data->meta->artifact_ids);
+        return count($this->data->artifact_ids);
     }
     /**
      * @return a JSON-formated object with information about each Source
@@ -72,75 +71,78 @@ class Models_Report {
      */
     public function fetch(){
         try {
-            $ret = $this->couch->getShow('main', 'by_artifact', $this->id);
+            $ret = $this->couch->getDocRaw($this->id);
         }
         catch (Exception $e) {
             // throw $e;
             // log the exception
             return false;
         }
-        $this->data = json_decode($ret);
+        $this->data = $ret;
         return $this->data;
     }
 
     public function render() {
+		$sources = $this->data->sources;
         $ret = '';
         $ret .= "<div id='rendered-report'>";
-        if (!count((array)$this->data->artifacts)){
-            $ret .= $this->printNothingHereMsg();
-        }
-        else {
-            $genres = $this->sortByGenre($this->data->artifacts);
-            foreach ($genres as $genreName => $artifacts){
-                $ret .= $this->printGenre($genreName, $artifacts);
-            }
+
+		/* if no artifacts have metrics, add call here to printNothingHereMsg() */
+        $genres = $this->sortByGenre($sources);
+        $abouts = $this->getSourceAbouts($sources);
+        foreach ($genres as $genreName => $artifacts){
+            $ret .= $this->printGenre($genreName, $artifacts, $abouts);
         }
         $ret .= "</div>";
         return $ret;
     }
 
-    private function printGenre($name, $artifacts){
+    private function printGenre($name, $artifacts, $abouts){
         $ret = '';
         $ret .= "<div class='genre $name'><h2>$name</h2>";
         $ret .= "<ul>";
         foreach ($artifacts as $id => $artifact){
-            $ret .= $this->printArtifact($id, $artifact);
+            $ret .= $this->printArtifact($id, $artifact, $abouts);
         }
         $ret .=  "</ul></div>";
         return $ret;
     }
 
-    private function printArtifact($id, $artifact) {
+    private function printArtifact($id, $artifact, $abouts) {
         $ret = '';
         $ret .= "<li class='artifact'>";
         $ret .= "<h3>$id</h3>"; // here's where we'd print a name/title of the artifact if we had it.
         $ret .= "<ul class='source-list'>";
         foreach ($artifact as $sourceName => $sourceData) {
-            $ret .= $this->printSource($sourceName, $sourceData);
+            $ret .= $this->printSource($sourceName, $sourceData, $abouts);
         }
         $ret .= "</ul></li>";
         return $ret;
 
     }
 
-    private function printSource($sourceName, $sourceData){
+    private function printSource($sourceName, $sourceData, $abouts){
         unset($sourceData->type); // user doesn't need to see this
         $faviconImg = '';
-        if (isset($this->data->meta->about_sources->$sourceName->icon)){
-            if ($this->data->meta->about_sources->$sourceName->icon){
-                $url = $this->data->meta->about_sources->$sourceName->icon;
-                $faviconImg = "<img src='$url' alt='favicon' />";
+        if (isset($abouts->$sourceName->icon)){
+            if ($abouts->$sourceName->icon){
+                $icon = $abouts->$sourceName->icon;
+        		$faviconUrl = $abouts->$sourceName->url;
+                $faviconImg = "<a href='$faviconUrl'><img src='$icon' border=0 alt='favicon' /></a>";
             }
         }
-        $faviconUrl = $this->data->meta->about_sources->$sourceName->icon;
         $ret = '';
         $ret .= "<li class='source $sourceName'>";
         $ret .= "<h4>$faviconImg$sourceName</h4>";
-        $ret .= "<dl>";
-        foreach ($sourceData as $metricName => $metricValue){
-            $ret .= "<dt>$metricName</dt><dd>$metricValue</dd>";
-        }
-        $ret .= "</dl></li>";
+		if ($sourceName=="CrossRef") {
+           	$ret .= "$sourceData->authors, <a href='$sourceData->url'>$sourceData->title<a>, $sourceData->year, $sourceData->journal, $sourceData->doi, $sourceData->pmid";
+		}
+		else {
+        	foreach ($sourceData as $metricName => $metricValue){
+            	$ret .= "$metricName: $metricValue;\t";
+        	}
+		}
+		$ret .= "</li>";
         return $ret;
     }
 
@@ -153,23 +155,37 @@ class Models_Report {
     }
 
     /**
+     * Gets all the source about information in one place
+     */
+    private function getSourceAbouts(stdClass $sources){
+        $abouts = new StdClass;
+        foreach ($sources as $source) {
+			$sourceName = $source->source_name;
+            $abouts->$sourceName = $source->about;
+        }
+        return $abouts;
+    }
+
+    /**
      * Makes an array of artifacts, each listed under its genre (type)
      */
-    private function sortByGenre(stdClass $collection){
+    private function sortByGenre(stdClass $sources){
         $genres = new StdClass;
-        foreach ($collection as $id => $sources) {
+        foreach ($sources as $source) {
+			$sourceName = $source->source_name;
 
             // we want to figure the genre, but each Source has its own opinion on that.
             // so we gather them all.
-            $reportedGenres = array();
-            foreach ($sources as $sourceName => $metrics) {
-                $reportedGenres[] = $metrics->type;
+            foreach ($source->artifacts as $id=>$item) {
+                $thisArtifactGenre = $item->type;
+	            if (!isset($genres->$thisArtifactGenre)) {
+	                $genres->$thisArtifactGenre = new StdClass;
+	            }
+	            if (!isset($genres->$thisArtifactGenre->$id)) {
+	                $genres->$thisArtifactGenre->$id = new StdClass;
+	            }
+				$genres->$thisArtifactGenre->$id->$sourceName = $item;
             }
-            $thisArtifactGenre = $this->selectBestGenre($reportedGenres);
-            if (!isset($genres->$thisArtifactGenre)) {
-                $genres->$thisArtifactGenre = new StdClass;
-            }
-            $genres->$thisArtifactGenre->$id = $sources;
         }
         return $genres;
 
