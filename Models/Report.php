@@ -93,6 +93,7 @@ class Models_Report {
         foreach ($genres as $genreName => $artifacts){
             $ret .= $this->printGenre($genreName, $artifacts, $abouts);
         }
+
         $ret .= "</div>";
         return $ret;
     }
@@ -160,8 +161,10 @@ class Models_Report {
     private function getSourceAbouts(stdClass $sources){
         $abouts = new StdClass;
         foreach ($sources as $source) {
-			$sourceName = $source->source_name;
-            $abouts->$sourceName = $source->about;
+			if (isset($source->source_name)) {
+				$sourceName = $source->source_name;
+            	$abouts->$sourceName = $source->about;
+			}
         }
         return $abouts;
     }
