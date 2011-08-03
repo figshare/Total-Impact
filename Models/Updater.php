@@ -35,27 +35,29 @@ class Models_Updater {
             throw new Exception("The database returned something unexpected: '". print_r($couchResponse, true) ."'");
         }
 
-        foreach ($couchResponse->rows as $row){
+        foreach ($couchResponse->rows as $row) {
+	
 			// Eventually we need to update everything, but right now it is troublesome when there are so many debugging fragments
-			if ($row->id!=$collectionId) {
+			if ($row->id != $collectionId) {
 				continue;
 			}
-	
+			
             // get new data from plugin
             $artifactIds = $row->value;
             $this->plugin->setArtifactIds($artifactIds);
-
+			
             $fetchedData = $this->plugin->fetchData();
             $body = $fetchedData->getBody();
             $pluginResponse = json_decode($body);
-			
-            if (!isset($pluginResponse->source_name)) { // very basic plugin response validation
-                throw new Exception("Got no usable response from the plugin '$sourceName' at " . $this->plugin->getUri()
-                        . "; instead got this:\n " 
-                        . print_r($pluginResponse, true)
-                        . "\n");
+
+            if (!isset($pluginResponse->source_name)) { 
+				// very basic plugin response validation.  What is appropriate here?
+                #throw new Exception("Got no usable response from the plugin '$sourceName' at " . $this->plugin->getUri()
+                #        . "; instead got this:\n " 
+                #        . print_r($pluginResponse, true)
+                #        . "\n");
             }
-            
+
             $this->updateDoc($row->id, $sourceName, $pluginResponse, 0, $ts);
         }
         return true;
