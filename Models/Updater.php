@@ -25,7 +25,7 @@ class Models_Updater {
      * @param string optional timestamp, useful for testing
      * @return bool true on success
      */
-    public function update($ts=false) {
+    public function update($ts=false, $collectionId=false) {
         $sourceName = $this->plugin->getName();
         $couchResponse = $this->couch
                 ->key($sourceName)
@@ -36,6 +36,11 @@ class Models_Updater {
         }
 
         foreach ($couchResponse->rows as $row){
+			// Eventually we need to update everything, but right now it is troublesome when there are so many debugging fragments
+			if ($row->id!=$collectionId) {
+				continue;
+			}
+	
             // get new data from plugin
             $artifactIds = $row->value;
             $this->plugin->setArtifactIds($artifactIds);
@@ -43,7 +48,7 @@ class Models_Updater {
             $fetchedData = $this->plugin->fetchData();
             $body = $fetchedData->getBody();
             $pluginResponse = json_decode($body);
-
+			
             if (!isset($pluginResponse->source_name)) { // very basic plugin response validation
                 throw new Exception("Got no usable response from the plugin '$sourceName' at " . $this->plugin->getUri()
                         . "; instead got this:\n " 
@@ -89,6 +94,7 @@ class Models_Updater {
             sleep(1);
             return $this->updateDoc($docId, $sourceName, $pluginResponse, $tries+1, $ts);
         }
+
         return $response;
     }
 
