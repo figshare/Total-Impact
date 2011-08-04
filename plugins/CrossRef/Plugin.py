@@ -19,7 +19,7 @@ def skip(f):
     f.skip = True
     return f
 
-class CrossrefPluginClass(BasePluginClass):
+class PluginClass(BasePluginClass):
                 
     # each plugin needs to customize this stuff                
     SOURCE_NAME = "CrossRef"
@@ -156,7 +156,7 @@ class CrossrefPluginClass(BasePluginClass):
         return(response_dict, error)
     
     
-class TestMendeleyPluginClass(TestBasePluginClass):
+class TestPluginClass(TestBasePluginClass):
 
     def setup(self):
         self.plugin = CrossrefPluginClass()

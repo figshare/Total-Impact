@@ -17,7 +17,7 @@ def skip(f):
     f.skip = True
     return f
 
-class MendeleyPluginClass(BasePluginClass):
+class PluginClass(BasePluginClass):
                 
     # each plugin needs to customize this stuff                
     SOURCE_NAME = "Mendeley"
@@ -108,7 +108,7 @@ class MendeleyPluginClass(BasePluginClass):
                 break
         return(response_dict, error_msg)
 
-class TestMendeleyPluginClass(TestBasePluginClass):
+class TestPluginClass(TestBasePluginClass):
 
     def setup(self):
         self.plugin = MendeleyPluginClass()

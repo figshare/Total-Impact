@@ -40,7 +40,7 @@ else:
     
 # if no arg, then use sample input    
 if (not json_in):
-    json_in = simplejson.dumps(MyPlugin.TEST_INPUT_ALL)
+    json_in = simplejson.dumps(Plugin.TEST_INPUT_ALL)
     if (verbose):
         print("Didn't get any input args, so going to use sample input: <p><p>\r\n")
         print(json_in)
