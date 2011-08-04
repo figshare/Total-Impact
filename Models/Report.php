@@ -136,7 +136,7 @@ class Models_Report {
         $ret .= "<li class='source $sourceName'>";
         $ret .= "<h4>$faviconImg$sourceName</h4>";
 		if ($sourceName=="CrossRef") {
-           	$ret .= "$sourceData->authors, <a href='$sourceData->url'>$sourceData->title<a>, $sourceData->year, $sourceData->journal, $sourceData->doi, $sourceData->pmid";
+           	$ret .= "$sourceData->authors, <a href='$sourceData->url'>$sourceData->title<a>, $sourceData->year, $sourceData->journal, $sourceData->doi, PMID:$sourceData->pmid";
 		}
 		else {
         	foreach ($sourceData as $metricName => $metricValue){
