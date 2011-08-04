@@ -10,6 +10,10 @@ import nose
 from nose.tools import assert_equals
 from BasePlugin import BasePluginClass
 from BasePlugin import TestBasePluginClass
+import os
+
+# Permissions: RWX for owner, WX for others.  Set this here so that .pyc are created with these permissions
+os.umask(022) 
     
 # Conforms to API specified here:  https://github.com/mhahnel/Total-Impact/wiki/Plugin-requirements
 # To do automated tests with nosy                

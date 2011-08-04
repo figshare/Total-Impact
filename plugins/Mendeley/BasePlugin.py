@@ -6,6 +6,10 @@ import httplib2
 import urllib2
 import nose
 from nose.tools import assert_equals
+import os
+
+# Permissions: RWX for owner, WX for others.  Set this here so that .pyc are created with these permissions
+os.umask(022) 
     
 def skip(f):
     f.skip = True

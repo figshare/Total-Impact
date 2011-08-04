@@ -7,6 +7,10 @@ from optparse import OptionParser
 import simplejson
 import cgi, cgitb 
 import Plugin
+import os
+
+# Permissions: RWX for owner, WX for others.  Set this here so that .pyc are created with these permissions
+os.umask(022) 
 
 # to see in browser, call index.cgi?query={"10.1371\/journal.pbio.0060034":{"doi":false,"url":false,"pmid":false},"10.1371\/journal.pbio.0050072":{"doi":false,"url":false,"pmid":false}}     
 def get_param_from_http_request():
