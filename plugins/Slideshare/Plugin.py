@@ -11,6 +11,10 @@ import nose
 from nose.tools import assert_equals
 from BasePlugin import BasePluginClass
 from BasePlugin import TestBasePluginClass
+import os
+
+# Permissions: RWX for owner, WX for others.  Set this here so that .pyc are created with these permissions
+os.umask(022) 
     
 # Conforms to API specified here:  https://github.com/mhahnel/Total-Impact/wiki/Plugin-requirements
 # To do automated tests with nosy                
@@ -20,7 +24,7 @@ def skip(f):
     f.skip = True
     return f
 
-class SlidesharePluginClass(BasePluginClass):
+class PluginClass(BasePluginClass):
                 
     # each plugin needs to customize this stuff                
     SOURCE_NAME = "SlideShare"
@@ -126,7 +130,7 @@ class SlidesharePluginClass(BasePluginClass):
         return(response_dict, error_msg)
     
     
-class TestSlidesharePluginClass(TestBasePluginClass):
+class TestPluginClass(TestBasePluginClass):
     
     def setup(self):
         self.plugin = SlidesharePluginClass()

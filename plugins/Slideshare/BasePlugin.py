@@ -3,8 +3,13 @@ import re
 import simplejson
 import time
 import httplib2
+import urllib2
 import nose
 from nose.tools import assert_equals
+import os
+
+# Permissions: RWX for owner, WX for others.  Set this here so that .pyc are created with these permissions
+os.umask(022) 
     
 def skip(f):
     f.skip = True
@@ -109,7 +114,14 @@ class BasePluginClass(object):
         http_cached = httplib2.Http(".cache", timeout=http_timeout_in_seconds)
         header_dict = {'cache-control':'max-age='+str(max_cache_age_seconds)}
         header_dict.update(header_addons)
-        (response, content) = http_cached.request(url, headers=header_dict)
+        try:
+            (response, content) = http_cached.request(url, headers=header_dict)
+        except:
+            #(response, content) = http_cached.request(url, headers=header_dict.update({'cache-control':'no-cache'}))
+            req = urllib2.Request(url, headers=header_dict)
+            uh = urllib2.urlopen(req)
+            content = uh.read()
+            response = uh.info()
         return(response, content)
 
     # each plugin needs to write a get_page and extract_stats    
