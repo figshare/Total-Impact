@@ -27,7 +27,7 @@ def skip(f):
 class PluginClass(BasePluginClass):
                 
     # each plugin needs to customize this stuff                
-    SOURCE_NAME = "SlideShare"
+    SOURCE_NAME = "Slideshare"
     SOURCE_DESCRIPTION = "The best way to share presentations, documents and professional videos."
     SOURCE_URL = "http://www.slideshare.net/"
     SOURCE_ICON = "http://www.slideshare.net/favicon.ico"
@@ -93,15 +93,26 @@ class PluginClass(BasePluginClass):
         return(response)         
 
     # each plugin needs to write relevant versions of this
-    def is_slideshare_doi(self, id):
+    def is_slideshare_url(self, id):
         response = (self.SLIDESHARE_URL_PATTERN.search(id) != None)
         return(response)
     
     # each plugin needs to write relevant versions of this            
     def artifact_type_recognized(self, id):
-        is_recognized = self.is_slideshare_doi(id)
+        if id:
+            is_recognized = self.is_slideshare_url(id)
+        else:
+            is_recognized = False
         return(is_recognized)   
 
+    # list of possible ids should be in order of preference, most prefered first
+    # returns the first valid one, or None if none are valid
+    def get_valid_id(self, list_of_possible_ids):
+        for id in list_of_possible_ids:
+            if (self.artifact_type_recognized(id)):
+                return(id)
+        return(None)
+            
     ## this changes for every plugin        
     def build_artifact_response(self, id):
         if not id:
@@ -119,8 +130,9 @@ class PluginClass(BasePluginClass):
         error_msg = None
         time_started = time.time()
         for artifact_id in query:
-            url = query[artifact_id]["url"]
-            if self.artifact_type_recognized(url):
+            possible_ids = [query[artifact_id]["url"], artifact_id]
+            url = self.get_valid_id(possible_ids)
+            if url:
                 artifact_response = self.build_artifact_response(url)
                 if artifact_response:
                     response_dict[artifact_id] = artifact_response

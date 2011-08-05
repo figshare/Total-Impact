@@ -80,9 +80,20 @@ class PluginClass(BasePluginClass):
     
     # each plugin needs to write relevant versions of this            
     def artifact_type_recognized(self, doi):
-        is_recognized = self.is_mendeley_doi(doi)
+        if doi:
+            is_recognized = self.is_mendeley_doi(doi)
+        else:
+            is_recognized = False
         return(is_recognized)   
  
+     # list of possible ids should be in order of preference, most prefered first
+    # returns the first valid one, or None if none are valid
+    def get_valid_id(self, list_of_possible_ids):
+        for id in list_of_possible_ids:
+            if (self.artifact_type_recognized(id)):
+                return(id)
+        return(None)
+        
     ## this changes for every plugin        
     def build_artifact_response(self, doi):
         if not doi:
@@ -102,8 +113,9 @@ class PluginClass(BasePluginClass):
         error_msg = None
         time_started = time.time()
         for artifact_id in query:
-            doi = query[artifact_id]["doi"]
-            if self.artifact_type_recognized(doi):
+            possible_ids = [query[artifact_id]["doi"], artifact_id]
+            doi = self.get_valid_id(possible_ids)
+            if doi:
                 artifact_response = self.build_artifact_response(doi)
                 if artifact_response:
                     response_dict[artifact_id] = artifact_response
