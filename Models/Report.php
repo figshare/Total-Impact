@@ -1,4 +1,7 @@
 <?php
+
+#require_once('FirePHPCore/FirePHP.class.php');
+
 /**
  * This is a wrapper around the json returned by the by_artifact show from the database.
  * It allows report.php to just call these methods, rather than worrying about the format
@@ -115,14 +118,14 @@ class Models_Report {
         $ret .= "<h3>$id</h3>"; // here's where we'd print a name/title of the artifact if we had it.
         $ret .= "<ul class='source-list'>";
         foreach ($artifact as $sourceName => $sourceData) {
-            $ret .= $this->printSource($sourceName, $sourceData, $abouts);
+            $ret .= $this->printSource($id, $sourceName, $sourceData, $abouts);
         }
         $ret .= "</ul></li>";
         return $ret;
 
     }
 
-    private function printSource($sourceName, $sourceData, $abouts){
+    private function printSource($id, $sourceName, $sourceData, $abouts){
         unset($sourceData->type); // user doesn't need to see this
         $faviconImg = '';
         if (isset($abouts->$sourceName->icon)){
@@ -137,11 +140,14 @@ class Models_Report {
         $ret .= "<h4>$faviconImg$sourceName</h4>";
 		if ($sourceName=="CrossRef") {
            	$ret .= "$sourceData->authors, <a href='$sourceData->url'>$sourceData->title<a>, $sourceData->year, $sourceData->journal, $sourceData->doi, PMID:$sourceData->pmid";
+		} elseif ($sourceName=="Slideshare") {
+           	$ret .= "<a href='$id'>$sourceData->title</a>; Uploaded in $sourceData->upload_year";
 		}
-		else {
-        	foreach ($sourceData as $metricName => $metricValue){
-            	$ret .= "$metricName: $metricValue;\t";
-        	}
+        $ret .= "<p>";
+       	foreach ($sourceData as $metricName => $metricValue){
+			if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year"))) {
+           		$ret .= "$metricName: $metricValue;\t";					
+			}
 		}
 		$ret .= "</li>";
         return $ret;
