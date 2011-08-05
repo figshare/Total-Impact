@@ -13,9 +13,9 @@ function(doc) {
         "Mendeley",
         "CrossRef",
         "Plosalm",
-        "SlideShare",
+        "Slideshare",
         "Facebook",
-        "ICPSR",
+        "Icpsr",
         "Dryad"
     ];
 
@@ -36,12 +36,14 @@ function(doc) {
         ret[artifactId] = mySynonyms;
     }
 
-    // return it only if it's missing sources
+    // return it only if it's missing sources and is relatively recent
     var sourcesCount = sources.length;
     var key;
     for (i=0; i<sourcesCount; i++) {
         if (!doc.updates[sources[i]]) {
-            emit(sources[i], ret);
+            if (doc.created_at > "1312268700") {           
+                emit(sources[i], ret);
+            }
         }
     }
 
