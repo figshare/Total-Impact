@@ -38,7 +38,7 @@ if (!$res){ header('Location: ../'); }
 </head>
 <body>
     <div id="header">
-        <h1><a href="./">Total-Impact.org</a></h1>
+		<a href="./"><img src="./ui/img/logo.png" alt="Total-Impact" width='200px' border=0/></a>
     </div>
 
     <div id="report">
@@ -46,7 +46,7 @@ if (!$res){ header('Location: ../'); }
         <div id="report-meta">
             <p>Created <span class="created-at"><?php echo $report->getCreatedAt('j M, Y');?></span>
                 with <span class="artifacts-count"><?php echo $report->getArtifactsCount(); ?></span>
-                research artifacts.</p>
+                research artifacts. <p>Stable url: <a href"./"><?php echo "http://" . $_SERVER['HTTP_HOST']  . $_SERVER['REQUEST_URI']; ?></a></p>  
 
         </div>
         <div id="metrics">
