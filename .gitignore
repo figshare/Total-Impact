@@ -1,3 +1,5 @@
 /nbproject
 *.pyc
-plugins/*/.cache/*
+.cache
+.cache/*
+hap-*.*
