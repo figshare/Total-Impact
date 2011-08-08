@@ -1,6 +1,6 @@
 <?php
 
-#require_once('FirePHPCore/FirePHP.class.php');
+#require_once 'FirePHPCore/fb.php';
 
 /**
  * This is a wrapper around the json returned by the by_artifact show from the database.
@@ -90,10 +90,15 @@ class Models_Report {
         $ret = '';
         $ret .= "<div id='rendered-report'>";
 
+		#FB::log($sources);
+
 		/* if no artifacts have metrics, add call here to printNothingHereMsg() */
         $genres = $this->sortByGenre($sources);
+		#FB::log($genres);
         $abouts = $this->getSourceAbouts($sources);
+		#FB::log($abouts);
         foreach ($genres as $genreName => $artifacts){
+			#FB::log($genreName);
             $ret .= $this->printGenre($genreName, $artifacts, $abouts);
         }
 
@@ -139,9 +144,11 @@ class Models_Report {
         $ret .= "<li class='source $sourceName'>";
         $ret .= "<h4>$faviconImg$sourceName</h4>";
 		if ($sourceName=="CrossRef") {
-           	$ret .= "$sourceData->authors, <a href='$sourceData->url'>$sourceData->title<a>, $sourceData->year, $sourceData->journal, $sourceData->doi, PMID:$sourceData->pmid";
+           	$ret .= "$sourceData->authors, <a href='$sourceData->url'>$sourceData->title</a>, $sourceData->year, $sourceData->journal, $sourceData->doi, PMID:$sourceData->pmid";
 		} elseif ($sourceName=="Slideshare") {
            	$ret .= "<a href='$id'>$sourceData->title</a>; Uploaded in $sourceData->upload_year";
+		} elseif ($sourceName=="Dryad") {
+           	$ret .= "$sourceData->authors ($sourceData->year) <a href='$id'>$sourceData->title</a>, Dryad Data Repository. $id";
 		}
         $ret .= "<p>";
        	foreach ($sourceData as $metricName => $metricValue){
