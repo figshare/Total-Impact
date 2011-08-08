@@ -122,9 +122,20 @@ class PluginClass(BasePluginClass):
         except:
             pmid = ""
         return(pmid)
+           
+    def is_dryad_doi(self, id):        
+        DRYAD_DOI_PATTERN = re.compile(r"10.5061/dryad", re.DOTALL)        
+        response = (DRYAD_DOI_PATTERN.search(id) != None)
+        return(response)
             
+    def is_non_crossref_artifact(self, id):
+        response = self.is_dryad_doi(id)
+        return(response)
+                
     def artifact_type_recognized(self, id):
         is_recognized = (self.is_crossref_doi(id) or self.is_pmid(id))
+        if self.is_non_crossref_artifact(id):
+            is_recognized = False
         return(is_recognized)   
         
     def build_artifact_response(self, artifact_id):
