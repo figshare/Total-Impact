@@ -12,7 +12,8 @@ function(doc) {
     var sources = [
         "Mendeley",
         "CrossRef",
-        "Plosalm",
+        "PlosAlm",
+        "PlosSearch",
         "Slideshare",
         "Facebook",
         "Icpsr",
