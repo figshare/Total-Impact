@@ -31,7 +31,20 @@ class PluginClass(BasePluginClass):
     SOURCE_DESCRIPTION = "PLoS article level metrics."
     SOURCE_URL = "http://www.plos.org/"
     SOURCE_ICON = "http://www.plosbiology.org/images/favicon.ico"
-    SOURCE_METRICS = dict(  readers="the number of downloads of the PLoS article")
+    SOURCE_METRICS = dict(  Postgenomic="This service was discontinued by Nature Publishing Group in 2009.", 
+        Web_of_Science="The citation data reported for an article from Web of Science.", 
+        Bloglines="This service no longer responds to API requests.", 
+        Biod="", 
+        Nature="The number of blog articles in Nature Blogs that have mentioned an article.", 
+        Connotea="The Connotea API does not respond in a timely manner.", 
+        Counter="the number of downloads of the PLoS article", 
+        PubMed_Central_Usage_Stats="HTML page views, PDF downloads and XML downloads for an article from PubMed Central.", 
+        CiteULike="The number of times that a user has bookmarked an article in CiteULike.", 
+        Scopus="The citation data reported for an article from Scopus.", 
+        PubMed_Central="The citation data reported for an article from PubMed Central", 
+        Research_Blogging="This service no longer responds to API requests.", 
+        CrossRef="The citation data reported for an article from CrossRef."
+    )
 
     DEBUG = False
 
