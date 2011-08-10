@@ -90,6 +90,28 @@ class Models_Report {
         return $this->data;
     }
 
+    public function render_about_text() {
+		$sources = $this->data->sources;
+        $ret = '';
+        $abouts = $this->getSourceAbouts($sources);
+        foreach ($abouts as $sourceName => $about) {
+			$ret .= '<ul type="square" class="body">';
+            $icon = $about->icon;
+       		$faviconUrl = $about->url;
+            $ret .= "<a href='$faviconUrl'><img src='$icon' border=0 alt='favicon' />$sourceName</a> ";
+            $ret .= $about->desc;
+            $ret .= "<br>";
+	       	foreach ($about->metrics as $metricName => $metricDescription){
+           		$ret .= "<li>";
+				$ret .= "<strong><span class='param'>$metricName</span></strong>: <span class='desc''>$metricDescription</span>";
+				$ret .= "</li>";
+			}
+			$ret .= "</ul>";
+        }
+		
+		return $ret;
+    }
+
     public function render() {
 		$sources = $this->data->sources;
         $ret = '';
