@@ -81,10 +81,7 @@ http://www.slideshare.net/phylogenomics/ben-franklin-award-slides
 10.5061/dryad.8384
 GSE2109
 GSE22484
-GSE2267
-GSE2246
-10.3886/ICPSR27601
-            </pre>
+        </pre>
         </div>        
         <form method="POST" name="main" action="./index.php">
             <label for="name">What's your name?</label>
