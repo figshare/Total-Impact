@@ -73,7 +73,7 @@ if (!$res){ header('Location: ../'); }
 <p>Last updated at <span class="updated-at"><?php echo $report->getUpdatedAt('j M, Y');?>.  </span><a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId ?>&update=1">Update now</a> (may take a few minutes)
  <a href="javascript:PopupRawReportText()">Download as text</a>
 
-<p>Stable url: <a href"./"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a></p>  
+<p>Stable url: <a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a></p>  
 
 
         </div>
