@@ -1,4 +1,6 @@
 <?php require_once './bootstrap.php'; 
+#require_once 'FirePHPCore/fb.php';
+
 ?><!DOCTYPE html>
 <html>
     <head>
@@ -28,11 +30,26 @@
             <img src="./ui/img/logo.png" alt="Total-Impact" width='200px' /> 
             <p>
             Welcome to Total-Impact. This site allows you to track the impact of various online 
-            research artifacts. It grabs metrics from many different sites all in one place.
+            research artifacts. It grabs metrics from many different sites and displays them all in one place.
             </p>
         </div>
         
         <?php
+		function update_collection($collectionId) {
+            // update the whole database with all plugins.
+            $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
+			#FB::log($config);
+						
+            foreach ($config->plugins as $sourceName => $pluginUrl){
+				#FB::log($sourceName);
+				
+                $updater = Models_UpdaterFactory::makeUpdater($sourceName);
+				#FB::log($updater);
+                $updater->update(false, $collectionId);
+                // implement some sort of progress bar here
+            }			
+		}
+		
         if (isset($_POST['submitted'])){
             // show the user some kind of updating screen
             echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
@@ -41,15 +58,11 @@
             $collectionInput = Models_CollectionInputFactory::make();
             $collectionSave = $collectionInput->save($_POST['name'], $_POST['ids']);
             $collectionId = $collectionSave->id;
+			#FB::log($collectionId);
 
-            // update the whole database with all plugins.
-            $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
+			update_collection($collectionId);
 
-            foreach ($config->plugins as $sourceName => $pluginUrl){
-                $updater = Models_UpdaterFactory::makeUpdater($sourceName);
-                $updater->update(false, $collectionId);
-                // implement some sort of progress bar here
-            }
+			#FB::log("done");
 
             // redirect to the report page for this plugin
             echo "<script>location.href='report.php?id=$collectionId'</script>";
@@ -66,6 +79,10 @@
 http://www.slideshare.net/phylogenomics/eisen
 http://www.slideshare.net/phylogenomics/ben-franklin-award-slides
 10.5061/dryad.8384
+GSE2109
+GSE22484
+GSE2267
+GSE2246
 10.3886/ICPSR27601
             </pre>
         </div>        

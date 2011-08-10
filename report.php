@@ -1,16 +1,35 @@
 <?php
 require './bootstrap.php';
+#require_once 'FirePHPCore/fb.php';
 
 $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
 $couch = new Couch_Client($config->db->dsn, $config->db->name);
+$collectionId = $_REQUEST['id'];
 
-$report = new Models_Report($couch, $_GET['id']);
+function update_collection($config, $collectionId) {
+	#FB::log($config);
+			
+    foreach ($config->plugins as $sourceName => $pluginUrl) {
+		#FB::log($sourceName);
+        $updater = Models_UpdaterFactory::makeUpdater($sourceName);
+		#FB::log($updater);
+        $updater->update(false, $collectionId);
+        // implement some sort of progress bar here
+    }			
+}
+
+$do_update = $_REQUEST['update'];
+if ($do_update==1) {
+	update_collection($config, $collectionId);
+}
+
+$report = new Models_Report($couch, $collectionId);
 $res = $report->fetch();
+
+$rendered_report_text = $report->render();
 
 // handle missing IDs more intelligently later
 if (!$res){ header('Location: ../'); }
-
-
 
 ?><html>
 <head>
@@ -35,8 +54,11 @@ if (!$res){ header('Location: ../'); }
 
 	</script>
 
+
 </head>
 <body>
+
+	
     <div id="header">
 		<a href="./"><img src="./ui/img/logo.png" alt="Total-Impact" width='200px' border=0/></a>
     </div>
@@ -46,13 +68,19 @@ if (!$res){ header('Location: ../'); }
         <div id="report-meta">
             <p>Created <span class="created-at"><?php echo $report->getCreatedAt('j M, Y');?></span>
                 with <span class="artifacts-count"><?php echo $report->getArtifactsCount(); ?></span>
-                research artifacts. <p>Stable url: <a href"./"><?php echo "http://" . $_SERVER['HTTP_HOST']  . $_SERVER['REQUEST_URI']; ?></a></p>  
+                research artifacts. 
+
+<p>Last updated at <span class="updated-at"><?php echo $report->getUpdatedAt('j M, Y');?>.  </span><a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId ?>&update=1">Update now</a> (may take a few minutes)
+ <a href="javascript:PopupRawReportText()">Download as text</a>
+
+<p>Stable url: <a href"./"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a></p>  
+
 
         </div>
         <div id="metrics">
             <?php
-                $text = $report->render();
-				echo "$text";
+				#FB::log($report);
+				echo "$rendered_report_text";
             ?>
         </div>
     </div>
@@ -129,6 +157,30 @@ In this initial release, a snapshot of the impact data is captured the first tim
 
 
 </div><!-- END OF ADDED by Aliaksandr Birukou-->
+
+<p><a href="https://cloudant.com/futon/document.html?total-impact%2Fdevelopment/<?php echo $_REQUEST['id']; ?>">Link to DB entry</a>
+
+	<pre>
+	<script language="javascript" type="text/javascript">
+	<!---
+	function PopupRawReportText()
+	{
+		//console.log("got called");
+
+		//console.log(str);
+		newwindow = window.open('','export',"width=320,height=210,scrollbars=yes");
+		var doc = newwindow.document;
+		doc.write("data:text/plain;charset=utf-8,");
+		<?php $raw_report_text = json_decode($report->render_as_plain_text()); ?>
+		doc.write("<?php echo $raw_report_text ?><p>");
+		//doc.write(eval("(" + <?php echo $raw_report_text; ?> + ")"));
+		doc.close();
+			
+	}
+	-->
+	</script>
+	</pre>
+
 
 </body>
 </html>

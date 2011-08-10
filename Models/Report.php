@@ -42,18 +42,23 @@ class Models_Report {
         return date($format, $this->data->created_at);
     }
 
+
     /**
-     * Gets an array of update times for each Source we have data for.
-     * @param string $format $format The format for the returned date, as specified with
+     * Gets the date of the collection's last update
+     * @param string $format The format for the returned date, as specified with
      *              PHP's date() function (http://php.net/manual/en/function.date.php)
-     * @return array An associative array of <SourceName> => <date>
+     * @return string The date of the collections last update
      */
-    public function getLastUpdatedAt($format){
-        $ret = array();
-        foreach ($this->data->updates as $sourceName => $ts){
-            $ret[$sourceName] = date($format, $ts);
-        }
-        return $ret;
+    public function getUpdatedAt($format) {
+        $ret = array();	
+
+        foreach ($this->data->sources as $source) {
+			$sourceName = $source->source_name;
+            $ret[$sourceName] = date($format, $source->last_update);
+		}
+		$max_updated = min($ret);
+
+		return($max_updated);
     }
 
     /**
@@ -106,6 +111,40 @@ class Models_Report {
         return $ret;
     }
 
+    public function render_as_plain_text() {
+		$sources = $this->data->sources;
+		$ret_string = '';
+		
+		/* if no artifacts have metrics, add call here to printNothingHereMsg() */
+        $genres = $this->sortByGenre($sources);
+
+        foreach ($genres as $genreName => $artifacts){
+			$ret_string .= "<h1>$genreName</h1>";
+	
+	        foreach ($artifacts as $id => $artifact){
+		        foreach ($artifact as $sourceName => $sourceData) {
+					if ($sourceName=="CrossRef") {
+			           	$biblio = "$sourceData->authors, $sourceData->title, $sourceData->year, $sourceData->journal, $sourceData->doi, PMID:$sourceData->pmid, $sourceData->url";
+					} elseif ($sourceName=="Slideshare") {
+			           	$biblio = "$sourceData->title; (uploaded in $sourceData->upload_year) $id";
+					} elseif ($sourceName=="Dryad") {
+			           	$biblio = "$sourceData->authors ($sourceData->year) $sourceData->title, Dryad Data Repository. $id";
+					}
+					$metrics = '';
+			       	foreach ($sourceData as $metricName => $metricValue){
+						if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
+			           		$metrics .= "$sourceName" . "_" . "$metricName: $metricValue;  ";					
+						}
+					}
+		        }
+				$ret_string .= "$id<br/>$biblio<br/>$metrics<br/><p>";
+	        }
+        }
+        #return(json_encode("hello"));
+
+        return(json_encode($ret_string));
+    }
+
     private function printGenre($name, $artifacts, $abouts){
         $ret = '';
         $ret .= "<div class='genre $name'><h2>$name</h2>";
@@ -131,7 +170,6 @@ class Models_Report {
     }
 
     private function printSource($id, $sourceName, $sourceData, $abouts){
-        unset($sourceData->type); // user doesn't need to see this
         $faviconImg = '';
         if (isset($abouts->$sourceName->icon)){
             if ($abouts->$sourceName->icon){
@@ -152,7 +190,7 @@ class Models_Report {
 		}
         $ret .= "<p>";
        	foreach ($sourceData as $metricName => $metricValue){
-			if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year"))) {
+			if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
            		$ret .= "$metricName: $metricValue;\t";					
 			}
 		}
@@ -187,6 +225,7 @@ class Models_Report {
      */
     private function sortByGenre(stdClass $sources){
         $genres = new StdClass;
+
         foreach ($sources as $source) {
 			$sourceName = $source->source_name;
 
