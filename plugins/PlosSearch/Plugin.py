@@ -30,7 +30,7 @@ class PluginClass(BasePluginClass):
     SOURCE_NAME = "PlosSearch"
     SOURCE_DESCRIPTION = "PLoS full text search."
     SOURCE_URL = "http://www.plos.org/"
-    SOURCE_ICON = "http://www.plosbiology.org/images/favicon.ico"
+    SOURCE_ICON = "http://plos.org/favicon.ico"
     SOURCE_METRICS = dict(hits="the number of mentions in PLoS article full text")
 
     DEBUG = False
