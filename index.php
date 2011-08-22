@@ -31,6 +31,7 @@
             <p>
             Welcome to Total-Impact. This site allows you to track the impact of various online 
             research artifacts. It grabs metrics from many different sites and displays them all in one place.
+
             </p>
         </div>
         
@@ -71,6 +72,13 @@
         else {
             ?>
         <div id="instr">
+<em>
+<p>If the demo appears broken right now, try this link to see a sample report:
+<a href="http://total-impact.org/report.php?id=hljHeI">http://total-impact.org/report.php?id=hljHeI</a>
+<p>
+<b>Total-Impact <a href="http://www.mendeley.com/blog/developer-resources/what-the-scientific-community-wants-computers-to-do-for-them-the-results-of-the-plos-and-mendeley-call-for-apps/">needs more developers!</a>  Join us?</b>  Email total-impact@googlegroups.com
+</em>
+
             <p>Enter the identifiers for the artifacts you want to track below. We'll give you a url for that set that automatically updates everytime you visit the page.</p>
             <p>To try it out, copy and paste these identifers below and hit Go!</p>
             <pre>
