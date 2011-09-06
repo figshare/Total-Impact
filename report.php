@@ -61,7 +61,7 @@ if (!$res){ header('Location: ../'); }
 <body>
 	
     <div id="header">
-		<a href="./"><img src="./ui/img/logo.png" alt="Total-Impact" width='200px' border=0/></a>
+		<a href="./"><img src="./ui/img/logo.png" alt="total-impact" width='200px' border=0/></a>
     </div>
 
     <div id="report">

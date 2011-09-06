@@ -29,7 +29,7 @@
         <div id="header">
             <img src="./ui/img/logo.png" alt="Total-Impact" width='200px' /> 
             <p>
-            Welcome to Total-Impact. This site allows you to track the impact of various online 
+            Welcome to total-impact. This site allows you to track the impact of various online 
             research artifacts. It grabs metrics from many different sites and displays them all in one place.
             </p>
         </div>
@@ -99,7 +99,7 @@ GSE22484
         <?php } ?>
         <div id="footer">
             <p>
-            Hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/Total-Impact">Source and contributors.</a>
+            Hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/total-impact">Source and contributors.</a>
             </p>
         </div>
     </body>

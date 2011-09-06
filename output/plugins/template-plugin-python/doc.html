@@ -68,8 +68,8 @@
 <h1>The Template Plugin</h1>
 <h2>Introduction</h2>
 <p><em>Replace the text in this section with an introduction to your plugin, the data sources and the information provided.</em></p>
-<p>The template plugin is a template to use for the preparation of your own Total-Impact plugins. You should replace the text as noted in this documentation, the plugin itself, and the various test scripts. This documentation is written using Dexy which means that the documents themselves will act as a test. If you run Dexy over your local repository and everything is correctly in place then Dexy should complete running and the documentation should contain all the appropriate information.</p>
-<p>The python plugins for Total-Impact have a simple structure with three routines. The <em>run_plugin</em> method coordinates the action of the <em>get_data</em> and <em>parse_data</em> methods. The <em>main</em> method simply handles parameter passing from the rest of the Total-Impact system.</p>
+<p>The template plugin is a template to use for the preparation of your own total-impact plugins. You should replace the text as noted in this documentation, the plugin itself, and the various test scripts. This documentation is written using Dexy which means that the documents themselves will act as a test. If you run Dexy over your local repository and everything is correctly in place then Dexy should complete running and the documentation should contain all the appropriate information.</p>
+<p>The python plugins for total-impact have a simple structure with three routines. The <em>run_plugin</em> method coordinates the action of the <em>get_data</em> and <em>parse_data</em> methods. The <em>main</em> method simply handles parameter passing from the rest of the total-impact system.</p>
 <h2>Imports</h2>
 <p>The python libraries required for this plugin to work are:</p>
 <div class="highlight"><pre><a name="l-1"></a><span class="kn">import</span> <span class="nn">urllib2</span>
@@ -108,7 +108,7 @@
 
 <!-- TODO show actual check against the default test ID pattern? -->
 
-<p>The method then obtains the page as specified by calling the <em>get_data</em> method. If a page is correctly received it then parses it using the <em>get_stats</em> method and returns the response to Total-Impact core.</p>
+<p>The method then obtains the page as specified by calling the <em>get_data</em> method. If a page is correctly received it then parses it using the <em>get_stats</em> method and returns the response to total-impact core.</p>
 <div class="highlight"><pre><a name="l-1"></a>    <span class="n">page</span> <span class="o">=</span> <span class="n">get_data_page</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
 <a name="l-2"></a>    <span class="k">if</span> <span class="n">page</span><span class="p">:</span>
 <a name="l-3"></a>        <span class="n">response</span> <span class="o">=</span> <span class="n">get_stats</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
@@ -184,7 +184,7 @@
 
 <h3>main</h3>
 <p>There should not be any need to change <em>main</em>. This is included only for completeness' sake and can be removed if you haven't modified main within your plugin.</p>
-<p>The main method accepts a command line argument from the Total-Impact core and parses the arguments. </p>
+<p>The main method accepts a command line argument from the total-impact core and parses the arguments. </p>
 <div class="highlight"><pre><a name="l-1"></a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
 <a name="l-2"></a>    <span class="n">parser</span> <span class="o">=</span> <span class="n">OptionParser</span><span class="p">(</span><span class="n">usage</span><span class="o">=</span><span class="s">&quot;usage: %prog [options] filename&quot;</span><span class="p">,</span>
 <a name="l-3"></a>                          <span class="n">version</span><span class="o">=</span><span class="s">&quot;%prog 1.0&quot;</span><span class="p">)</span>

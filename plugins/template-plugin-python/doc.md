@@ -4,9 +4,9 @@
 
 *Replace the text in this section with an introduction to your plugin, the data sources and the information provided.*
  
-The template plugin is a template to use for the preparation of your own Total-Impact plugins. You should replace the text as noted in this documentation, the plugin itself, and the various test scripts. This documentation is written using Dexy which means that the documents themselves will act as a test. If you run Dexy over your local repository and everything is correctly in place then Dexy should complete running and the documentation should contain all the appropriate information.
+The template plugin is a template to use for the preparation of your own total-impact plugins. You should replace the text as noted in this documentation, the plugin itself, and the various test scripts. This documentation is written using Dexy which means that the documents themselves will act as a test. If you run Dexy over your local repository and everything is correctly in place then Dexy should complete running and the documentation should contain all the appropriate information.
 
-The python plugins for Total-Impact have a simple structure with three routines. The *run_plugin* method coordinates the action of the *get_data* and *parse_data* methods. The *main* method simply handles parameter passing from the rest of the Total-Impact system.
+The python plugins for total-impact have a simple structure with three routines. The *run_plugin* method coordinates the action of the *get_data* and *parse_data* methods. The *main* method simply handles parameter passing from the rest of the total-impact system.
 
 ## Imports
 
@@ -44,7 +44,7 @@ The method first checks that the *identifier* it has been passed matches the pat
 
 <!-- TODO show actual check against the default test ID pattern? -->
 
-The method then obtains the page as specified by calling the *get_data* method. If a page is correctly received it then parses it using the *get_stats* method and returns the response to Total-Impact core.
+The method then obtains the page as specified by calling the *get_data* method. If a page is correctly received it then parses it using the *get_stats* method and returns the response to total-impact core.
 
 {{ d['template-plugin.py|idio']['get-page-parse-response'] }}
 
@@ -95,7 +95,7 @@ The results are returned as a dictionary in the following form:
 
 There should not be any need to change *main*. This is included only for completeness' sake and can be removed if you haven't modified main within your plugin.
 
-The main method accepts a command line argument from the Total-Impact core and parses the arguments. 
+The main method accepts a command line argument from the total-impact core and parses the arguments. 
 
 {{ d['template-plugin.py|idio']['main-call'] }}
 
