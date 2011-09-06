@@ -86,25 +86,26 @@ class Models_Collection {
 			$artifact_class->$id->pmid = "";
 		}
 
+		$pool = new HttpRequestPool();
+
         foreach ($config->plugins as $sourceName => $pluginUrl){
-			
-			$client = new Zend_Http_Client();
-            $client->setUri($pluginUrl);
-			
-        	$client->setParameterPost("query", json_encode($artifact_class));
-        	$fetchedData = $client->request("POST");
+			$request = new HttpRequest($pluginUrl, HTTP_METH_POST);
+			$request->setPostFields(array('query' => json_encode($artifact_class)));
+	  		$pool->attach($request);			
+        }		
 
-            $body = $fetchedData->getBody();
-            $pluginResponse = json_decode($body);
-
-            if (!isset($pluginResponse->source_name)) { 
-				// very basic plugin response validation.  What is appropriate here?
-            }
-
-			$ts=0;
-            $this->updateDoc($collectionId, $sourceName, $pluginResponse, 0, $ts, $couch);
-			
-        }			
+		$pool->send();
+		
+		foreach ($pool as $request) {
+			$body = $request->getResponseBody();
+			if ($body != "") {
+	            $pluginResponse = json_decode($body);
+				$ts=0;
+				$sourceName = $pluginResponse->source_name;
+	            $this->updateDoc($collectionId, $sourceName, $pluginResponse, 0, $ts, $couch);
+			}
+		}
+	
 	}
 		
     /**
