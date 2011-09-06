@@ -9,7 +9,7 @@
  *
  * @author jason
  */
-class Models_Report {
+class Models_Reporter {
     private $couch;
     private $id;
     private $data;

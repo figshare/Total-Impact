@@ -35,35 +35,19 @@
             </p>
         </div>
         
-        <?php
-		function update_collection($collectionId) {
-            // update the whole database with all plugins.
-            $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
-			#FB::log($config);
-						
-            foreach ($config->plugins as $sourceName => $pluginUrl){
-				#FB::log($sourceName);
-				
-                $updater = Models_UpdaterFactory::makeUpdater($sourceName);
-				#FB::log($updater);
-                $updater->update(false, $collectionId);
-                // implement some sort of progress bar here
-            }			
-		}
-		
+        <?php		
         if (isset($_POST['submitted'])){
             // show the user some kind of updating screen
-            echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
 
             // save the new collection
-            $collectionInput = Models_CollectionInputFactory::make();
-            $collectionSave = $collectionInput->save($_POST['name'], $_POST['ids']);
-            $collectionId = $collectionSave->id;
-			#FB::log($collectionId);
+            echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
+            $collection = new Models_Collection();
+			
+            $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
+            $storedDoc = $collection->save($_POST['name'], $_POST['ids'], $config);
+            $collectionId = $storedDoc->id;
 
-			update_collection($collectionId);
-
-			#FB::log("done");
+			$collection->update($collectionId, $config);
 
             // redirect to the report page for this plugin
             echo "<script>location.href='report.php?id=$collectionId'</script>";

@@ -6,24 +6,13 @@ $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
 $couch = new Couch_Client($config->db->dsn, $config->db->name);
 $collectionId = $_REQUEST['id'];
 
-function update_collection($config, $collectionId) {
-	#FB::log($config);
-			
-    foreach ($config->plugins as $sourceName => $pluginUrl) {
-		#FB::log($sourceName);
-        $updater = Models_UpdaterFactory::makeUpdater($sourceName);
-		#FB::log($updater);
-        $updater->update(false, $collectionId);
-        // implement some sort of progress bar here
-    }			
-}
-
 $do_update = $_REQUEST['update'];
 if ($do_update==1) {
-	update_collection($config, $collectionId);
+	$collection = new Models_Collection();
+	$collection->update($collectionId, $config);
 }
 
-$report = new Models_Report($couch, $collectionId);
+$report = new Models_Reporter($couch, $collectionId);
 $res = $report->fetch();
 
 $rendered_report_text = $report->render();

@@ -27,6 +27,7 @@ class Models_Updater {
      */
     public function update($ts=false, $collectionId=false) {
         $sourceName = $this->plugin->getName();
+
         $couchResponse = $this->couch
                 ->key($sourceName)
                 ->getView("main", "to_update");
