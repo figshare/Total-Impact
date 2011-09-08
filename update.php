@@ -39,7 +39,7 @@ ob_implicit_flush(TRUE);
         <?php		
             // show the user some kind of updating screen
             echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
-			echo $_SERVER['QUERY_STRING'];
+			#echo $_SERVER['QUERY_STRING'];
 		?>
 		</div>
        	<div id="saving">
