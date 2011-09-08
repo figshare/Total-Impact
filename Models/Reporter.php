@@ -146,7 +146,7 @@ class Models_Reporter {
 	        foreach ($artifacts as $id => $artifact){
 		        foreach ($artifact as $sourceName => $sourceData) {
 					if ($sourceName=="CrossRef") {
-			           	$biblio = "$sourceData->authors, $sourceData->title, $sourceData->year, $sourceData->journal, $sourceData->doi, PMID:$sourceData->pmid, $sourceData->url";
+			           	$biblio = "$sourceData->authors ($sourceData->year) $sourceData->title. $sourceData->journal. $sourceData->doi, PMID:$sourceData->pmid, $sourceData->url";
 					} elseif ($sourceName=="Slideshare") {
 			           	$biblio = "$sourceData->title; (uploaded in $sourceData->upload_year) $id";
 					} elseif ($sourceName=="Dryad") {
@@ -204,11 +204,11 @@ class Models_Reporter {
         $ret .= "<li class='source $sourceName'>";
         $ret .= "<h4>$faviconImg$sourceName</h4>";
 		if ($sourceName=="CrossRef") {
-           	$ret .= "$sourceData->authors, <a href='$sourceData->url'>$sourceData->title</a>, $sourceData->year, $sourceData->journal, $sourceData->doi, PMID:$sourceData->pmid";
+           	$ret .= "$sourceData->authors ($sourceData->year) <a href='$sourceData->url'>$sourceData->title</a>. <em>$sourceData->journal.</em> $sourceData->doi, PMID:$sourceData->pmid";
 		} elseif ($sourceName=="Slideshare") {
            	$ret .= "<a href='$id'>$sourceData->title</a>; Uploaded in $sourceData->upload_year";
 		} elseif ($sourceName=="Dryad") {
-           	$ret .= "$sourceData->authors ($sourceData->year) <a href='$id'>$sourceData->title</a>, Dryad Data Repository. $id";
+           	$ret .= "$sourceData->authors ($sourceData->year) <a href='$id'>$sourceData->title</a>, <em>Dryad Data Repository.</em> $id";
 		}
         $ret .= "<p>";
        	foreach ($sourceData as $metricName => $metricValue){

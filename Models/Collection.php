@@ -76,7 +76,8 @@ class Models_Collection {
 
 	public function update($collectionId, $config) {
         $couch = new Couch_Client($config->db->dsn, $config->db->name);
-		$doc = $this->fetch($collectionId, $couch);
+
+		$doc = $this->fetch($collectionId, $config);
 		$artifact_ids = $doc->artifact_ids;
 		$artifact_class = new stdClass();
         foreach ($artifact_ids as $index => $id) {
@@ -140,7 +141,9 @@ class Models_Collection {
     /**
      * Loads the data on the collection specified by $this->id
      */
-    public function fetch($collectionId, $couch){
+    public function fetch($collectionId, $config){
+        $couch = new Couch_Client($config->db->dsn, $config->db->name);
+	
         try {
             $doc = $couch->getDocRaw($collectionId);
         }
@@ -151,5 +154,6 @@ class Models_Collection {
         }
         return $doc;
     }
+
 }
 ?>

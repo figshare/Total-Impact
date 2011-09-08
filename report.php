@@ -6,12 +6,6 @@ $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
 $couch = new Couch_Client($config->db->dsn, $config->db->name);
 $collectionId = $_REQUEST['id'];
 
-$do_update = $_REQUEST['update'];
-if ($do_update==1) {
-	$collection = new Models_Collection();
-	$collection->update($collectionId, $config);
-}
-
 $report = new Models_Reporter($couch, $collectionId);
 $res = $report->fetch();
 
@@ -60,8 +54,11 @@ if (!$res){ header('Location: ../'); }
                 with <span class="artifacts-count"><?php echo $report->getArtifactsCount(); ?></span>
                 research artifacts. 
 
-<p>Last updated at <span class="updated-at"><?php echo $report->getUpdatedAt('j M, Y');?>.  </span><a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId ?>&update=1">Update now</a> (may take a few minutes)
- <a href="javascript:PopupRawReportText()">Download as text</a>
+<p>Last updated at <span class="updated-at"><?php echo $report->getUpdatedAt('j M, Y');?>. </span>
+	<p><a href="./update.php?id=<?php echo $collectionId; ?>">Update now</a> (may take a few minutes)
+	<p><a href="./index.php?seed-id=<?php echo $collectionId; ?>">Start over with this seed</a>
+	<p><a href="./index.php">Start over fresh</a>
+ 	<p><a href="javascript:PopupRawReportText()">Download as text</a>
 
 <p>Stable url: <a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a></p>  
 

@@ -1,6 +1,11 @@
 <?php require_once './bootstrap.php'; 
 #require_once 'FirePHPCore/fb.php';
 
+// TRUE = disable all output buffering, 
+// and automatically flush() 
+// immediately after every print or echo 
+ob_implicit_flush(TRUE);
+
 ?><!DOCTYPE html>
 <html>
     <head>
@@ -27,7 +32,7 @@
     </head>
     <body>
         <div id="header">
-            <img src="./ui/img/logo.png" alt="Total-Impact" width='200px' /> 
+            <img src="./ui/img/logo.png" alt="total-impact" width='200px' /> 
             <p>
             Welcome to total-impact. This site allows you to track the impact of various online 
             research artifacts. It grabs metrics from many different sites and displays them all in one place.
@@ -35,26 +40,6 @@
             </p>
         </div>
         
-        <?php		
-        if (isset($_POST['submitted'])){
-            // show the user some kind of updating screen
-
-            // save the new collection
-            echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
-            $collection = new Models_Collection();
-			
-            $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
-            $storedDoc = $collection->save($_POST['name'], $_POST['ids'], $config);
-            $collectionId = $storedDoc->id;
-
-			$collection->update($collectionId, $config);
-
-            // redirect to the report page for this plugin
-            echo "<script>location.href='report.php?id=$collectionId'</script>";
-
-        }
-        else {
-            ?>
         <div id="instr">
 <em>
 <p>If the demo appears broken right now, try this link to see a sample report:
@@ -74,21 +59,38 @@ http://www.slideshare.net/phylogenomics/ben-franklin-award-slides
 GSE2109
 GSE22484
         </pre>
-        </div>        
-        <form method="POST" name="main" action="./index.php">
+        </div>   
+
+		<?php
+			if (isset($_REQUEST['seed-id'])) {
+				#FB::log("got seed-id");
+				$collectionId = $_REQUEST['seed-id'];
+           		$config = new Zend_Config_Ini(CONFIG_PATH, ENV);
+            	$collection = new Models_Collection();
+				$doc = $collection->fetch($collectionId, $config);
+				$artifactIds = $doc->artifact_ids;
+				#FB::log($doc);
+				#FB::log($artifactIds);
+				$artifactIdsString = implode('&#013;&#010;', $artifactIds);
+
+			} else {
+				$artifactIdsString = "";
+			}
+     	?>
+
+        <form method="GET" name="main" action="./update.php">
             <label for="name">What's your name?</label>
             <input name="name" id="name" />
             <br>
             <br>
             
-            <label for="ids">Put your IDs here:</label><br>
-            <textarea rows=10 cols=80 name="ids" id="ids"></textarea>
+            <label for="list">Put your IDs here:</label><br>
+            <textarea rows=10 cols=80 name="list" id="list"><?php echo $artifactIdsString; ?></textarea>
             
             <input type="hidden" name="submitted" value="true" /><br>
             <input type="submit" id="submit" value="Go!" />
         </form>
         
-        <?php } ?>
         <div id="footer">
             <p>
             Hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/total-impact">Source and contributors.</a>
