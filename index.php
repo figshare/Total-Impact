@@ -69,18 +69,18 @@ GSE22484
             	$collection = new Models_Collection();
 				$doc = $collection->fetch($collectionId, $config);
 				$artifactIds = $doc->artifact_ids;
-				#FB::log($doc);
-				#FB::log($artifactIds);
+				$title = $doc->title;
 				$artifactIdsString = implode('&#013;&#010;', $artifactIds);
 
 			} else {
 				$artifactIdsString = "";
+				$title = "";
 			}
      	?>
 
-        <form method="GET" name="main" action="./update.php">
+        <form method="PUT" name="main" action="./update.php">
             <label for="name">What's your name?</label>
-            <input name="name" id="name" />
+            <input name="name" id="name" value="<?php echo $title; ?>" />
             <br>
             <br>
             
