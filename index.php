@@ -109,7 +109,7 @@ GSE2109</pre>
 		
 		<p>Mendeley profile <b>publicly available</b> publications:
             <label for="add-mendeley-profile">Username <br><em>http://www.mendeley.com/profiles/</em></label>
-            <input name="add-mendeley-profile" id="add-mendeley-profile" size="40" placeholder="graham-steel/"/>
+            <input name="add-mendeley-profile" id="add-mendeley-profile" size="40" placeholder="cameron-neylon"/>
 
 		<hr>
 
@@ -138,6 +138,7 @@ GSE2109</pre>
 	</tr>
 	</table>
 
+<p>Adding artifacts from profile pages currently only adds the first full page of artifacts, not all pages
 <em>
 <p>If the demo appears broken right now, try this link to see a sample report:
 <a href="http://total-impact.org/report.php?id=hljHeI">http://total-impact.org/report.php?id=hljHeI</a>
