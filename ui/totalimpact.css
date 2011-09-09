@@ -14,6 +14,10 @@ body {
 	margin-left: 50px;
 }
 
+.disabled { 
+    color:grey; /* This property is for the text colour */ 
+    }
+
 .entry .id {
 	font-size: 8pt;
 	padding-left: 18px;

@@ -56,7 +56,7 @@ if (!$res){ header('Location: ../'); }
 
 <p>Last updated at <span class="updated-at"><?php echo $report->getUpdatedAt('j M, Y');?>. </span>
 	<p><a href="./update.php?id=<?php echo $collectionId; ?>">Update now</a> (may take a few minutes)
-	<p><a href="./index.php?seed-id=<?php echo $collectionId; ?>">Start over with this seed</a>
+	<p><a href="./index.php?add-id=<?php echo $collectionId; ?>">Start over with this seed</a>
 	<p><a href="./index.php">Start over fresh</a>
  	<p><a href="javascript:PopupRawReportText()">Download as text</a>
 
