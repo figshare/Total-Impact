@@ -3,19 +3,14 @@ import simplejson
 import json
 import urllib
 import urllib2
-import BeautifulSoup
-from BeautifulSoup import BeautifulStoneSoup
+import string
 import time
 import re
 import nose
 from nose.tools import assert_equals
-import sys
+from BasePlugin import BasePluginClass
+from BasePlugin import TestBasePluginClass
 import os
-# This hack is to add current path when running script from command line
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import BasePlugin
-from BasePlugin.BasePlugin import BasePluginClass
-from BasePlugin.BasePlugin import TestBasePluginClass
 
 # Permissions: RWX for owner, WX for others.  Set this here so that .pyc are created with these permissions
 os.umask(022) 
@@ -29,38 +24,31 @@ def skip(f):
     return f
 
 class PluginClass(BasePluginClass):
-                           
+                
     # each plugin needs to customize this stuff                
-    SOURCE_NAME = "PlosAlm"
-    SOURCE_DESCRIPTION = "PLoS article level metrics."
-    SOURCE_URL = "http://www.plos.org/"
-    SOURCE_ICON = "http://plos.org/favicon.ico"
-    SOURCE_METRICS = dict(  Postgenomic="This service was discontinued by Nature Publishing Group in 2009.", 
-        Web_of_Science="The citation data reported for an article from Web of Science.", 
-        Bloglines="This service no longer responds to API requests.", 
-        Biod="", 
-        Nature="The number of blog articles in Nature Blogs that have mentioned an article.", 
-        Connotea="The Connotea API does not respond in a timely manner.", 
-        Counter="the number of downloads of the PLoS article", 
-        PubMed_Central_Usage_Stats="HTML page views, PDF downloads and XML downloads for an article from PubMed Central.", 
-        CiteULike="The number of times that a user has bookmarked an article in CiteULike.", 
-        Scopus="The citation data reported for an article from Scopus.", 
-        PubMed_Central="The citation data reported for an article from PubMed Central", 
-        Research_Blogging="This service no longer responds to API requests.", 
-        CrossRef="The citation data reported for an article from CrossRef."
-    )
+    SOURCE_NAME = "Dryad"
+    SOURCE_DESCRIPTION = "An international repository of data underlying peer-reviewed articles in the basic and applied biology."
+    SOURCE_URL = "http://www.datadryad.org/"
+    SOURCE_ICON = "http://dryad.googlecode.com/svn-history/r4402/trunk/dryad/dspace/modules/xmlui/src/main/webapp/themes/Dryad/images/favicon.ico"
+    SOURCE_METRICS = dict(  page_views="the journal where the paper was published",
+                            year="the year of the publication",
+                            title="the title of the publication", 
+                            authors="the authors of the publication")
 
     DEBUG = False
 
-    PLOS_API_KEY = "n0ixcSmyvDdRNsq"
-    PLOS_API_URL = "http://alm.plos.org/articles/info:doi/%s.xml?history=1&api_key=" + PLOS_API_KEY
+    DRYAD_DOI_URL = "http://dx.doi.org/"
+    DRYAD_VIEWS_PATTERN = re.compile("(?P<views>\d+) views", re.DOTALL)
+    DRYAD_DOWNLOADS_PATTERN = re.compile("(?P<downloads>\d+) downloads", re.DOTALL)
+    DRYAD_CITATION_PATTERN = re.compile('please cite the Dryad data package:.*<blockquote>(?P<authors>.+?)\((?P<year>\d{4})\).*(?P<title>Data from.+?)<span>Dryad', re.DOTALL)
 
-    PLOS_DOI_PATTERN = re.compile(r"10.1371/journal.p", re.DOTALL | re.IGNORECASE)
+    DRYAD_DOI_PATTERN = re.compile("(10.(\d)+/dryad(\S)+)", re.DOTALL | re.IGNORECASE)
 
     def get_page(self, doi):
+        ## curl -D - -L -H "Accept: application/unixref+xml" "http://dx.doi.org/10.1126/science.1157784" 
         if not doi:
             return(None)
-        url = self.PLOS_API_URL % doi
+        url = self.DRYAD_DOI_URL + doi
         if (self.DEBUG):
             print url
         try:
@@ -72,20 +60,34 @@ class PluginClass(BasePluginClass):
         return(page)
 
     def extract_stats(self, page, doi):
+        # crossref extraction code based on example at https://gist.github.com/931878
         if not page:
             return(None)        
         (response_header, content) = page
     
-        soup = BeautifulStoneSoup(content)
-        counts = soup.findAll(count=True)
+        view_matches = self.DRYAD_VIEWS_PATTERN.finditer(content)
+        try:
+            views = sum([int(view_match.group("views")) for view_match in view_matches])
+        except ValueError:
+            views = None
+
+        download_matches = self.DRYAD_DOWNLOADS_PATTERN.finditer(content)
+        try:
+            downloads = sum([int(download_match.group("downloads")) for download_match in download_matches])
+        except ValueError:
+            downloads = None
+
+        citation_matches = self.DRYAD_CITATION_PATTERN.search(content)
+        try:
+            authors = citation_matches.group("authors")
+            year = citation_matches.group("year")
+            title = citation_matches.group("title")
+        except ValueError:
+            authors = None
+            year = None
+            title = None
                 
-        metrics_dict = {}
-        for source in counts:
-            try:
-                metrics_dict[source["source"]] = source["count"]
-            except:
-                pass
-        return(metrics_dict)
+        return({"page_views":views, "total_downloads":downloads, "title":title, "year":year, "authors":authors})
     
     
     def get_metric_values(self, doi):
@@ -96,17 +98,17 @@ class PluginClass(BasePluginClass):
             response = None
         return(response)    
     
-    def is_plos_doi(self, id):        
-        response = (self.PLOS_DOI_PATTERN.search(id) != None)
+    def is_dryad_doi(self, id):        
+        response = (self.DRYAD_DOI_PATTERN.search(id) != None)
         return(response)
                             
     def artifact_type_recognized(self, id):
-        response = self.is_plos_doi(id)
+        response = self.is_dryad_doi(id)
         return(response)   
         
     def build_artifact_response(self, artifact_id):
         metrics_response = self.get_metric_values(artifact_id)
-        metrics_response.update({"type":"article"})
+        metrics_response.update({"type":"dataset"})
         return(metrics_response)
                 
     ## Crossref API doesn't seem to have limits, though we should check every few months to make sure still true            
@@ -128,7 +130,7 @@ class PluginClass(BasePluginClass):
 class TestPluginClass(TestBasePluginClass):
 
     def setup(self):
-        self.plugin = PluginClass()
+        self.plugin = CrossrefPluginClass()
         self.test_parse_input = self.testinput.TEST_INPUT_DOI
     
     ## this changes for every plugin        

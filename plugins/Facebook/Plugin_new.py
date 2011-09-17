@@ -31,32 +31,30 @@ def skip(f):
 class PluginClass(BasePluginClass):
                 
     # each plugin needs to customize this stuff                
-    SOURCE_NAME = "Slideshare"
-    SOURCE_DESCRIPTION = "The best way to share presentations, documents and professional videos."
-    SOURCE_URL = "http://www.slideshare.net/"
-    SOURCE_ICON = "http://www.slideshare.net/favicon.ico"
-    SOURCE_METRICS = dict(  title="the title of the publication",
-                            year_uploaded="the year the presentation was uploaded",
-                            downloads="the number of downloads of the presentation",
-                            favorites="the number of times a presentation has been favorited",
-                            comments="the number of comments on the presentation",
-                            views="the number of views of the presentation"
+    SOURCE_NAME = "Facebook"
+    SOURCE_DESCRIPTION = "A social networking service."
+    SOURCE_URL = "http://www.facebook.com/"
+    SOURCE_ICON = "http://www.facebook.com/favicon.ico"
+    SOURCE_METRICS = dict(  likes="the number of users who liked a post about the object",
+                            shares="the number of users who shared a post about the object",
+                            comments="the number of users who commented on a post about the object",
+                            clicks="the number of users who clicked who commented on a post about the object"
                             )
 
     DEBUG = False
 
-    TOTALIMPACT_SLIDESHARE_KEY = "nyHCUoNM"
-    TOTALIMPACT_SLIDESHARE_SECRET = "z7sRiGCG"
-    SLIDESHARE_API_URL = "http://www.slideshare.net/api/2/get_slideshow?api_key=nyHCUoNM&detailed=1&ts=%s&hash=%s&slideshow_url=%s"
-    SLIDESHARE_URL_PATTERN = re.compile("http://www.slideshare.net/.+")
+    FACEBOOK_API_URL = "http://api.facebook.com/restserver.php?method=links.getStats&urls=%s"
+
+    FACEBOOK_SHARE_PATTERN = re.compile("<share_count>(?P<stats>\d+)</share_count>", re.DOTALL)
+    FACEBOOK_LIKE_PATTERN = re.compile("<like_count>(?P<stats>\d+)</like_count>", re.DOTALL)
+    FACEBOOK_COMMENT_PATTERN = re.compile("<comment_count>(?P<stats>\d+)</comment_count>", re.DOTALL)
+    FACEBOOK_CLICK_PATTERN = re.compile("<click_count>(?P<stats>\d+)</click_count>", re.DOTALL)
 
     # each plugin needs to write one of these    
-    def get_page(self, id):
+    def get_page(self, url_of_object):
         if not id:
             return(None)
-        ts = time.time()
-        hash_combo = hashlib.sha1(self.TOTALIMPACT_SLIDESHARE_SECRET + str(ts)).hexdigest()
-        query_url = self.SLIDESHARE_API_URL %(ts, hash_combo, id)
+        query_url = self.FACEBOOK_API_URL %(url_of_object)
         #print url
         try:
             response = self.get_cache_timeout_response(query_url)
@@ -79,32 +77,33 @@ class PluginClass(BasePluginClass):
         soup = BeautifulStoneSoup(xml)
         #print(soup)
 
-        downloads = self.get_as_int(soup.numdownloads)
-        views = self.get_as_int(soup.numviews)
-        comments = self.get_as_int(soup.numcomments)
-        favorites = self.get_as_int(soup.numfavorites)
         try:
-            title = soup.title.text
-            title = title.encode("latin1")
+            like_count = int(soup.like_count.text)
         except:
-            title = ""
-        try:
-            upload_year = soup.created.text[-4:]
-        except:
-            upload_year = ""
+            like_count = None
         
-        response = {"upload_year":upload_year, "downloads":downloads, "views":views, "comments":comments, "favorites":favorites, "title":title}
+        try:
+            share_count = int(soup.share_count.text)
+        except:
+            share_count = None
+        
+        try:
+            click_count = int(soup.click_count.text)
+        except:
+            click_count = None
+        
+        try:
+            comment_count = int(soup.comment_count.text)
+        except:
+            comment_count = None
+        
+        response = {"likes":like_count, "shares":share_count, "clicks":click_count, "comments":comment_count}
         return(response)         
-
-    # each plugin needs to write relevant versions of this
-    def is_slideshare_url(self, id):
-        response = (self.SLIDESHARE_URL_PATTERN.search(id) != None)
-        return(response)
     
     # each plugin needs to write relevant versions of this            
     def artifact_type_recognized(self, id):
         if id:
-            is_recognized = self.is_slideshare_url(id)
+            is_recognized = self.is_url(id)
         else:
             is_recognized = False
         return(is_recognized)   
@@ -113,8 +112,7 @@ class PluginClass(BasePluginClass):
     # returns the first valid one, or None if none are valid
     def get_valid_id(self, list_of_possible_ids):
         for id in list_of_possible_ids:
-            if (self.artifact_type_recognized(id)):
-                return(id)
+            return(id)
         return(None)
             
     ## this changes for every plugin        
@@ -124,7 +122,7 @@ class PluginClass(BasePluginClass):
         metrics_response = self.get_metric_values(id)
         if not metrics_response:
             return(None)        
-        response = dict(type="slides")    
+        response = dict(type="")    
         response.update(metrics_response)
         return(response)
 
