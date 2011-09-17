@@ -33,7 +33,7 @@ class PluginClass(BasePluginClass):
     SOURCE_NAME = "CrossRef"
     SOURCE_DESCRIPTION = "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."
     SOURCE_URL = "http://www.crossref.org/"
-    SOURCE_ICON = "http://www.crossref.org/favicon.ico"
+    SOURCE_ICON = "http://www.crossref.org/.ico"
     SOURCE_METRICS = dict(  journal="the journal where the paper was published",
                             year="the year of the publication",
                             title="the title of the publication", 

@@ -49,7 +49,7 @@ ob_implicit_flush(TRUE);
             $collection = new Models_Collection();
 			if (isset($_REQUEST['list'])) {
 	            // save the new collection
-	            $storedDoc = $collection->save($_REQUEST['name'], $_REQUEST['list'], $config);
+	            $storedDoc = $collection->create($_REQUEST['name'], $_REQUEST['list'], $config);
 	            $collectionId = $storedDoc->id;
 			} else {
 				$collectionId = $_REQUEST['id'];

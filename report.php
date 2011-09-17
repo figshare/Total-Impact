@@ -59,6 +59,7 @@ if (!$res){ header('Location: ../'); }
 	<p><a href="./index.php?add-id=<?php echo $collectionId; ?>">Start over with this seed</a>
 	<p><a href="./index.php">Start over fresh</a>
  	<p><a href="javascript:PopupRawReportText()">Download as text</a>
+ 	<p><a href="javascript:PopupRawCsv()">Download as CSV</a>
 
 <p>Stable url: <a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a></p>  
 
@@ -96,8 +97,20 @@ In this initial release, a snapshot of the impact data is captured the first tim
 		var doc = newwindow.document;
 		doc.write("data:text/plain;charset=utf-8,");
 		<?php $raw_report_text = json_decode($report->render_as_plain_text()); ?>
-		doc.write("<?php echo $raw_report_text ?><p>");
-		//doc.write(eval("(" + <?php echo $raw_report_text; ?> + ")"));
+		doc.write("<?php echo $raw_report_text; ?><p>");
+		doc.close();
+			
+	}
+	function PopupRawCsv()
+	{
+		//console.log("got called");
+
+		//console.log(str);
+		newwindow = window.open('','export',"width=320,height=210,scrollbars=yes");
+		var doc = newwindow.document;
+		doc.write("data:text/plain;charset=utf-8,");
+		<?php $raw_csv_text = json_decode($report->render_as_csv()); ?>
+		doc.write("<?php echo $raw_csv_text; ?><p>");
 		doc.close();
 			
 	}

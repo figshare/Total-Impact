@@ -21,7 +21,7 @@ def skip(f):
 
 class TestInput(object):
     # each plugin needs to make sure these are all set up appropriately
-    TEST_GOLD_JSON_RESPONSE_STARTS_WITH = '{"artifacts": {}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "false", "source_name": "CrossRef", "last_update": 130'
+    TEST_GOLD_JSON_RESPONSE_STARTS_WITH = '{"artifacts": {}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "false", "source_name": "CrossRef", "last_update": 130'
     TEST_INPUT = '{"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361",}}'
     TEST_GOLD_PARSED_INPUT = eval(TEST_INPUT)
     
@@ -29,9 +29,11 @@ class TestInput(object):
     TEST_INPUT_ALL = TEST_INPUT_DOI.copy()
     TEST_INPUT_DRYAD_DOI = {"10.5061/dryad.1295":{"doi":"10.5061/dryad.1295"}}
     TEST_INPUT_ALL.update(TEST_INPUT_DRYAD_DOI)
+    TEST_INPUT_ATTACHED_DRYAD_DOI = {"10.1371/journal.pone.0000308":{"attacheddatadoi":"10.5061/dryad.j2c4g"}}
+    TEST_INPUT_ALL.update(TEST_INPUT_ATTACHED_DRYAD_DOI)
     TEST_INPUT_BAD_DOI = {"10.1371/abc.abc.123":{"doi":"10.1371/abc.abc.123"}}
     TEST_INPUT_ALL.update(TEST_INPUT_BAD_DOI)
-    TEST_INPUT_PMID = {"17808382":{"pmid":"17808382"}}
+    TEST_INPUT_PMID = {"17808382":{"pmid":"17808382","doi":"10.1126/science.141.3579.392"}}
     TEST_INPUT_ALL.update(TEST_INPUT_PMID)
     TEST_INPUT_URL = {"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract":{"url":"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract"}}
     TEST_INPUT_ALL.update(TEST_INPUT_URL)
@@ -71,7 +73,11 @@ class BasePluginClass(object):
     def is_crossref_doi(self, id):
         response = (self.CROSSREF_DOI_PATTERN.search(id) != None)
         return(response)
-    
+
+    def is_doi(self, id):
+        response = self.is_crossref_doi(id)  ## Would also add DataCite ids here, but frankly they are already included
+        return(response)
+            
     def is_pmid(self, id):
         response = (self.PMID_PATTERN.search(id) != None)
         return(response)
@@ -144,6 +150,21 @@ class BasePluginClass(object):
             response = None
         return(response)        
 
+    def get_candidate_ids(self, artifact_id, aliases, fields):
+        response = [artifact_id]
+        for field in fields:
+            if aliases.has_key(field):
+                # The fields have priority over the artifact name itself
+                response = [aliases[field]] + response
+        return(response)
+        
+    def get_relevant_id(self, artifact_id, aliases, fields):
+        candidate_ids = self.get_candidate_ids(artifact_id, aliases, fields)
+        for alias_id in candidate_ids:
+            if self.artifact_type_recognized(alias_id):
+                return(artifact_id, alias_id)
+        return(None, None)
+        
     ## this may be need to customized by plugins to support varied id types etc    
     ## every plugin should check API limitations and make sure they are respected here
     def get_artifacts_metrics(self, query):

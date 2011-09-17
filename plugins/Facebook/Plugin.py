@@ -2,22 +2,27 @@
 import simplejson
 import json
 import urllib
-import urllib2
-import string
 import time
 import re
+import BeautifulSoup
+from BeautifulSoup import BeautifulStoneSoup 
+import hashlib
 import nose
 from nose.tools import assert_equals
-from BasePlugin import BasePluginClass
-from BasePlugin import TestBasePluginClass
+import sys
 import os
+# This hack is to add current path when running script from command line
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import BasePlugin
+from BasePlugin.BasePlugin import BasePluginClass
+from BasePlugin.BasePlugin import TestBasePluginClass
 
 # Permissions: RWX for owner, WX for others.  Set this here so that .pyc are created with these permissions
 os.umask(022) 
     
 # Conforms to API specified here:  https://github.com/mhahnel/Total-Impact/wiki/Plugin-requirements
 # To do automated tests with nosy                
-# nosy CrossrefPlugin.py -A \'not skip\'
+# nosy SlidesharePlugin.py -A \'not skip\'
     
 def skip(f):
     f.skip = True
@@ -26,144 +31,166 @@ def skip(f):
 class PluginClass(BasePluginClass):
                 
     # each plugin needs to customize this stuff                
-    SOURCE_NAME = "Dryad"
-    SOURCE_DESCRIPTION = "An international repository of data underlying peer-reviewed articles in the basic and applied biology."
-    SOURCE_URL = "http://www.datadryad.org/"
-    SOURCE_ICON = "http://dryad.googlecode.com/svn-history/r4402/trunk/dryad/dspace/modules/xmlui/src/main/webapp/themes/Dryad/images/favicon.ico"
-    SOURCE_METRICS = dict(  page_views="the journal where the paper was published",
-                            year="the year of the publication",
-                            title="the title of the publication", 
-                            authors="the authors of the publication")
+    SOURCE_NAME = "Facebook"
+    SOURCE_DESCRIPTION = "A social networking service."
+    SOURCE_URL = "http://www.facebook.com/"
+    SOURCE_ICON = "http://www.facebook.com/favicon.ico"
+    SOURCE_METRICS = dict(  likes="the number of users who liked a post about the object",
+                            shares="the number of users who shared a post about the object",
+                            comments="the number of users who commented on a post about the object",
+                            clicks="the number of users who clicked who commented on a post about the object"
+                            )
 
     DEBUG = False
 
-    DRYAD_DOI_URL = "http://dx.doi.org/"
-    DRYAD_VIEWS_PATTERN = re.compile("(?P<views>\d+) views", re.DOTALL)
-    DRYAD_DOWNLOADS_PATTERN = re.compile("(?P<downloads>\d+) downloads", re.DOTALL)
-    DRYAD_CITATION_PATTERN = re.compile('please cite the Dryad data package:.*<blockquote>(?P<authors>.+?)\((?P<year>\d{4})\).*(?P<title>Data from.+?)<span>Dryad', re.DOTALL)
+    FACEBOOK_API_URL = "http://api.facebook.com/restserver.php?method=links.getStats&urls=%s"
 
-    DRYAD_DOI_PATTERN = re.compile("(10.(\d)+/dryad(\S)+)", re.DOTALL | re.IGNORECASE)
+    FACEBOOK_SHARE_PATTERN = re.compile("<share_count>(?P<stats>\d+)</share_count>", re.DOTALL)
+    FACEBOOK_LIKE_PATTERN = re.compile("<like_count>(?P<stats>\d+)</like_count>", re.DOTALL)
+    FACEBOOK_COMMENT_PATTERN = re.compile("<comment_count>(?P<stats>\d+)</comment_count>", re.DOTALL)
+    FACEBOOK_CLICK_PATTERN = re.compile("<click_count>(?P<stats>\d+)</click_count>", re.DOTALL)
 
-    def get_page(self, doi):
-        ## curl -D - -L -H "Accept: application/unixref+xml" "http://dx.doi.org/10.1126/science.1157784" 
-        if not doi:
+    # each plugin needs to write one of these    
+    def get_page(self, url_of_object):
+        if not id:
             return(None)
-        url = self.DRYAD_DOI_URL + doi
-        if (self.DEBUG):
-            print url
+        query_url = self.FACEBOOK_API_URL %(url_of_object)
+        #print url
         try:
-            page = self.get_cache_timeout_response(url)
-            if (self.DEBUG):
-                print page
+            response = self.get_cache_timeout_response(query_url)
         except:
-            page = None
-        return(page)
-
-    def extract_stats(self, page, doi):
-        # crossref extraction code based on example at https://gist.github.com/931878
-        if not page:
-            return(None)        
-        (response_header, content) = page
-    
-        view_matches = self.DRYAD_VIEWS_PATTERN.finditer(content)
-        try:
-            views = sum([int(view_match.group("views")) for view_match in view_matches])
-        except ValueError:
-            views = None
-
-        download_matches = self.DRYAD_DOWNLOADS_PATTERN.finditer(content)
-        try:
-            downloads = sum([int(download_match.group("downloads")) for download_match in download_matches])
-        except ValueError:
-            downloads = None
-
-        citation_matches = self.DRYAD_CITATION_PATTERN.search(content)
-        try:
-            authors = citation_matches.group("authors")
-            year = citation_matches.group("year")
-            title = citation_matches.group("title")
-        except ValueError:
-            authors = None
-            year = None
-            title = None
-                
-        return({"page_views":views, "total_downloads":downloads, "title":title, "year":year, "authors":authors})
-    
-    
-    def get_metric_values(self, doi):
-        page = self.get_page(doi)
-        if page:
-            response = self.extract_stats(page, doi)    
-        else:
             response = None
-        return(response)    
-    
-    def is_dryad_doi(self, id):        
-        response = (self.DRYAD_DOI_PATTERN.search(id) != None)
+        return(response)  
+
+    def get_as_int(self, mystr):
+        try:
+            response = int(mystr.text)
+        except:
+            response = None
         return(response)
-                            
-    def artifact_type_recognized(self, id):
-        response = self.is_dryad_doi(id)
-        return(response)   
+    
+    def extract_stats(self, page, id=None):
+        if not page:
+            return(None)
+
+        (header, xml) = page
+        soup = BeautifulStoneSoup(xml)
+        #print(soup)
+
+        try:
+            like_count = int(soup.like_count.text)
+        except:
+            like_count = None
         
-    def build_artifact_response(self, artifact_id):
-        metrics_response = self.get_metric_values(artifact_id)
-        metrics_response.update({"type":"dataset"})
-        return(metrics_response)
-                
-    ## Crossref API doesn't seem to have limits, though we should check every few months to make sure still true            
+        try:
+            share_count = int(soup.share_count.text)
+        except:
+            share_count = None
+        
+        try:
+            click_count = int(soup.click_count.text)
+        except:
+            click_count = None
+        
+        try:
+            comment_count = int(soup.comment_count.text)
+        except:
+            comment_count = None
+        
+        response = {"likes":like_count, "shares":share_count, "clicks":click_count, "comments":comment_count}
+        return(response)         
+    
+    # each plugin needs to write relevant versions of this            
+    def artifact_type_recognized(self, id):
+        if id:
+            is_recognized = self.is_url(id)
+        else:
+            is_recognized = False
+        return(is_recognized)   
+
+    # list of possible ids should be in order of preference, most prefered first
+    # returns the first valid one, or None if none are valid
+    def get_valid_id(self, list_of_possible_ids):
+        for id in list_of_possible_ids:
+            return(id)
+        return(None)
+            
+    ## this changes for every plugin        
+    def build_artifact_response(self, id):
+        if not id:
+            return(None)
+        metrics_response = self.get_metric_values(id)
+        if not metrics_response:
+            return(None)        
+        response = dict(type="")    
+        response.update(metrics_response)
+        return(response)
+
+    ## every plugin should check API limitations and make sure they are respected here
     def get_artifacts_metrics(self, query):
         response_dict = dict()
-        error = "NA"
+        error_msg = None
         time_started = time.time()
         for artifact_id in query:
-            if self.artifact_type_recognized(artifact_id):
-                artifact_response = self.build_artifact_response(artifact_id)
+            possible_ids = [query[artifact_id]["url"], artifact_id]
+            url = self.get_valid_id(possible_ids)
+            if url:
+                artifact_response = self.build_artifact_response(url)
                 if artifact_response:
                     response_dict[artifact_id] = artifact_response
             if (time.time() - time_started > self.MAX_ELAPSED_TIME):
-                error = "TIMEOUT"
+                error_msg = "TIMEOUT"
                 break
-        return(response_dict, error)
+        return(response_dict, error_msg)
     
     
 class TestPluginClass(TestBasePluginClass):
-
+    
     def setup(self):
-        self.plugin = CrossrefPluginClass()
-        self.test_parse_input = self.testinput.TEST_INPUT_DOI
+        self.plugin = SlidesharePluginClass()
+        self.test_parse_input = self.testinput.TEST_INPUT_SLIDESHARE_URL
     
     ## this changes for every plugin        
     def test_build_artifact_response(self):
-        response =  self.plugin.build_artifact_response('10.1371/journal.pcbi.1000361')
-        assert_equals(response, {'doi': '10.1371/journal.pcbi.1000361', 'title': 'Adventures in Semantic Publishing: Exemplar Semantic Enhancements of a Research Article', 'url': 'http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1000361', 'journal': 'PLoS Comput Biol', 'authors': 'Shotton, Portwin, Klyne, Miles', 'year': '2009', 'pmid': '19381256', 'type': 'article'})
+        response = self.plugin.build_artifact_response("http://www.slideshare.net/phylogenomics/eisen")
+        assert_equals(response, {'favorites': 2, 'upload_year': u'2010', 'title': 'Jonathan Eisen talk at #ievobio 2010', 'downloads': 10, 'views': 71984, 'type': 'slides', 'comments': 0})
 
     ## this changes for every plugin        
     def test_get_artifacts_metrics(self):
         response = self.plugin.get_artifacts_metrics(self.test_parse_input)
-        assert_equals(response, ({u'10.1371/journal.pcbi.1000361': {'doi': u'10.1371/journal.pcbi.1000361', 'title': 'Adventures in Semantic Publishing: Exemplar Semantic Enhancements of a Research Article', 'url': 'http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1000361', 'journal': 'PLoS Comput Biol', 'authors': 'Shotton, Portwin, Klyne, Miles', 'year': '2009', 'pmid': '19381256', 'type': 'article'}}, 'NA'))
+        print self.test_parse_input
+        assert_equals(response, ({'http://www.slideshare.net/phylogenomics/eisen': {'favorites': 2, 'upload_year': u'2010', 'title': 'Jonathan Eisen talk at #ievobio 2010', 'downloads': 10, 'views': 71984, 'type': 'slides', 'comments': 0}}, None))
 
     #each plugin should make sure its range of inputs are covered
+    def test_run_plugin_slideshare(self):
+        response = self.plugin.run_plugin(simplejson.dumps(self.testinput.TEST_INPUT_SLIDESHARE_URL))
+        print response
+        assert_equals(len(response), 852)
+
     def test_run_plugin_doi(self):
         response = self.plugin.run_plugin(simplejson.dumps(self.testinput.TEST_INPUT_DOI))
-        assert_equals(len(response), 1077)
+        print response
+        assert_equals(len(response), 649)
 
     def test_run_plugin_pmid(self):
         response = self.plugin.run_plugin(simplejson.dumps(self.testinput.TEST_INPUT_PMID))
-        assert_equals(len(response), 961)
+        print response
+        assert_equals(len(response), 649)
 
     def test_run_plugin_url(self):
         response = self.plugin.run_plugin(simplejson.dumps(self.testinput.TEST_INPUT_URL))
-        assert_equals(len(response), 685)
+        print response
+        assert_equals(len(response), 649)
 
     def test_run_plugin_invalid_id(self):
         response = self.plugin.run_plugin(simplejson.dumps(self.testinput.TEST_INPUT_DUD))
-        assert_equals(len(response), 685)
+        print response
+        assert_equals(len(response), 649)
     
     def test_run_plugin_multiple(self):
         response = self.plugin.run_plugin(simplejson.dumps(self.testinput.TEST_INPUT_ALL))
-        assert_equals(len(response), 1710)
-    
+        print response
+        assert_equals(len(response), 852) 
         
 
     

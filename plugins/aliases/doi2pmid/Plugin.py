@@ -1,11 +1,8 @@
 #!/usr/bin/env python
 import simplejson
-import json
-import urllib
-import urllib2
-import string
 import time
-import re
+import BeautifulSoup
+from BeautifulSoup import BeautifulStoneSoup
 import nose
 from nose.tools import assert_equals
 import sys
@@ -28,92 +25,32 @@ def skip(f):
     return f
 
 class PluginClass(BasePluginClass):
-                
     # each plugin needs to customize this stuff                
-    SOURCE_NAME = "Dryad"
-    SOURCE_DESCRIPTION = "An international repository of data underlying peer-reviewed articles in the basic and applied biology."
-    SOURCE_URL = "http://www.datadryad.org/"
-    SOURCE_ICON = "http://dryad.googlecode.com/svn-history/r4402/trunk/dryad/dspace/modules/xmlui/src/main/webapp/themes/Dryad/images/favicon.ico"
-    SOURCE_METRICS = dict(  page_views="the journal where the paper was published",
-                            year="the year of the publication",
-                            title="the title of the publication", 
-                            authors="the authors of the publication")
-
+    SOURCE_NAME = "doi2pmid"
+    SOURCE_DESCRIPTION = "Looks up alias for entered ID"
     DEBUG = False
-
-    DRYAD_DOI_URL = "http://dx.doi.org/"
-    DRYAD_VIEWS_PATTERN = re.compile("(?P<views>\d+) views", re.DOTALL)
-    DRYAD_DOWNLOADS_PATTERN = re.compile("(?P<downloads>\d+) downloads", re.DOTALL)
-    DRYAD_CITATION_PATTERN = re.compile('please cite the Dryad data package:.*<blockquote>(?P<authors>.+?)\((?P<year>\d{4})\).*(?P<title>Data from.+?)<span>Dryad', re.DOTALL)
-
-    DRYAD_DOI_PATTERN = re.compile("(10.(\d)+/dryad(\S)+)", re.DOTALL | re.IGNORECASE)
-
-    def get_page(self, doi):
-        ## curl -D - -L -H "Accept: application/unixref+xml" "http://dx.doi.org/10.1126/science.1157784" 
-        if not doi:
-            return(None)
-        url = self.DRYAD_DOI_URL + doi
-        if (self.DEBUG):
-            print url
-        try:
-            page = self.get_cache_timeout_response(url)
-            if (self.DEBUG):
-                print page
-        except:
-            page = None
-        return(page)
-
-    def extract_stats(self, page, doi):
-        # crossref extraction code based on example at https://gist.github.com/931878
-        if not page:
-            return(None)        
-        (response_header, content) = page
     
-        view_matches = self.DRYAD_VIEWS_PATTERN.finditer(content)
+    def get_pmid_from_doi(self, doi):
+        url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?term=%s&email=%s" % (doi, self.TOOL_EMAIL)
+        (response, xml) = self.get_cache_timeout_response(url)
+        soup = BeautifulStoneSoup(xml)
         try:
-            views = sum([int(view_match.group("views")) for view_match in view_matches])
-        except ValueError:
-            views = None
-
-        download_matches = self.DRYAD_DOWNLOADS_PATTERN.finditer(content)
-        try:
-            downloads = sum([int(download_match.group("downloads")) for download_match in download_matches])
-        except ValueError:
-            downloads = None
-
-        citation_matches = self.DRYAD_CITATION_PATTERN.search(content)
-        try:
-            authors = citation_matches.group("authors")
-            year = citation_matches.group("year")
-            title = citation_matches.group("title")
-        except ValueError:
-            authors = None
-            year = None
-            title = None
-                
-        return({"page_views":views, "total_downloads":downloads, "title":title, "year":year, "authors":authors})
-    
-    
-    def get_metric_values(self, doi):
-        page = self.get_page(doi)
-        if page:
-            response = self.extract_stats(page, doi)    
-        else:
-            response = None
-        return(response)    
-    
-    def is_dryad_doi(self, id):        
-        response = (self.DRYAD_DOI_PATTERN.search(id) != None)
-        return(response)
-                            
+            pmid = soup.id.string
+        except AttributeError:
+            pmid = None
+        return(pmid)
+                           
     def artifact_type_recognized(self, id):
-        response = self.is_dryad_doi(id)
-        return(response)   
+        is_recognized = self.is_crossref_doi(id)
+        return(is_recognized)   
         
     def build_artifact_response(self, artifact_id):
-        metrics_response = self.get_metric_values(artifact_id)
-        metrics_response.update({"type":"dataset"})
-        return(metrics_response)
+        pmid = self.get_pmid_from_doi(artifact_id)
+        if pmid:
+            response = dict(pmid=pmid)
+        else:
+            response = {}
+        return(response)
                 
     ## Crossref API doesn't seem to have limits, though we should check every few months to make sure still true            
     def get_artifacts_metrics(self, query):

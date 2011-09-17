@@ -80,9 +80,10 @@ ob_implicit_flush(TRUE);
             Enter the identifiers for the artifacts you want to track below. We'll give you a url for that set that automatically updates everytime you visit the page.</p>
             <p>To try it out, copy and paste these identifers below and hit Go!</p>
             <pre>
+10.1371/journal.pone.0018011	
 10.1371/journal.pbio.0050082
 http://www.slideshare.net/phylogenomics/eisenall-hands
-10.5061/dryad.8384
+10.5061/dryad.18
 GSE2109</pre>
         </div>   
 
@@ -90,7 +91,7 @@ GSE2109</pre>
 	<tr>
         <form method="GET" name="main" action="./index.php">
 		<td>
-           <label for="name">What's your name?</label>
+           <label for="name">What's the name of this collection?</label>
            <input name="name" id="name" value="<?php echo $title; ?>" />
            <br>
            <br>
