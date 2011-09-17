@@ -1,17 +1,55 @@
 body {
-	font-family: "Helvetica", serif;       
+	font-family: "Helvetica", sans-serif;       
+	margin: 0;
+}
+
+#wrapper {
+	margin: 0px auto;
+	padding-top: 15px;
+	width: 800px;
+	border-top: 8px solid #AAA;
+	border-bottom: 8px solid #AAA;
 }
 
 #header {
 	font-size: 1.5em;
-	color: #b2b2ff;
+	color: #BBB;
 	padding-bottom: 20px;
 }
 
+#input{
+}
+
+#footer{
+}
+
+#leftcol {
+	float:left;
+	width: 49%;	
+}
+
+textarea#list {
+	width: 90%;	
+}
+
+input, textarea {
+	border: 1px solid #CCC;	
+	background-color: #EEE;	
+}
+
+#rightcol {
+	float:left;
+	width: 49%;	
+}
 
 #metrics {
 /*	margin-top: -440px;*/
 	margin-left: 50px;
+}
+
+#outputs {
+	font-size: 10pt;
+	float: right;
 }
 
 .disabled { 
@@ -30,8 +68,7 @@ body {
 	float: left;
 	color: #4c4cff;
 	padding-left: 18px;
-	padding-right: 8px;
-	
+	padding-right: 8px;	
 	border-right-style:solid;
 }
 
@@ -67,7 +104,6 @@ h3 {
 	padding-bottom: 55px;
 }
 
-#outputs {
-font-size: 10pt;
-float: right;
+a {
+	color: #933;	
 }
