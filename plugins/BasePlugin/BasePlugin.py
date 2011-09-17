@@ -22,28 +22,28 @@ def skip(f):
 class TestInput(object):
     # each plugin needs to make sure these are all set up appropriately
     TEST_GOLD_JSON_RESPONSE_STARTS_WITH = '{"artifacts": {}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "false", "source_name": "CrossRef", "last_update": 130'
-    TEST_INPUT = '{"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361","url":"FALSE","pmid":"FALSE"}}'
+    TEST_INPUT = '{"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361",}}'
     TEST_GOLD_PARSED_INPUT = eval(TEST_INPUT)
     
-    TEST_INPUT_DOI = {"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361","url":"FALSE","pmid":"FALSE"}}
+    TEST_INPUT_DOI = {"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361"}}
     TEST_INPUT_ALL = TEST_INPUT_DOI.copy()
-    TEST_INPUT_DRYAD_DOI = {"10.5061/dryad.1295":{"doi":"10.5061/dryad.1295","url":"FALSE","pmid":"FALSE"}}
+    TEST_INPUT_DRYAD_DOI = {"10.5061/dryad.1295":{"doi":"10.5061/dryad.1295"}}
     TEST_INPUT_ALL.update(TEST_INPUT_DRYAD_DOI)
-    TEST_INPUT_BAD_DOI = {"10.1371/abc.abc.123":{"doi":"10.1371/abc.abc.123","url":"FALSE","pmid":"FALSE"}}
+    TEST_INPUT_BAD_DOI = {"10.1371/abc.abc.123":{"doi":"10.1371/abc.abc.123"}}
     TEST_INPUT_ALL.update(TEST_INPUT_BAD_DOI)
-    TEST_INPUT_PMID = {"17808382":{"doi":"FALSE","url":"FALSE","pmid":"17808382"}}
+    TEST_INPUT_PMID = {"17808382":{"pmid":"17808382"}}
     TEST_INPUT_ALL.update(TEST_INPUT_PMID)
-    TEST_INPUT_URL = {"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract":{"doi":"FALSE","url":"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract","pmid":"FALSE"}}
+    TEST_INPUT_URL = {"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract":{"url":"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract"}}
     TEST_INPUT_ALL.update(TEST_INPUT_URL)
-    TEST_INPUT_DUD = {"NotAValidDOI":{"doi":"NotAValidDOI","url":"FALSE","pmid":"FALSE"}}
+    TEST_INPUT_DUD = {"NotAValidDOI":{"doi":"NotAValidDOI"}}
     TEST_INPUT_ALL.update(TEST_INPUT_DUD)
-    TEST_INPUT_NOTHING = {"NotAValidDOI":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
+    TEST_INPUT_NOTHING = {"":{}}
     TEST_INPUT_ALL.update(TEST_INPUT_NOTHING)
-    TEST_INPUT_PLOS_DOI = {"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361","url":"FALSE","pmid":"FALSE"}}
+    TEST_INPUT_PLOS_DOI = {"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361"}}
     TEST_INPUT_ALL.update(TEST_INPUT_PLOS_DOI)
-    TEST_INPUT_SLIDESHARE_URL = {"http://www.slideshare.net/phylogenomics/eisen":{"doi":"FALSE","url":"http://www.slideshare.net/phylogenomics/eisen","pmid":"FALSE"}}
+    TEST_INPUT_SLIDESHARE_URL = {"http://www.slideshare.net/phylogenomics/eisen":{"url":"http://www.slideshare.net/phylogenomics/eisen"}}
     TEST_INPUT_ALL.update(TEST_INPUT_SLIDESHARE_URL)
-    TEST_INPUT_GEO = {"GSE2109":{"doi":"FALSE","url":"FALSE","pmid":"FALSE"}}
+    TEST_INPUT_GEO = {"GSE2109":{}}
     TEST_INPUT_ALL.update(TEST_INPUT_GEO)
         
 class BasePluginClass(object):

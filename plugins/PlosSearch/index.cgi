@@ -12,7 +12,7 @@ import os
 # Permissions: RWX for owner, WX for others.  Set this here so that .pyc are created with these permissions
 os.umask(022) 
 
-# to see in browser, call index.cgi?query={"10.1371\/journal.pbio.0060034":{"doi":false,"url":false,"pmid":false},"10.1371\/journal.pbio.0050072":{"doi":false,"url":false,"pmid":false}}     
+# to see in browser, call index.cgi?query={"10.1371\/journal.pbio.0060034":{},"10.1371\/journal.pbio.0050072":{}}     
 def get_param_from_http_request():
     # Create instance of FieldStorage 
     form = cgi.FieldStorage() 
@@ -23,7 +23,7 @@ def get_param_from_http_request():
 
 # can call "python index.cgi" from command line, no args, to get sample output
 # or with custom input, call the argument from browser with single quote around it, like this:
-# python index.cgi '{"10.1371\/journal.pbio.0060034":{"doi":false,"url":false,"pmid":false},"10.1371\/journal.pbio.0050072":{"doi":false,"url":false,"pmid":false}}'
+# python index.cgi '{"10.1371\/journal.pbio.0060034":{},"10.1371\/journal.pbio.0050072":{}}'
 def get_param_from_command_line():
     parser = OptionParser(usage="usage: %prog [options] filename",
                           version="%prog 1.0")

@@ -117,8 +117,11 @@ class PluginClass(BasePluginClass):
         error_msg = None
         time_started = time.time()
         for artifact_id in query:
-            possible_ids = [query[artifact_id]["doi"], artifact_id]
-            doi = self.get_valid_id(possible_ids)
+            try:
+                possible_ids = [query[artifact_id]["doi"], artifact_id]
+                doi = self.get_valid_id(possible_ids)
+            except KeyError:
+                doi = None
             if doi:
                 artifact_response = self.build_artifact_response(doi)
                 if artifact_response:

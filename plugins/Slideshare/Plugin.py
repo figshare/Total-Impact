@@ -134,8 +134,11 @@ class PluginClass(BasePluginClass):
         error_msg = None
         time_started = time.time()
         for artifact_id in query:
-            possible_ids = [query[artifact_id]["url"], artifact_id]
-            url = self.get_valid_id(possible_ids)
+            try:
+                possible_ids = [query[artifact_id]["url"], artifact_id]
+                url = self.get_valid_id(possible_ids)
+            except KeyError:
+                url = None
             if url:
                 artifact_response = self.build_artifact_response(url)
                 if artifact_response:

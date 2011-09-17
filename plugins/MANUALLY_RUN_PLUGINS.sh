@@ -5,5 +5,5 @@
 #Many of these plugins will return sample input and output test by calling the plugins with no arguments.  
 #Those implemented in python can be run en masse with this command:
 
-for p in ./*/index.cgi; do python "$p"; done
+for p in ./*/index.cgi; do echo "\n\n\n***$p***"; python "$p"; done
 

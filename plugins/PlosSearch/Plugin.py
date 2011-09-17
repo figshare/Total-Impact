@@ -75,7 +75,7 @@ class PluginClass(BasePluginClass):
         if page:
             response = self.extract_stats(page, id)    
         else:
-            response = None
+            response = {}
         return(response)    
                                 
     def artifact_type_recognized(self, id):
