@@ -14,7 +14,6 @@ ob_implicit_flush(TRUE);
         <title>Total Impact</title>
         <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
 
-
 		<script type="text/javascript">
 		//Google Analytics code
 
@@ -75,7 +74,7 @@ ob_implicit_flush(TRUE);
 					}
 				}
 	     	?>
-	        	<p>Total Impact tracks the impact of various online research artifacts. It aggregates impact metrics from many data sources and displays them all in one place.</p>
+	        	<p>Total Impact tracks the real-time online impact of various research artifacts. It aggregates impact metrics from many data sources and displays them all in one place.</p>
 	        </div>
 			<!-- END header -->
 
