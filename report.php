@@ -28,7 +28,6 @@ if (!$res){ header('Location: ../'); }
 	
 		<script type="text/javascript">
 		//Google Analytics code
-	
 		  var _gaq = _gaq || [];
 		  _gaq.push(['_setAccount', 'UA-23384030-1']);
 		  _gaq.push(['_trackPageview']);
@@ -38,10 +37,7 @@ if (!$res){ header('Location: ../'); }
 		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 		  })();
-	
 		</script>
-	
-	
 	</head>
 	<body>
 		<!-- START wrapper -->
@@ -49,7 +45,7 @@ if (!$res){ header('Location: ../'); }
 		
 			<!-- START header -->
 	        <div id="header">
-	            <img src="./ui/img/ti_logo.png" alt="total-impact" width='200px' /> 
+	            <img src="./ui/img/ti_logo.png" alt="total-impact" width="200px" /> 
 			</div>   
 			<!-- END header -->
 

@@ -16,7 +16,6 @@ ob_implicit_flush(TRUE);
 
 		<script type="text/javascript">
 		//Google Analytics code
-
 		  var _gaq = _gaq || [];
 		  _gaq.push(['_setAccount', 'UA-23384030-1']);
 		  _gaq.push(['_trackPageview']);
@@ -26,9 +25,7 @@ ob_implicit_flush(TRUE);
 		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 		  })();
-
 		</script>
-
     </head>
     <body>
 
@@ -37,7 +34,7 @@ ob_implicit_flush(TRUE);
 			
 			<!-- START header -->
 	        <div id="header">
-	            <img src="./ui/img/ti_logo.png" alt="total-impact" width='200px' /> 
+	            <img src="./ui/img/ti_logo.png" alt="total-impact" width="200px" /> 
 			<?php
 				if (isset($_REQUEST['run'])) {
 					$query_string = $_SERVER['QUERY_STRING'];

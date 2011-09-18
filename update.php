@@ -6,17 +6,16 @@
 // immediately after every print or echo 
 ob_implicit_flush(TRUE);
 
-?><!DOCTYPE html>
-<html>
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+		 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>total-impact.org</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>Total Impact</title>
         <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
-
 
 		<script type="text/javascript">
 		//Google Analytics code
-
 		  var _gaq = _gaq || [];
 		  _gaq.push(['_setAccount', 'UA-23384030-1']);
 		  _gaq.push(['_trackPageview']);
@@ -26,48 +25,61 @@ ob_implicit_flush(TRUE);
 		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 		  })();
-
 		</script>
-
     </head>
     <body>
-        <div id="header">
-            <img src="./ui/img/logo.png" alt="total-impact" width='200px' /> 
-        </div>
-        
-       	<div id="loading">
-        <?php		
-            // show the user some kind of updating screen
-            echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
-			#echo $_SERVER['QUERY_STRING'];
-		?>
+		<!-- START wrapper -->
+		<div id="wrapper">
+    
+			<!-- START header -->
+	        <div id="header">
+	            <img src="./ui/img/ti_logo.png" alt="total-impact" width="200px" /> 
+	        </div>
+			<!-- END header -->
+	        
+			<!-- START loading -->
+	       	<div id="loading">
+	        <?php		
+	            // show the user some kind of updating screen
+	            echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
+				#echo $_SERVER['QUERY_STRING'];
+			?>
+			</div>
+			<!-- END loading -->
+			<!-- START saving -->
+	       	<div id="saving">
+			<?php
+				
+	           	$config = new Zend_Config_Ini(CONFIG_PATH, ENV);
+	            $collection = new Models_Collection();
+				if (isset($_REQUEST['list'])) {
+		            // save the new collection
+		            $storedDoc = $collection->create($_REQUEST['name'], $_REQUEST['list'], $config);
+		            $collectionId = $storedDoc->id;
+				} else {
+					$collectionId = $_REQUEST['id'];
+				}
+			?>
+			</div>
+			<!-- END saving -->
+			<!-- START updating -->
+	       	<div id="updating">
+			<?php
+	            // get the updates
+				$collection->update($collectionId, $config);
+	            // redirect to the report page for this plugin
+	            echo "<script>location.href='./report.php?id=$collectionId'</script>";
+			?>
+			</div>
+			<!-- END updating -->
+			<!-- START footer -->
+	        <div id="footer">
+	            <p>
+	            Hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/total-impact">Source and contributors.</a>
+	            </p>
+			</div>
+			<!-- END footer -->
 		</div>
-       	<div id="saving">
-		<?php
-			
-           	$config = new Zend_Config_Ini(CONFIG_PATH, ENV);
-            $collection = new Models_Collection();
-			if (isset($_REQUEST['list'])) {
-	            // save the new collection
-	            $storedDoc = $collection->create($_REQUEST['name'], $_REQUEST['list'], $config);
-	            $collectionId = $storedDoc->id;
-			} else {
-				$collectionId = $_REQUEST['id'];
-			}
-		?>
-		</div>
-       	<div id="updating">
-		<?php
-            // get the updates
-			$collection->update($collectionId, $config);
-            // redirect to the report page for this plugin
-            echo "<script>location.href='./report.php?id=$collectionId'</script>";
-		?>
-		</div>
-        <div id="footer">
-            <p>
-            Hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/total-impact">Source and contributors.</a>
-            </p>
-        </div>
+		<!-- END wrapper -->
     </body>
 </html>
