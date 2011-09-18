@@ -107,13 +107,6 @@ class PluginClass(BasePluginClass):
         else:
             is_recognized = False
         return(is_recognized)   
-
-    # list of possible ids should be in order of preference, most prefered first
-    # returns the first valid one, or None if none are valid
-    def get_valid_id(self, list_of_possible_ids):
-        for id in list_of_possible_ids:
-            return(id)
-        return(None)
             
     ## this changes for every plugin        
     def build_artifact_response(self, id):
@@ -122,7 +115,7 @@ class PluginClass(BasePluginClass):
         metrics_response = self.get_metric_values(id)
         if not metrics_response:
             return(None)        
-        response = dict(type="")    
+        response = dict(type="unknown")    
         response.update(metrics_response)
         return(response)
 
