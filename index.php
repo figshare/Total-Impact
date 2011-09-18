@@ -10,7 +10,7 @@ ob_implicit_flush(TRUE);
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>total-impact.org</title>
+        <title>Total Impact</title>
         <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
 
 
