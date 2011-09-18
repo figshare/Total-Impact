@@ -15,9 +15,11 @@ $rendered_about_text = $report->render_about_text();
 // handle missing IDs more intelligently later
 if (!$res){ header('Location: ../'); }
 
-?><html>
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+		 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 	<head>
-	
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	    <title>Total Impact: <?php echo $report->getBestIdentifier() ?></title>
 	    <link rel="stylesheet" type="text/css" href="ui/totalimpact.css" />
 	    <script type="text/javascript" src="ui/jquery/jquery-1.4.2.js"></script>
