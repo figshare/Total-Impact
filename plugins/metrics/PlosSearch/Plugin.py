@@ -90,14 +90,15 @@ class PluginClass(BasePluginClass):
         metrics_response.update({"type":"unknown"})
         return(metrics_response)
                 
-    ## Crossref API doesn't seem to have limits, though we should check every few months to make sure still true            
     def get_artifacts_metrics(self, query):
         response_dict = dict()
         error = "NA"
         time_started = time.time()
         for artifact_id in query:
-            if self.artifact_type_recognized(artifact_id):
-                artifact_response = self.build_artifact_response(artifact_id)
+            ## What other fields would we want to search for up, I wonder?
+            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], [])
+            if (artifact_id):
+                artifact_response = self.build_artifact_response(lookup_id)
                 if artifact_response:
                     response_dict[artifact_id] = artifact_response
             if (time.time() - time_started > self.MAX_ELAPSED_TIME):

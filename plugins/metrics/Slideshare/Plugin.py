@@ -134,13 +134,9 @@ class PluginClass(BasePluginClass):
         error_msg = None
         time_started = time.time()
         for artifact_id in query:
-            try:
-                possible_ids = [query[artifact_id]["url"], artifact_id]
-                url = self.get_valid_id(possible_ids)
-            except KeyError:
-                url = None
-            if url:
-                artifact_response = self.build_artifact_response(url)
+            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["url"])
+            if (artifact_id):
+                artifact_response = self.build_artifact_response(lookup_id)
                 if artifact_response:
                     response_dict[artifact_id] = artifact_response
             if (time.time() - time_started > self.MAX_ELAPSED_TIME):

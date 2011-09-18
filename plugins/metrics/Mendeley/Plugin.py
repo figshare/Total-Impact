@@ -116,14 +116,11 @@ class PluginClass(BasePluginClass):
         response_dict = dict()
         error_msg = None
         time_started = time.time()
+        
         for artifact_id in query:
-            try:
-                possible_ids = [query[artifact_id]["doi"], artifact_id]
-                doi = self.get_valid_id(possible_ids)
-            except KeyError:
-                doi = None
-            if doi:
-                artifact_response = self.build_artifact_response(doi)
+            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["doi"])
+            if (artifact_id):
+                artifact_response = self.build_artifact_response(lookup_id)
                 if artifact_response:
                     response_dict[artifact_id] = artifact_response
             if (time.time() - time_started > self.MAX_ELAPSED_TIME):
