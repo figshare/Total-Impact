@@ -101,8 +101,11 @@ class PluginClass(BasePluginClass):
         (response_header, content) = page
     
         soup = BeautifulStoneSoup(content)
-        details = soup.details.findAll(year=True)
-
+        try:
+            details = soup.details.findAll(year=True)
+        except AttributeError:
+            return({})
+            
         metrics_dict = {}
         all_exclude_fields = ["month", "year"] + exclude_fields
         for (metric_name, metric_value) in details[0].attrs:
