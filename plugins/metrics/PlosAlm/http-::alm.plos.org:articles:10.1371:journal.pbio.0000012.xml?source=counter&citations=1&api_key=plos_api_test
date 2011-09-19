@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article citations_count="1" doi="10.1371/journal.pbio.0000012" pub_med="14551910" pub_med_central="212692" title="Genome-Wide RNAi of &lt;named-content xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; content-type=&quot;genus-species&quot; xlink:type=&quot;simple&quot;&gt;C. elegans&lt;/named-content&gt; Using the Hypersensitive &lt;italic&gt;rrf-3&lt;/italic&gt; Strain Reveals Novel Gene Functions" updated_at="2011-09-17 21:20:19 -0700" published="Mon Oct 13 00:00:00 -0700 2003">
+  <source count="1" public_url="http://www.plosreports.org/services/rest?method=usage.stats&amp;doi=10.1371%2Fjournal.pbio.0000012" source="Counter" updated_at="2011-09-17 08:23:12 -0700">
+    <citations>
+      <citation uri="http://www.plosreports.org/services/rest?method=usage.stats&amp;doi=10.1371%2Fjournal.pbio.0000012">
+        <uri>http://www.plosreports.org/services/rest?method=usage.stats&amp;doi=10.1371%2Fjournal.pbio.0000012</uri>
+        <details>
+          <views pdf_views="0" xml_views="0" month="10" html_views="2108" year="2003"/>
+          <views pdf_views="0" xml_views="0" month="11" html_views="1408" year="2003"/>
+          <views pdf_views="0" xml_views="0" month="12" html_views="573" year="2003"/>
+          <views pdf_views="0" xml_views="0" month="1" html_views="442" year="2004"/>
+          <views pdf_views="0" xml_views="0" month="2" html_views="324" year="2004"/>
+          <views pdf_views="0" xml_views="0" month="3" html_views="289" year="2004"/>
+          <views pdf_views="0" xml_views="0" month="4" html_views="348" year="2004"/>
+          <views pdf_views="0" xml_views="0" month="5" html_views="330" year="2004"/>
+          <views pdf_views="0" xml_views="0" month="6" html_views="249" year="2004"/>
+          <views pdf_views="0" xml_views="0" month="7" html_views="208" year="2004"/>
+          <views pdf_views="0" xml_views="0" month="8" html_views="151" year="2004"/>
+          <views pdf_views="0" xml_views="0" month="9" html_views="161" year="2004"/>
+          <views pdf_views="0" xml_views="0" month="10" html_views="195" year="2004"/>
+          <views pdf_views="0" xml_views="0" month="11" html_views="161" year="2004"/>
+          <views pdf_views="0" xml_views="0" month="12" html_views="127" year="2004"/>
+          <views pdf_views="0" xml_views="0" month="1" html_views="256" year="2005"/>
+          <views pdf_views="0" xml_views="0" month="2" html_views="360" year="2005"/>
+          <views pdf_views="0" xml_views="0" month="3" html_views="329" year="2005"/>
+          <views pdf_views="0" xml_views="0" month="4" html_views="315" year="2005"/>
+          <views pdf_views="0" xml_views="0" month="5" html_views="380" year="2005"/>
+          <views pdf_views="0" xml_views="0" month="6" html_views="123" year="2005"/>
+          <views pdf_views="46" xml_views="0" month="7" html_views="138" year="2005"/>
+          <views pdf_views="35" xml_views="1" month="8" html_views="135" year="2005"/>
+          <views pdf_views="60" xml_views="2" month="9" html_views="151" year="2005"/>
+          <views pdf_views="57" xml_views="0" month="10" html_views="169" year="2005"/>
+          <views pdf_views="43" xml_views="3" month="11" html_views="138" year="2005"/>
+          <views pdf_views="37" xml_views="0" month="12" html_views="136" year="2005"/>
+          <views pdf_views="49" xml_views="0" month="1" html_views="153" year="2006"/>
+          <views pdf_views="46" xml_views="0" month="2" html_views="124" year="2006"/>
+          <views pdf_views="49" xml_views="0" month="3" html_views="128" year="2006"/>
+          <views pdf_views="34" xml_views="1" month="4" html_views="96" year="2006"/>
+          <views pdf_views="31" xml_views="1" month="5" html_views="93" year="2006"/>
+          <views pdf_views="23" xml_views="1" month="6" html_views="110" year="2006"/>
+          <views pdf_views="23" xml_views="0" month="7" html_views="81" year="2006"/>
+          <views pdf_views="29" xml_views="7" month="8" html_views="95" year="2006"/>
+          <views pdf_views="22" xml_views="1" month="9" html_views="78" year="2006"/>
+          <views pdf_views="34" xml_views="1" month="10" html_views="93" year="2006"/>
+          <views pdf_views="30" xml_views="2" month="11" html_views="98" year="2006"/>
+          <views pdf_views="22" xml_views="2" month="12" html_views="81" year="2006"/>
+          <views pdf_views="39" xml_views="2" month="1" html_views="116" year="2007"/>
+          <views pdf_views="41" xml_views="30" month="2" html_views="106" year="2007"/>
+          <views pdf_views="26" xml_views="1" month="3" html_views="114" year="2007"/>
+          <views pdf_views="30" xml_views="5" month="4" html_views="155" year="2007"/>
+          <views pdf_views="16" xml_views="0" month="5" html_views="111" year="2007"/>
+          <views pdf_views="17" xml_views="0" month="6" html_views="93" year="2007"/>
+          <views pdf_views="27" xml_views="0" month="7" html_views="101" year="2007"/>
+          <views pdf_views="29" xml_views="0" month="8" html_views="101" year="2007"/>
+          <views pdf_views="18" xml_views="1" month="9" html_views="72" year="2007"/>
+          <views pdf_views="18" xml_views="1" month="10" html_views="112" year="2007"/>
+          <views pdf_views="36" xml_views="2" month="11" html_views="111" year="2007"/>
+          <views pdf_views="18" xml_views="0" month="12" html_views="106" year="2007"/>
+          <views pdf_views="19" xml_views="0" month="1" html_views="91" year="2008"/>
+          <views pdf_views="21" xml_views="0" month="2" html_views="86" year="2008"/>
+          <views pdf_views="28" xml_views="2" month="3" html_views="137" year="2008"/>
+          <views pdf_views="27" xml_views="2" month="4" html_views="121" year="2008"/>
+          <views pdf_views="28" xml_views="2" month="5" html_views="142" year="2008"/>
+          <views pdf_views="22" xml_views="0" month="6" html_views="93" year="2008"/>
+          <views pdf_views="17" xml_views="1" month="7" html_views="103" year="2008"/>
+          <views pdf_views="22" xml_views="1" month="8" html_views="120" year="2008"/>
+          <views pdf_views="26" xml_views="2" month="9" html_views="146" year="2008"/>
+          <views pdf_views="20" xml_views="2" month="10" html_views="118" year="2008"/>
+          <views pdf_views="34" xml_views="4" month="11" html_views="198" year="2008"/>
+          <views pdf_views="17" xml_views="4" month="12" html_views="121" year="2008"/>
+          <views pdf_views="27" xml_views="1" month="1" html_views="110" year="2009"/>
+          <views pdf_views="24" xml_views="0" month="2" html_views="135" year="2009"/>
+          <views pdf_views="23" xml_views="3" month="3" html_views="148" year="2009"/>
+          <views pdf_views="26" xml_views="0" month="4" html_views="119" year="2009"/>
+          <views pdf_views="13" xml_views="4" month="5" html_views="72" year="2009"/>
+          <views pdf_views="31" xml_views="0" month="6" html_views="76" year="2009"/>
+          <views pdf_views="28" xml_views="1" month="7" html_views="84" year="2009"/>
+          <views pdf_views="20" xml_views="1" month="8" html_views="57" year="2009"/>
+          <views pdf_views="20" xml_views="1" month="9" html_views="70" year="2009"/>
+          <views pdf_views="16" xml_views="0" month="10" html_views="92" year="2009"/>
+          <views pdf_views="25" xml_views="0" month="11" html_views="112" year="2009"/>
+          <views pdf_views="19" xml_views="1" month="12" html_views="78" year="2009"/>
+          <views pdf_views="12" xml_views="1" month="1" html_views="62" year="2010"/>
+          <views pdf_views="11" xml_views="1" month="2" html_views="52" year="2010"/>
+          <views pdf_views="27" xml_views="0" month="3" html_views="139" year="2010"/>
+          <views pdf_views="26" xml_views="1" month="4" html_views="114" year="2010"/>
+          <views pdf_views="17" xml_views="0" month="5" html_views="106" year="2010"/>
+          <views pdf_views="15" xml_views="0" month="6" html_views="60" year="2010"/>
+          <views pdf_views="16" xml_views="0" month="7" html_views="77" year="2010"/>
+          <views pdf_views="17" xml_views="0" month="8" html_views="64" year="2010"/>
+          <views pdf_views="11" xml_views="1" month="9" html_views="73" year="2010"/>
+          <views pdf_views="31" xml_views="1" month="10" html_views="88" year="2010"/>
+          <views pdf_views="32" xml_views="0" month="11" html_views="164" year="2010"/>
+          <views pdf_views="24" xml_views="1" month="12" html_views="117" year="2010"/>
+          <views pdf_views="22" xml_views="2" month="1" html_views="90" year="2011"/>
+          <views pdf_views="26" xml_views="2" month="2" html_views="95" year="2011"/>
+          <views pdf_views="30" xml_views="0" month="3" html_views="138" year="2011"/>
+          <views pdf_views="16" xml_views="0" month="4" html_views="112" year="2011"/>
+          <views pdf_views="11" xml_views="1" month="5" html_views="40" year="2011"/>
+          <views pdf_views="12" xml_views="1" month="6" html_views="40" year="2011"/>
+          <views pdf_views="15" xml_views="0" month="7" html_views="50" year="2011"/>
+          <views pdf_views="13" xml_views="1" month="8" html_views="59" year="2011"/>
+          <views pdf_views="11" xml_views="0" month="9" html_views="40" year="2011"/>
+        </details>
+      </citation>
+    </citations>
+  </source>
+</article>
