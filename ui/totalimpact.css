@@ -1,7 +1,11 @@
+/* globals */
+
 body {
 	font-family: "Helvetica", sans-serif;       
 	margin: 0;
 }
+
+/* layout */
 
 #wrapper {
 	margin: 0px auto;
@@ -28,15 +32,6 @@ body {
 	width: 49%;	
 }
 
-textarea#list {
-	width: 90%;	
-}
-
-input, textarea {
-	border: 1px solid #CCC;	
-	background-color: #EEE;	
-}
-
 #rightcol {
 	float:left;
 	width: 49%;	
@@ -51,6 +46,37 @@ input, textarea {
 	font-size: 10pt;
 	float: right;
 }
+
+/* HTML elements */
+
+h3 {
+	margin: 0px;
+	margin-top:20px;
+}
+
+a {
+	color: #933;	
+}
+
+hr {
+	border: 0;
+	background-color: #CCC;
+	height: 1px;
+}
+
+
+/* form elements */
+
+textarea#list {
+	width: 90%;	
+}
+
+input, textarea {
+	border: 1px solid #CCC;	
+	background-color: #EEE;	
+}
+
+/* custom classes */
 
 .disabled { 
     color:grey; /* This property is for the text colour */ 
@@ -94,16 +120,7 @@ input, textarea {
 	clear:both;
 }
 
-h3 {
-	margin: 0px;
-	margin-top:20px;
-}
-
 .section {
 	background: #eee;
 	padding-bottom: 55px;
-}
-
-a {
-	color: #933;	
 }

@@ -6,13 +6,13 @@
 // immediately after every print or echo 
 ob_implicit_flush(TRUE);
 
-?><!DOCTYPE html>
-<html>
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+		 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>total-impact.org</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>Total Impact</title>
         <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
-
 
 		<script type="text/javascript">
 		//Google Analytics code
@@ -74,7 +74,7 @@ ob_implicit_flush(TRUE);
 					}
 				}
 	     	?>
-	        	<p>Total Impact tracks the impact of various online research artifacts. It aggregates impact metrics from many data sources and displays them all in one place.</p>
+	        	<p>Total Impact tracks the real-time online impact of various research artifacts. It aggregates impact metrics from many data sources and displays them all in one place.</p>
 	        </div>
 			<!-- END header -->
 
