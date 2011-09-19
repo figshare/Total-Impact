@@ -60,7 +60,7 @@ class BasePluginClass(object):
     
     # All CrossRef DOI prefixes begin with "10" followed by a number of four or more digits
     #f rom http://www.crossref.org/02publishers/doi-guidelines.pdf
-    CROSSREF_DOI_PATTERN = re.compile(r"^10\.(\d)+/(\S)+$", re.DOTALL)
+    DOI_PATTERN = re.compile(r"^10\.(\d)+/(\S)+$", re.DOTALL)
 
     # PMIDs are 1 to 8 digit numbers, as per http://www.nlm.nih.gov/bsd/mms/medlineelements.html#pmid    
     PMID_PATTERN = re.compile(r"^\d{1,8}$", re.DOTALL)
@@ -71,7 +71,7 @@ class BasePluginClass(object):
     DEBUG = False
 
     def is_crossref_doi(self, id):
-        response = (self.CROSSREF_DOI_PATTERN.search(id) != None)
+        response = (self.DOI_PATTERN.search(id) != None)  ## Would exclude DataCite ids from here?
         return(response)
 
     def is_doi(self, id):
