@@ -61,6 +61,7 @@ class BasePluginClass(object):
     # All CrossRef DOI prefixes begin with "10" followed by a number of four or more digits
     #f rom http://www.crossref.org/02publishers/doi-guidelines.pdf
     DOI_PATTERN = re.compile(r"^10\.(\d)+/(\S)+$", re.DOTALL)
+    CROSSREF_DOI_PATTERN = re.compile(r"^10\.(\d)+/(\S)+$", re.DOTALL)
 
     # PMIDs are 1 to 8 digit numbers, as per http://www.nlm.nih.gov/bsd/mms/medlineelements.html#pmid    
     PMID_PATTERN = re.compile(r"^\d{1,8}$", re.DOTALL)
