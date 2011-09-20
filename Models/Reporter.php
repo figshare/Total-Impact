@@ -231,23 +231,25 @@ class Models_Reporter {
             }
         }
         $ret = '';
-        $ret .= "<li class='source $sourceName'>";
-        $ret .= "<h4>$Img$sourceName</h4>";
+        #$ret .= "<li class='source $sourceName'>";
+        #$ret .= "<h4>$Img$sourceName</h4>";
+        $ret .= "<div class='source $sourceName'>";
+        $ret .= "<p>$Img";
 		if ($sourceName=="CrossRef") {
            	#$ret .= "$sourceData->authors ($sourceData->year) <a href='$sourceData->url'>$sourceData->title</a>. <em>$sourceData->journal.</em> $sourceData->doi, PMID:$sourceData->pmid";
-           	$ret .= "$sourceData->authors ($sourceData->year) $sourceData->title. <em>$sourceData->journal.</em>";
+           	$ret .= "$sourceData->authors ($sourceData->year) <a href='http://dx.doi.org/$sourceData->doi'>$sourceData->title</a>  <em>$sourceData->journal.</em>";
 		} elseif ($sourceName=="Slideshare") {
            	$ret .= "<a href='$id'>$sourceData->title</a>; Uploaded in $sourceData->upload_year";
 		} elseif ($sourceName=="Dryad") {
            	$ret .= "$sourceData->authors ($sourceData->year) <a href='$id'>$sourceData->title</a>, <em>Dryad Data Repository.</em> $id";
 		}
-        $ret .= "<p>";
+        #$ret .= "<p>";
        	foreach ($sourceData as $metricName => $metricValue){
 			if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
            		$ret .= "$metricName: $metricValue;\t";					
 			}
 		}
-		$ret .= "</li>";
+		$ret .= "</div>";
         return $ret;
     }
 
