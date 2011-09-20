@@ -87,7 +87,7 @@ class PluginClass(BasePluginClass):
         except:
             authors = ""
        
-        response = dict(title=title, journal=journal, year=year, authors=authors)
+        response = dict(doi=doi, title=title, journal=journal, year=year, authors=authors)
         return(response)  
     
     def get_metric_values(self, doi):
