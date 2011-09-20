@@ -67,7 +67,7 @@ class BasePluginClass(object):
     PMID_PATTERN = re.compile(r"^\d{1,8}$", re.DOTALL)
 
     TOOL_EMAIL = "total-impact@googlegroups.com"
-    MAX_ELAPSED_TIME = 30 # seconds, part of plugin API specification
+    MAX_ELAPSED_TIME = 120 # seconds, part of plugin API specification
 
     DEBUG = False
 
