@@ -85,6 +85,7 @@ ob_implicit_flush(TRUE);
 	            <p>To try it out, copy and paste these identifers below and hit Go! (or follow <a href="http://total-impact.org/report.php?id=hljHeI">this link</a> for a sample report)</p>
 	            <pre>
 	10.1371/journal.pbio.0050082
+	10.1371/journal.pone.0000308
 	http://www.slideshare.net/phylogenomics/eisenall-hands
 	10.5061/dryad.8384
 	GSE2109</pre>
