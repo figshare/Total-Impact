@@ -32,10 +32,10 @@ class PluginClass(BasePluginClass):
                            
     # each plugin needs to customize this stuff                
     SOURCE_NAME = "CiteULike"
-    SOURCE_DESCRIPTION = "Bookmarks."
+    SOURCE_DESCRIPTION = "CiteULike is a free service to help you to store, organise and share the scholarly papers you are reading."
     SOURCE_URL = "http://www.citeulike.org/"
     SOURCE_ICON = "http://citeulike.org/favicon.ico"
-    SOURCE_METRICS = dict(Bookmarks="The number of times a user has bookmarked this artifact")
+    SOURCE_METRICS = dict(bookmarks="The number of times a user has bookmarked this artifact")
 
     DEBUG = False
 
@@ -63,7 +63,7 @@ class PluginClass(BasePluginClass):
         soup = BeautifulStoneSoup(content)
         bookmarks = soup.findAll("post")
                 
-        metrics_dict = dict(Bookmarks=len(bookmarks))
+        metrics_dict = dict(bookmarks=len(bookmarks))
         return(metrics_dict)
     
     
