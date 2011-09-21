@@ -241,7 +241,7 @@ class Models_Reporter {
 		} elseif ($sourceName=="Slideshare") {
            	$ret .= "<a href='$id'>$sourceData->title</a>; Uploaded in $sourceData->upload_year";
 		} elseif ($sourceName=="Dryad") {
-           	$ret .= "$sourceData->authors ($sourceData->year) <a href='$id'>$sourceData->title</a>, <em>Dryad Data Repository.</em> $id";
+           	$ret .= "$sourceData->authors ($sourceData->year) <a href='$id'>$sourceData->title</a>, <em>Dryad Data Repository.</em> $id<br/>";
 		}
         #$ret .= "<p>";
        	foreach ($sourceData as $metricName => $metricValue){
