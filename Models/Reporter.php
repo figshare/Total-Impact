@@ -157,6 +157,8 @@ class Models_Reporter {
 			           	$biblio .= "$sourceData->authors ($sourceData->year) $sourceData->title. $sourceData->journal.";
 					} elseif ($sourceName=="Slideshare") {
 			           	$biblio .= "$sourceData->title; (uploaded in $sourceData->upload_year) $id";
+					} elseif ($sourceName=="FigShare") {
+			           	$ret .= "$sourceData->title, FigShare. $id";
 					} elseif ($sourceName=="Dryad" and $genreName=="dataset") {
 			           	$biblio .= "$sourceData->authors ($sourceData->year) $sourceData->title, Dryad Data Repository. $id";
 					} else {
@@ -239,11 +241,11 @@ class Models_Reporter {
            	#$ret .= "$sourceData->authors ($sourceData->year) <a href='$sourceData->url'>$sourceData->title</a>. <em>$sourceData->journal.</em> $sourceData->doi, PMID:$sourceData->pmid";
            	$ret .= "$sourceData->authors ($sourceData->year) <a href='http://dx.doi.org/$sourceData->doi'>$sourceData->title</a>  <em>$sourceData->journal.</em>";
 		} elseif ($sourceName=="Slideshare") {
-           	$ret .= "<a href='$id'>$sourceData->title</a>; Uploaded in $sourceData->upload_year";
+           	$ret .= "<a href='$id'>$sourceData->title</a>; Uploaded in $sourceData->upload_year<br/>";
 		} elseif ($sourceName=="FigShare") {
-           	$ret .= "<a href='$id'>$sourceData->title</a><br/>";
+           	$ret .= "<a href='$id'>$sourceData->title</a>, <em>FigShare.</em> $id<br/>";
 		} elseif ($sourceName=="Dryad") {
-           	$ret .= "$sourceData->authors ($sourceData->year) <a href='$id'>$sourceData->title</a>, <em>Dryad Data Repository.</em> $id<br/>";
+           	$ret .= "$sourceData->authors ($sourceData->year) <a href='http://dx.doi.org/$id'>$sourceData->title</a>, <em>Dryad Data Repository.</em> $id<br/>";
 		}
         #$ret .= "<p>";
        	foreach ($sourceData as $metricName => $metricValue){
