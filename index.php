@@ -88,7 +88,9 @@ ob_implicit_flush(TRUE);
 	10.1371/journal.pone.0000308
 	http://www.slideshare.net/phylogenomics/eisenall-hands
 	10.5061/dryad.8384
-	GSE2109</pre>
+	GSE2109
+	http://hdl.handle.net/10779/51bbbd9afc8d13d7385f26b0817f304d
+	</pre>
 			</div>
 			<!-- END instr -->
 			

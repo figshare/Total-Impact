@@ -35,6 +35,8 @@ class TestInput(object):
     TEST_INPUT_ALL.update(TEST_INPUT_BAD_DOI)
     TEST_INPUT_PMID = {"17808382":{"pmid":"17808382","doi":"10.1126/science.141.3579.392"}}
     TEST_INPUT_ALL.update(TEST_INPUT_PMID)
+    TEST_INPUT_FIGSHARE_HANDLE = {"http://hdl.handle.net/10779/51bbbd9afc8d13d7385f26b0817f304d":{"url":"http://hdl.handle.net/10779/51bbbd9afc8d13d7385f26b0817f304d"}}
+    TEST_INPUT_ALL.update(TEST_INPUT_FIGSHARE_HANDLE)
     TEST_INPUT_URL = {"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract":{"url":"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract"}}
     TEST_INPUT_ALL.update(TEST_INPUT_URL)
     TEST_INPUT_DUD = {"NotAValidDOI":{"doi":"NotAValidDOI"}}

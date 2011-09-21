@@ -240,6 +240,8 @@ class Models_Reporter {
            	$ret .= "$sourceData->authors ($sourceData->year) <a href='http://dx.doi.org/$sourceData->doi'>$sourceData->title</a>  <em>$sourceData->journal.</em>";
 		} elseif ($sourceName=="Slideshare") {
            	$ret .= "<a href='$id'>$sourceData->title</a>; Uploaded in $sourceData->upload_year";
+		} elseif ($sourceName=="FigShare") {
+           	$ret .= "<a href='$id'>$sourceData->title</a><br/>";
 		} elseif ($sourceName=="Dryad") {
            	$ret .= "$sourceData->authors ($sourceData->year) <a href='$id'>$sourceData->title</a>, <em>Dryad Data Repository.</em> $id<br/>";
 		}
@@ -296,7 +298,15 @@ class Models_Reporter {
 		if (array_key_exists("article", $flipped)) {
 			$genre = "article";
 		} else {
+			# set to first as backup plan
 			$genre = reset($list_of_all);
+			# now iter and get the first that isn't "unknown" if there is one
+			foreach ($list_of_all as $candidate) {
+				if ($candidate != "unknown") {
+					$genre = $candidate;
+					break;
+				}
+			}
 		}
 		if (!isset($genre)) {
 			$genre = "unknown";
