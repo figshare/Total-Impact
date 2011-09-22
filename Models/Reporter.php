@@ -155,12 +155,16 @@ class Models_Reporter {
 					if ($sourceName=="CrossRef") {
 			           	#$biblio = "$sourceData->authors ($sourceData->year) $sourceData->title. $sourceData->journal. $sourceData->doi, PMID:$sourceData->pmid, $sourceData->url";
 			           	$biblio .= "$sourceData->authors ($sourceData->year) $sourceData->title. $sourceData->journal.";
+					} elseif ($sourceName=="Mendeley") {
+			           	$biblio .= "$sourceData->authors ($sourceData->year) $sourceData->title. $sourceData->journal.";
+					} elseif ($sourceName=="PubMed") {
+			           	$biblio .= "$sourceData->authors ($sourceData->year) $sourceData->title. $sourceData->journal.";
 					} elseif ($sourceName=="Slideshare") {
 			           	$biblio .= "$sourceData->title; (uploaded in $sourceData->upload_year) $id";
 					} elseif ($sourceName=="FigShare") {
 			           	$ret .= "$sourceData->title, FigShare. $id";
 					} elseif ($sourceName=="Dryad" and $genreName=="dataset") {
-			           	$biblio .= "$sourceData->authors ($sourceData->year) $sourceData->title, Dryad Data Repository. $id";
+			           	$biblio .= "$sourceData->authors ($sourceData->year) $sourceData->title Dryad Data Repository. $id";
 					} else {
 						$biblio .= "";
 					}
@@ -240,17 +244,23 @@ class Models_Reporter {
 		if ($sourceName=="CrossRef") {
            	#$ret .= "$sourceData->authors ($sourceData->year) <a href='$sourceData->url'>$sourceData->title</a>. <em>$sourceData->journal.</em> $sourceData->doi, PMID:$sourceData->pmid";
            	$ret .= "$sourceData->authors ($sourceData->year) <a href='http://dx.doi.org/$sourceData->doi'>$sourceData->title</a>  <em>$sourceData->journal.</em>";
+		} elseif ($sourceName=="Mendeley") {
+           	$ret .= "$sourceData->authors ($sourceData->year) $sourceData->title <em>$sourceData->journal.</em><br/>";
+		} elseif ($sourceName=="PubMed") {
+           	$ret .= "$sourceData->authors ($sourceData->year) $sourceData->title <em>$sourceData->journal.</em><br/>";
 		} elseif ($sourceName=="Slideshare") {
            	$ret .= "<a href='$id'>$sourceData->title</a>; Uploaded in $sourceData->upload_year<br/>";
 		} elseif ($sourceName=="FigShare") {
            	$ret .= "<a href='$id'>$sourceData->title</a>, <em>FigShare.</em> $id<br/>";
 		} elseif ($sourceName=="Dryad") {
-           	$ret .= "$sourceData->authors ($sourceData->year) <a href='http://dx.doi.org/$id'>$sourceData->title</a>, <em>Dryad Data Repository.</em> $id<br/>";
+           	$ret .= "$sourceData->authors ($sourceData->year) <a href='http://dx.doi.org/$id'>$sourceData->title</a> <em>Dryad Data Repository.</em> $id<br/>";
 		}
         #$ret .= "<p>";
+		#arsort($sourceData);
+		#$ret .= var_dump($sourceData, SORT_NUMERIC);
        	foreach ($sourceData as $metricName => $metricValue){
 			if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
-           		$ret .= "$metricName: $metricValue;\t";					
+           		$ret .= "<b>$metricName:</b> $metricValue;\t";					
 			}
 		}
 		$ret .= "</div>";

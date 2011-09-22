@@ -39,19 +39,24 @@ class PluginClass(BasePluginClass):
 
     TOTALIMPACT_MENDELEY_KEY = "3a81767f6212797750ef228c8cb466bc04dca4ba1"
     MENDELEY_LOOKUP_FROM_DOI_URL = "http://api.mendeley.com/oapi/documents/details/%s?type=doi&consumer_key=" + TOTALIMPACT_MENDELEY_KEY
+    MENDELEY_LOOKUP_FROM_PMID_URL = "http://api.mendeley.com/oapi/documents/details/%s?type=pmid&consumer_key=" + TOTALIMPACT_MENDELEY_KEY
 
     def __init__(self):
         pass
 
     # each plugin needs to write one of these    
-    def get_page(self, doi):
-        if not doi:
+    def get_page(self, id):
+        if not id:
             return(None)
         
-        # Mendeley API required double encoded doi!!!
-        double_encoded_doi = urllib.quote(urllib.quote(doi, safe=""), safe="")
-    
-        query_url = self.MENDELEY_LOOKUP_FROM_DOI_URL % double_encoded_doi
+        if self.is_doi(id):
+            template_url = self.MENDELEY_LOOKUP_FROM_DOI_URL
+        elif self.is_pmid(id):
+            template_url = self.MENDELEY_LOOKUP_FROM_PMID_URL
+            
+        # Mendeley API required double encoded id!!!
+        double_encoded_id = urllib.quote(urllib.quote(id, safe=""), safe="")
+        query_url = template_url % double_encoded_id
         #print query_url
         try:
             response = self.get_cache_timeout_response(query_url)
@@ -60,7 +65,7 @@ class PluginClass(BasePluginClass):
         return(response)  
 
     # each plugin needs to write one of these    
-    def extract_stats(self, page, doi=None):
+    def extract_stats(self, page, id=None):
         #print page
         (header, content) = page
         json_page = json.loads(content)  # migrate this to simplejson too
@@ -70,22 +75,21 @@ class PluginClass(BasePluginClass):
             number_readers = json_page["stats"]["readers"]
             group_list = json_page["groups"]
             number_groups = len(group_list)
-        except:
+            title = json_page["title"]
+            year = json_page["year"]
+            journal = json_page["publication_outlet"]
+            author_list = json_page["authors"]
+            authors = ", ".join([author["surname"] for author in author_list])
+        except KeyError:
             return(None)
-        response = {"readers":number_readers, "groups":number_groups}
+        response = {"readers":number_readers, "groups":number_groups, "title":title, "year":year, "journal":journal, "authors":authors}
         return(response)  
         
-
-    # each plugin needs to write relevant versions of this
-    def is_mendeley_doi(self, id):
-        # Mendeley takes any crossref doi
-        response = (self.CROSSREF_DOI_PATTERN.search(id) != None)
-        return(response)
     
     # each plugin needs to write relevant versions of this            
-    def artifact_type_recognized(self, doi):
-        if doi:
-            is_recognized = self.is_mendeley_doi(doi)
+    def artifact_type_recognized(self, id):
+        if id:
+            is_recognized = self.is_doi(id) or self.is_pmid(id)
         else:
             is_recognized = False
         return(is_recognized)   
@@ -99,10 +103,10 @@ class PluginClass(BasePluginClass):
         return(None)
         
     ## this changes for every plugin        
-    def build_artifact_response(self, doi):
-        if not doi:
+    def build_artifact_response(self, id):
+        if not id:
             return(None)
-        metrics_response = self.get_metric_values(doi)
+        metrics_response = self.get_metric_values(id)
         if not metrics_response:
             return(None)        
         response = dict(type="article")    
@@ -118,7 +122,7 @@ class PluginClass(BasePluginClass):
         time_started = time.time()
         
         for artifact_id in query:
-            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["doi"])
+            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["doi", "pmid"])
             if (artifact_id):
                 artifact_response = self.build_artifact_response(lookup_id)
                 if artifact_response:
