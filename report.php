@@ -9,8 +9,22 @@ $collectionId = $_REQUEST['id'];
 $report = new Models_Reporter($couch, $collectionId);
 $res = $report->fetch();
 
-$rendered_report_text = $report->render();
-$rendered_about_text = $report->render_about_text();
+$mode = $_REQUEST['mode'];
+if (!isset($mode)) {
+	$mode = "base";
+}
+
+if ($mode == "list") {
+	$rendered_report_text = $report->render_as_list();
+} elseif ($mode == "status") {
+	$rendered_report_text = $report->render_status();
+	$rendered_about_text = $report->render_about_text();	
+} else {
+	$mode = "base";
+	$rendered_report_text = $report->render();
+	$rendered_about_text = $report->render_about_text();	
+}
+
 
 // handle missing IDs more intelligently later
 if (!$res){ header('Location: ../'); }
@@ -18,6 +32,12 @@ if (!$res){ header('Location: ../'); }
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 		 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+            <?php
+				if ($mode=="list") {
+						echo '<head><meta http-equiv="content-type" content="text/plain; charset=utf-8" /></head>';
+						echo "<body>$rendered_report_text</body>";
+				} else {
+			?>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	    <title>Total Impact: <?php echo $report->getBestIdentifier() ?></title>
@@ -66,12 +86,13 @@ if (!$res){ header('Location: ../'); }
 						<li><a href="./update.php?id=<?php echo $collectionId; ?>">Update now</a> (may take a few minutes)</li>
 						<li><a href="./index.php?add-id=<?php echo $collectionId; ?>">Start over with this seed</a></li>
 						<li><a href="./index.php">Start over fresh</a></li>
-					 	<li><a href="javascript:PopupRawReportText()">Download as text</a></li>
-					 	<li><a href="javascript:PopupRawCsv()">Download as CSV</a></li>
+					 	<li><a href="./report.php?id=<?php echo $collectionId; ?>&mode=list">View as plain text list</a></li>
+					 	<li><a href="./report.php?id=<?php echo $collectionId; ?>&mode=status">View log</a></li>
 						</ol>
 
 					<p>Stable url: <a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a></p>
 		        </div>
+				
 				<!-- END report-meta -->
 
 				<!-- START metrics -->
@@ -98,39 +119,9 @@ if (!$res){ header('Location: ../'); }
 		
 		<p><a href="https://cloudant.com/futon/document.html?total-impact%2Fdevelopment/<?php echo $_REQUEST['id']; ?>">Link to DB entry</a></p>
 		
-			<pre>
-			<script language="javascript" type="text/javascript">
-			<!---
-			function PopupRawReportText()
-			{
-				//console.log("got called");
 		
-				//console.log(str);
-				newwindow = window.open('','export',"width=320,height=210,scrollbars=yes");
-				var doc = newwindow.document;
-				doc.write("data:text/plain;charset=utf-8,");
-				<?php $raw_report_text = json_decode($report->render_as_plain_text()); ?>
-				doc.write("<?php echo $raw_report_text; ?><p>");
-				doc.close();
-					
-			}
-			function PopupRawCsv()
-			{
-				//console.log("got called");
-		
-				//console.log(str);
-				newwindow = window.open('','export',"width=320,height=210,scrollbars=yes");
-				var doc = newwindow.document;
-				doc.write("data:text/plain;charset=utf-8,");
-				<?php $raw_csv_text = json_decode($report->render_as_csv()); ?>
-				doc.write("<?php echo $raw_csv_text; ?><p>");
-				doc.close();
-					
-			}
-			-->
-			</script>
-			</pre>
 		</div>
 		<!-- END wrapper -->
 	</body>
+	<?php } ?>
 </html>

@@ -62,7 +62,7 @@ class PluginClass(BasePluginClass):
     ## Crossref API doesn't seem to have limits, though we should check every few months to make sure still true            
     def get_artifacts_metrics(self, query):
         response_dict = dict()
-        error = "NA"
+        error = None
         time_started = time.time()
         for artifact_id in query:
             if self.artifact_type_recognized(artifact_id):

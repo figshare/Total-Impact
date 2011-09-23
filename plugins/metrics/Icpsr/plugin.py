@@ -26,7 +26,7 @@ def skip(f):
 SOURCE_NAME = "SlideShare"
 SOURCE_DESCRIPTION = "The best way to share presentations, documents and professional videos."
 SOURCE_URL = "http://www.slideshare.net/"
-SOURCE_ICON = "http://www.slideshare.net/favicon.ico"
+SOURCE_ICON = "http://www.slideshare.net/.ico"
 SOURCE_METRICS = dict(  title="the title of the publication",
                         year_uploaded="the year the presentation was uploaded",
                         downloads="the number of downloads of the presentation",
@@ -37,8 +37,8 @@ SOURCE_METRICS = dict(  title="the title of the publication",
 
 # plugins should make sure this list includes relevant input coverage
 # each plugin needs to make sure these are all set up appropriately
-TEST_GOLD_ABOUT = {'metrics': {'favorites': 'the number of times a presentation has been favorited', 'title': 'the title of the publication', 'downloads': 'the number of downloads of the presentation', 'views': 'the number of views of the presentation', 'comments': 'the number of comments on the presentation', 'year_uploaded': 'the year the presentation was uploaded'}, 'url': 'http://www.slideshare.net/', 'icon': 'http://www.slideshare.net/favicon.ico', 'desc': 'The best way to share presentations, documents and professional videos.'}
-TEST_GOLD_JSON_RESPONSE_STARTS_WITH = '{"artifacts": {}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/favicon.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "false", "source_name": "CrossRef", "last_update": 130'
+TEST_GOLD_ABOUT = {'metrics': {'favorites': 'the number of times a presentation has been favorited', 'title': 'the title of the publication', 'downloads': 'the number of downloads of the presentation', 'views': 'the number of views of the presentation', 'comments': 'the number of comments on the presentation', 'year_uploaded': 'the year the presentation was uploaded'}, 'url': 'http://www.slideshare.net/', 'icon': 'http://www.slideshare.net/.ico', 'desc': 'The best way to share presentations, documents and professional videos.'}
+TEST_GOLD_JSON_RESPONSE_STARTS_WITH = '{"artifacts": {}, "about": {"metrics": {"date": "the date of the publication", "doi": "the DOI of the publication, if applicable", "title": "the title of the publication", "url": "the url of the full text of the publication", "journal": "the journal where the paper was published", "pmid": "the PubMed identifier of the publication, if applicable"}, "url": "http://www.crossref.org/", "icon": "http://www.crossref.org/.ico", "desc": "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."}, "error": "false", "source_name": "CrossRef", "last_update": 130'
 TEST_INPUT = '{"10.3886/ICPSR04549":{"doi":"10.3886/ICPSR04549","url":"FALSE","pmid":"FALSE"}}'
 TEST_GOLD_PARSED_INPUT = eval(TEST_INPUT)
 
@@ -166,12 +166,12 @@ def build_about():
 def test_build_json_response():
     response = build_json_response()
     response_no_timestamp = re.sub('130\d+', '130', response)
-    assert_equals(response_no_timestamp, '{"about": {"metrics": {"favorites": "the number of times a presentation has been favorited", "title": "the title of the publication", "downloads": "the number of downloads of the presentation", "views": "the number of views of the presentation", "comments": "the number of comments on the presentation", "year_uploaded": "the year the presentation was uploaded"}, "url": "http://www.slideshare.net/", "icon": "http://www.slideshare.net/favicon.ico", "desc": "The best way to share presentations, documents and professional videos."}, "source_name": "Slideshare", "artifacts": {}, "error_msg": "NA", "has_error": "FALSE", "last_update": "130"}')
+    assert_equals(response_no_timestamp, '{"about": {"metrics": {"favorites": "the number of times a presentation has been favorited", "title": "the title of the publication", "downloads": "the number of downloads of the presentation", "views": "the number of views of the presentation", "comments": "the number of comments on the presentation", "year_uploaded": "the year the presentation was uploaded"}, "url": "http://www.slideshare.net/", "icon": "http://www.slideshare.net/.ico", "desc": "The best way to share presentations, documents and professional videos."}, "source_name": "Slideshare", "artifacts": {}, "error_msg": "NA", "has_error": "FALSE", "last_update": "130"}')
 
 def test_build_json_response_error_handling():
     response = build_json_response({}, "TIMEOUT")
     response_no_timestamp = re.sub('130\d+', '130', response)
-    assert_equals(response_no_timestamp, '{"about": {"metrics": {"favorites": "the number of times a presentation has been favorited", "title": "the title of the publication", "downloads": "the number of downloads of the presentation", "views": "the number of views of the presentation", "comments": "the number of comments on the presentation", "year_uploaded": "the year the presentation was uploaded"}, "url": "http://www.slideshare.net/", "icon": "http://www.slideshare.net/favicon.ico", "desc": "The best way to share presentations, documents and professional videos."}, "source_name": "Slideshare", "artifacts": {}, "error_msg": "TIMEOUT", "has_error": "TRUE", "last_update": "130"}')
+    assert_equals(response_no_timestamp, '{"about": {"metrics": {"favorites": "the number of times a presentation has been favorited", "title": "the title of the publication", "downloads": "the number of downloads of the presentation", "views": "the number of views of the presentation", "comments": "the number of comments on the presentation", "year_uploaded": "the year the presentation was uploaded"}, "url": "http://www.slideshare.net/", "icon": "http://www.slideshare.net/.ico", "desc": "The best way to share presentations, documents and professional videos."}, "source_name": "Slideshare", "artifacts": {}, "error_msg": "TIMEOUT", "has_error": "TRUE", "last_update": "130"}')
     
 def build_json_response(artifacts={}, error_msg=None):
     if (error_msg):

@@ -61,6 +61,7 @@ class Models_Collection {
         $doc->aliases = new stdClass(); // we'll fill this later
         $doc->sources = new stdClass(); // we'll fill this later
         $doc->updates = new stdClass(); // also for later
+        $doc->status = new stdClass(); // also for later
 
         // put it in couchdb
         $couch = new Couch_Client($config->db->dsn, $config->db->name);
@@ -103,7 +104,11 @@ class Models_Collection {
 
         foreach ($pluginUrls as $sourceName=>$pluginUrl){
 			$request = new HttpRequest($pluginUrl, HTTP_METH_POST);
-			$request->setPostFields(array('query' => json_encode($pluginQueryData)));
+			$encoded_data = json_encode($pluginQueryData);
+			error_log($sourceName, 0);
+			error_log(" $pluginUrl", 0);
+			error_log("$encoded_data", 0);
+			$request->setPostFields(array('query' => $encoded_data));
 			$request->setOptions(array('timeout' => 250));
 			#FB::log($request);
 	  		$pool->attach($request);			
@@ -111,7 +116,9 @@ class Models_Collection {
 
 		try {
 			$pool->send();
+			$doc->status->HttpRequestPoolException = "Plugin query success";
 		} catch (HttpRequestPoolException $e) {
+			$doc->status->HttpRequestPoolException = "HttpRequestPoolException:" . $e;
 			error_log($e, 0);
 		}
 		
@@ -121,15 +128,7 @@ class Models_Collection {
 	            $pluginResponse = json_decode($body);
 				if (isset($pluginResponse)) {
 					$sourceName = $pluginResponse->source_name;
-					#FB::log($sourceName);
-					#FB::log($pluginType);
-					#FB::log($pluginResponse);
-					#FB::log($doc);
-					#error_log($sourceName, 0);	
-					#error_log(serialize($pluginResponse), 0);	
 	       			$doc->$pluginType->$sourceName = $pluginResponse;
-					#FB::log($doc);
-					#FB::log("hi heather!");
 				}
 			}
 		}

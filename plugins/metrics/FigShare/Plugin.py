@@ -95,7 +95,7 @@ class PluginClass(BasePluginClass):
                 
     def get_artifacts_metrics(self, query):
         response_dict = dict()
-        error = "NA"
+        error = None
         time_started = time.time()
         for artifact_id in query:
             (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["url"])

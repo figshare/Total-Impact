@@ -7,6 +7,8 @@ import urllib2
 import nose
 from nose.tools import assert_equals
 import os
+import collections
+from collections import defaultdict
 
 # Permissions: RWX for owner, WX for others.  Set this here so that .pyc are created with these permissions
 os.umask(022) 
@@ -73,7 +75,9 @@ class BasePluginClass(object):
     MAX_ELAPSED_TIME = 120 # seconds, part of plugin API specification
 
     DEBUG = False
-
+    
+    status = defaultdict(int)
+    
     def is_crossref_doi(self, id):
         response = (self.DOI_PATTERN.search(id) != None)  ## Would exclude DataCite ids from here?
         return(response)
@@ -97,7 +101,13 @@ class BasePluginClass(object):
         
     def run_plugin(self, json_in):
         query = self.parse_input(json_in)
+        start_time = time.time()
         (artifacts, error_msg) = self.get_artifacts_metrics(query)
+
+        self.status["input_query_length"] = len(query.keys())
+        self.status["elapsed_time"] = "%.4f" %(time.time() - start_time)
+        self.status["response_length"] = len(artifacts.keys())
+
         json_out = self.build_json_response(artifacts, error_msg)
         return(json_out)
         
@@ -118,11 +128,17 @@ class BasePluginClass(object):
         else:
             has_error = "FALSE"
             error_msg = "NA"
+        self.status["has_error"] = has_error
+        self.status["error_msg"] = error_msg
+        last_update = time.time()
+        self.status["last_update"] = int(last_update)
+        self.status["last_update_str"] = time.ctime(last_update)
         response = dict(source_name=self.SOURCE_NAME, 
-            last_update=str(int(time.time())),
+            last_update=last_update,
             has_error=has_error,
             error_msg=error_msg, 
             about=self.build_about(),
+            status=self.status,
             artifacts=artifacts)
         json_response = simplejson.dumps(response)
         return(json_response)
@@ -135,14 +151,32 @@ class BasePluginClass(object):
         http_cached = httplib2.Http(".cache", timeout=http_timeout_in_seconds)
         header_dict = {'cache-control':'max-age='+str(max_cache_age_seconds)}
         header_dict.update(header_addons)
-        try:
+                
+        cache_read = http_cached.cache.get(url)
+        if (cache_read):
+            (response, content) = cache_read.split("\r\n\r\n", 1)
+        else:
             (response, content) = http_cached.request(url, headers=header_dict)
-        except:
-            #(response, content) = http_cached.request(url, headers=header_dict.update({'cache-control':'no-cache'}))
-            req = urllib2.Request(url, headers=header_dict)
-            uh = urllib2.urlopen(req)
-            content = uh.read()
-            response = uh.info()
+            response['cache-control'] = "max-age=" + str(max_cache_age_seconds)
+            httplib2._updateCache(header_dict, response, content, http_cached.cache, url)
+            if response.fromcache:
+                self.status["count_got_response_from_cache"] += 1
+            else:
+                self.status["count_missed_cache"] += 1
+                self.status["count_cache_miss_details"] = str(self.status["count_cache_miss_details"]) + "; " + url
+                self.status["count_cache_miss_response"] = str(response)
+                self.status["count_api_requests"] += 1
+                
+            if False:    
+                self.status["count_request_exception"] = "EXCEPTION!"
+                self.status["count_uncached_call"] += 1
+                self.status["count_api_requests"] += 1
+                #(response, content) = http_cached.request(url, headers=header_dict.update({'cache-control':'no-cache'}))
+                req = urllib2.Request(url, headers=header_dict)
+                uh = urllib2.urlopen(req)
+                content = uh.read()
+                response = uh.info()
+        
         return(response, content)
 
     # each plugin needs to write a get_page and extract_stats    

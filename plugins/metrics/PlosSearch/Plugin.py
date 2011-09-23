@@ -92,7 +92,7 @@ class PluginClass(BasePluginClass):
                 
     def get_artifacts_metrics(self, query):
         response_dict = dict()
-        error = "NA"
+        error = None
         time_started = time.time()
         for artifact_id in query:
             ## What other fields would we want to search for up, I wonder?

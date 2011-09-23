@@ -58,15 +58,11 @@ class PluginClass(BasePluginClass):
         double_encoded_id = urllib.quote(urllib.quote(id, safe=""), safe="")
         query_url = template_url % double_encoded_id
         #print query_url
-        try:
-            response = self.get_cache_timeout_response(query_url)
-        except:
-            response = None
+        response = self.get_cache_timeout_response(query_url)
         return(response)  
 
     # each plugin needs to write one of these    
     def extract_stats(self, page, id=None):
-        #print page
         (header, content) = page
         json_page = json.loads(content)  # migrate this to simplejson too
         if not page:

@@ -110,8 +110,9 @@ class PluginClass(BasePluginClass):
         artifact_response = self.build_artifact_response(pmid_lookups.keys())
 
         response_dict = dict()
-        for (lookup_id, artifact_response) in artifact_response:
-            response_dict[pmid_lookups[lookup_id]] = artifact_response
+        if artifact_response:
+            for (lookup_id, response) in artifact_response:
+                response_dict[pmid_lookups[lookup_id]] = response
             
         error = None
         return(response_dict, error)

@@ -134,73 +134,54 @@ class Models_Reporter {
         return $ret;
     }
 
-    public function render_as_plain_text() {
-		#FB::log("render as plain text");
-		
+    public function render_status() {
+		$ret_string = "";
+		$ret_string .= "<b>Collection status: </b><br/>";
+       	foreach ($this->data->status as $statusName => $statusValue){
+           	$ret_string .= "<b>$statusName:</b>" . " $statusValue<br/>";					
+		}
+		$ret_string .= " <b>Input ids:</b></br>";
+		$ids = $this->data->artifact_ids;
+		sort($ids);
+		foreach ($ids as $id) {
+			$ret_string .= "$id</br>";
+		}
+		$ret_string .= '<table border="1">';
 		$sources = $this->data->sources;
-		$ret_string = '';
-		
-		/* if no artifacts have metrics, add call here to printNothingHereMsg() */
-        $genres = $this->sortByGenre($sources);
-		
-        foreach ($genres as $genreName => $artifacts){
-			#FB::log($genreName);
-	
-			$ret_string .= "<h1>$genreName</h1>";
-	
-	        foreach ($artifacts as $id => $artifact){
-				$biblio = "";
-				$metrics = '';
-		        foreach ($artifact as $sourceName => $sourceData) {
-					if ($sourceName=="CrossRef") {
-			           	#$biblio = "$sourceData->authors ($sourceData->year) $sourceData->title. $sourceData->journal. $sourceData->doi, PMID:$sourceData->pmid, $sourceData->url";
-			           	$biblio .= "$sourceData->authors ($sourceData->year) $sourceData->title. $sourceData->journal.";
-					} elseif ($sourceName=="Mendeley") {
-			           	$biblio .= "$sourceData->authors ($sourceData->year) $sourceData->title. $sourceData->journal.";
-					} elseif ($sourceName=="PubMed") {
-			           	$biblio .= "$sourceData->authors ($sourceData->year) $sourceData->title. $sourceData->journal.";
-					} elseif ($sourceName=="Slideshare") {
-			           	$biblio .= "$sourceData->title; (uploaded in $sourceData->upload_year) $id";
-					} elseif ($sourceName=="FigShare") {
-			           	$ret .= "$sourceData->title, FigShare. $id";
-					} elseif ($sourceName=="Dryad" and $genreName=="dataset") {
-			           	$biblio .= "$sourceData->authors ($sourceData->year) $sourceData->title Dryad Data Repository. $id";
-					} else {
-						$biblio .= "";
-					}
-			       	foreach ($sourceData as $metricName => $metricValue){
-						if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
-			           		$metrics .= "$sourceName" . "_" . "$metricName: $metricValue;  ";					
-						}
-					}
-		        }		
-				$ret_string .= "$id<br/>$biblio<br/>$metrics<br/><p>";
-	        }
-        }
-
-        return(json_encode($ret_string));
+        foreach ($sources as $sourceName => $sourceData) {
+			$ret_string .= '<tr><td>';
+           	$ret_string .= $sourceName;
+			$ret_string .= '</td><td>';
+			$statuses = $sourceData->status;
+	       	foreach ($statuses as $statusName => $statusValue){
+	           	$ret_string .= "<b>$statusName:</b>" . " $statusValue<br/>";					
+			}
+           	$ret_string .= "</td></tr>";
+        }		
+        $ret_string .= "</table>";
+		error_log($ret_string, 0);
+        return($ret_string);
     }
 
-    public function render_as_csv() {
+    public function render_as_list() {
 		
 		$sources = $this->data->sources;
 		$ret_string = '';
 		
-		/* if no artifacts have metrics, add call here to printNothingHereMsg() */
         $genres = $this->sortByGenre($sources);
         foreach ($genres as $genreName => $artifacts){
 	        foreach ($artifacts as $id => $artifact){
 				$metrics = '';
 		        foreach ($artifact as $sourceName => $sourceData) {
 			       	foreach ($sourceData as $metricName => $metricValue){
-			           		$metrics .= "$id|$genreName|$sourceName" . "_" . "$metricName|$metricValue<p>";					
+			           		$metrics .= "$id|$genreName|$sourceName" . "_" . "$metricName|$metricValue<br/>";					
 					}
 		        }		
 				$ret_string .= "$metrics";
 	        }
         }
 		#FB::log($ret_string);
-        return(json_encode($ret_string));
+        return($ret_string);
     }
 
     private function printGenre($name, $artifacts, $abouts){
