@@ -82,7 +82,7 @@ ob_implicit_flush(TRUE);
 
 	        <div id="instr">
 	            <p>Enter below the identifiers for a collection of artifacts you want to track. We'll provide you a permanent URL to automatically update statistics about this collection.</p>
-	            <p>To try it out, copy and paste these identifers below and hit Go! (or follow <a href="./report.php?id=hljHeI">this link</a> for a sample report)</p>
+	            <p>To try it out, copy and paste these identifers below and hit Go! (or see <a href="./report.php?id=hljHeI">this example</a> or some of the recently-shared reports at the bottom of the page)</p>
 	            <pre>
 	10.1371/journal.pbio.0050082
 	10.1371/journal.pone.0000308
@@ -145,7 +145,7 @@ ob_implicit_flush(TRUE);
 
 			<!-- START footer -->
 
-			Recent public reports:
+			Recently-shared Reports.  Check them out:
 			<!-- https://twitter.com/about/resources/widgets/widget_search -->
 			
 <script src="http://widgets.twimg.com/j/2/widget.js"></script>
@@ -157,31 +157,33 @@ new TWTR.Widget({
   interval: 30000,
   title: 'Recent public reports: "via @mytotalimpact"',
   subject: 'Tweet yours to see it here!',
-  width: 500,
-  height: 100,
+  width: 'auto',
+  height: 200,
   theme: {
     shell: {
       background: '#ccc',
-      color: '#aaa'
+      color: '#000'
     },
     tweets: {
       background: '#ccc',
-      color: '#aaa',
+      color: '#000',
       links: '#933'
     }
   },
   features: {
-    scrollbar: false,
-    loop: true,
+    scrollbar: true,
+    loop: false,
     live: true,
     hashtags: true,
     timestamp: true,
     avatars: true,
     toptweets: true,
-    behavior: 'default'
+    behavior: 'all'
   }
 }).render().start();
 </script>
+
+
 
 
 			<p><a href="./about.php#Metrics"> A list</a> of metrics queried by total-impact.</p>
