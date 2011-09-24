@@ -60,9 +60,12 @@ class PluginClass(BasePluginClass):
         (response_header, content) = page
     
         soup = BeautifulStoneSoup(content)
-        articles = soup.search.findAll(title=True)
-        
-        metrics_dict = dict(article_mentions=len(articles))
+        try:
+            articles = soup.search.findAll(title=True)
+            metrics_dict = dict(article_mentions=len(articles))
+        except AttributeError:
+            metrics_dict = None
+            
         return(metrics_dict)
     
     
@@ -81,7 +84,8 @@ class PluginClass(BasePluginClass):
         
     def build_artifact_response(self, artifact_id):
         metrics_response = self.get_metric_values(artifact_id)
-        metrics_response.update({"type":"unknown"})
+        if metrics_response:
+            metrics_response.update({"type":"unknown"})
         return(metrics_response)
                 
     def get_artifacts_metrics(self, query):

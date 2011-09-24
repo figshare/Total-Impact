@@ -39,7 +39,7 @@ class PluginClass(BasePluginClass):
 
     DEBUG = False
 
-    PUBMEDCENTRAL_CITATIONS_API_URL = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=%s&retmode=xml&tool=%s&email=%s"
+    PUBMED_ESUMMARY_API_URL = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=%s&retmode=xml&tool=%s&email=%s"
 
     def get_page(self, url):
         if not url:
@@ -85,7 +85,7 @@ class PluginClass(BasePluginClass):
     
     def get_metric_values(self, list_of_pmids):
         string_of_lookups = ",".join(list_of_pmids)
-        url = self.PUBMEDCENTRAL_CITATIONS_API_URL % (string_of_lookups, self.TOOL_NAME, self.TOOL_EMAIL)
+        url = self.PUBMED_ESUMMARY_API_URL % (string_of_lookups, self.TOOL_NAME, self.TOOL_EMAIL)
         page = self.get_page(url)
         if page:
             response = self.extract_stats(page, list_of_pmids)    

@@ -57,7 +57,7 @@ class Models_Reporter {
 			$sourceName = $source->source_name;
             $ret[$sourceName] = date($format, $source->last_update);
 		}
-		$max_updated = min($ret);
+		$max_updated = max($ret);
 
 		return($max_updated);
     }
@@ -134,6 +134,21 @@ class Models_Reporter {
         return $ret;
     }
 
+	public function render_status_of_metrics($sources) {
+		$ret_string = "";
+        foreach ($sources as $sourceName => $sourceData) {
+			$ret_string .= '<tr><td>';
+           	$ret_string .= $sourceName;
+			$ret_string .= '</td><td>';
+			$statuses = $sourceData->status;
+	       	foreach ($statuses as $statusName => $statusValue){
+	           	$ret_string .= "<b>$statusName:</b>" . " $statusValue<br/>";					
+			}
+           	$ret_string .= "</td></tr>";
+        }			
+		return $ret_string;
+	}
+
     public function render_status() {
 		$ret_string = "";
 		$ret_string .= "<b>Collection status: </b><br/>";
@@ -147,19 +162,12 @@ class Models_Reporter {
 			$ret_string .= "$id</br>";
 		}
 		$ret_string .= '<table border="1">';
-		$sources = $this->data->sources;
-        foreach ($sources as $sourceName => $sourceData) {
-			$ret_string .= '<tr><td>';
-           	$ret_string .= $sourceName;
-			$ret_string .= '</td><td>';
-			$statuses = $sourceData->status;
-	       	foreach ($statuses as $statusName => $statusValue){
-	           	$ret_string .= "<b>$statusName:</b>" . " $statusValue<br/>";					
-			}
-           	$ret_string .= "</td></tr>";
-        }		
+	
+		$ret_string .= $this->render_status_of_metrics($this->data->aliases);
+		$ret_string .= $this->render_status_of_metrics($this->data->sources);
+		
         $ret_string .= "</table>";
-		error_log($ret_string, 0);
+		#error_log($ret_string, 0);
         return($ret_string);
     }
 

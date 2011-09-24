@@ -49,7 +49,6 @@ class PluginClass(BasePluginClass):
             return(None)
         doi_string = "%0A".join(doi_list)
         url = self.CROSSREF_API_PATTERN % doi_string
-        self.status["url"] = url
         if (self.DEBUG):
             print url
         page = self.get_cache_timeout_response(url)
@@ -69,12 +68,8 @@ class PluginClass(BasePluginClass):
                 doi = doi_record.doi.text
             except AttributeError:
                 doi = None
-                
-            self.status["got_doi"] = ""
-                
+                                
             if doi:
-                self.status["got_doi"] += " " + doi
-                
                 try:
                     title = str(doi_record.title.text)
                     if (title == "DOI Not Found"):
@@ -124,57 +119,30 @@ class PluginClass(BasePluginClass):
         return(is_recognized)   
         
     def build_artifact_response(self, list_of_doi_lookups):
-        self.status["list_of_doi_lookups"] = str(list_of_doi_lookups)
         metrics_response = self.get_metric_values(list_of_doi_lookups)
-        self.status["metrics_response"] = str(metrics_response)
         return(metrics_response)
         
     ## Crossref API doesn't seem to have limits, though we should check every few months to make sure still true            
     def get_artifacts_metrics(self, query):
+        error = None
         doi_lookups = {}
-        self.status["input_query"]= str(query)
-        self.status["artifact_ids"] = ""
-        self.status["rel_artifact_ids"] = ""
         for artifact_id in query:
-            self.status["artifact_ids"] += " " + artifact_id
             (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["doi"])
             if (artifact_id):
-                self.status["rel_artifact_ids"] += " " + artifact_id
                 doi_lookups[lookup_id] = artifact_id
         artifact_response = self.build_artifact_response(doi_lookups.keys())
 
         response_dict = dict()
-        self.status["artifact_response"] = ""
         if artifact_response:
             for (lookup_id, response) in artifact_response:
                 try:
                     corresponding_article_id = doi_lookups[lookup_id]
                     response_dict[doi_lookups[lookup_id]] = response
-                    self.status["artifact_response"] += str(response)
                 except KeyError:
                     self.status["key error"] = str(self.status["key error"]) + "; Trouble looking up " + lookup_id
+                    error = "KeyError: " + self.status["key error"]
             
-        error = None
         return(response_dict, error)
-
-#        response_dict = dict()
-#        error = None
-#        time_started = time.time()
-#        lookup_dict = {}
-#        for artifact_id in query:
-#            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["doi"])
-#            if (artifact_id):
-#                lookup_dict[lookup_id] = artifact_id;
-#        for lookup_id in lookup_dict:
-#            artifact_response = self.build_artifact_response(lookup_id)
-#            if artifact_response:
-#                response_dict[lookup_dict[lookup_id]] = artifact_response
-#            if (time.time() - time_started > self.MAX_ELAPSED_TIME):
-#                error = "TIMEOUT"
-#                self.status["TIMEOUT"] = str(0) + "TIMEOUT: didn't get to %d out of %d" %(len(lookup_dict) - len(response_dict), len(lookup_dict))
-#                break
-#        return(response_dict, error)
-
     
     
 class TestPluginClass(TestBasePluginClass):

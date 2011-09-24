@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 import simplejson
+import json
+import urllib
 import time
+import re
+import BeautifulSoup
+from BeautifulSoup import BeautifulStoneSoup
 import nose
 from nose.tools import assert_equals
 import sys
@@ -23,49 +28,99 @@ def skip(f):
     return f
 
 class PluginClass(BasePluginClass):
+                
     # each plugin needs to customize this stuff                
     SOURCE_NAME = "doi2url"
-    SOURCE_DESCRIPTION = "Looks up alias for entered ID"
+    SOURCE_DESCRIPTION = "An official Digital Object Identifier (DOI) Registration Agency of the International DOI Foundation."
+    SOURCE_URL = "http://www.crossref.org/"
+    SOURCE_ICON = "http://www.crossref.org/favicon.ico"
+    SOURCE_METRICS = {}
+
     DEBUG = False
 
-    DOI_LOOKUP_URL = "http://dx.doi.org/%s"
+    CROSSREF_API_PATTERN = "http://doi.crossref.org/servlet/query?pid=mytotalimpact@gmail.com&qdata=%s&format=unixref"
     
-    def get_url_from_doi(self, doi):
-        # To get url of full text, try to follow the doi url then get the final landing page
-        doi_initial_url = self.DOI_LOOKUP_URL % doi
-        (redirected_header, redirected_page) = self.get_cache_timeout_response(doi_initial_url)
-        try:
-            url = redirected_header["content-location"]
-        except:
-            url = ""        
-        return(url)
-                           
-    def artifact_type_recognized(self, id):
-        is_recognized = self.is_doi(id)
-        return(is_recognized)   
-        
-    def build_artifact_response(self, artifact_id):
-        url = self.get_url_from_doi(artifact_id)
-        if url:
-            response = dict(url=url)
+    def get_page(self, doi_list):
+        ## see http://www.crossref.org/help/Content/05_Interfacing_with_the_CrossRef_system/Using_HTTP.htm
+        if not doi_list:
+            return(None)
+        doi_string = "%0A".join(doi_list)
+        url = self.CROSSREF_API_PATTERN % doi_string
+        if (self.DEBUG):
+            print url
+        page = self.get_cache_timeout_response(url)
+        if (self.DEBUG):
+            print page
+        return(page)
+
+    def extract_stats(self, page, doi_list):
+        if not page:
+            return(None)        
+        (response_header, content) = page
+
+        response = []
+        soup = BeautifulStoneSoup(content)
+        for doi_record in soup.findAll("doi_record"):
+            try:
+                doi = doi_record.doi.text
+            except AttributeError:
+                doi = None
+                
+            if doi:
+                try:
+                    url = str(doi_record.resource.text)
+                except:
+                    url = ""
+                response += [(doi, dict(url=url, doi=doi))]
+        return(response)  
+    
+    def get_metric_values(self, list_of_dois):
+        page = self.get_page(list_of_dois)
+        if page:
+            response = self.extract_stats(page, list_of_dois)    
         else:
-            response = {}
+            response = None
+        return(response)    
+               
+    def is_dryad_doi(self, id):        
+        DRYAD_DOI_PATTERN = re.compile(r"10.5061/dryad", re.DOTALL)        
+        response = (DRYAD_DOI_PATTERN.search(id) != None)
+        return(response)
+            
+    def is_non_crossref_artifact(self, id):
+        response = self.is_dryad_doi(id)
         return(response)
                 
+    def artifact_type_recognized(self, id):
+        is_recognized = self.is_crossref_doi(id)
+        if self.is_non_crossref_artifact(id):
+            is_recognized = False
+        return(is_recognized)   
+        
+    def build_artifact_response(self, list_of_doi_lookups):
+        metrics_response = self.get_metric_values(list_of_doi_lookups)
+        return(metrics_response)
+        
     ## Crossref API doesn't seem to have limits, though we should check every few months to make sure still true            
     def get_artifacts_metrics(self, query):
-        response_dict = dict()
-        error = None
-        time_started = time.time()
+        doi_lookups = {}
         for artifact_id in query:
-            if self.artifact_type_recognized(artifact_id):
-                artifact_response = self.build_artifact_response(artifact_id)
-                if artifact_response:
-                    response_dict[artifact_id] = artifact_response
-            if (time.time() - time_started > self.MAX_ELAPSED_TIME):
-                error = "TIMEOUT"
-                break
+            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["doi"])
+            if (artifact_id):
+                doi_lookups[lookup_id] = artifact_id
+        artifact_response = self.build_artifact_response(doi_lookups.keys())
+
+        response_dict = dict()
+        if artifact_response:
+            for (lookup_id, response) in artifact_response:
+                try:
+                    artifact_id = doi_lookups[lookup_id]
+                    response_dict[artifact_id] = response
+                except KeyError:
+                    pass
+        error = None
         return(response_dict, error)
+
     
     
 class TestPluginClass(TestBasePluginClass):

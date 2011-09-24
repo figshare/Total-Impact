@@ -60,8 +60,8 @@ class Models_Collection {
         $doc->artifact_ids = $this->idsFromStr($idsStr);
         $doc->aliases = new stdClass(); // we'll fill this later
         $doc->sources = new stdClass(); // we'll fill this later
-        $doc->updates = new stdClass(); // also for later
         $doc->status = new stdClass(); // also for later
+        $doc->last_updated_at = (string)time();
 
         // put it in couchdb
         $couch = new Couch_Client($config->db->dsn, $config->db->name);
@@ -105,9 +105,7 @@ class Models_Collection {
         foreach ($pluginUrls as $sourceName=>$pluginUrl){
 			$request = new HttpRequest($pluginUrl, HTTP_METH_POST);
 			$encoded_data = json_encode($pluginQueryData);
-			error_log($sourceName, 0);
-			error_log(" $pluginUrl", 0);
-			error_log("$encoded_data", 0);
+			$doc->status->encoded_data = $encoded_data;
 			$request->setPostFields(array('query' => $encoded_data));
 			$request->setOptions(array('timeout' => 250));
 			#FB::log($request);
@@ -129,6 +127,7 @@ class Models_Collection {
 				if (isset($pluginResponse)) {
 					$sourceName = $pluginResponse->source_name;
 	       			$doc->$pluginType->$sourceName = $pluginResponse;
+					error_log("Got response from " . $sourceName, 0);
 				}
 			}
 		}
@@ -138,14 +137,12 @@ class Models_Collection {
 	/**
 	* Updates the collection by calling plugins and storing the $doc again
 	**/
-	public function callPlugins($collectionId, $config, $pluginList, $pluginQueryData, $pluginType) {
+	public function callPluginsAndStoreDoc($collectionId, $config, $pluginList, $pluginQueryData, $pluginType) {
 		#error_log("*******in update", 0);
 		$couch = new Couch_Client($config->db->dsn, $config->db->name);
 		
 		/* load the doc fresh from the DB to prevent conflicts */
 		$doc = $couch->getDoc($collectionId);
-
-		#FB::log($pluginQueryData);
 
 		$doc = $this->queryPlugins($doc, $pluginQueryData, $pluginList, $pluginType); 
 		$response = $this->robustStoreDoc($doc, 0, $couch);
@@ -168,7 +165,7 @@ class Models_Collection {
 	public function update($collectionId, $config) {
 		$pluginQueryData = $this->getArtifactsIds($collectionId, $config);
 		
-		$doc = $this->callPlugins($collectionId, $config, $config->plugins->alias, $pluginQueryData, "aliases");
+		$doc = $this->callPluginsAndStoreDoc($collectionId, $config, $config->plugins->alias, $pluginQueryData, "aliases");
 				
 		#FB::log($doc);
 		foreach ($doc->aliases as $aliasName => $content) {
@@ -178,8 +175,9 @@ class Models_Collection {
 				}
 			}
 		}
+        $doc->last_updated_at = (string)time();		
 		
-		$doc = $this->callPlugins($collectionId, $config, $config->plugins->source, $pluginQueryData, "sources");
+		$doc = $this->callPluginsAndStoreDoc($collectionId, $config, $config->plugins->source, $pluginQueryData, "sources");
 	}
 
     /**

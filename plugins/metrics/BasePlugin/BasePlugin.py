@@ -73,6 +73,8 @@ class BasePluginClass(object):
     TOOL_NAME = "total-impact.org"
     TOOL_EMAIL = "total-impact@googlegroups.com"
     MAX_ELAPSED_TIME = 120 # seconds, part of plugin API specification
+    
+    CACHE_DIR = "../../.cache"  #so that all plugins, alias and metrics, running on this server can share cache
 
     DEBUG = False
     
@@ -148,7 +150,7 @@ class BasePluginClass(object):
                                     http_timeout_in_seconds = 20, 
                                     max_cache_age_seconds = (1) * (24 * 60 * 60), # (number of days) * (number of seconds in a day), 
                                     header_addons = {}):
-        http_cached = httplib2.Http(".cache", timeout=http_timeout_in_seconds)
+        http_cached = httplib2.Http(self.CACHE_DIR, timeout=http_timeout_in_seconds)
         header_dict = {'cache-control':'max-age='+str(max_cache_age_seconds)}
         header_dict.update(header_addons)
                 

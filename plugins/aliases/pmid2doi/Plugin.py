@@ -1,12 +1,17 @@
 #!/usr/bin/env python
 import simplejson
-import time
+import json
+import urllib
+import urllib2
 import BeautifulSoup
 from BeautifulSoup import BeautifulStoneSoup
+import time
+import re
 import nose
 from nose.tools import assert_equals
 import sys
 import os
+
 # This hack is to add current path when running script from command line
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import BasePlugin
@@ -25,53 +30,92 @@ def skip(f):
     return f
 
 class PluginClass(BasePluginClass):
+                           
     # each plugin needs to customize this stuff                
     SOURCE_NAME = "pmid2doi"
-    SOURCE_DESCRIPTION = "Looks up alias for entered ID"
+    SOURCE_DESCRIPTION = "PubMed comprises more than 21 million citations for biomedical literature from MEDLINE, life science journals, and online books."
+    SOURCE_URL = "http://www.ncbi.nlm.nih.gov/pubmed/"
+    SOURCE_ICON = "http://www.ncbi.nlm.nih.gov/favicon.ico"
+    SOURCE_METRICS = {}
+
     DEBUG = False
-    
-    def get_doi_from_pmid(self, pmid):
-        url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=%s&retmode=xml&email=%s" % (pmid, self.TOOL_EMAIL)
-        (response, xml) = self.get_cache_timeout_response(url)
-        soup = BeautifulStoneSoup(xml)
+
+    PUBMED_ESUMMARY_API_URL = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=%s&retmode=xml&tool=%s&email=%s"
+
+
+    def get_page(self, url):
+        if not url:
+            return(None)
+        if (self.DEBUG):
+            print url
         try:
-            doi = soup.findAll(idtype="doi")[0].string
-        except (AttributeError, IndexError):
-            doi = ""
-        return(doi)
-                           
-    def artifact_type_recognized(self, id):
-        is_recognized = self.is_pmid(id)
-        return(is_recognized)   
-        
-    def build_artifact_response(self, artifact_id):
-        doi = self.get_doi_from_pmid(artifact_id)
-        if doi:
-            response = dict(doi=doi)
-        else:
-            response = {}
-        return(response)
-                
-    ## Crossref API doesn't seem to have limits, though we should check every few months to make sure still true            
-    def get_artifacts_metrics(self, query):
-        response_dict = dict()
-        error = None
-        time_started = time.time()
-        for artifact_id in query:
-            if self.artifact_type_recognized(artifact_id):
-                artifact_response = self.build_artifact_response(artifact_id)
-                if artifact_response:
-                    response_dict[artifact_id] = artifact_response
-            if (time.time() - time_started > self.MAX_ELAPSED_TIME):
-                error = "TIMEOUT"
-                break
-        return(response_dict, error)
+            page = self.get_cache_timeout_response(url)
+            if (self.DEBUG):
+                print page
+        except:
+            page = None
+        return(page)
+
+    def extract_stats(self, page, list_of_pmids):
+        if not page:
+            return([])     
+        (response_header, content) = page
     
+        response = []
+        soup = BeautifulStoneSoup(content)
+        
+        for docsum in soup.findAll("docsum"):
+            #print(tag.id.text)
+            id = docsum.id.text
+            author_list = []
+            for item in docsum.findAll("item"):
+                if item.get("name") == "DOI":
+                    doi = item.text
+                    response += [(id, dict(doi=doi))]
+
+        return(response)
+    
+    
+    def get_dois_from_pmids(self, list_of_pmids):
+        string_of_lookups = ",".join(list_of_pmids)
+        url = self.PUBMED_ESUMMARY_API_URL % (string_of_lookups, self.TOOL_NAME, self.TOOL_EMAIL)
+        page = self.get_page(url)
+        if page:
+            response = self.extract_stats(page, list_of_pmids)    
+        else:
+            response = None
+        return(response)    
+                                
+    def artifact_type_recognized(self, id):
+        response = self.is_pmid(id)
+        return(response)   
+        
+    def build_artifact_response(self, list_of_pmid_lookups):
+        metrics_response = self.get_dois_from_pmids(list_of_pmid_lookups)
+        return(metrics_response)
+
+                        
+    def get_artifacts_metrics(self, query):
+        pmid_lookups = {}
+        for artifact_id in query:
+            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["pmid"])
+            if (artifact_id):
+                pmid_lookups[lookup_id] = artifact_id
+        artifact_response = self.build_artifact_response(pmid_lookups.keys())
+
+        response_dict = dict()
+        if artifact_response:
+            for (lookup_id, response) in artifact_response:
+                response_dict[pmid_lookups[lookup_id]] = response
+            
+        error = None
+        return(response_dict, error)
+      
     
 class TestPluginClass(TestBasePluginClass):
 
     def setup(self):
-        self.plugin = CrossrefPluginClass()
+        self.plugin = PluginClass()
         self.test_parse_input = self.testinput.TEST_INPUT_DOI
     
     ## this changes for every plugin        
