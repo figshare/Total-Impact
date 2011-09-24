@@ -144,6 +144,46 @@ ob_implicit_flush(TRUE);
 			<!-- END input -->
 
 			<!-- START footer -->
+
+			Recent public reports:
+			<!-- https://twitter.com/about/resources/widgets/widget_search -->
+			
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'search',
+  search: 'via @mytotalimpact',
+  interval: 30000,
+  title: 'Recent public reports: "via @mytotalimpact"',
+  subject: 'Tweet yours to see it here!',
+  width: 500,
+  height: 100,
+  theme: {
+    shell: {
+      background: '#ccc',
+      color: '#aaa'
+    },
+    tweets: {
+      background: '#ccc',
+      color: '#aaa',
+      links: '#933'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: true,
+    live: true,
+    hashtags: true,
+    timestamp: true,
+    avatars: true,
+    toptweets: true,
+    behavior: 'default'
+  }
+}).render().start();
+</script>
+
+
 			<p><a href="./about.php#Metrics"> A list</a> of metrics queried by total-impact.</p>
 			<div id="footer">
             	<p>Concept originally hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/total-impact">Source and contributors.</a></p>

@@ -106,6 +106,18 @@ if (!$res){ header('Location: ../'); }
 			<!-- END report -->
 
 		<!-- START footer -->
+			
+			Proud of your report?  Tweet it!
+			<!-- based on code here: https://dev.twitter.com/docs/tweet-button -->
+<script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
+<div>
+   <a href="https://twitter.com/share" class="twitter-share-button"
+      data-url="<?php echo "http://total-impact.org/report.php?id=" . $collectionId?>"
+      data-via="mytotalimpact"
+      data-text="<?php echo "Check out My Total Impact: " . $report->getBestIdentifier() . " at";?>"
+      data-count="horizontal">Tweet</a>
+</div>
+			
 		<div id="footer" class="section">
 		    <h3>Metrics are computed based on the following data sources:</h3>
 		
