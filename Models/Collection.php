@@ -159,24 +159,37 @@ class Models_Collection {
 		return($pluginQueryData);
 	}
 	
+	public function consolidateAliases($pluginQueryDataInitial, $doc) {
+		$pluginQueryDataResponse = $pluginQueryDataInitial;
+		foreach ($doc->aliases as $aliasName => $content) {
+			foreach ($content->artifacts as $artifactId => $aliases) {
+				foreach ($aliases as $idType => $alias) {
+					$pluginQueryDataResponse->$artifactId->$idType = $alias;
+				}
+			}
+		}	
+		return($pluginQueryDataResponse);	
+	}
+	
 	/**
 	* Updates the collection by calling plugins and storing the $doc again
 	**/
 	public function update($collectionId, $config) {
+		#get initial list
 		$pluginQueryData = $this->getArtifactsIds($collectionId, $config);
 		
-		$doc = $this->callPluginsAndStoreDoc($collectionId, $config, $config->plugins->alias, $pluginQueryData, "aliases");
-				
-		#FB::log($doc);
-		foreach ($doc->aliases as $aliasName => $content) {
-			foreach ($content->artifacts as $artifactId => $aliases) {
-				foreach ($aliases as $idType => $alias) {
-					$pluginQueryData->$artifactId->$idType = $alias;
-				}
-			}
+		# call alias plugins sequentially
+		$pluginUrls = $config->plugins->alias;
+		foreach ($pluginUrls as $sourceName=>$pluginUrl) {
+			$doc = $this->callPluginsAndStoreDoc($collectionId, $config, array($pluginUrl), $pluginQueryData, "aliases");
+			$pluginQueryData = $this->consolidateAliases($pluginQueryData, $doc);		
 		}
-        $doc->last_updated_at = (string)time();		
+			
+		#$pluginQueryData = $this->consolidateAliases($pluginQueryData, $doc);		
+		#FB::log($doc);
 		
+		# call metrics plugins in parallel
+        $doc->last_updated_at = (string)time();		
 		$doc = $this->callPluginsAndStoreDoc($collectionId, $config, $config->plugins->source, $pluginQueryData, "sources");
 	}
 

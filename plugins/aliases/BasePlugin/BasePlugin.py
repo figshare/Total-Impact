@@ -92,6 +92,11 @@ class BasePluginClass(object):
         response = (self.PMID_PATTERN.search(id) != None)
         return(response)
 
+    def is_mendeley_uuid(self, id):
+        MENDELEY_UUID_PATTERN = re.compile(r"^\S{8}-\S{4}-\S{4}-\S{4}-\S{12}$", re.DOTALL)
+        response = (MENDELEY_UUID_PATTERN.search(id) != None)
+        return(response)
+        
     def is_url(self, id):
         response = False
         try:
@@ -192,6 +197,8 @@ class BasePluginClass(object):
 
     def get_candidate_ids(self, artifact_id, aliases, fields):
         response = [artifact_id]
+        #flip the order of the fields so that the first one in the fields list ends up at the front of the response
+        fields.reverse()
         for field in fields:
             if aliases.has_key(field):
                 # The fields have priority over the artifact name itself

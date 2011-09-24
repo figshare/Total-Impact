@@ -62,6 +62,11 @@ ob_implicit_flush(TRUE);
 						$artifactIdsString .= '&#013;&#010;';
 						$artifactIdsString .= implode('&#013;&#010;', $artifactIds);
 					}
+					if (isset($_REQUEST['add-mendeley-group'])) {
+						$artifactIds = $seed->getMendeleyGroupArtifacts($_REQUEST['add-mendeley-group']);
+						$artifactIdsString .= '&#013;&#010;';
+						$artifactIdsString .= implode('&#013;&#010;', $artifactIds);
+					}
 					if (isset($_REQUEST['add-slideshare-profile'])) {
 						$artifactIds = $seed->getSlideshareProfileArtifacts($_REQUEST['add-slideshare-profile']);
 						$artifactIdsString .= '&#013;&#010;';
@@ -117,11 +122,9 @@ ob_implicit_flush(TRUE);
 			
 					<hr>
 			
-					<div class="disabled">
 					<p>Mendeley public group papers:
 			            <label for="add-mendeley-group">Group number <br><em>http://www.mendeley.com/groups/</em></label>
 			            <input name="add-mendeley-group" id="add-mendeley-group" size="20" placeholder="1389803"/>
-					</div>
 					<hr />
 			
 					<p>Slideshare public slidedecks:
@@ -141,9 +144,6 @@ ob_implicit_flush(TRUE);
 			            <label for="add-pubmed-grant">Grant</label>
 			            <input name="add-pubmed-grant" id="add-pubmed-grant" size="30" placeholder="5-R01-LM009427-03"/>
 					</div>
-					<hr />
-			
-			
 					<br /><input type="submit" name="add" value="Add!" />
 				</div>
 		        </form>

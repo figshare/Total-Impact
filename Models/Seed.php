@@ -8,6 +8,7 @@
  * @author heather
  */
 class Models_Seed {
+	
     public function getMendeleyProfileArtifacts($profileId) {
 		$mendeleyUrlProfilePage = "http://www.mendeley.com/profiles/" . $profileId . "/";
 		$requestProfilePage = new HttpRequest($mendeleyUrlProfilePage, HTTP_METH_GET);
@@ -29,6 +30,27 @@ class Models_Seed {
 		return $artifactIds;
 	}
 
+    public function getMendeleyGroupArtifacts($groupId) {
+	    $TOTALIMPACT_MENDELEY_KEY = "3a81767f6212797750ef228c8cb466bc04dca4ba1";
+	    $MENDELEY_LOOKUP_FROM_DOI_URL_PART1 = "http://api.mendeley.com/oapi/documents/groups/";
+		$MENDELEY_LOOKUP_FROM_DOI_URL_PART2 = "/docs/?details=true&items=100&consumer_key=" . $TOTALIMPACT_MENDELEY_KEY;
+		$mendeleyUrlGroupPage = $MENDELEY_LOOKUP_FROM_DOI_URL_PART1 . $groupId . $MENDELEY_LOOKUP_FROM_DOI_URL_PART2;
+		$requestGroupPage = new HttpRequest($mendeleyUrlGroupPage, HTTP_METH_GET);
+		$responseGroupPage = $requestGroupPage->send();
+		$bodyGroupPage = $responseGroupPage->getBody();
+		$body = json_decode($bodyGroupPage);
+
+		$id_list = array();
+		foreach ($body->documents as $artifact) {
+			if (isset($artifact->url)) {
+	    		$id_list[] = $artifact->uuid;
+	    		#$id_list[] = $artifact->url;
+			}
+		}
+		
+		return $id_list;
+	}
+	
     public function getSlideshareProfileArtifacts($profileId) {
 		$slideshareProfilePage = "http://www.slideshare.net/" . $profileId . "/presentations";
 		$requestProfilePage = new HttpRequest($slideshareProfilePage, HTTP_METH_GET);
@@ -59,5 +81,8 @@ class Models_Seed {
 	}
     
 }
+
+	#$a = new Models_Seed();
+	#var_dump($a->getMendeleyProfileArtifacts("heather-piwowar"));
 
 ?>

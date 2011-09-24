@@ -28,88 +28,44 @@ def skip(f):
 class PluginClass(BasePluginClass):
                 
     # each plugin needs to customize this stuff                
-    SOURCE_NAME = "Mendeley"
-    SOURCE_DESCRIPTION = "A research management tool for desktop and web."
-    SOURCE_URL = "http://www.mendeley.com/"
-    SOURCE_ICON = "http://www.mendeley.com/favicon.ico"
-    SOURCE_METRICS = dict(  readers="the number of readers of the article",
-                            groups="the number of groups of the article")
+    SOURCE_NAME = "url2id"
+    SOURCE_DESCRIPTION = ""
+    SOURCE_URL = ""
+    SOURCE_ICON = ""
+    SOURCE_METRICS = {}
 
     DEBUG = False
-
-    TOTALIMPACT_MENDELEY_KEY = "3a81767f6212797750ef228c8cb466bc04dca4ba1"
-    MENDELEY_LOOKUP_FROM_DOI_URL = "http://api.mendeley.com/oapi/documents/details/%s?type=doi&consumer_key=" + TOTALIMPACT_MENDELEY_KEY
-    MENDELEY_LOOKUP_FROM_PMID_URL = "http://api.mendeley.com/oapi/documents/details/%s?type=pmid&consumer_key=" + TOTALIMPACT_MENDELEY_KEY
-    MENDELEY_LOOKUP_FROM_UUID_URL = "http://api.mendeley.com/oapi/documents/details/%s?consumer_key=" + TOTALIMPACT_MENDELEY_KEY
 
     def __init__(self):
         pass
 
     # each plugin needs to write one of these    
-    def get_page(self, id):
-        if not id:
-            return(None)
-        
-        if self.is_doi(id):
-            template_url = self.MENDELEY_LOOKUP_FROM_DOI_URL
-        elif self.is_pmid(id):
-            template_url = self.MENDELEY_LOOKUP_FROM_PMID_URL
-        else:
-            template_url = self.MENDELEY_LOOKUP_FROM_UUID_URL
-            
-        # Mendeley API required double encoded id!!!
-        double_encoded_id = urllib.quote(urllib.quote(id, safe=""), safe="")
-        query_url = template_url % double_encoded_id
-        #print query_url
-        response = self.get_cache_timeout_response(query_url)
-        return(response)  
+    def derive_synonymns(self, url):        
+        match = re.search("http://www.ncbi.nlm.nih.gov/pubmed/(?P<id>\d+)", url, re.IGNORECASE)
+        if (match):
+            return({"pmid":match.group("id")})
 
-    # each plugin needs to write one of these    
-    def extract_stats(self, page, id=None):
-        (header, content) = page
-        json_page = json.loads(content)  # migrate this to simplejson too
-        if not page:
-            return(None)
-        response = {}
-        try:
-            response.update(dict(number_readers=json_page["stats"]["readers"]))
-        except KeyError:
-            pass
-                    
-        try:
-            group_list = json_page["groups"]
-            response.update(dict(number_groups=len(group_list)))
-        except KeyError:
-            pass
+        match = re.search("http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=(?P<id>\d+)", url, re.IGNORECASE)
+        if (match):
+            return({"pmcid":match.group("id")})
 
-        try:
-            response.update(dict(title=json_page["title"]))
-        except KeyError:
-            pass
+        match = re.search(r"(?P<id>http://hdl.handle.net/.*)", url, re.IGNORECASE)
+        if (match):
+            return({"hdl":match.group("id")})
 
-        try:
-            response.update(dict(year=json_page["year"]))
-        except KeyError:
-            pass
+        match = re.search("(?P<id>10\.\d+/\S+)", url, re.IGNORECASE)
+        if (match):
+            doi = match.group("id")
+            doi = doi.replace("/abstract", "")
+            return({"doi":doi})
 
-        try:
-            response.update(dict(journal=json_page["publication_outlet"]))
-        except KeyError:
-            pass
+        return(None)  
 
-        try:
-            author_list = json_page["authors"]
-            authors = ", ".join([author["surname"] for author in author_list])
-            response.update(dict(authors=authors))
-        except KeyError:
-            pass
 
-        return(response)  
-            
     # each plugin needs to write relevant versions of this            
     def artifact_type_recognized(self, id):
         if id:
-            is_recognized = self.is_doi(id) or self.is_pmid(id) or self.is_mendeley_uuid(id)
+            is_recognized = self.is_url(id)
         else:
             is_recognized = False
         return(is_recognized)   
@@ -126,10 +82,10 @@ class PluginClass(BasePluginClass):
     def build_artifact_response(self, id):
         if not id:
             return(None)
-        metrics_response = self.get_metric_values(id)
+        metrics_response = self.derive_synonymns(id)
         if not metrics_response:
             return(None)        
-        response = dict(type="article")    
+        response = dict(type="article", url=id)    
         response.update(metrics_response)
         return(response)
     
@@ -142,7 +98,7 @@ class PluginClass(BasePluginClass):
         time_started = time.time()
         
         for artifact_id in query:
-            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["uuid", "doi", "pmid"])
+            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["url"])
             if (artifact_id):
                 artifact_response = self.build_artifact_response(lookup_id)
                 if artifact_response:

@@ -79,7 +79,7 @@ class PluginClass(BasePluginClass):
         return(response)    
                                 
     def artifact_type_recognized(self, id):
-        if (self.is_crossref_doi(id) or self.is_pmid(id) or self.is_url(id)):
+        if (self.is_crossref_doi(id) or self.is_pmid(id) or self.is_url(id) or self.is_mendeley_uuid(id)):
             response = False
         else:
             response = True;
