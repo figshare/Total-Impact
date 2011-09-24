@@ -55,18 +55,46 @@ $rendered_about_text = $report->render_about_text();
 			<h2><a NAME="Why?">Why?</a></h2>
 	        	<p><em>TBD</em></p>
 
+			<h2><a NAME="Artifacts">What artifacts can we enter?</a></h2>
+	        	<p>Please follow these formats exactly:</p>
+					<table width="80%">
+						<tr><th>TYPE</th><th>EXAMPLE</th><th>NOTE</th></tr>
+						<tr><td>doi</td><td>10.1234/abcd</td></tr>
+						<tr><td>url</td><td>http://somewhere.com/more</td><td>Must include http prefix</td></tr>
+						<tr><td>slideshare slides</td><td>example</td><td>Must include http prefix</td></tr>
+						<tr><td>Dryad data</td><td>10.1234/abcd</td></tr>
+						<tr><td>PubMed ID</td><td>123456</td></tr>
+						<tr><td>Genbank</td><td>sd234234</td></tr>
+						<tr><td>PDB</td><td>1234</td></tr>
+						<tr><td>GEO</td><td>GSE1234</td></tr>
+						<tr><td>Mendeley UUID</td><td>sdfsdfdf</td></tr>
+					</table>
+					<p>Not currently supported:  PubMed Central IDs</p>
+					<p><em>Add info about FigShare</em></p>
+
+			<h2><a NAME="Limitations">Limitations</a></h2>
+	        	<p>Some limitations:
+					<ul>
+						<li>only first page of the Mendeley profile
+						<li>only first 100 artifacts from Mendeley groups
+					</ul></p>
+
+			<h2><a NAME="Missing">Why are some artifacts missing metrics?</a></h2>
+	        	<p>Only do relevant.  Also, sometimes the artifacts were received without sufficient information to use all metrics.  For example, the system sometimes can't figure out the DOI from a Mendeley UUID or URL.</p>
+
 			<h2><a NAME="History">History</a></h2>
 	           	<p>Concept originally hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/total-impact">Source and contributors.</a></p>
 
-			<h2><a NAME="Contact">Contact us</a></h2>
-	        	<p><em>TBD</em></p>
-
 			<h2><a NAME="Metrics">Metrics</a></h2>
-			    <h3>Metrics are computed based on the following data sources:</h3>
+			    <p>Metrics are computed based on the following data sources:</p>
 		
 			    <?php
 				echo "$rendered_about_text";
 				?>
+
+			<h2><a NAME="Contact">Contact us</a></h2>
+	        	<p><em>TBD</em></p>
+
 		
 			</div>
 			<!-- END instr -->
