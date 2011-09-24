@@ -32,7 +32,7 @@ ob_implicit_flush(TRUE);
     </head>
     <body>
         <div id="header">
-            <img src="./ui/img/logo.png" alt="total-impact" width='200px' /> 
+	            <a href="./index.php"><img src="./ui/img/ti_logo.png" alt="total-impact" width='200px' /></a> 
         </div>
         
        	<div id="loading">

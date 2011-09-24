@@ -82,7 +82,7 @@ ob_implicit_flush(TRUE);
 
 	        <div id="instr">
 	            <p>Enter below the identifiers for a collection of artifacts you want to track. We'll provide you a permanent URL to automatically update statistics about this collection.</p>
-	            <p>To try it out, copy and paste these identifers below and hit Go! (or follow <a href="http://total-impact.org/report.php?id=hljHeI">this link</a> for a sample report)</p>
+	            <p>To try it out, copy and paste these identifers below and hit Go! (or follow <a href="./report.php?id=hljHeI">this link</a> for a sample report)</p>
 	            <pre>
 	10.1371/journal.pbio.0050082
 	10.1371/journal.pone.0000308
@@ -144,6 +144,7 @@ ob_implicit_flush(TRUE);
 			<!-- END input -->
 
 			<!-- START footer -->
+			<p><a href="./about.php#Metrics"> A list</a> of metrics queried by total-impact.</p>
 			<div id="footer">
             	<p>Concept originally hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/total-impact">Source and contributors.</a></p>
 			</div>
