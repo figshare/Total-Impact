@@ -44,7 +44,7 @@ class PluginClass(BasePluginClass):
     CROSSREF_API_PATTERN = "http://doi.crossref.org/servlet/query?pid=mytotalimpact@gmail.com&qdata=%s&format=unixref"
     
     def get_page(self, doi_list):
-        ## curl -D - -L -H "Accept: application/unixref+xml" "http://dx.doi.org/10.1126/science.1157784" 
+        ## see http://www.crossref.org/help/Content/05_Interfacing_with_the_CrossRef_system/Using_HTTP.htm
         if not doi_list:
             return(None)
         doi_string = "%0A".join(doi_list)
@@ -58,7 +58,6 @@ class PluginClass(BasePluginClass):
         return(page)
 
     def extract_stats(self, page, doi_list):
-        # crossref extraction code based on example at https://gist.github.com/931878
         if not page:
             return(None)        
         (response_header, content) = page
