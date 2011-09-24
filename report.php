@@ -69,7 +69,7 @@ if (!$res){ header('Location: ../'); }
 		
 			<!-- START header -->
 	        <div id="header">
-	            <img src="./ui/img/ti_logo.png" alt="total-impact" width='200px' /> 
+	            <a href="./index.php"><img src="./ui/img/ti_logo.png" alt="total-impact" width='200px' /></a> 
 			</div>   
 			<!-- END header -->
 
@@ -113,7 +113,6 @@ if (!$res){ header('Location: ../'); }
 			echo "$rendered_about_text";
 			?>
 		
-			<p>In this initial release, a snapshot of the impact data is captured the first time an url is displayed. In the future we are planning to periodically refresh the impact values.</p>
 		</div>
 		<!-- END footer -->
 		
