@@ -113,26 +113,35 @@ ob_implicit_flush(TRUE);
 					
 					<p>Mendeley profile <b>publicly available</b> publications:
 			            <label for="add-mendeley-profile">Username <br><em>http://www.mendeley.com/profiles/</em></label>
-			            <input name="add-mendeley-profile" id="add-mendeley-profile" size="40" placeholder="cameron-neylon"/>
+			            <input name="add-mendeley-profile" id="add-mendeley-profile" size="20" placeholder="cameron-neylon"/>
 			
 					<hr>
 			
 					<div class="disabled">
 					<p>Mendeley public group papers:
 			            <label for="add-mendeley-group">Group number <br><em>http://www.mendeley.com/groups/</em></label>
-			            <input name="add-mendeley-group" id="add-mendeley-group" size="40" placeholder="1389803"/>
+			            <input name="add-mendeley-group" id="add-mendeley-group" size="20" placeholder="1389803"/>
 					</div>
 					<hr />
 			
 					<p>Slideshare public slidedecks:
 			            <label for="add-slideshare-profile">Username <br><em>http://slideshare.net/</em></label>
-			            <input name="add-slideshare-profile" id="add-slideshare-profile" size="40" placeholder="cavlec"/>
+			            <input name="add-slideshare-profile" id="add-slideshare-profile" size="20" placeholder="cavlec"/>
 			
 					<hr />
 			        
 					<p>Dryad data packages <br>(dc:contributor.author value in "Show Full Metadata" from data package page):
 			            <label for="add-dryad-profile">Dryad author name</label>
-			            <input name="add-dryad-profile" id="add-dryad-profile" size="40" placeholder="Otto, Sarah P."/>
+			            <input name="add-dryad-profile" id="add-dryad-profile" size="20" placeholder="Otto, Sarah P."/>
+
+					<hr />
+
+					<div class="disabled">
+					<p>Papers through grant numbers in PubMed:
+			            <label for="add-pubmed-grant">Grant</label>
+			            <input name="add-pubmed-grant" id="add-pubmed-grant" size="30" placeholder="5-R01-LM009427-03"/>
+					</div>
+					<hr />
 			
 			
 					<br /><input type="submit" name="add" value="Add!" />
