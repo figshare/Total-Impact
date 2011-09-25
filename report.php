@@ -87,7 +87,7 @@ if (!$res){ header('Location: ../'); }
 						<li><a href="./index.php?add-id=<?php echo $collectionId; ?>">Start over with this seed</a></li>
 						<li><a href="./index.php">Start over fresh</a></li>
 					 	<li><a href="./report.php?id=<?php echo $collectionId; ?>&mode=list">View as plain text list</a></li>
-					 	<li><a href="./report.php?id=<?php echo $collectionId; ?>&mode=status">View log</a></li>
+					 	<li><a href="./about.php">FAQ</a></li>
 						</ol>
 
 					<p>Stable url: <a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a></p>
@@ -128,7 +128,8 @@ if (!$res){ header('Location: ../'); }
 		</div>
 		<!-- END footer -->
 		
-		<p><a href="https://cloudant.com/futon/document.html?total-impact%2Fdevelopment/<?php echo $_REQUEST['id']; ?>">Link to DB entry</a></p>
+		<p>Debugging: <a href="./report.php?id=<?php echo $collectionId; ?>&mode=status">Status log</a>, <a href="https://cloudant.com/futon/document.html?total-impact%2Fdevelopment/<?php echo $_REQUEST['id']; ?>">DB entry</a>
+		</p>
 		
 		
 		</div>

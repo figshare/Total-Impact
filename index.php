@@ -29,6 +29,46 @@ ob_implicit_flush(TRUE);
 
 		</script>
 
+<script type="text/javascript">
+function xmlhttpPost(strURL, type, form_name, field_name, display_div_name) {
+    var xmlHttpReq = false;
+    var self = this;
+	
+    // Mozilla/Safari
+    if (window.XMLHttpRequest) {
+        self.xmlHttpReq = new XMLHttpRequest();
+    }
+    // IE
+    else if (window.ActiveXObject) {
+        self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+	document.getElementById(display_div_name).innerHTML = "Loading...";
+    self.xmlHttpReq.open('GET', strURL + "?" + getquerystring(type, form_name, field_name), true);
+    self.xmlHttpReq.onreadystatechange = function() {
+        if (self.xmlHttpReq.readyState == 4) {
+			//document.getElementById('mendeley_profile_div').innerHTML = "Hello, <b>AJAX</b> world!";
+            updatepage(self.xmlHttpReq.responseText, display_div_name);
+		}
+    }
+    self.xmlHttpReq.send();
+}
+
+function getquerystring(type, form_name, field_name) {
+    var form = document.forms[form_name];
+    var word = form[field_name].value;
+    qstr = 'type=' + escape(type) + '&name=' + escape(word);  // NOTE: no '?' before querystring
+    return qstr;
+}
+
+function updatepage(str, display_div_name){
+    document.getElementById(display_div_name).innerHTML = "Added.";
+    //document.getElementById(display_div_name).innerHTML = str;
+	document.forms["id_form"].list.value = str + "\n" + document.forms["id_form"].list.value ;
+}
+</script>
+
+
     </head>
     <body>
 
@@ -57,26 +97,6 @@ ob_implicit_flush(TRUE);
 						$artifactIds = $doc->artifact_ids;
 						$artifactIdsString .= implode('&#013;&#010;', $artifactIds);
 					}
-					if (isset($_REQUEST['add-mendeley-profile'])) {
-						$artifactIds = $seed->getMendeleyProfileArtifacts($_REQUEST['add-mendeley-profile']);
-						$artifactIdsString .= '&#013;&#010;';
-						$artifactIdsString .= implode('&#013;&#010;', $artifactIds);
-					}
-					if (isset($_REQUEST['add-mendeley-group'])) {
-						$artifactIds = $seed->getMendeleyGroupArtifacts($_REQUEST['add-mendeley-group']);
-						$artifactIdsString .= '&#013;&#010;';
-						$artifactIdsString .= implode('&#013;&#010;', $artifactIds);
-					}
-					if (isset($_REQUEST['add-slideshare-profile'])) {
-						$artifactIds = $seed->getSlideshareProfileArtifacts($_REQUEST['add-slideshare-profile']);
-						$artifactIdsString .= '&#013;&#010;';
-						$artifactIdsString .= implode('&#013;&#010;', $artifactIds);
-					}
-					if (isset($_REQUEST['add-dryad-profile'])) {
-						$artifactIds = $seed->getDryadProfileArtifacts($_REQUEST['add-dryad-profile']);
-						$artifactIdsString .= '&#013;&#010;';
-						$artifactIdsString .= implode('&#013;&#010;', $artifactIds);
-					}
 				}
 	     	?>
 	        	<p>Total Impact tracks the real-time online impact of various research artifacts. It aggregates impact metrics from many data sources and displays them all in one place.</p>
@@ -87,7 +107,7 @@ ob_implicit_flush(TRUE);
 
 	        <div id="instr">
 	            <p>Enter below the identifiers for a collection of artifacts you want to track. We'll provide you a permanent URL to automatically update statistics about this collection.</p>
-	            <p>To try it out, copy and paste these identifers below and hit Go! (or see <a href="./report.php?id=hljHeI">this example</a> or some of the recently-shared reports at the bottom of the page)</p>
+	            <p>To try it out, copy and paste these identifers below and hit Go! (or see <a href="./report.php?id=hljHeI">sample</a> or <a href="#recent">recently-shared reports</a>)</p>
 	            <pre>
 	10.1371/journal.pbio.0050082
 	10.1371/journal.pone.0000308
@@ -101,60 +121,89 @@ ob_implicit_flush(TRUE);
 			
 			<!-- START input -->
 			<div id="input"> 	
-				<form method="GET" name="main" action="./index.php">
 				<div id="leftcol">
+					<form name="id_form">
 			           <label for="name">Choose a name for this collection</label><br />
 			           <input name="name" id="name" value="<?php echo $title; ?>" />
 			           <br />
 			           
 			           <label for="list">List your IDs here:</label><br>
 			           <textarea rows=20 name="list" id="list"><?php echo $artifactIdsString; ?></textarea>
-			           <input type="submit" name="run" value="Go!" />		
+			           <input type="submit" name="run" value="Go!" />
+					</form>
+	
 				</div>
 				<div id="rightcol">
-					Want to add your data quickly?  Seed input from one of these sources:
+					Want to add your data quickly?  Seed input from these sources:
 			
 					<hr />
 					
 					<p>Mendeley profile <b>publicly available</b> publications:
-			            <label for="add-mendeley-profile">Username <br><em>http://www.mendeley.com/profiles/</em></label>
-			            <input name="add-mendeley-profile" id="add-mendeley-profile" size="20" placeholder="cameron-neylon"/>
-			
-					<hr>
+						<form name="mendeley_profile_form">
+			            	<label for="name_field">Username <br><em>http://www.mendeley.com/profiles/</em></label>
+				            <input name="name_field" type="text" size="20" placeholder="cameron-neylon"/>
+							<input value="Add!" type="button" 
+								onclick='JavaScript:xmlhttpPost("./seed.php", "mendeley_profile", "mendeley_profile_form", 
+																"name_field", "mendeley_profile_div")'></p>
+
+							<div id="mendeley_profile_div">
+							</div>
+						</form>
+
+					<hr />
 			
 					<p>Mendeley public group papers:
-			            <label for="add-mendeley-group">Group number <br><em>http://www.mendeley.com/groups/</em></label>
-			            <input name="add-mendeley-group" id="add-mendeley-group" size="20" placeholder="1389803"/>
+						<form name="mendeley_group_form">
+			            	<label for="name_field">Group number <br><em>http://www.mendeley.com/group/</em></label>
+				            <input name="name_field" type="text" size="20" placeholder="1389803"/>
+							<input value="Add!" type="button" 
+								onclick='JavaScript:xmlhttpPost("./seed.php", "mendeley_group", "mendeley_group_form", 
+																"name_field", "mendeley_group_div")'></p>
+
+							<div id="mendeley_group_div">
+							</div>
+						</form>
+
 					<hr />
 			
 					<p>Slideshare public slidedecks:
-			            <label for="add-slideshare-profile">Username <br><em>http://slideshare.net/</em></label>
-			            <input name="add-slideshare-profile" id="add-slideshare-profile" size="20" placeholder="cavlec"/>
+						<form name="slideshare_profile_form">
+			            	<label for="name_field">Username <br><em>http://slideshare.net/</em></label>
+				            <input name="name_field" type="text" size="20" placeholder="cavlec"/>
+							<input value="Add!" type="button" 
+								onclick='JavaScript:xmlhttpPost("./seed.php", "slideshare_profile", "slideshare_profile_form", 
+																"name_field", "slideshare_profile_div")'></p>
+
+							<div id="slideshare_profile_div">
+							</div>
+						</form>
 			
 					<hr />
 			        
 					<p>Dryad data packages <br>(dc:contributor.author value in "Show Full Metadata" from data package page):
-			            <label for="add-dryad-profile">Dryad author name</label>
-			            <input name="add-dryad-profile" id="add-dryad-profile" size="20" placeholder="Otto, Sarah P."/>
+						<form name="dryad_profile_form">
+			            	<label for="name_field">Dryad author name</label>
+				            <input name="name_field" type="text" size="20" placeholder="Otto, Sarah P."/>
+							<input value="Add!" type="button" 
+								onclick='JavaScript:xmlhttpPost("./seed.php", "dryad_profile", "dryad_profile_form", 
+																"name_field", "dryad_profile_div")'></p>
+
+							<div id="dryad_profile_div">
+							</div>
+						</form>
 
 					<hr />
 
 					<div class="disabled">
-					<p>Papers through grant numbers in PubMed:
-			            <label for="add-pubmed-grant">Grant</label>
-			            <input name="add-pubmed-grant" id="add-pubmed-grant" size="30" placeholder="5-R01-LM009427-03"/>
+					<p>Papers through grant numbers in PubMed coming soon! </p>
 					</div>
-					<br /><input type="submit" name="add" value="Add!" />
 				</div>
-		        </form>
-				<!--<p>Adding artifacts from profile pages currently only adds the first full page of artifacts, not all pages</p>-->
-				<p><strong>Total-Impact</strong> <a href="http://www.mendeley.com/blog/developer-resources/what-the-scientific-community-wants-computers-to-do-for-them-the-results-of-the-plos-and-mendeley-call-for-apps/">needs more developers!</a>  Join us? <a href="mailto:total-impact@googlegroups.com">total-impact@googlegroups.com</a></p>
 			</div>
 			<!-- END input -->
 
 			<!-- START footer -->
 
-			Recently-shared Reports.  Check them out:
+			<a name="recent">Recently-shared Reports.</a>  Check them out:
 			<!-- https://twitter.com/about/resources/widgets/widget_search -->
 			
 <script src="http://widgets.twimg.com/j/2/widget.js"></script>
@@ -193,9 +242,8 @@ new TWTR.Widget({
 </script>
 
 
-
-
-			<p><a href="./about.php#Metrics"> A list</a> of metrics queried by total-impact.</p>
+				<p><strong>Total-Impact</strong> <a href="http://www.mendeley.com/blog/developer-resources/what-the-scientific-community-wants-computers-to-do-for-them-the-results-of-the-plos-and-mendeley-call-for-apps/">needs more developers!</a>  Join us? <a href="mailto:total-impact@googlegroups.com">total-impact@googlegroups.com</a></p>
+			
 			<div id="footer">
             	<p>Concept originally hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/total-impact">Source and contributors.</a></p>
 			</div>

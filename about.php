@@ -52,7 +52,13 @@ $rendered_about_text = $report->render_about_text();
 			<h2><a NAME="What">What is Total Impact?</a></h2>
 	        	<p>Total Impact tracks the real-time online impact of various research artifacts. It aggregates impact metrics from many data sources and displays them all in one place.</p>
 
-			<h2><a NAME="Why?">Why?</a></h2>
+			<h2><a NAME="Rationale">Rationale</a></h2>
+	        	<p><em>TBD</em></p>
+
+			<h2><a NAME="Call">Call to Action</a></h2>
+	        	<p><em>TBD</em></p>
+
+			<h2><a NAME="How">How to use it?</a></h2>
 	        	<p><em>TBD</em></p>
 
 			<h2><a NAME="Artifacts">What artifacts can we enter?</a></h2>
@@ -84,6 +90,11 @@ $rendered_about_text = $report->render_about_text();
 
 			<h2><a NAME="History">History</a></h2>
 	           	<p>Concept originally hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/total-impact">Source and contributors.</a></p>
+
+
+			<h2><a NAME="Help">Want to help?</a></h2>
+				<p><strong>Total-Impact</strong> <a href="http://www.mendeley.com/blog/developer-resources/what-the-scientific-community-wants-computers-to-do-for-them-the-results-of-the-plos-and-mendeley-call-for-apps/">needs more developers!</a>  Join us? <a href="mailto:total-impact@googlegroups.com">total-impact@googlegroups.com</a>  We also need funding.</p>
+
 
 			<h2><a NAME="Metrics">Metrics</a></h2>
 			    <p>Metrics are computed based on the following data sources:</p>
