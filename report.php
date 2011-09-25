@@ -94,7 +94,7 @@ if (!$res){ header('Location: ../'); }
 		        </div>
 				
 				<div class="disabled">
-					<p> Option to restrict to Fully Open metrics &#8212; those suitable for commercial use &#8212; coming soon!</p>
+					<p> Option to display only Fully Open metrics &#8212; those suitable for commercial use &#8212; coming soon!</p>
 				</div>
 				<!-- END report-meta -->
 
