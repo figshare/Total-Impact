@@ -48,7 +48,11 @@ function xmlhttpPost(strURL, type, form_name, field_name, display_div_name) {
     self.xmlHttpReq.onreadystatechange = function() {
         if (self.xmlHttpReq.readyState == 4) {
 			//document.getElementById('mendeley_profile_div').innerHTML = "Hello, <b>AJAX</b> world!";
-            updatepage(self.xmlHttpReq.responseText, display_div_name);
+			if (type == "mendeley_profile_quick") {
+            	update_quick_report(self.xmlHttpReq.responseText, display_div_name);
+			} else {
+            	update_list(self.xmlHttpReq.responseText, display_div_name);
+			}
 		}
     }
     self.xmlHttpReq.send();
@@ -61,11 +65,25 @@ function getquerystring(type, form_name, field_name) {
     return qstr;
 }
 
-function updatepage(str, display_div_name){
+function update_list(str, display_div_name){
+	var decoded = eval( "(" + str + ")" );
+	var artifactIds = decoded["artifactIds"];
+		
     document.getElementById(display_div_name).innerHTML = "Added.";
     //document.getElementById(display_div_name).innerHTML = str;
-	document.forms["id_form"].list.value = str + "\n" + document.forms["id_form"].list.value ;
+	document.forms["id_form"].list.value = artifactIds + "\n" + document.forms["id_form"].list.value ;
 }
+
+function update_quick_report(str, display_div_name){
+	var decoded = eval( "(" + str + ")" );
+	var groups = decoded["groups"];
+	var contacts = decoded["contacts"];
+		
+	if (groups.length > 0) {
+    	document.getElementById(display_div_name).innerHTML = "<table border=0><tr><td>" + groups + "</td><td>" + contacts + "<em>(random selection)</em></td></tr></table>";
+	}
+}
+
 </script>
 
 
@@ -87,7 +105,7 @@ function updatepage(str, display_div_name){
 				else {
 					$artifactIdsString = $_REQUEST['list'];
 					$title = $_REQUEST['name'];
-					$seed = new Models_Seed();
+					$seed = new Models_Seeder();
 					if (isset($_REQUEST['add-id'])) {
 						$collectionId = $_REQUEST['add-id'];
 		           		$config = new Zend_Config_Ini(CONFIG_PATH, ENV);
@@ -106,15 +124,15 @@ function updatepage(str, display_div_name){
 			<!-- START instr -->
 
 	        <div id="instr">
-	            <p>Enter below the identifiers for a collection of artifacts you want to track. We'll provide you a permanent URL to automatically update statistics about this collection.</p>
-	            <p>To try it out, copy and paste these identifers below and hit Go! (or see <a href="./report.php?id=hljHeI">sample</a> or <a href="#recent">recently-shared reports</a>)</p>
+	            <p>Enter below the identifiers for a collection of artifacts you want to track. We'll provide you a permanent URL to automatically update statistics about this collection.  Peruse <a target="_blank" href="./report.php?id=hljHeI">a sample</a>, <a href="#quick">quick reports</a>, and <a href="#recent">recently-shared reports</a>.</p>
+	
+	            <p>To try it out, copy and paste these identifers below and hit <b>Go!</b> 
 	            <pre>
 	10.1371/journal.pbio.0050082
 	10.1371/journal.pone.0000308
 	http://www.slideshare.net/phylogenomics/eisenall-hands
 	10.5061/dryad.8384
 	GSE2109
-	http://hdl.handle.net/10779/51bbbd9afc8d13d7385f26b0817f304d
 	</pre>
 			</div>
 			<!-- END instr -->
@@ -131,18 +149,17 @@ function updatepage(str, display_div_name){
 			           <textarea rows=20 name="list" id="list"><?php echo $artifactIdsString; ?></textarea>
 			           <input type="submit" name="run" value="Go!" />
 					</form>
-	
+							
 				</div>
 				<div id="rightcol">
-					Want to add your data quickly?  Seed input from these sources:
-			
+					Want help gathering your IDs? Pull from these sources:
 					<hr />
 					
 					<p>Mendeley profile <b>publicly available</b> publications:
 						<form name="mendeley_profile_form">
-			            	<label for="name_field">Username <br><em>http://www.mendeley.com/profiles/</em></label>
+			            	<label for="name_field"><em>http://www.mendeley.com/profiles/</em></label>
 				            <input name="name_field" type="text" size="20" placeholder="cameron-neylon"/>
-							<input value="Add!" type="button" 
+							<input value="Add IDs!" type="button" 
 								onclick='JavaScript:xmlhttpPost("./seed.php", "mendeley_profile", "mendeley_profile_form", 
 																"name_field", "mendeley_profile_div")'></p>
 
@@ -154,9 +171,9 @@ function updatepage(str, display_div_name){
 			
 					<p>Mendeley public group papers:
 						<form name="mendeley_group_form">
-			            	<label for="name_field">Group number <br><em>http://www.mendeley.com/group/</em></label>
+			            	<label for="name_field"><em>http://www.mendeley.com/group/</em></label>
 				            <input name="name_field" type="text" size="20" placeholder="1389803"/>
-							<input value="Add!" type="button" 
+							<input value="Add IDs!" type="button" 
 								onclick='JavaScript:xmlhttpPost("./seed.php", "mendeley_group", "mendeley_group_form", 
 																"name_field", "mendeley_group_div")'></p>
 
@@ -168,9 +185,9 @@ function updatepage(str, display_div_name){
 			
 					<p>Slideshare public slidedecks:
 						<form name="slideshare_profile_form">
-			            	<label for="name_field">Username <br><em>http://slideshare.net/</em></label>
+			            	<label for="name_field"><em>http://slideshare.net/</em></label>
 				            <input name="name_field" type="text" size="20" placeholder="cavlec"/>
-							<input value="Add!" type="button" 
+							<input value="Add IDs!" type="button" 
 								onclick='JavaScript:xmlhttpPost("./seed.php", "slideshare_profile", "slideshare_profile_form", 
 																"name_field", "slideshare_profile_div")'></p>
 
@@ -184,7 +201,7 @@ function updatepage(str, display_div_name){
 						<form name="dryad_profile_form">
 			            	<label for="name_field">Dryad author name</label>
 				            <input name="name_field" type="text" size="20" placeholder="Otto, Sarah P."/>
-							<input value="Add!" type="button" 
+							<input value="Add IDs!" type="button" 
 								onclick='JavaScript:xmlhttpPost("./seed.php", "dryad_profile", "dryad_profile_form", 
 																"name_field", "dryad_profile_div")'></p>
 
@@ -199,52 +216,73 @@ function updatepage(str, display_div_name){
 					</div>
 				</div>
 			</div>
+			
+			<div id="quickreport">
+			<h2><a name="quick">quick reports</a></h2>
+				
+				<p>Want to see a quick report for your Mendeley contacts or public groups?</p>
+					<form name="mendeley_profile_quick_form">
+		            	<label for="name_field"><em>http://www.mendeley.com/profiles/</em></label>
+			            <input name="name_field" type="text" size="20" placeholder="cameron-neylon"/>
+						<input value="Pull" type="button" 
+							onclick='JavaScript:xmlhttpPost("./seed.php", "mendeley_profile_quick", "mendeley_profile_quick_form", 
+															"name_field", "mendeley_profile_quick_div")'></p>
+
+						<div id="mendeley_profile_quick_div">
+						</div>
+					</form>
+			</div>
+						
 			<!-- END input -->
 
 			<!-- START footer -->
 
-			<a name="recent">Recently-shared Reports.</a>  Check them out:
-			<!-- https://twitter.com/about/resources/widgets/widget_search -->
-			
-<script src="http://widgets.twimg.com/j/2/widget.js"></script>
-<script>
-new TWTR.Widget({
-  version: 2,
-  type: 'search',
-  search: 'via @mytotalimpact',
-  interval: 30000,
-  title: 'Recent public reports: "via @mytotalimpact"',
-  subject: 'Tweet yours to see it here!',
-  width: 'auto',
-  height: 200,
-  theme: {
-    shell: {
-      background: '#ccc',
-      color: '#000'
-    },
-    tweets: {
-      background: '#ccc',
-      color: '#000',
-      links: '#933'
-    }
-  },
-  features: {
-    scrollbar: true,
-    loop: false,
-    live: true,
-    hashtags: true,
-    timestamp: true,
-    avatars: true,
-    toptweets: true,
-    behavior: 'all'
-  }
-}).render().start();
-</script>
+			<div id="twitterfeed">
 
-
-				<p><strong>Total-Impact</strong> <a href="http://www.mendeley.com/blog/developer-resources/what-the-scientific-community-wants-computers-to-do-for-them-the-results-of-the-plos-and-mendeley-call-for-apps/">needs more developers!</a>  Join us? <a href="mailto:total-impact@googlegroups.com">total-impact@googlegroups.com</a></p>
+				<h2><a name="recent">recently-shared reports</a></h2>
+				<p>Check them out:</p>
+				<!-- https://twitter.com/about/resources/widgets/widget_search -->
 			
+				<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+				<script>
+					new TWTR.Widget({
+					  version: 2,
+					  type: 'search',
+					  search: 'via @mytotalimpact',
+					  interval: 30000,
+					  title: 'Recent public reports: "via @mytotalimpact"',
+					  subject: 'Tweet yours to see it here!',
+					  width: 'auto',
+					  height: 200,
+					  theme: {
+					    shell: {
+					      background: '#ccc',
+					      color: '#000'
+					    },
+					    tweets: {
+					      background: '#ccc',
+					      color: '#000',
+					      links: '#933'
+					    }
+					  },
+					  features: {
+					    scrollbar: true,
+					    loop: false,
+					    live: true,
+					    hashtags: true,
+					    timestamp: true,
+					    avatars: true,
+					    toptweets: true,
+					    behavior: 'all'
+					  }
+					}).render().start();
+				</script>
+
+			</div>
+
 			<div id="footer">
+				<p><strong>Total-Impact</strong> <a href="http://www.mendeley.com/blog/developer-resources/what-the-scientific-community-wants-computers-to-do-for-them-the-results-of-the-plos-and-mendeley-call-for-apps/">needs more developers!</a>  Join us? <a href="mailto:total-impact@googlegroups.com">total-impact@googlegroups.com</a></p>
+
             	<p>Concept originally hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/total-impact">Source and contributors.</a></p>
 			</div>
 			<!-- END footer -->

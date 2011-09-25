@@ -78,6 +78,9 @@ $rendered_about_text = $report->render_about_text();
 					<p>Not currently supported:  PubMed Central IDs</p>
 					<p><em>Add info about FigShare</em></p>
 
+			<h2><a NAME="Meaning">What do these metrics mean? How are they related to each other?</a></h2>
+	        	<p><em>Mini summary then link to a more detailed page with academic references, etc?</em></p>
+
 			<h2><a NAME="Limitations">Limitations</a></h2>
 	        	<p>Some limitations:
 					<ul>

@@ -7,19 +7,35 @@
  *
  * @author heather
  */
-class Models_Seed {
+class Models_Seeder {
+	private $mendeley_profile_cache;
 	
+    function __construct() {
+        $this->mendeley_profile_cache = new stdClass();
+	}
+	
+    public function getMendeleyProfilePage($profileId) {
+		if (isset($this->mendeley_profile_cache->$profileId)) {
+			$bodyProfilePage = $this->mendeley_profile_cache->$profileId;
+		} else {
+			$mendeleyUrlProfilePage = "http://www.mendeley.com/profiles/" . $profileId . "/";
+			$requestProfilePage = new HttpRequest($mendeleyUrlProfilePage, HTTP_METH_GET);
+			$responseProfilePage = $requestProfilePage->send();
+			$bodyProfilePage = $responseProfilePage->getBody();
+			$this->mendeley_profile_cache->$profileId = $bodyProfilePage;
+		}
+		return $this->mendeley_profile_cache->$profileId;
+	}
+			
     public function getMendeleyProfileArtifacts($profileId) {
-		$mendeleyUrlProfilePage = "http://www.mendeley.com/profiles/" . $profileId . "/";
-		$requestProfilePage = new HttpRequest($mendeleyUrlProfilePage, HTTP_METH_GET);
-		$responseProfilePage = $requestProfilePage->send();
-		$bodyProfilePage = $responseProfilePage->getBody();
-
+		/* also get detailed journal page */
 		/* For now only looks at the first page */
 		$mendeleyUrlJournalPage = "http://www.mendeley.com/profiles/" . $profileId . "/publications/journal/";
 		$requestJournalPage = new HttpRequest($mendeleyUrlJournalPage, HTTP_METH_GET);
 		$responseJournalPage = $requestJournalPage->send();
 		$bodyJournalPage = $responseJournalPage->getBody();
+
+		$bodyProfilePage = $this->getMendeleyProfilePage($profileId);
 		
 		$body = $bodyProfilePage . $bodyJournalPage;
 		$regex_pattern = '/rft_id=info.*%2F(.*)(&|").*span/U';
@@ -30,6 +46,33 @@ class Models_Seed {
 		return $artifactIds;
 	}
 
+	
+    public function getMendeleyProfileGroupsDisplay($profileId) {
+		$bodyProfilePage = $this->getMendeleyProfilePage($profileId);
+		$regex_pattern = '/groups.(\d+)\/.*">(.*)</U';
+		preg_match_all($regex_pattern, $bodyProfilePage, $matches, PREG_SET_ORDER);
+		$combo = "";
+		error_log(serialize($matches));
+		foreach ($matches as $match) {
+			error_log(serialize($match));
+			$combo .= '<a target="_blank" href="./comingsoon.php?quickreport=1&mendeleygroup=' . $match[1] . '">' . $match[2] . '</a><br/>';
+		}
+		return $combo;
+	}
+
+    public function getMendeleyProfileContactsDisplay($profileId) {
+		$bodyProfilePage = $this->getMendeleyProfilePage($profileId);
+		$regex_pattern = '/profiles.(\S+)\/.*profile">(.*)<\/a>/U';
+		preg_match_all($regex_pattern, $bodyProfilePage, $matches, PREG_SET_ORDER);
+		$combo = "";
+		error_log(serialize($matches));
+		foreach ($matches as $match) {
+			error_log(serialize($match));
+			$combo .= '<a target="_blank" href="./comingsoon.php?quickreport=1&mendeleyprofile=' . $match[1] . '">' . $match[2] . '</a><br/>';
+		}
+		return $combo;
+	}
+	
     public function getMendeleyGroupArtifacts($groupId) {
 	    $TOTALIMPACT_MENDELEY_KEY = "3a81767f6212797750ef228c8cb466bc04dca4ba1";
 	    $MENDELEY_LOOKUP_FROM_DOI_URL_PART1 = "http://api.mendeley.com/oapi/documents/groups/";
@@ -82,7 +125,7 @@ class Models_Seed {
     
 }
 
-	#$a = new Models_Seed();
+	#$a = new Models_Seeder();
 	#var_dump($a->getMendeleyProfileArtifacts("heather-piwowar"));
 
 ?>

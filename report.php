@@ -93,6 +93,9 @@ if (!$res){ header('Location: ../'); }
 					<p>Stable url: <a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a></p>
 		        </div>
 				
+				<div class="disabled">
+					<p> Option to restrict to Fully Open metrics &#8212; those suitable for commercial use &#8212; coming soon!</p>
+				</div>
 				<!-- END report-meta -->
 
 				<!-- START metrics -->
