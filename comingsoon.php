@@ -41,9 +41,7 @@ ob_implicit_flush(TRUE);
 		</div>
 
         <div id="footer">
-            <p>
-            Hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/total-impact">Source and contributors.</a>
-            </p>
+	           	<p>Concept originally hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/total-impact">Source and contributors.</a></p>
         </div>
     </body>
 </html>
