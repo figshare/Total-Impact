@@ -21,7 +21,7 @@ if ($mode == "list") {
 	$rendered_about_text = $report->render_about_text();	
 } else {
 	$mode = "base";
-	$rendered_report_text = $report->render();
+	$rendered_report_text = $report->render(False);  //don't show zeros
 	$rendered_about_text = $report->render_about_text();	
 }
 

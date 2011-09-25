@@ -113,7 +113,7 @@ class Models_Reporter {
 		return $ret;
     }
 
-    public function render() {
+    public function render($showZeros=True) {
 		$sources = $this->data->sources;
         $ret = '';
         $ret .= "<div id='rendered-report'>";
@@ -127,7 +127,7 @@ class Models_Reporter {
 		#FB::log($abouts);
         foreach ($genres as $genreName => $artifacts){
 			#FB::log($genreName);
-            $ret .= $this->printGenre($genreName, $artifacts, $abouts);
+            $ret .= $this->printGenre($genreName, $artifacts, $abouts, $showZeros);
         }
 
         $ret .= "</div>";
@@ -192,31 +192,45 @@ class Models_Reporter {
         return($ret_string);
     }
 
-    private function printGenre($name, $artifacts, $abouts){
+    private function printGenre($name, $artifacts, $abouts, $showZeros){
         $ret = '';
         $ret .= "<div class='genre $name'><h2>$name</h2>";
         $ret .= "<ul>";
         foreach ($artifacts as $id => $artifact){
-            $ret .= $this->printArtifact($id, $artifact, $abouts);
+            $ret .= $this->printArtifact($id, $artifact, $abouts, $showZeros);
         }
         $ret .=  "</ul></div>";
         return $ret;
     }
 
-    private function printArtifact($id, $artifact, $abouts) {
+    private function printArtifact($id, $artifact, $abouts, $showZeros) {
         $ret = '';
         $ret .= "<li class='artifact'>";
         $ret .= "<h3>$id</h3>"; // here's where we'd print a name/title of the artifact if we had it.
         $ret .= "<ul class='source-list'>";
         foreach ($artifact as $sourceName => $sourceData) {
-            $ret .= $this->printSource($id, $sourceName, $sourceData, $abouts);
+            $ret .= $this->printSource($id, $sourceName, $sourceData, $abouts, $showZeros);
         }
         $ret .= "</ul></li>";
         return $ret;
 
     }
 
-    private function printSource($id, $sourceName, $sourceData, $abouts){
+    private function printSource($id, $sourceName, $sourceData, $abouts, $showZeros) {
+
+		# First check to see if will render any metrics.  If not, don't show the sourceData.
+		$metrics_ret = "";
+       	foreach ($sourceData as $metricName => $metricValue) {
+			if ($showZeros or ($metricValue != 0)) {
+				if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
+           			$metrics_ret .= "<b>$metricName:</b> $metricValue;\t";					
+				}
+			}
+		}
+		if (($sourceName != "CrossRef") and (strlen($metrics_ret) == 0)) {
+			return("");
+		}
+		
         $Img = '';
         if (isset($abouts->$sourceName->icon)){
             if ($abouts->$sourceName->icon){
@@ -244,14 +258,9 @@ class Models_Reporter {
 		} elseif ($sourceName=="Dryad") {
            	$ret .= "$sourceData->authors ($sourceData->year) <a href='http://dx.doi.org/$id'>$sourceData->title</a> <em>Dryad Data Repository.</em> $id<br/>";
 		}
-        #$ret .= "<p>";
-		#arsort($sourceData);
-		#$ret .= var_dump($sourceData, SORT_NUMERIC);
-       	foreach ($sourceData as $metricName => $metricValue){
-			if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
-           		$ret .= "<b>$metricName:</b> $metricValue;\t";					
-			}
-		}
+
+		$ret .= $metrics_ret;
+
 		$ret .= "</div>";
         return $ret;
     }
