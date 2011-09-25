@@ -80,7 +80,7 @@ function update_quick_report(str, display_div_name){
 	var contacts = decoded["contacts"];
 		
 	if (groups.length > 0) {
-    	document.getElementById(display_div_name).innerHTML = "<table border=0><tr><td>" + groups + "</td><td>" + contacts + "<em>(random selection)</em></td></tr></table>";
+    	document.getElementById(display_div_name).innerHTML = "<table border=0><tr><td>" + contacts + "</td><td>" + groups + "<em>(random selection)</em></td></tr></table>";
 	}
 }
 
