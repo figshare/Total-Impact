@@ -105,7 +105,6 @@ function update_quick_report(str, display_div_name){
 				else {
 					$artifactIdsString = $_REQUEST['list'];
 					$title = $_REQUEST['name'];
-					$seed = new Models_Seeder();
 					if (isset($_REQUEST['add-id'])) {
 						$collectionId = $_REQUEST['add-id'];
 		           		$config = new Zend_Config_Ini(CONFIG_PATH, ENV);
@@ -281,6 +280,8 @@ function update_quick_report(str, display_div_name){
 			</div>
 
 			<div id="footer">
+				<p>Missing something? See <a href="./about.php#Limitations">current limitations.</a></p>
+				
 				<p><strong>Total-Impact</strong> <a href="http://www.mendeley.com/blog/developer-resources/what-the-scientific-community-wants-computers-to-do-for-them-the-results-of-the-plos-and-mendeley-call-for-apps/">needs more developers!</a>  Join us? <a href="mailto:total-impact@googlegroups.com">total-impact@googlegroups.com</a></p>
 
             	<p>Concept originally hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/total-impact">Source and contributors.</a></p>

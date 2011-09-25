@@ -54,8 +54,9 @@ class Models_Seeder {
 		$combo = "";
 		error_log(serialize($matches));
 		foreach ($matches as $match) {
-			error_log(serialize($match));
-			$combo .= '<a target="_blank" href="./comingsoon.php?quickreport=1&mendeleygroup=' . $match[1] . '">' . $match[2] . '</a><br/>';
+			$id = $match[1];
+			$title = $match[2];
+			$combo .= '<a target="_blank" href="./update.php?quickreport&name=' . $title . '&mendeleygroup=' . $id . '">' . $title . '</a><br/>';
 		}
 		return $combo;
 	}
@@ -67,8 +68,9 @@ class Models_Seeder {
 		$combo = "";
 		error_log(serialize($matches));
 		foreach ($matches as $match) {
-			error_log(serialize($match));
-			$combo .= '<a target="_blank" href="./comingsoon.php?quickreport=1&mendeleyprofile=' . $match[1] . '">' . $match[2] . '</a><br/>';
+			$id = $match[1];
+			$title = $match[2];
+			$combo .= '<a target="_blank" href="./update.php?quickreport&name=' . $title . '&mendeleyprofile=' . $id . '">' . $title . '</a><br/>';
 		}
 		return $combo;
 	}

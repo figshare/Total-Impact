@@ -16,7 +16,11 @@ class Models_Collection {
     * @return Array the lines from the string
     */
    private function idsFromStr($str){
-        $lines = preg_split("/[\s,]+/", $str);
+		if (strlen($str) > 0) {
+        	$lines = preg_split("/[\s,]+/", $str);
+		} else {
+			$lines = array();
+		}
         return $lines;
    }
 
@@ -153,8 +157,10 @@ class Models_Collection {
 		$couch = new Couch_Client($config->db->dsn, $config->db->name);
 		$doc = $couch->getDoc($collectionId);
 		$pluginQueryData = new stdClass();
-		foreach ($doc->artifact_ids as $index => $id) {
-			$pluginQueryData->$id = new stdClass();
+		if (isset($doc->artifact_ids)) {
+			foreach ($doc->artifact_ids as $index => $id) {
+				$pluginQueryData->$id = new stdClass();
+			}
 		}
 		return($pluginQueryData);
 	}
