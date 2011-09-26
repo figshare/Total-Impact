@@ -45,14 +45,12 @@ class Models_Seeder {
 		$artifactIds = str_replace("%2F", '/', $artifactIds);
 		return $artifactIds;
 	}
-
 	
     public function getMendeleyProfileGroupsDisplay($profileId) {
 		$bodyProfilePage = $this->getMendeleyProfilePage($profileId);
 		$regex_pattern = '/groups.(\d+)\/.*">(.*)</U';
 		preg_match_all($regex_pattern, $bodyProfilePage, $matches, PREG_SET_ORDER);
 		$combo = "";
-		error_log(serialize($matches));
 		foreach ($matches as $match) {
 			$id = $match[1];
 			$title = $match[2];
@@ -65,7 +63,6 @@ class Models_Seeder {
 		$bodyProfilePage = $this->getMendeleyProfilePage($profileId);
 		$regex_pattern = '/profiles.(\S+)\/.*profile">(.*)<\/a>/U';
 		preg_match_all($regex_pattern, $bodyProfilePage, $matches, PREG_SET_ORDER);
-		error_log(serialize($matches));
 		$combo = '<a target="_blank" href="./update.php?quickreport&name=' . $profileId . '&mendeleyprofile=' . $profileId . '">' . $profileId . '</a><br/>';
 		foreach ($matches as $match) {
 			$id = $match[1];
