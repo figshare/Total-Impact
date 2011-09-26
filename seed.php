@@ -20,6 +20,9 @@
 		} elseif ($type=="dryad_profile") {
 			$artifactIds = $seed->getDryadProfileArtifacts($name);		
 			$artifactIdsString = implode("\n", $artifactIds); # \n has to be in DOUBLE quotes not single quotes
+		} elseif ($type=="pubmed_grant") {
+			$artifactIds = $seed->getPubMedGrantArtifacts($name);		
+			$artifactIdsString = implode("\n", $artifactIds); # \n has to be in DOUBLE quotes not single quotes
 		} elseif ($type=="mendeley_profile_quick") {
 			$groups = $seed->getMendeleyProfileGroupsDisplay($name);
 			$contacts = $seed->getMendeleyProfileContactsDisplay($name);

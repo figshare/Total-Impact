@@ -210,9 +210,18 @@ function update_quick_report(str, display_div_name){
 
 					<hr />
 
-					<div class="disabled">
-					<p>Papers through grant numbers in PubMed coming soon! </p>
-					</div>
+					<p>PubMed IDs through Grant Numbers<br>
+						<form name="pubmed_grant_form">
+			            	<label for="name_field">Grant number</label>
+				            <input name="name_field" type="text" size="20" placeholder="U54-CA121852"/>
+							<input value="Add IDs!" type="button" 
+								onclick='JavaScript:xmlhttpPost("./seed.php", "pubmed_grant", "pubmed_grant_form", 
+																"name_field", "pubmed_grant_div")'></p>
+
+							<div id="pubmed_grant_div">
+							</div>
+						</form>
+						
 				</div>
 			</div>
 			

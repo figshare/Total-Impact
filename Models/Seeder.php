@@ -124,7 +124,21 @@ class Models_Seeder {
 		$artifactIds = $matches[1];
 		return $artifactIds;
 	}
-    
+
+    public function getPubMedGrantArtifacts($grantId) {
+		$grantId = urlencode(strtolower($grantId));
+		$grantIdString = "(" . $grantId . "[grant number] OR " . $grantId . "-*[grant number])";
+		$grantEsearchUrl = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi" . "?db=pubmed&retmax=100&tool=total-impact.org&email=total-impact@googlegroups.com&term=" . urlencode($grantIdString);
+		$requestProfilePage = new HttpRequest($grantEsearchUrl, HTTP_METH_GET);
+		$responseProfilePage = $requestProfilePage->send();
+		$body = $responseProfilePage->getBody();
+
+		$regex_pattern = '/<Id>(.*)<\/Id>/U';
+		preg_match_all($regex_pattern, $body, $matches);
+		$artifactIds = $matches[1];
+		return $artifactIds;
+	}
+	    
 }
 
 	#$a = new Models_Seeder();
