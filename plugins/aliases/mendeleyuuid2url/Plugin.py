@@ -62,6 +62,8 @@ class PluginClass(BasePluginClass):
         json_page = json.loads(content)  # migrate this to simplejson too
         if not page:
             return(None)
+        if (len(content) < 5):
+            return(None)
         response = {"uuid":id}
         try:
             url = json_page["website"]

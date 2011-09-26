@@ -67,12 +67,15 @@ class PluginClass(BasePluginClass):
     # each plugin needs to write one of these    
     def extract_stats(self, page, id=None):
         (header, content) = page
+        
         if not page:
             return(None)
+        if (len(content) < 5):
+            return(None)        
         try:
             json_page = json.loads(content)  # migrate this to simplejson too
         except ValueError:
-            print(content)
+            #print(content)
             return(None)
             
         response = {}
