@@ -42,7 +42,8 @@ class Models_Seeder {
 		preg_match_all($regex_pattern, $body, $matches);
 		#FB::log($matches);
 		$artifactIds = $matches[1];
-		$artifactIds = str_replace("%2F", '/', $artifactIds);
+		$artifactIdsUnique = array_unique($artifactIds);
+		$artifactIds = str_replace("%2F", '/', $artifactIdsUnique);
 		return $artifactIds;
 	}
 	
