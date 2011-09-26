@@ -68,10 +68,15 @@ function getquerystring(type, form_name, field_name) {
 function update_list(str, display_div_name){
 	var decoded = eval( "(" + str + ")" );
 	var artifactIds = decoded["artifactIds"];
-		
-    document.getElementById(display_div_name).innerHTML = "Added.";
-    //document.getElementById(display_div_name).innerHTML = str;
-	document.forms["id_form"].list.value = artifactIds + "\n" + document.forms["id_form"].list.value ;
+	var artifactIdsLineMatches = artifactIds.match(/\n/g);
+
+	if (artifactIds.length == 0) {
+	    document.getElementById(display_div_name).innerHTML = "No IDs to add.";
+	} else {
+	    document.getElementById(display_div_name).innerHTML = "Added " + artifactIdsLineMatches.length + " IDs";
+	    //document.getElementById(display_div_name).innerHTML = str;
+		document.forms["id_form"].list.value = artifactIds + "\n" + document.forms["id_form"].list.value ;
+	}
 }
 
 function update_quick_report(str, display_div_name){
