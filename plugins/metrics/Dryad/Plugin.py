@@ -122,7 +122,7 @@ class PluginClass(BasePluginClass):
         
     def build_artifact_response(self, artifact_id):
         metrics_response = self.get_metric_values(artifact_id)
-        metrics_response.update({"type":"dataset"})
+        metrics_response.update({"type":"dataset", "doi":artifact_id})
         return(metrics_response)
                 
     def get_artifacts_metrics(self, query):

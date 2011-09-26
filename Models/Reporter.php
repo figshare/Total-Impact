@@ -256,7 +256,7 @@ class Models_Reporter {
 		} elseif ($sourceName=="FigShare") {
            	$ret .= "<a href='$id'>$sourceData->title</a>, <em>FigShare.</em> $id<br/>";
 		} elseif ($sourceName=="Dryad") {
-           	$ret .= "$sourceData->authors ($sourceData->year) <a href='http://dx.doi.org/$id'>$sourceData->title</a> <em>Dryad Data Repository.</em> $id<br/>";
+           	$ret .= "$sourceData->authors ($sourceData->year) <a href='http://dx.doi.org/$sourceData->doi'>$sourceData->title</a> <em>Dryad Data Repository.</em> $sourceData->doi<br/>";
 		}
 
 		$ret .= $metrics_ret;
