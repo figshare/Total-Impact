@@ -67,9 +67,14 @@ class PluginClass(BasePluginClass):
     # each plugin needs to write one of these    
     def extract_stats(self, page, id=None):
         (header, content) = page
-        json_page = json.loads(content)  # migrate this to simplejson too
         if not page:
             return(None)
+        try:
+            json_page = json.loads(content)  # migrate this to simplejson too
+        except ValueError:
+            print(content)
+            return(None)
+            
         response = {}
         try:
             response.update(dict(number_readers=json_page["stats"]["readers"]))

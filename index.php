@@ -79,9 +79,7 @@ function update_quick_report(str, display_div_name){
 	var groups = decoded["groups"];
 	var contacts = decoded["contacts"];
 		
-	if (groups.length > 0) {
-    	document.getElementById(display_div_name).innerHTML = "<table border=0><tr><td>" + contacts + "<em>(random selection)</em></td><td>" + groups + "</td></tr></table>";
-	}
+   	document.getElementById(display_div_name).innerHTML = "<table border=0><tr><td>" + contacts + "<em>(random selection)</em></td><td>" + groups + "</td></tr></table>";
 }
 
 </script>
@@ -103,8 +101,14 @@ function update_quick_report(str, display_div_name){
 	            	echo "<script>location.href='./update.php?$query_string'</script>";
 				}
 				else {
-					$artifactIdsString = $_REQUEST['list'];
-					$title = $_REQUEST['name'];
+					$title = "";
+					$artifactIdsString = "";
+					if (isset($_REQUEST['list'])) {
+						$artifactIdsString = $_REQUEST['list'];
+					}
+					if (isset($_REQUEST['name'])) {
+						$title = $_REQUEST['name'];
+					}
 					if (isset($_REQUEST['add-id'])) {
 						$collectionId = $_REQUEST['add-id'];
 		           		$config = new Zend_Config_Ini(CONFIG_PATH, ENV);

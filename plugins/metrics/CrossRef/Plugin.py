@@ -65,7 +65,7 @@ class PluginClass(BasePluginClass):
         soup = BeautifulStoneSoup(content)
         for doi_record in soup.findAll("doi_record"):
             try:
-                doi = doi_record.doi.text
+                doi = doi_record.journal_article.doi.text
             except AttributeError:
                 doi = None
                                 
@@ -139,7 +139,7 @@ class PluginClass(BasePluginClass):
                     corresponding_article_id = doi_lookups[lookup_id]
                     response_dict[doi_lookups[lookup_id]] = response
                 except KeyError:
-                    self.status["key error"] = str(self.status["key error"]) + "; Trouble looking up " + lookup_id
+                    self.status["key error"] = str(self.status["key error"]) + "; Trouble looking up " + lookup_id + " with response " + str(response)
                     error = "KeyError: " + self.status["key error"]
             
         return(response_dict, error)

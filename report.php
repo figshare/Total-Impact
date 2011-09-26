@@ -9,8 +9,9 @@ $collectionId = $_REQUEST['id'];
 $report = new Models_Reporter($couch, $collectionId);
 $res = $report->fetch();
 
-$mode = $_REQUEST['mode'];
-if (!isset($mode)) {
+if (isset($_REQUEST['mode'])) {
+	$mode = $_REQUEST['mode'];
+} else {
 	$mode = "base";
 }
 

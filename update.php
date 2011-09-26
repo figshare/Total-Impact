@@ -42,32 +42,39 @@ ob_implicit_flush(TRUE);
 			<?php
 	           	$config = new Zend_Config_Ini(CONFIG_PATH, ENV);
 	            $collection = new Models_Collection();
-				$title = $_REQUEST['name'];
 
-				if (isset($_REQUEST['quickreport'])) {
-					$seed = new Models_Seeder();
-					if (isset($_REQUEST['mendeleygroup'])) {
-						$artifactIdList = $seed->getMendeleyGroupArtifacts($_REQUEST['mendeleygroup']);
-						$artifactIds = implode("\n", $artifactIdList); # \n has to be in DOUBLE quotes not single quotes
-					} elseif (isset($_REQUEST['mendeleyprofile'])) {
-						$artifactIdList = $seed->getMendeleyProfileArtifacts($_REQUEST['mendeleyprofile']);
-						$artifactIds = implode("\n", $artifactIdList); # \n has to be in DOUBLE quotes not single quotes
-					}
+
+				if (isset( $_REQUEST['id'])) {
+					$collectionId = $_REQUEST['id'];
 				} else {
-					$artifactIds = $_REQUEST['list'];
-				}
-			
-				if (isset($artifactIds)) {
+					if (isset($_REQUEST['quickreport'])) {
+						$seed = new Models_Seeder();
+						if (isset($_REQUEST['mendeleygroup'])) {
+							$artifactIdList = $seed->getMendeleyGroupArtifacts($_REQUEST['mendeleygroup']);
+							$artifactIds = implode("\n", $artifactIdList); # \n has to be in DOUBLE quotes not single quotes
+						} elseif (isset($_REQUEST['mendeleyprofile'])) {
+							$artifactIdList = $seed->getMendeleyProfileArtifacts($_REQUEST['mendeleyprofile']);
+							$artifactIds = implode("\n", $artifactIdList); # \n has to be in DOUBLE quotes not single quotes
+						}
+					} else {
+						$artifactIds = $_REQUEST['list'];
+					}
+				
+					if (isset($_REQUEST['name'])) {
+						$title = $_REQUEST['name'];
+					} else {
+						$title = "";
+					}
+
 		            // save the new collection
 		            $storedDoc = $collection->create($title, $artifactIds , $config);
 		            $collectionId = $storedDoc->id;
-				} else {
-					$collectionId = $_REQUEST['id'];
 				}			
 			?>
 		</div>
        	<div id="updating">
 			<?php
+				error_log("now update");
 	            // get the updates
 				$collection->update($collectionId, $config);
 	            // redirect to the report page for this plugin
