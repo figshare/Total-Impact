@@ -8,22 +8,22 @@
  * @author heather
  */
 class Models_Seeder {
-	private $mendeley_profile_cache;
+	#private $mendeley_profile_cache;
 	
-    function __construct() {
-        $this->mendeley_profile_cache = new stdClass();
-	}
+    #function __construct() {
+    #    $this->mendeley_profile_cache = new stdClass();
+	#}
 	
     public function getMendeleyProfilePage($profileId) {
-		if (isset($this->mendeley_profile_cache->$profileId)) {
-			$bodyProfilePage = $this->mendeley_profile_cache->$profileId;
-		} else {
+		#if (isset($this->mendeley_profile_cache->$profileId)) {
+		#	$bodyProfilePage = $this->mendeley_profile_cache->$profileId;
+		#} else {
 			$mendeleyUrlProfilePage = "http://www.mendeley.com/profiles/" . $profileId . "/";
 			$requestProfilePage = new HttpRequest($mendeleyUrlProfilePage, HTTP_METH_GET);
 			$responseProfilePage = $requestProfilePage->send();
 			$bodyProfilePage = $responseProfilePage->getBody();
 			#$this->mendeley_profile_cache->$profileId = $bodyProfilePage;
-		}
+		#}
 		return $bodyProfilePage;
 	}
 			
