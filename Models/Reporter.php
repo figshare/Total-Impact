@@ -268,7 +268,7 @@ class Models_Reporter {
         $ret .= "<div class='source $sourceName'>";
         $ret .= "<p>$Img";
 		if ($sourceName=="CrossRef" and $biblioSource=="CrossRef") {
-           	$ret .= "$sourceData->authors ($sourceData->year) <a target='_blank'  href='http://dx.doi.org/$sourceData->doi'>$sourceData->title</a>  <em>$sourceData->journal.</em> $sourceData->doi";
+           	$ret .= "$sourceData->authors ($sourceData->year) <a target='_blank'  href='http://dx.doi.org/$sourceData->doi'>$sourceData->title</a>  <em>$sourceData->journal.</em> http://dx.doi.org/$sourceData->doi";
 		} elseif ($sourceName=="PubMed" and $biblioSource=="PubMed") {
            	$ret .= "$sourceData->authors ($sourceData->year) <a target='_blank'  href='http://www.ncbi.nlm.nih.gov/pubmed/$sourceData->pmid'>$sourceData->title</a> <em>$sourceData->journal.</em>$sourceData->pmid<br/>";
 		} elseif ($sourceName=="Mendeley" and $biblioSource=="Mendeley") {
@@ -279,7 +279,7 @@ class Models_Reporter {
 		} elseif ($sourceName=="FigShare") {
            	$ret .= "<a href='$id'>$sourceData->title</a>, <em>FigShare.</em> $id<br/>";
 		} elseif ($sourceName=="Dryad") {
-           	$ret .= "$sourceData->authors ($sourceData->year) <a href='http://dx.doi.org/$sourceData->doi'>$sourceData->title</a> <em>Dryad Data Repository.</em> $sourceData->doi<br/>";
+           	$ret .= "$sourceData->authors ($sourceData->year) <a href='http://dx.doi.org/$sourceData->doi'>$sourceData->title</a> <em>Dryad Data Repository.</em> http://dx.doi.org/$sourceData->doi<br/>";
 		}
 
 		$ret .= $metrics_ret;
