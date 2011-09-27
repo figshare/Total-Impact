@@ -299,6 +299,7 @@ function update_quick_report(str, display_div_name){
 
 			<div id="footer">
 				<p>Missing something? See <a href="./about.php#Limitations">current limitations.</a></p>
+				<p>Reactions and bugs welcome to <a href="http://twitter.com/#!/totalimpactdev">@totalimpactdev</a></p>
 				
 				<p><strong>Total-Impact</strong> <a href="http://www.mendeley.com/blog/developer-resources/what-the-scientific-community-wants-computers-to-do-for-them-the-results-of-the-plos-and-mendeley-call-for-apps/">needs more developers!</a>  Join us? <a href="mailto:total-impact@googlegroups.com">total-impact@googlegroups.com</a></p>
 

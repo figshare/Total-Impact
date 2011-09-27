@@ -111,6 +111,7 @@ if (!$res){ header('Location: ../'); }
 
 		<!-- START footer -->
 			<p>Missing something? See <a href="./about.php#Limitations">current limitations.</a></p>
+			<p>Reactions and bugs welcome to <a href="http://twitter.com/#!/totalimpactdev">@totalimpactdev</a></p>
 			
 			Proud of your report?  Tweet it!
 			<!-- based on code here: https://dev.twitter.com/docs/tweet-button -->
