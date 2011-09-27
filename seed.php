@@ -29,6 +29,8 @@
 		return($asarray);
 	}
 	
+	error_log("in seed.php");
+	error_log($_SERVER['QUERY_STRING']);
 	echo json_encode(seed(trim($_REQUEST['name']), trim($_REQUEST['type'])));
 	
 ?>
