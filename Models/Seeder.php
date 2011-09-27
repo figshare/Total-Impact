@@ -22,9 +22,9 @@ class Models_Seeder {
 			$requestProfilePage = new HttpRequest($mendeleyUrlProfilePage, HTTP_METH_GET);
 			$responseProfilePage = $requestProfilePage->send();
 			$bodyProfilePage = $responseProfilePage->getBody();
-			$this->mendeley_profile_cache->$profileId = $bodyProfilePage;
+			#$this->mendeley_profile_cache->$profileId = $bodyProfilePage;
 		}
-		return $this->mendeley_profile_cache->$profileId;
+		return $bodyProfilePage;
 	}
 			
     public function getMendeleyProfileArtifacts($profileId) {
