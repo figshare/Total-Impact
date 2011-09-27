@@ -208,8 +208,17 @@ class Models_Reporter {
         $ret .= "<li class='artifact'>";
         $ret .= "<h3>$id</h3>"; // here's where we'd print a name/title of the artifact if we had it.
         $ret .= "<ul class='source-list'>";
+		if (isset($artifact->CrossRef->title)) {
+			$biblioSource = "CrossRef";
+		} elseif (isset($artifact->PubMed->title)) {
+			$biblioSource = "PubMed";
+		} elseif (isset($artifact->Mendeley->title)) {
+			$biblioSource = "Mendeley";			
+		} else {
+			$biblioSource = "";
+		}
         foreach ($artifact as $sourceName => $sourceData) {
-            $ret .= $this->printSource($id, $sourceName, $sourceData, $abouts, $showZeros);
+            $ret .= $this->printSource($id, $sourceName, $sourceData, $abouts, $biblioSource, $showZeros);
         }
         $ret .= "</ul></li>";
         return $ret;
@@ -233,7 +242,7 @@ class Models_Reporter {
 		return($metrics_ret);
 	}
 	
-    private function printSource($id, $sourceName, $sourceData, $abouts, $showZeros) {
+    private function printSource($id, $sourceName, $sourceData, $abouts, $biblioSource, $showZeros) {
 
 		# First check to see if will render any metrics.  If not, don't show the sourceData.
 		$metrics_ret = $this->printMetric($sourceData, $showZeros);
@@ -254,14 +263,15 @@ class Models_Reporter {
         #$ret .= "<h4>$Img$sourceName</h4>";
         $ret .= "<div class='source $sourceName'>";
         $ret .= "<p>$Img";
-		if ($sourceName=="CrossRef") {
+		if ($sourceName=="CrossRef" and $biblioSource=="CrossRef") {
            	#$ret .= "$sourceData->authors ($sourceData->year) <a href='$sourceData->url'>$sourceData->title</a>. <em>$sourceData->journal.</em> $sourceData->doi, PMID:$sourceData->pmid";
            	$ret .= "$sourceData->authors ($sourceData->year) <a href='http://dx.doi.org/$sourceData->doi'>$sourceData->title</a>  <em>$sourceData->journal.</em> $sourceData->doi";
-		} elseif ($sourceName=="Mendeley") {
+		} elseif ($sourceName=="Mendeley" and $biblioSource=="Mendeley") {
            	$ret .= "$sourceData->authors ($sourceData->year) $sourceData->title <em>$sourceData->journal.</em><br/>";
-		} elseif ($sourceName=="PubMed") {
+		} elseif ($sourceName=="PubMed" and $biblioSource=="PubMed") {
            	$ret .= "$sourceData->authors ($sourceData->year) $sourceData->title <em>$sourceData->journal.</em><br/>";
-		} elseif ($sourceName=="Slideshare") {
+		} 
+		if ($sourceName=="Slideshare") {
            	$ret .= "<a href='$id'>$sourceData->title</a>; Uploaded in $sourceData->upload_year<br/>";
 		} elseif ($sourceName=="FigShare") {
            	$ret .= "<a href='$id'>$sourceData->title</a>, <em>FigShare.</em> $id<br/>";
