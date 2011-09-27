@@ -80,7 +80,7 @@ class PluginClass(BasePluginClass):
                     author_list += [item.text]
             authors = ", ".join(author_list)
             show_details_url = "http://www.ncbi.nlm.nih.gov/pmc/articles/pmid/%s/citedby/?tool=pubmed" %id
-            response += [(id, dict(type="article", show_details_url=show_details_url, citations_in_pmc=citations_in_pmc, journal=journal, year=year, title=title, authors=authors))]
+            response += [(id, dict(type="article", pmid=id, show_details_url=show_details_url, citations_in_pmc=citations_in_pmc, journal=journal, year=year, title=title, authors=authors))]
 
         return(response)
     

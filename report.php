@@ -133,7 +133,7 @@ if (!$res){ header('Location: ../'); }
 		</div>
 		<!-- END footer -->
 		
-		<p>Debugging: <a href="./report.php?id=<?php echo $collectionId; ?>&mode=status">Status log</a>, <a href="https://cloudant.com/futon/document.html?total-impact%2Fdevelopment/<?php echo $_REQUEST['id']; ?>">DB entry</a>
+		<p>Debugging: <a target="_blank" href="./report.php?id=<?php echo $collectionId; ?>&mode=status">Status log</a>, <a target="_blank" href="https://cloudant.com/futon/document.html?total-impact%2Fdevelopment/<?php echo $_REQUEST['id']; ?>">DB entry</a>
 		</p>
 		
 		

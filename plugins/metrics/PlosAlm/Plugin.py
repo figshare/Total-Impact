@@ -67,7 +67,7 @@ class PluginClass(BasePluginClass):
     PLOS_ALM_PMC_USAGE_API_URL = "http://alm.plos.org/articles/info:doi/%s.xml?source=pmc&citations=1&history=1&api_key=" + PLOS_API_KEY
     PLOS_DOI_PATTERN = re.compile(r"10.1371/journal.p", re.DOTALL | re.IGNORECASE)
 
-    PLOS_HOSTNAME_LOOKUP = dict(pone="plosone", pbio="plosbiology", pcbi="ploscompbiol", pgen="plosgenetics", ppat="plospathogens", pntd="plosntds")
+    PLOS_HOSTNAME_LOOKUP = dict(pone="plosone", pbio="plosbiology", pmed="plosmedicine", pcbi="ploscompbiol", pgen="plosgenetics", ppat="plospathogens", pntd="plosntds")
     
     def get_page(self, url):
         if not url:

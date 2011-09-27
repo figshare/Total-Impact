@@ -87,6 +87,11 @@ class PluginClass(BasePluginClass):
             pass
         
         try:
+            response.update(dict(url=json_page["website"]))
+        except KeyError:
+            pass
+
+        try:
             response.update(dict(number_readers=json_page["stats"]["readers"]))
         except KeyError:
             pass
