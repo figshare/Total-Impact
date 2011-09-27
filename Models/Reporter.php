@@ -223,7 +223,7 @@ class Models_Reporter {
 			if ($showZeros or ($metricValue != 0)) {
 				if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
 					if (isset($sourceData->show_details_url)) {
-           				$metrics_ret .= "$metricName: <a href='$sourceData->show_details_url'>$metricValue</a>;\t";					
+           				$metrics_ret .= "$metricName: <a target='_blank' href='$sourceData->show_details_url'>$metricValue</a>;\t";					
 					} else {
            				$metrics_ret .= "<b>$metricName:</b> $metricValue;\t";					
 					}
