@@ -92,7 +92,9 @@ class PluginClass(BasePluginClass):
                 except:
                     authors = ""
 
-                response += [(doi, dict(doi=doi, type="article", title=title, journal=journal, year=year, authors=authors))]
+                show_details_url = "http://dx.doi.org/" + doi
+                
+                response += [(doi, dict(doi=doi, show_details_url=show_details_url, type="article", title=title, journal=journal, year=year, authors=authors))]
         return(response)  
     
     def get_metric_values(self, list_of_dois):

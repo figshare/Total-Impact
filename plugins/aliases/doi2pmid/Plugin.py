@@ -36,6 +36,7 @@ class PluginClass(BasePluginClass):
         url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?term=%s&email=%s" % (doi, self.TOOL_EMAIL)
         (response, xml) = self.get_cache_timeout_response(url)
         soup = BeautifulStoneSoup(xml)
+        #print soup.prettify()
         try:
             pmid = soup.id.string
         except AttributeError:

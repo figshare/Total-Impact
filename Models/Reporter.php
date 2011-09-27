@@ -216,17 +216,27 @@ class Models_Reporter {
 
     }
 
-    private function printSource($id, $sourceName, $sourceData, $abouts, $showZeros) {
-
+	private function printMetric($sourceData, $showZeros) {
 		# First check to see if will render any metrics.  If not, don't show the sourceData.
 		$metrics_ret = "";
        	foreach ($sourceData as $metricName => $metricValue) {
 			if ($showZeros or ($metricValue != 0)) {
 				if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
-           			$metrics_ret .= "<b>$metricName:</b> $metricValue;\t";					
+					if (isset($sourceData->show_details_url)) {
+           				$metrics_ret .= "$metricName: <a href='$sourceData->show_details_url'>$metricValue</a>;\t";					
+					} else {
+           				$metrics_ret .= "<b>$metricName:</b> $metricValue;\t";					
+					}
 				}
 			}
 		}
+		return($metrics_ret);
+	}
+	
+    private function printSource($id, $sourceName, $sourceData, $abouts, $showZeros) {
+
+		# First check to see if will render any metrics.  If not, don't show the sourceData.
+		$metrics_ret = $this->printMetric($sourceData, $showZeros);
 		if (($sourceName != "CrossRef") and (strlen($metrics_ret) == 0)) {
 			return("");
 		}
@@ -246,7 +256,7 @@ class Models_Reporter {
         $ret .= "<p>$Img";
 		if ($sourceName=="CrossRef") {
            	#$ret .= "$sourceData->authors ($sourceData->year) <a href='$sourceData->url'>$sourceData->title</a>. <em>$sourceData->journal.</em> $sourceData->doi, PMID:$sourceData->pmid";
-           	$ret .= "$sourceData->authors ($sourceData->year) <a href='http://dx.doi.org/$sourceData->doi'>$sourceData->title</a>  <em>$sourceData->journal.</em>";
+           	$ret .= "$sourceData->authors ($sourceData->year) <a href='http://dx.doi.org/$sourceData->doi'>$sourceData->title</a>  <em>$sourceData->journal.</em> $sourceData->doi";
 		} elseif ($sourceName=="Mendeley") {
            	$ret .= "$sourceData->authors ($sourceData->year) $sourceData->title <em>$sourceData->journal.</em><br/>";
 		} elseif ($sourceName=="PubMed") {

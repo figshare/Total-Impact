@@ -78,7 +78,14 @@ class PluginClass(BasePluginClass):
             #print(content)
             return(None)
             
+        #print json_page    
         response = {}
+        
+        try:
+            response.update(dict(show_details_url=json_page["mendeley_url"]))
+        except KeyError:
+            pass
+        
         try:
             response.update(dict(number_readers=json_page["stats"]["readers"]))
         except KeyError:

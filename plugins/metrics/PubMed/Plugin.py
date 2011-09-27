@@ -61,6 +61,7 @@ class PluginClass(BasePluginClass):
     
         response = []
         soup = BeautifulStoneSoup(content)
+        #print soup.prettify()
         
         for docsum in soup.findAll("docsum"):
             #print(tag.id.text)
@@ -78,7 +79,8 @@ class PluginClass(BasePluginClass):
                 if item.get("name") == "Author":
                     author_list += [item.text]
             authors = ", ".join(author_list)
-            response += [(id, dict(type="article", citations_in_pmc=citations_in_pmc, journal=journal, year=year, title=title, authors=authors))]
+            show_details_url = "http://www.ncbi.nlm.nih.gov/pmc/articles/pmid/%s/citedby/?tool=pubmed" %id
+            response += [(id, dict(type="article", show_details_url=show_details_url, citations_in_pmc=citations_in_pmc, journal=journal, year=year, title=title, authors=authors))]
 
         return(response)
     

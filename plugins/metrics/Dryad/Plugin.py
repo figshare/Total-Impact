@@ -101,7 +101,9 @@ class PluginClass(BasePluginClass):
             year = None
             title = None
                 
-        return({"total_file_views":file_total_views, "package_views":view_package, "total_downloads":total_downloads, "downloads_of_most_popular_file":max_downloads, "title":title, "year":year, "authors":authors})
+        show_details_url = "http://dx.doi.org/" + doi
+                
+        return({"show_details_url":show_details_url, "total_file_views":file_total_views, "package_views":view_package, "total_downloads":total_downloads, "downloads_of_most_popular_file":max_downloads, "title":title, "year":year, "authors":authors})
     
     
     def get_metric_values(self, doi):

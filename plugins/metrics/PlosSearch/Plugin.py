@@ -62,6 +62,7 @@ class PluginClass(BasePluginClass):
         (response_header, content) = page
     
         soup = BeautifulStoneSoup(content)
+        #print soup.prettify()
         try:
             hits = soup.result['numfound']
         except:
@@ -79,7 +80,7 @@ class PluginClass(BasePluginClass):
         return(response)    
                                 
     def artifact_type_recognized(self, id):
-        if (self.is_crossref_doi(id) or self.is_pmid(id) or self.is_url(id) or self.is_mendeley_uuid(id)):
+        if (self.is_pmid(id) or self.is_url(id) or self.is_mendeley_uuid(id)):
             response = False
         else:
             response = True;
@@ -87,7 +88,8 @@ class PluginClass(BasePluginClass):
         
     def build_artifact_response(self, artifact_id):
         metrics_response = self.get_metric_values(artifact_id)
-        metrics_response.update({"type":"unknown"})
+        show_details_url = "http://www.plosone.org/search/advancedSearch.action?pageSize=10&journalOpt=all&unformattedQuery=everything%3A" + artifact_id
+        metrics_response.update({"type":"unknown", "show_details_url":show_details_url})
         return(metrics_response)
                 
     def get_artifacts_metrics(self, query):
@@ -96,7 +98,7 @@ class PluginClass(BasePluginClass):
         time_started = time.time()
         for artifact_id in query:
             ## What other fields would we want to search for up, I wonder?
-            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], [])
+            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["doi", "attacheddata"])
             if (artifact_id):
                 artifact_response = self.build_artifact_response(lookup_id)
                 if artifact_response:

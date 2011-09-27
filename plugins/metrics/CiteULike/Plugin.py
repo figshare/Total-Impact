@@ -83,7 +83,8 @@ class PluginClass(BasePluginClass):
         
     def build_artifact_response(self, artifact_id):
         metrics_response = self.get_metric_values(artifact_id)
-        metrics_response.update({"type":"unknown"})
+        show_details_url = "http://www.citeulike.org/doi/" + artifact_id
+        metrics_response.update({"type":"unknown", "show_details_url":show_details_url})
         return(metrics_response)
                 
     def get_artifacts_metrics(self, query):

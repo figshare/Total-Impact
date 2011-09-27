@@ -63,15 +63,22 @@ class PluginClass(BasePluginClass):
     
         response = []
         soup = BeautifulStoneSoup(content)
-        
+        #print soup.prettify()
+
         for docsum in soup.findAll("docsum"):
             #print(tag.id.text)
             id = docsum.id.text
             author_list = []
+            response_dict = {}
             for item in docsum.findAll("item"):
                 if item.get("name") == "DOI":
                     doi = item.text
-                    response += [(id, dict(doi=doi))]
+                    response_dict.update(doi=doi)
+                if item.get("name") == "pmc":
+                    pmcid = item.text
+                    share_details_url = "http://www.ncbi.nlm.nih.gov/pmc/articles/%s/citedby/?tool=pubmed" %pmcid
+                    response_dict.update(pmcid=pmcid, share_details_url=share_details_url)
+            response += [(id, response_dict)]
 
         return(response)
     

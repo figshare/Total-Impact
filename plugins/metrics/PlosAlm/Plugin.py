@@ -67,6 +67,8 @@ class PluginClass(BasePluginClass):
     PLOS_ALM_PMC_USAGE_API_URL = "http://alm.plos.org/articles/info:doi/%s.xml?source=pmc&citations=1&history=1&api_key=" + PLOS_API_KEY
     PLOS_DOI_PATTERN = re.compile(r"10.1371/journal.p", re.DOTALL | re.IGNORECASE)
 
+    PLOS_HOSTNAME_LOOKUP = dict(pone="plosone", pbio="plosbiology", pcbi="ploscompbiol", pgen="plosgenetics", ppat="plospathogens", pntd="plosntds")
+    
     def get_page(self, url):
         if not url:
             return(None)
@@ -101,6 +103,7 @@ class PluginClass(BasePluginClass):
         (response_header, content) = page
     
         soup = BeautifulStoneSoup(content)
+        #print soup.prettify()
         try:
             details = soup.details.findAll(year=True)
         except AttributeError:
@@ -132,6 +135,12 @@ class PluginClass(BasePluginClass):
         if page:
             response.update(self.extract_stats_general(page, doi, "PMC_", [], sum))
 
+        journal_key = re.search("10.1371/journal.(?P<prefix>[a-z]+).\d+", doi)
+        prefix = journal_key.group("prefix")
+        plos_host = self.PLOS_HOSTNAME_LOOKUP[prefix]
+        show_details_url = "http://www.%s.org/article/metrics/info:doi/%s" %(plos_host, doi)
+        response["show_details_url"] = show_details_url
+        
         return(response)    
     
     def is_plos_doi(self, id):        

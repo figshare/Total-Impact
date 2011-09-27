@@ -38,7 +38,7 @@ class PluginClass(BasePluginClass):
 
     DEBUG = False
 
-    DELICIOUS_API_URL = "http://feeds.delicious.com/v2/json/url/%s?count=100"
+    DELICIOUS_API_URL = "http://feeds.delicious.com/v1/json/url/%s?count=100"
 
     def get_page(self, url):
         if not url:
@@ -58,9 +58,8 @@ class PluginClass(BasePluginClass):
             return(None)        
         (response_header, content) = page
                 
-        bookmarks = simplejson.loads(content)
-            
-        metrics_dict = dict(bookmarks=len(bookmarks))
+        bookmarks_hits = re.findall('"dt":"', content, re.MULTILINE)            
+        metrics_dict = dict(bookmarks=len(bookmarks_hits))
         return(metrics_dict)
     
     
@@ -69,7 +68,9 @@ class PluginClass(BasePluginClass):
         query_url = self.DELICIOUS_API_URL % md5_of_url
         page = self.get_page(query_url)
         if page:
-            response = self.extract_stats(page, url)    
+            show_details_url = "http://www.delicious.com/url/" + md5_of_url
+            response = {"show_details_url":show_details_url}
+            response.update(self.extract_stats(page, url))
         else:
             response = None
         return(response)    
