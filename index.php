@@ -29,70 +29,40 @@ ob_implicit_flush(TRUE);
 
 		</script>
 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script type="text/javascript">
-function xmlhttpPost(strURL, type, form_name, field_name, display_div_name) {
-    var xmlHttpReq = false;
-    var self = this;
-	
-    // Mozilla/Safari
-    if (window.XMLHttpRequest) {
-        self.xmlHttpReq = new XMLHttpRequest();
-    }
-    // IE
-    else if (window.ActiveXObject) {
-        self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
-    }
 
-	document.getElementById(display_div_name).innerHTML = "Loading...";
-    self.xmlHttpReq.open('GET', strURL + "?" + getquerystring(type, form_name, field_name), true);
-    self.xmlHttpReq.onreadystatechange = function() {
-        if (self.xmlHttpReq.readyState == 4) {
-			//document.getElementById('mendeley_profile_div').innerHTML = "Hello, <b>AJAX</b> world!";
-			if (type == "mendeley_profile_quick") {
-            	update_quick_report(self.xmlHttpReq.responseText, display_div_name);
-			} else {
-            	update_list(self.xmlHttpReq.responseText, display_div_name);
-			}
-		}
-    }
-    self.xmlHttpReq.send();
-}
+$.ajaxSetup ({  
+    cache: false  
+}); 
+var ajax_load = "<img src='./ui/img/ajax-loader.gif' alt='loading...' />";  
 
-function getquerystring(type, form_name, field_name) {
-    var form = document.forms[form_name];
-    var word = form[field_name].value;
-    qstr = 'type=' + escape(type) + '&name=' + escape(word);  // NOTE: no '?' before querystring
-    return qstr;
-}
-
-function update_list(str, display_div_name){
-	var decoded = eval( "(" + str + ")" );
-	var artifactIds = decoded["artifactIds"];
-	var artifactIdsLineMatches = artifactIds.match(/\n/g);
-
-	if (artifactIds.length == 0) {
-	    document.getElementById(display_div_name).innerHTML = "No IDs to add.";
-	} else {
-	    document.getElementById(display_div_name).innerHTML = "Added " + artifactIdsLineMatches.length + " IDs";
-	    //document.getElementById(display_div_name).innerHTML = str;
-		document.forms["id_form"].list.value = artifactIds + "\n" + document.forms["id_form"].list.value ;
-	}
-}
-
-function update_quick_report(str, display_div_name){
-	var decoded = eval( "(" + str + ")" );
-	var groups = decoded["groups"];
-	var contacts = decoded["contacts"];
+$(document).ready(function(){
 		
-   	document.getElementById(display_div_name).innerHTML = "<table border=0><tr><td>" + contacts + "<em>(random selection)</em></td><td>" + groups + "</td></tr></table>";
-}
-
+  $("button").click(function(){
+	var myId = this.id
+	var textId = this.id + "_input";
+	var textVal = $('#'+textId).val();
+	var divId = this.id + "_div";
+    $("#"+divId).html("Loading...");
+	$.get("./seed.php?type="+myId+"&name="+textVal, function(response,status,xhr){
+		if (myId=="quick_report") {
+			var groups = response["groups"];
+			var contacts = response["contacts"];
+			var fullText = "<table border=0><tr><td>" + contacts + "<em>(random selection)</em></td><td>" + groups + "</td></tr></table>";
+			$("#quick_report_div").html(fullText);
+		} else {
+			$("#artifactList").val(response["artifactIds"] + "\n" + $("#artifactList").val());
+	    	$("#"+divId).html("Added " + response["artifactCount"] + " IDs.");
+		}
+	}, 
+	"json"); 
+	}).error(function(){ alert("error!");}); 
+  });
 </script>
-
 
     </head>
     <body>
-
 		<!-- START wrapper -->
 		<div id="wrapper">
 			
@@ -154,7 +124,7 @@ function update_quick_report(str, display_div_name){
 			           <br />
 			           
 			           <label for="list">List your IDs here:</label><br>
-			           <textarea rows=20 name="list" id="list"><?php echo $artifactIdsString; ?></textarea>
+			           <textarea rows=20 name="list" id="artifactList"><?php echo $artifactIdsString; ?></textarea>
 			           <input type="submit" name="run" value="Go!" />
 					</form>
 							
@@ -164,90 +134,63 @@ function update_quick_report(str, display_div_name){
 					<hr />
 					
 					<p>Mendeley profile <b>publicly available</b> publications:
-						<form name="mendeley_profile_form">
-			            	<label for="name_field"><em>http://www.mendeley.com/profiles/</em></label>
-				            <input name="name_field" type="text" size="20" placeholder="cameron-neylon"/>
-							<input value="Add IDs!" type="button" 
-								onclick='JavaScript:xmlhttpPost("./seed.php", "mendeley_profile", "mendeley_profile_form", 
-																"name_field", "mendeley_profile_div")'></p>
-
-							<div id="mendeley_profile_div">
-							</div>
-						</form>
-
+					<p><em>http://www.mendeley.com/profiles/</em>
+					<input id="mendeley_profile_input" name="profileId" type="text" size="20" value="cameron-neylon"/>
+					<button id="mendeley_profile">Add IDs!</button>
+					</p>
+					<div id="mendeley_profile_div">
+					</div>
 					<hr />
 			
-					<p>Mendeley public group papers:
-						<form name="mendeley_group_form">
-			            	<label for="name_field"><em>http://www.mendeley.com/group/</em></label>
-				            <input name="name_field" type="text" size="20" placeholder="1389803"/>
-							<input value="Add IDs!" type="button" 
-								onclick='JavaScript:xmlhttpPost("./seed.php", "mendeley_group", "mendeley_group_form", 
-																"name_field", "mendeley_group_div")'></p>
-
-							<div id="mendeley_group_div">
-							</div>
-						</form>
-
+					<p>Mendeley public group publications:
+					<p><em>http://www.mendeley.com/group/</em>
+				    <input id="mendeley_group_input" name="groupId" type="text" size="20" value="1389803"/>
+					<button id="mendeley_group">Add IDs!</button>
+					</p>
+					<div id="mendeley_group_div">
+					</div>
 					<hr />
 			
 					<p>Slideshare public slidedecks:
-						<form name="slideshare_profile_form">
-			            	<label for="name_field"><em>http://slideshare.net/</em></label>
-				            <input name="name_field" type="text" size="20" placeholder="cavlec"/>
-							<input value="Add IDs!" type="button" 
-								onclick='JavaScript:xmlhttpPost("./seed.php", "slideshare_profile", "slideshare_profile_form", 
-																"name_field", "slideshare_profile_div")'></p>
-
-							<div id="slideshare_profile_div">
-							</div>
-						</form>
-			
+					<p><em>http://www.slideshare.net/</em>
+				    <input id="slideshare_profile_input" name="slideshareName" type="text" size="20" value="cavlec"/>
+					<button id="slideshare_profile">Add IDs!</button>
+					</p>
+					<div id="slideshare_profile_div">
+					</div>
 					<hr />
 			        
-					<p>Dryad data packages <br>(dc:contributor.author value in "Show Full Metadata" from data package page):
-						<form name="dryad_profile_form">
-			            	<label for="name_field">Dryad author name</label>
-				            <input name="name_field" type="text" size="20" placeholder="Otto, Sarah P."/>
-							<input value="Add IDs!" type="button" 
-								onclick='JavaScript:xmlhttpPost("./seed.php", "dryad_profile", "dryad_profile_form", 
-																"name_field", "dryad_profile_div")'></p>
-
-							<div id="dryad_profile_div">
-							</div>
-						</form>
-
+					<p>Dryad data packages <br>(dc:contributor.author value in "Show Full Metadata"):
+					<p><em>Dryad author name</em>
+				    <input id="dryad_profile_input" name="dryadName" type="text" size="20" value="Otto, Sarah P."/>
+					<button id="dryad_profile">Add IDs!</button>
+					</p>
+					<div id="dryad_profile_div">
+					</div>
 					<hr />
 
 					<p>PubMed IDs through Grant Numbers<br>
-						<form name="pubmed_grant_form">
-			            	<label for="name_field">Grant number</label>
-				            <input name="name_field" type="text" size="20" placeholder="U54-CA121852"/>
-							<input value="Add IDs!" type="button" 
-								onclick='JavaScript:xmlhttpPost("./seed.php", "pubmed_grant", "pubmed_grant_form", 
-																"name_field", "pubmed_grant_div")'></p>
-
-							<div id="pubmed_grant_div">
-							</div>
-						</form>
+					<p><em>Grant number</em>
+				    <input id="pubmed_grant_input" name="grantId" type="text" size="20" value="U54-CA121852"/>
+					<button id="pubmed_grant">Add IDs!</button>
+					</p>
+					<div id="pubmed_grant_div">
+					</div>
+					<hr />
 						
 				</div>
 			</div>
 			
-			<div id="quickreport">
+			<div id="quick_report_section">
 			<h2><a name="quick">quick reports</a></h2>
 				
 				<p>Want to see a quick report for your Mendeley contacts or public groups?</p>
-					<form name="mendeley_profile_quick_form">
-		            	<label for="name_field"><em>http://www.mendeley.com/profiles/</em></label>
-			            <input name="name_field" type="text" size="20" placeholder="cameron-neylon"/>
-						<input value="Pull" type="button" 
-							onclick='JavaScript:xmlhttpPost("./seed.php", "mendeley_profile_quick", "mendeley_profile_quick_form", 
-															"name_field", "mendeley_profile_quick_div")'></p>
-
-						<div id="mendeley_profile_quick_div">
-						</div>
-					</form>
+		        <p><em>http://www.mendeley.com/profiles/</em>
+	            <input id="quick_report_input" name="profileId" type="text" size="20" value="cameron-neylon"/>
+				<button id="quick_report">Pull Mendeley links</button>
+				</p>
+				<div id="quick_report_div">
+				</div>
 			</div>
 						
 			<!-- END input -->
