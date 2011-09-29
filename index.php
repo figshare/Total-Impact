@@ -99,14 +99,14 @@ $(document).ready(function(){
 					}
 				}
 	     	?>
-	        	<p>Total-impact makes it quick and easy to view the impact of a wide range of research artifacts.</p>
+	        	<br/>Total-impact makes it quick and easy to view the impact of a wide range of research artifacts.
 	        </div>
 			<!-- END header -->
 
 			<!-- START instr -->
 
 	        <div id="instr">
-	            <p class="howto">Enter the identifiers for a collection of artifacts you want to track. We'll provide you a permanent URL to track statistics about this collection. You can peruse <a target="_blank" href="./report.php?id=hljHeI">a sample</a>, <a href="#quick">quick reports</a>, and <a href="#recent">recently-shared reports</a>.</p>
+	            <p class="howto">Enter the identifiers for a collection of artifacts you want to track. We'll provide you a permanent URL to track statistics about this collection. You can peruse <a target="_blank" href="./report.php?id=hljHeI">a sample</a> and <a href="#recent">recently-shared reports</a>.</p>
 	
 				<!--
 	            <p>To try it out, copy and paste these identifers below and hit <b>Go!</b> 
@@ -127,7 +127,7 @@ $(document).ready(function(){
 					<form name="id_form">
 					<fieldset><legend>Create a collection:</legend>
 			           <p><label for="list">List your IDs here</label><a class="tooltip" onmouseover="tooltip.show('Valid identifiers are: DOIs, Slideshare links, dataset IDs', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
-			           <textarea rows=20 name="list" id="artifactList"><?php echo $artifactIdsString; ?></textarea>
+			           <textarea rows=15 name="list" id="artifactList"><?php echo $artifactIdsString; ?></textarea>
 
 			           <p><label for="name">Name this collection</label><a class="tooltip" onmouseover="tooltip.show('You can add a custom name to identify this collection', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
 			           <input name="name" id="name" value="<?php echo $title; ?>" />
@@ -140,14 +140,14 @@ $(document).ready(function(){
 				<div id="col2">
 					<!--Want help gathering your IDs? Pull from these sources:-->
 					<fieldset><legend>Import from Mendeley</legend>
-					<p>Your Mendeley group URL<a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley to import the references shared within group</em>', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
+					<p class="prompt">Your Mendeley group URL<a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley to import the references shared within group</em>', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
 					<em class="url">http://www.mendeley.com/group/</em>
 				    <input id="mendeley_group_input" name="groupId" type="text" size="20" value="1389803"/>
 					<button id="mendeley_group">Import</button>
 					<div id="mendeley_group_div">
 					</div>
 
-					<p>Your Mendeley profile URL<a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley profile to import the references of your publications', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
+					<p class="prompt">Your Mendeley profile URL<a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley profile to import the references of your publications', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
 					<em class="url">http://www.mendeley.com/profiles/</em>
 					<table><tr><td>
 					<input id="mendeley_profile_input" name="profileId" type="text" size="20" value="cameron-neylon"/>
@@ -163,21 +163,11 @@ $(document).ready(function(){
 
 					</fieldset>
 
-					<!--
-					<fieldset id="quick_report_section" name="quick"><legend>Quick reports</legend>
-					<p>Retrieve IDs from your Mendeley contacts and public groups<a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley profile to retrieve publications for your contacts or your public groups', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
-			        <em class="url">http://www.mendeley.com/profiles/</em>
-		            <input id="quick_report_input" name="profileId" type="text" size="20" value="cameron-neylon"/>
-					<button id="quick_report">Import</button>
-					<div id="quick_report_div">
-					</div>
-					</fieldset>
-					-->
 				</div>
 			
 				<div id="col3">
 					<fieldset><legend>Import from Slideshare</legend>			
-					<p>Your Slideshare profile URL<a class="tooltip" onmouseover="tooltip.show('Fill in your Slideshare profile to import your public slidedecks', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
+					<p class="prompt">Your Slideshare profile URL<a class="tooltip" onmouseover="tooltip.show('Fill in your Slideshare profile to import your public slidedecks', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
 					<em class="url">http://www.slideshare.net/</em>
 				    <input id="slideshare_profile_input" name="slideshareName" type="text" size="20" value="cavlec"/>
 					<button id="slideshare_profile">Import</button>
@@ -186,19 +176,17 @@ $(document).ready(function(){
 					</fieldset>
 
 					<fieldset><legend>Import from Dryad</legend>						        
-					<p>Your Dryad author name<a class="tooltip" onmouseover="tooltip.show('Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve your datasets', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
+					<p class="prompt">Your Dryad author name<a class="tooltip" onmouseover="tooltip.show('Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve your datasets', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
 				    <input id="dryad_profile_input" name="dryadName" type="text" size="20" value="Otto, Sarah P."/>
 					<button id="dryad_profile">Import</button>
-					</p>
 					<div id="dryad_profile_div">
 					</div>
 					</fieldset>
 
 					<fieldset><legend>Import from PubMed</legend>
-					<p>Your Grant number<a class="tooltip" onmouseover="tooltip.show('Fill in your Grant number to retrieve publications from PubMed', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
+					<p class="prompt">Your Grant number<a class="tooltip" onmouseover="tooltip.show('Fill in your Grant number to retrieve publications from PubMed', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
 				    <input id="pubmed_grant_input" name="grantId" type="text" size="20" value="U54-CA121852"/>
 					<button id="pubmed_grant">Import</button>
-					</p>
 					<div id="pubmed_grant_div">
 					</div>
 					</fieldset>
@@ -226,7 +214,7 @@ $(document).ready(function(){
 					  interval: 30000,
 					  title: 'Recent public reports: "via @mytotalimpact"',
 					  subject: 'Tweet yours to see it here!',
-					  width: 'auto',
+					  width: "80%",
 					  height: 200,
 					  theme: {
 					    shell: {

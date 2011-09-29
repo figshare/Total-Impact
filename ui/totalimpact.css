@@ -9,7 +9,7 @@ body {
 
 #wrapper {
 	margin: 0px auto;
-	padding-top: 15px;
+	padding-top: 5px;
 	width: 1000px;
 	border-top: 8px solid #AAA;
 	border-bottom: 8px solid #AAA;
@@ -24,6 +24,7 @@ body {
 }
 
 #footer{
+	padding-top: 55px;
 }
 
 #col1 {
@@ -81,6 +82,11 @@ em.url {
 	color: #999;	
 }
 
+p.prompt {
+	padding: 0em;
+	font-size: 1em;    
+}
+
 p.howto {
 	width: 95%;
 	background-color: #EEE;
@@ -123,13 +129,14 @@ button:hover
 
 fieldset {
 	border: 1px solid #CCC;
-	margin-top:1em;
+	margin-top:0.5em;
 	margin-right:1em;
 }
 
 legend {
 	font-size: 1.2em;
 	color: #BBB;
+	padding:0;
 }
 
 /* custom classes */
@@ -141,7 +148,7 @@ legend {
 .entry .id {
 	font-size: 8pt;
 	padding-left: 18px;
-	padding-bottom: 8px;
+	padding-bottom: 4px;
 	
 }
 
