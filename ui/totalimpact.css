@@ -10,7 +10,7 @@ body {
 #wrapper {
 	margin: 0px auto;
 	padding-top: 15px;
-	width: 800px;
+	width: 1000px;
 	border-top: 8px solid #AAA;
 	border-bottom: 8px solid #AAA;
 }
@@ -18,7 +18,6 @@ body {
 #header {
 	font-size: 1.5em;
 	color: #BBB;
-	padding-bottom: 20px;
 }
 
 #input{
@@ -27,15 +26,23 @@ body {
 #footer{
 }
 
-#leftcol {
+#col1 {
 	float:left;
-	width: 49%;	
+	width: 32%;	
+	margin-right:1%;
 }
 
-#rightcol {
+#col2 {
 	float:left;
-	width: 49%;	
+	width: 32%;	
+	margin-right:1%;
 }
+
+#col3 {
+	float:left;
+	width: 33%;	
+}
+
 
 #metrics {
 /*	margin-top: -440px;*/
@@ -48,6 +55,10 @@ body {
 }
 
 /* HTML elements */
+
+h2 {
+	color: #933;	
+}
 
 h3 {
 	margin: 0px;
@@ -64,6 +75,20 @@ hr {
 	height: 1px;
 }
 
+em.url {
+	font-style: normal;
+	font-size: 90%;
+	color: #999;	
+}
+
+p.howto {
+	width: 95%;
+	background-color: #EEE;
+	color: #666;
+	padding: .6em;
+	font-size: 100%;
+	border: 1px solid #CCC;	
+}
 
 /* form elements */
 
@@ -74,6 +99,37 @@ textarea#list {
 input, textarea {
 	border: 1px solid #CCC;	
 	background-color: #EEE;	
+}
+
+button
+{
+	border-top: none;
+	border-left: none;	
+	border-bottom: 1px solid #EEE;
+	border-right: 1px solid #EEE;
+	background-color: #933;		
+	color: #FFF;
+}
+
+button:hover
+{
+	border-top: none;
+	border-left: none;	
+	border-bottom: 1px solid #EEE;
+	border-right: 1px solid #EEE;
+	background-color: #999;		
+	color: #FFF;
+}
+
+fieldset {
+	border: 1px solid #CCC;
+	margin-top:1em;
+	margin-right:1em;
+}
+
+legend {
+	font-size: 1.2em;
+	color: #BBB;
 }
 
 /* custom classes */
@@ -123,4 +179,44 @@ input, textarea {
 .section {
 	background: #eee;
 	padding-bottom: 55px;
+}
+
+/* tooltip */
+
+.tooltip, .trigger {
+	cursor: help;
+	padding-left:.2em;
+	font-size: .9em;
+	font-family: serif;
+}
+
+#tt {
+	position:absolute;
+	display:block;
+	background:url(img/tt_left.gif) top left no-repeat;
+}
+
+#tttop {
+	display:block;
+	height:5px;
+	margin-left:5px;
+	background:url(img/tt_top.gif) top right no-repeat;
+	overflow:hidden;
+}
+
+#ttcont {
+	display:block;
+	padding:2px 12px 3px 7px;
+	margin-left:5px;
+	background:#666;
+	color:#fff;
+	text-align: left;
+}
+
+#ttbot {
+	display:block;
+	height:5px;
+	margin-left:5px;
+	background:url(img/tt_bottom.gif) top right no-repeat;
+	overflow:hidden;
 }
