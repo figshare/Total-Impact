@@ -51,6 +51,8 @@ class Models_Collection {
      * @return StdClass A CouchDB response object
      */
     public function create($title, $idsStr, $config) {
+		$maxNumArtifacts = 250;
+		
         // sanitize inputs
         $title = ($title) ? strip_tags($title) : false;
 
@@ -62,10 +64,16 @@ class Models_Collection {
         $doc->created_at = (string)time();
         $doc->title = $title;
         $doc->artifact_ids = $this->idsFromStr($idsStr);
+
         $doc->aliases = new stdClass(); // we'll fill this later
         $doc->sources = new stdClass(); // we'll fill this later
         $doc->status = new stdClass(); // also for later
         $doc->last_updated_at = (string)time();
+
+		if (count($doc->artifact_ids) > $maxNumArtifacts) {
+			$doc->artifact_ids = array_slice($doc->artifact_ids, 0, $maxNumArtifacts);
+			$doc->status->user_alert_artifact_ids_truncated = "True";
+		}
 
         // put it in couchdb
         $couch = new Couch_Client($config->db->dsn, $config->db->name);
@@ -102,7 +110,7 @@ class Models_Collection {
 	**/
    public function queryPlugins($doc, $pluginQueryData, $pluginUrls, $pluginType) {
 		#FB::log($pluginUrls);
-		error_log("*******in queryPlugins", 0);
+		breadcrumb("*******in queryPlugins", 0);
 	
 		$pool = new HttpRequestPool();
 
@@ -121,7 +129,7 @@ class Models_Collection {
 			$doc->status->HttpRequestPoolException = "Plugin query success";
 		} catch (HttpRequestPoolException $e) {
 			$doc->status->HttpRequestPoolException = "HttpRequestPoolException:" . $e;
-			error_log($e, 0);
+			breadcrumb($e, 0);
 		}
 		
 		foreach ($pool as $request) {
@@ -131,7 +139,7 @@ class Models_Collection {
 				if (isset($pluginResponse)) {
 					$sourceName = $pluginResponse->source_name;
 	       			$doc->$pluginType->$sourceName = $pluginResponse;
-					error_log("Got response from " . $sourceName, 0);
+					breadcrumb("Got response from " . $sourceName);
 				}
 			}
 		}
@@ -142,7 +150,7 @@ class Models_Collection {
 	* Updates the collection by calling plugins and storing the $doc again
 	**/
 	public function callPluginsAndStoreDoc($collectionId, $config, $pluginList, $pluginQueryData, $pluginType) {
-		#error_log("*******in update", 0);
+		#breadcrumb("*******in update", 0);
 		$couch = new Couch_Client($config->db->dsn, $config->db->name);
 		
 		/* load the doc fresh from the DB to prevent conflicts */

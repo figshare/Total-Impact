@@ -120,6 +120,10 @@ class Models_Reporter {
 
 		#FB::log($sources);
 
+		if (isset($this->data->status->user_alert_artifact_ids_truncated)) {
+			$ret .= "<p>Article ID list was truncated to maximum length: 250 artifacts.</p>"; 
+		}
+
 		/* if no artifacts have metrics, add call here to printNothingHereMsg() */
         $genres = $this->sortByGenre($sources);
 		#FB::log($genres);
@@ -131,6 +135,7 @@ class Models_Reporter {
         }
 
         $ret .= "</div>";
+
         return $ret;
     }
 
@@ -167,7 +172,7 @@ class Models_Reporter {
 		$ret_string .= $this->render_status_of_metrics($this->data->sources);
 		
         $ret_string .= "</table>";
-		#error_log($ret_string, 0);
+		#breadcrumb($ret_string, 0);
         return($ret_string);
     }
 
