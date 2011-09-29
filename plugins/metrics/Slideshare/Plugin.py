@@ -93,7 +93,7 @@ class PluginClass(BasePluginClass):
         except:
             upload_year = ""
         
-        response = {"upload_year":upload_year, "downloads":downloads, "views":views, "comments":comments, "favorites":favorites, "title":title}
+        response = {"show_details_url":id, "upload_year":upload_year, "downloads":downloads, "views":views, "comments":comments, "favorites":favorites, "title":title}
         return(response)         
 
     # each plugin needs to write relevant versions of this

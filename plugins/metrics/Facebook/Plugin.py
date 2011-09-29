@@ -75,7 +75,7 @@ class PluginClass(BasePluginClass):
 
         (header, xml) = page
         soup = BeautifulStoneSoup(xml)
-        #print(soup)
+        #print(soup.prettify())
 
         try:
             like_count = int(soup.like_count.text)

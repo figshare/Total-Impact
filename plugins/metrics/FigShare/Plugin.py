@@ -3,15 +3,12 @@ import simplejson
 import json
 import urllib
 import urllib2
-import BeautifulSoup
-from BeautifulSoup import BeautifulStoneSoup
 import time
 import re
 import nose
 from nose.tools import assert_equals
 import sys
 import os
-
 # This hack is to add current path when running script from command line
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import BasePlugin
@@ -32,16 +29,17 @@ def skip(f):
 class PluginClass(BasePluginClass):
                            
     # each plugin needs to customize this stuff                
-    SOURCE_NAME = "pmid2doi"
-    SOURCE_DESCRIPTION = "PubMed comprises more than 21 million citations for biomedical literature from MEDLINE, life science journals, and online books."
-    SOURCE_URL = "http://www.ncbi.nlm.nih.gov/pubmed/"
-    SOURCE_ICON = "http://www.ncbi.nlm.nih.gov/favicon.ico"
-    SOURCE_METRICS = {}
+    SOURCE_NAME = "FigShare"
+    SOURCE_DESCRIPTION = "Publish ALL your data."
+    SOURCE_URL = "http://www.figshare.com/"
+    SOURCE_ICON = "http://www.figshare.com/figures/favicon.ico"
+    SOURCE_METRICS = dict(title="The title of the artifact", 
+                            page_views="The number of page views on FigShare")
 
     DEBUG = False
 
-    PUBMED_ESUMMARY_API_URL = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=%s&retmode=xml&tool=%s&email=%s"
-
+    FIGSHARE_API_URL = "http://figshare.com/labbook/api.php?handle=%s"
+    FIGSHARE_HANDLE_PATTERN = re.compile(r"hdl.handle.net/(?P<id>10779/\w+)")
 
     def get_page(self, url):
         if not url:
@@ -56,68 +54,60 @@ class PluginClass(BasePluginClass):
             page = None
         return(page)
 
-    def extract_stats(self, page, list_of_pmids):
+    def extract_stats(self, page, handle_id):
         if not page:
-            return([])     
+            return(None)        
         (response_header, content) = page
-    
-        response = []
-        soup = BeautifulStoneSoup(content)
-        #print soup.prettify()
-
-        for docsum in soup.findAll("docsum"):
-            #print(tag.id.text)
-            id = docsum.id.text
-            author_list = []
-            response_dict = {}
-            for item in docsum.findAll("item"):
-                if item.get("name") == "DOI":
-                    doi = item.text
-                    response_dict.update(doi=doi)
-                if item.get("name") == "pmc":
-                    pmcid = item.text
-                    share_details_url = "http://www.ncbi.nlm.nih.gov/pmc/articles/%s/citedby/?tool=pubmed" %pmcid
-                    response_dict.update(pmcid=pmcid, share_details_url=share_details_url)
-            response += [(id, response_dict)]
-
-        return(response)
+                
+        api_result = simplejson.loads(content)        
+        title = api_result["pagina"]
+        page_views = api_result["total"]
+            
+        metrics_dict = dict(title=title, page_views=page_views)
+        return(metrics_dict)
     
     
-    def get_dois_from_pmids(self, list_of_pmids):
-        string_of_lookups = ",".join(list_of_pmids)
-        url = self.PUBMED_ESUMMARY_API_URL % (string_of_lookups, self.TOOL_NAME, self.TOOL_EMAIL)
-        page = self.get_page(url)
+    def get_metric_values(self, id):
+        try:
+            handle_id = self.FIGSHARE_HANDLE_PATTERN.search(id).group("id")
+        except:
+            return ({})
+        query_url = self.FIGSHARE_API_URL % handle_id
+        page = self.get_page(query_url)
         if page:
-            response = self.extract_stats(page, list_of_pmids)    
+            response = self.extract_stats(page, handle_id)    
         else:
-            response = None
+            response = {}
         return(response)    
-                                
+
+    def is_figshare_handle(self, id):
+        response = (self.FIGSHARE_HANDLE_PATTERN.search(id) != None)
+        return(response)
+                                        
     def artifact_type_recognized(self, id):
-        response = self.is_pmid(id)
+        response = self.is_figshare_handle(id)
         return(response)   
         
-    def build_artifact_response(self, list_of_pmid_lookups):
-        metrics_response = self.get_dois_from_pmids(list_of_pmid_lookups)
+    def build_artifact_response(self, artifact_id):
+        metrics_response = self.get_metric_values(artifact_id)
+        metrics_response.update({"type":"dataset", "show_details_url":artifact_id})
         return(metrics_response)
-
-                        
+                
     def get_artifacts_metrics(self, query):
-        pmid_lookups = {}
-        for artifact_id in query:
-            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["pmid"])
-            if (artifact_id):
-                pmid_lookups[lookup_id] = artifact_id
-        artifact_response = self.build_artifact_response(pmid_lookups.keys())
-
         response_dict = dict()
-        if artifact_response:
-            for (lookup_id, response) in artifact_response:
-                response_dict[pmid_lookups[lookup_id]] = response
-            
         error = None
+        time_started = time.time()
+        for artifact_id in query:
+            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["url"])
+            if (artifact_id):
+                artifact_response = self.build_artifact_response(lookup_id)
+                if artifact_response:
+                    response_dict[artifact_id] = artifact_response
+            if (time.time() - time_started > self.MAX_ELAPSED_TIME):
+                error = "TIMEOUT"
+                break
         return(response_dict, error)
-      
+    
     
 class TestPluginClass(TestBasePluginClass):
 

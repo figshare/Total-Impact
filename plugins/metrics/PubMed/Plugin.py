@@ -11,7 +11,6 @@ import nose
 from nose.tools import assert_equals
 import sys
 import os
-
 # This hack is to add current path when running script from command line
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import BasePlugin
@@ -32,16 +31,15 @@ def skip(f):
 class PluginClass(BasePluginClass):
                            
     # each plugin needs to customize this stuff                
-    SOURCE_NAME = "pmid2doi"
+    SOURCE_NAME = "PubMed"
     SOURCE_DESCRIPTION = "PubMed comprises more than 21 million citations for biomedical literature from MEDLINE, life science journals, and online books."
     SOURCE_URL = "http://www.ncbi.nlm.nih.gov/pubmed/"
     SOURCE_ICON = "http://www.ncbi.nlm.nih.gov/favicon.ico"
-    SOURCE_METRICS = {}
+    SOURCE_METRICS = dict(citations_in_pmc="The number of times this DOI has been cited in papers in PubMed Central")
 
     DEBUG = False
 
     PUBMED_ESUMMARY_API_URL = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=%s&retmode=xml&tool=%s&email=%s"
-
 
     def get_page(self, url):
         if not url:
@@ -64,26 +62,30 @@ class PluginClass(BasePluginClass):
         response = []
         soup = BeautifulStoneSoup(content)
         #print soup.prettify()
-
+        
         for docsum in soup.findAll("docsum"):
             #print(tag.id.text)
             id = docsum.id.text
             author_list = []
-            response_dict = {}
             for item in docsum.findAll("item"):
-                if item.get("name") == "DOI":
-                    doi = item.text
-                    response_dict.update(doi=doi)
-                if item.get("name") == "pmc":
-                    pmcid = item.text
-                    share_details_url = "http://www.ncbi.nlm.nih.gov/pmc/articles/%s/citedby/?tool=pubmed" %pmcid
-                    response_dict.update(pmcid=pmcid, share_details_url=share_details_url)
-            response += [(id, response_dict)]
+                if item.get("name") == "PmcRefCount":
+                    citations_in_pmc = item.text
+                if item.get("name") == "Source":
+                    journal = item.text
+                if item.get("name") == "PubDate":
+                    year = item.text[0:4]
+                if item.get("name") == "Title":
+                    title = item.text
+                if item.get("name") == "Author":
+                    author_list += [item.text]
+            authors = ", ".join(author_list)
+            show_details_url = "http://www.ncbi.nlm.nih.gov/pmc/articles/pmid/%s/citedby/?tool=pubmed" %id
+            response += [(id, dict(type="article", pmid=id, show_details_url=show_details_url, citations_in_pmc=citations_in_pmc, journal=journal, year=year, title=title, authors=authors))]
 
         return(response)
     
     
-    def get_dois_from_pmids(self, list_of_pmids):
+    def get_metric_values(self, list_of_pmids):
         string_of_lookups = ",".join(list_of_pmids)
         url = self.PUBMED_ESUMMARY_API_URL % (string_of_lookups, self.TOOL_NAME, self.TOOL_EMAIL)
         page = self.get_page(url)
@@ -98,10 +100,9 @@ class PluginClass(BasePluginClass):
         return(response)   
         
     def build_artifact_response(self, list_of_pmid_lookups):
-        metrics_response = self.get_dois_from_pmids(list_of_pmid_lookups)
+        metrics_response = self.get_metric_values(list_of_pmid_lookups)
         return(metrics_response)
-
-                        
+                
     def get_artifacts_metrics(self, query):
         pmid_lookups = {}
         for artifact_id in query:
@@ -117,7 +118,7 @@ class PluginClass(BasePluginClass):
             
         error = None
         return(response_dict, error)
-      
+    
     
 class TestPluginClass(TestBasePluginClass):
 

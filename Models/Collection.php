@@ -16,7 +16,11 @@ class Models_Collection {
     * @return Array the lines from the string
     */
    private function idsFromStr($str){
-        $lines = preg_split("/[\s,]+/", $str);
+		if (strlen($str) > 0) {
+        	$lines = preg_split("/[\s,]+/", $str);
+		} else {
+			$lines = array();
+		}
         return $lines;
    }
 
@@ -60,7 +64,8 @@ class Models_Collection {
         $doc->artifact_ids = $this->idsFromStr($idsStr);
         $doc->aliases = new stdClass(); // we'll fill this later
         $doc->sources = new stdClass(); // we'll fill this later
-        $doc->updates = new stdClass(); // also for later
+        $doc->status = new stdClass(); // also for later
+        $doc->last_updated_at = (string)time();
 
         // put it in couchdb
         $couch = new Couch_Client($config->db->dsn, $config->db->name);
@@ -103,7 +108,9 @@ class Models_Collection {
 
         foreach ($pluginUrls as $sourceName=>$pluginUrl){
 			$request = new HttpRequest($pluginUrl, HTTP_METH_POST);
-			$request->setPostFields(array('query' => json_encode($pluginQueryData)));
+			$encoded_data = json_encode($pluginQueryData);
+			$doc->status->encoded_data = $encoded_data;
+			$request->setPostFields(array('query' => $encoded_data));
 			$request->setOptions(array('timeout' => 250));
 			#FB::log($request);
 	  		$pool->attach($request);			
@@ -111,7 +118,9 @@ class Models_Collection {
 
 		try {
 			$pool->send();
+			$doc->status->HttpRequestPoolException = "Plugin query success";
 		} catch (HttpRequestPoolException $e) {
+			$doc->status->HttpRequestPoolException = "HttpRequestPoolException:" . $e;
 			error_log($e, 0);
 		}
 		
@@ -121,15 +130,8 @@ class Models_Collection {
 	            $pluginResponse = json_decode($body);
 				if (isset($pluginResponse)) {
 					$sourceName = $pluginResponse->source_name;
-					#FB::log($sourceName);
-					#FB::log($pluginType);
-					#FB::log($pluginResponse);
-					#FB::log($doc);
-					#error_log($sourceName, 0);	
-					#error_log(serialize($pluginResponse), 0);	
 	       			$doc->$pluginType->$sourceName = $pluginResponse;
-					#FB::log($doc);
-					#FB::log("hi heather!");
+					error_log("Got response from " . $sourceName, 0);
 				}
 			}
 		}
@@ -139,14 +141,12 @@ class Models_Collection {
 	/**
 	* Updates the collection by calling plugins and storing the $doc again
 	**/
-	public function callPlugins($collectionId, $config, $pluginList, $pluginQueryData, $pluginType) {
+	public function callPluginsAndStoreDoc($collectionId, $config, $pluginList, $pluginQueryData, $pluginType) {
 		#error_log("*******in update", 0);
 		$couch = new Couch_Client($config->db->dsn, $config->db->name);
 		
 		/* load the doc fresh from the DB to prevent conflicts */
 		$doc = $couch->getDoc($collectionId);
-
-		#FB::log($pluginQueryData);
 
 		$doc = $this->queryPlugins($doc, $pluginQueryData, $pluginList, $pluginType); 
 		$response = $this->robustStoreDoc($doc, 0, $couch);
@@ -157,30 +157,46 @@ class Models_Collection {
 		$couch = new Couch_Client($config->db->dsn, $config->db->name);
 		$doc = $couch->getDoc($collectionId);
 		$pluginQueryData = new stdClass();
-		foreach ($doc->artifact_ids as $index => $id) {
-			$pluginQueryData->$id = new stdClass();
+		if (isset($doc->artifact_ids)) {
+			foreach ($doc->artifact_ids as $index => $id) {
+				$pluginQueryData->$id = new stdClass();
+			}
 		}
 		return($pluginQueryData);
+	}
+	
+	public function consolidateAliases($pluginQueryDataInitial, $doc) {
+		$pluginQueryDataResponse = $pluginQueryDataInitial;
+		foreach ($doc->aliases as $aliasName => $content) {
+			foreach ($content->artifacts as $artifactId => $aliases) {
+				foreach ($aliases as $idType => $alias) {
+					$pluginQueryDataResponse->$artifactId->$idType = $alias;
+				}
+			}
+		}	
+		return($pluginQueryDataResponse);	
 	}
 	
 	/**
 	* Updates the collection by calling plugins and storing the $doc again
 	**/
 	public function update($collectionId, $config) {
+		#get initial list
 		$pluginQueryData = $this->getArtifactsIds($collectionId, $config);
 		
-		$doc = $this->callPlugins($collectionId, $config, $config->plugins->alias, $pluginQueryData, "aliases");
-				
-		#FB::log($doc);
-		foreach ($doc->aliases as $aliasName => $content) {
-			foreach ($content->artifacts as $artifactId => $aliases) {
-				foreach ($aliases as $idType => $alias) {
-					$pluginQueryData->$artifactId->$idType = $alias;
-				}
-			}
+		# call alias plugins sequentially
+		$pluginUrls = $config->plugins->alias;
+		foreach ($pluginUrls as $sourceName=>$pluginUrl) {
+			$doc = $this->callPluginsAndStoreDoc($collectionId, $config, array($pluginUrl), $pluginQueryData, "aliases");
+			$pluginQueryData = $this->consolidateAliases($pluginQueryData, $doc);		
 		}
+			
+		#$pluginQueryData = $this->consolidateAliases($pluginQueryData, $doc);		
+		#FB::log($doc);
 		
-		$doc = $this->callPlugins($collectionId, $config, $config->plugins->source, $pluginQueryData, "sources");
+		# call metrics plugins in parallel
+        $doc->last_updated_at = (string)time();		
+		$doc = $this->callPluginsAndStoreDoc($collectionId, $config, $config->plugins->source, $pluginQueryData, "sources");
 	}
 
     /**

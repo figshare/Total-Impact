@@ -7,3 +7,4 @@
 
 for p in ./*/index.cgi; do echo "\n\n\n***$p***"; python "$p"; done
 
+# for p in ./*/index.cgi; do echo "\n\n\n***http://localhost/total-impact/plugins/metrics/$p***"; curl "http://localhost/total-impact/plugins/metrics/$p"; done

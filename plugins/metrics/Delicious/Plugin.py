@@ -3,15 +3,13 @@ import simplejson
 import json
 import urllib
 import urllib2
-import BeautifulSoup
-from BeautifulSoup import BeautifulStoneSoup
+import hashlib
 import time
 import re
 import nose
 from nose.tools import assert_equals
 import sys
 import os
-
 # This hack is to add current path when running script from command line
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import BasePlugin
@@ -32,16 +30,15 @@ def skip(f):
 class PluginClass(BasePluginClass):
                            
     # each plugin needs to customize this stuff                
-    SOURCE_NAME = "pmid2doi"
-    SOURCE_DESCRIPTION = "PubMed comprises more than 21 million citations for biomedical literature from MEDLINE, life science journals, and online books."
-    SOURCE_URL = "http://www.ncbi.nlm.nih.gov/pubmed/"
-    SOURCE_ICON = "http://www.ncbi.nlm.nih.gov/favicon.ico"
-    SOURCE_METRICS = {}
+    SOURCE_NAME = "Delicious"
+    SOURCE_DESCRIPTION = "The tastiest bookmarks on the web."
+    SOURCE_URL = "http://www.delicious.com/"
+    SOURCE_ICON = "http://www.delicious.com/favicon.ico"
+    SOURCE_METRICS = dict(bookmarks="The number of bookmarks to this artifact (maximum=100)")
 
     DEBUG = False
 
-    PUBMED_ESUMMARY_API_URL = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=%s&retmode=xml&tool=%s&email=%s"
-
+    DELICIOUS_API_URL = "http://feeds.delicious.com/v1/json/url/%s?count=100"
 
     def get_page(self, url):
         if not url:
@@ -56,68 +53,52 @@ class PluginClass(BasePluginClass):
             page = None
         return(page)
 
-    def extract_stats(self, page, list_of_pmids):
+    def extract_stats(self, page, url):
         if not page:
-            return([])     
+            return(None)        
         (response_header, content) = page
-    
-        response = []
-        soup = BeautifulStoneSoup(content)
-        #print soup.prettify()
-
-        for docsum in soup.findAll("docsum"):
-            #print(tag.id.text)
-            id = docsum.id.text
-            author_list = []
-            response_dict = {}
-            for item in docsum.findAll("item"):
-                if item.get("name") == "DOI":
-                    doi = item.text
-                    response_dict.update(doi=doi)
-                if item.get("name") == "pmc":
-                    pmcid = item.text
-                    share_details_url = "http://www.ncbi.nlm.nih.gov/pmc/articles/%s/citedby/?tool=pubmed" %pmcid
-                    response_dict.update(pmcid=pmcid, share_details_url=share_details_url)
-            response += [(id, response_dict)]
-
-        return(response)
+                
+        bookmarks_hits = re.findall('"dt":"', content, re.MULTILINE)            
+        metrics_dict = dict(bookmarks=len(bookmarks_hits))
+        return(metrics_dict)
     
     
-    def get_dois_from_pmids(self, list_of_pmids):
-        string_of_lookups = ",".join(list_of_pmids)
-        url = self.PUBMED_ESUMMARY_API_URL % (string_of_lookups, self.TOOL_NAME, self.TOOL_EMAIL)
-        page = self.get_page(url)
+    def get_metric_values(self, url):
+        md5_of_url = hashlib.md5(url).hexdigest()
+        query_url = self.DELICIOUS_API_URL % md5_of_url
+        page = self.get_page(query_url)
         if page:
-            response = self.extract_stats(page, list_of_pmids)    
+            show_details_url = "http://www.delicious.com/url/" + md5_of_url
+            response = {"show_details_url":show_details_url}
+            response.update(self.extract_stats(page, url))
         else:
             response = None
         return(response)    
                                 
     def artifact_type_recognized(self, id):
-        response = self.is_pmid(id)
+        response = self.is_url(id)
         return(response)   
         
-    def build_artifact_response(self, list_of_pmid_lookups):
-        metrics_response = self.get_dois_from_pmids(list_of_pmid_lookups)
+    def build_artifact_response(self, artifact_id):
+        metrics_response = self.get_metric_values(artifact_id)
+        metrics_response.update({"type":"unknown"})
         return(metrics_response)
-
-                        
+                
     def get_artifacts_metrics(self, query):
-        pmid_lookups = {}
-        for artifact_id in query:
-            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["pmid"])
-            if (artifact_id):
-                pmid_lookups[lookup_id] = artifact_id
-        artifact_response = self.build_artifact_response(pmid_lookups.keys())
-
         response_dict = dict()
-        if artifact_response:
-            for (lookup_id, response) in artifact_response:
-                response_dict[pmid_lookups[lookup_id]] = response
-            
         error = None
+        time_started = time.time()
+        for artifact_id in query:
+            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["url"])
+            if (artifact_id):
+                artifact_response = self.build_artifact_response(lookup_id)
+                if artifact_response:
+                    response_dict[artifact_id] = artifact_response
+            if (time.time() - time_started > self.MAX_ELAPSED_TIME):
+                error = "TIMEOUT"
+                break
         return(response_dict, error)
-      
+    
     
 class TestPluginClass(TestBasePluginClass):
 

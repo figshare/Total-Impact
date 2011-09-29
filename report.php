@@ -9,8 +9,23 @@ $collectionId = $_REQUEST['id'];
 $report = new Models_Reporter($couch, $collectionId);
 $res = $report->fetch();
 
-$rendered_report_text = $report->render();
-$rendered_about_text = $report->render_about_text();
+if (isset($_REQUEST['mode'])) {
+	$mode = $_REQUEST['mode'];
+} else {
+	$mode = "base";
+}
+
+if ($mode == "list") {
+	$rendered_report_text = $report->render_as_list();
+} elseif ($mode == "status") {
+	$rendered_report_text = $report->render_status();
+	$rendered_about_text = $report->render_about_text();	
+} else {
+	$mode = "base";
+	$rendered_report_text = $report->render(False);  //don't show zeros
+	$rendered_about_text = $report->render_about_text();	
+}
+
 
 // handle missing IDs more intelligently later
 if (!$res){ header('Location: ../'); }
@@ -18,6 +33,12 @@ if (!$res){ header('Location: ../'); }
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 		 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+            <?php
+				if ($mode=="list") {
+						echo '<head><meta http-equiv="content-type" content="text/plain; charset=utf-8" /></head>';
+						echo "<body>$rendered_report_text</body>";
+				} else {
+			?>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	    <title>Total Impact: <?php echo $report->getBestIdentifier() ?></title>
@@ -45,7 +66,7 @@ if (!$res){ header('Location: ../'); }
 		
 			<!-- START header -->
 	        <div id="header">
-	            <img src="./ui/img/ti_logo.png" alt="total-impact" width="200px" /> 
+	            <a href="./index.php"><img src="./ui/img/ti_logo.png" alt="total-impact" width='200px' /></a> 
 			</div>   
 			<!-- END header -->
 
@@ -62,12 +83,16 @@ if (!$res){ header('Location: ../'); }
 						<li><a href="./update.php?id=<?php echo $collectionId; ?>">Update now</a> (may take a few minutes)</li>
 						<li><a href="./index.php?add-id=<?php echo $collectionId; ?>">Start over with this seed</a></li>
 						<li><a href="./index.php">Start over fresh</a></li>
-					 	<li><a href="javascript:PopupRawReportText()">Download as text</a></li>
-					 	<li><a href="javascript:PopupRawCsv()">Download as CSV</a></li>
+					 	<li><a href="./report.php?id=<?php echo $collectionId; ?>&mode=list">View as plain text list</a></li>
+					 	<li><a href="./about.php">FAQ</a></li>
 						</ol>
 
 					<p>Stable url: <a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a></p>
 		        </div>
+				
+				<div class="disabled">
+					<p> Option to display only Fully Open metrics &#8212; those suitable for commercial use &#8212; coming soon!</p>
+				</div>
 				<!-- END report-meta -->
 
 				<!-- START metrics -->
@@ -81,6 +106,20 @@ if (!$res){ header('Location: ../'); }
 			<!-- END report -->
 
 		<!-- START footer -->
+			<p>Missing something? See <a href="./about.php#Limitations">current limitations.</a></p>
+			<p>Reactions and bugs welcome to <a href="http://twitter.com/#!/totalimpactdev">@totalimpactdev</a></p>
+			
+			Proud of your report?  Tweet it!
+			<!-- based on code here: https://dev.twitter.com/docs/tweet-button -->
+<script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
+<div>
+   <a href="https://twitter.com/share" class="twitter-share-button"
+      data-url="<?php echo "http://total-impact.org/report.php?id=" . $collectionId?>"
+      data-via="mytotalimpact"
+      data-text="<?php echo "Check out My Total Impact: " . $report->getBestIdentifier() . " at";?>"
+      data-count="horizontal">Tweet</a>
+</div>
+			
 		<div id="footer" class="section">
 		    <h3>Metrics are computed based on the following data sources:</h3>
 		
@@ -88,45 +127,15 @@ if (!$res){ header('Location: ../'); }
 			echo "$rendered_about_text";
 			?>
 		
-			<p>In this initial release, a snapshot of the impact data is captured the first time an url is displayed. In the future we are planning to periodically refresh the impact values.</p>
 		</div>
 		<!-- END footer -->
 		
-		<p><a href="https://cloudant.com/futon/document.html?total-impact%2Fdevelopment/<?php echo $_REQUEST['id']; ?>">Link to DB entry</a></p>
+		<p>Debugging: <a target="_blank" href="./report.php?id=<?php echo $collectionId; ?>&mode=status">Status log</a>, <a target="_blank" href="https://cloudant.com/futon/document.html?total-impact%2Fdevelopment/<?php echo $_REQUEST['id']; ?>">DB entry</a>
+		</p>
 		
-			<pre>
-			<script language="javascript" type="text/javascript">
-			<!---
-			function PopupRawReportText()
-			{
-				//console.log("got called");
 		
-				//console.log(str);
-				newwindow = window.open('','export',"width=320,height=210,scrollbars=yes");
-				var doc = newwindow.document;
-				doc.write("data:text/plain;charset=utf-8,");
-				<?php $raw_report_text = json_decode($report->render_as_plain_text()); ?>
-				doc.write("<?php echo $raw_report_text; ?><p>");
-				doc.close();
-					
-			}
-			function PopupRawCsv()
-			{
-				//console.log("got called");
-		
-				//console.log(str);
-				newwindow = window.open('','export',"width=320,height=210,scrollbars=yes");
-				var doc = newwindow.document;
-				doc.write("data:text/plain;charset=utf-8,");
-				<?php $raw_csv_text = json_decode($report->render_as_csv()); ?>
-				doc.write("<?php echo $raw_csv_text; ?><p>");
-				doc.close();
-					
-			}
-			-->
-			</script>
-			</pre>
 		</div>
 		<!-- END wrapper -->
 	</body>
+	<?php } ?>
 </html>

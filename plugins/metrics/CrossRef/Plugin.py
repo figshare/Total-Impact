@@ -41,59 +41,66 @@ class PluginClass(BasePluginClass):
 
     DEBUG = False
 
-    DOI_LOOKUP_URL = "http://dx.doi.org/%s"
-
-    def get_page(self, doi):
-        ## curl -D - -L -H "Accept: application/unixref+xml" "http://dx.doi.org/10.1126/science.1157784" 
-        if not doi:
+    CROSSREF_API_PATTERN = "http://doi.crossref.org/servlet/query?pid=mytotalimpact@gmail.com&qdata=%s&format=unixref"
+    
+    def get_page(self, doi_list):
+        ## see http://www.crossref.org/help/Content/05_Interfacing_with_the_CrossRef_system/Using_HTTP.htm
+        if not doi_list:
             return(None)
-        url = self.DOI_LOOKUP_URL % doi
+        doi_string = "%0A".join(doi_list)
+        url = self.CROSSREF_API_PATTERN % doi_string
         if (self.DEBUG):
             print url
-        try:
-            page = self.get_cache_timeout_response(url, header_addons={'Accept':'application/unixref+xml'})
-            if (self.DEBUG):
-                print page
-        except:
-            page = None
+        page = self.get_cache_timeout_response(url)
+        if (self.DEBUG):
+            print page
         return(page)
 
-    def extract_stats(self, page, doi):
-        # crossref extraction code based on example at https://gist.github.com/931878
+    def extract_stats(self, page, doi_list):
         if not page:
             return(None)        
         (response_header, content) = page
-    
-        soup = BeautifulStoneSoup(content)
-        try:
-            title = str(soup.title.text)
-            if (title == "DOI Not Found"):
-                return(None)
-        except:
-            title = ""
 
-        try:
-            year = str(soup.year.text)
-        except:
-            year = ""        
+        response = []
+        soup = BeautifulStoneSoup(content)
+        for doi_record in soup.findAll("doi_record"):
+            try:
+                doi = doi_record.journal_article.doi.text
+            except AttributeError:
+                doi = None
+                                
+            if doi:
+                try:
+                    title = str(doi_record.title.text)
+                    if (title == "DOI Not Found"):
+                        return(None)
+                except:
+                    title = ""
+
+                try:
+                    year = str(doi_record.year.text)
+                except:
+                    year = ""        
         
-        try:
-            journal = str(soup.abbrev_title.text)
-        except:
-            journal = ""
+                try:
+                    journal = str(doi_record.abbrev_title.text)
+                except:
+                    journal = ""
         
-        try:
-            authors = ", ".join([str(a.surname.text) for a in soup.findAll(contributor_role="author")])
-        except:
-            authors = ""
-       
-        response = dict(title=title, journal=journal, year=year, authors=authors)
+                try:
+                    authors = ", ".join([str(a.surname.text) for a in doi_record.findAll(contributor_role="author")])
+                except:
+                    authors = ""
+
+                show_details_url = "http://dx.doi.org/" + doi
+                
+                response += [(doi, dict(doi=doi, show_details_url=show_details_url, type="article", title=title, journal=journal, year=year, authors=authors))]
         return(response)  
     
-    def get_metric_values(self, doi):
-        page = self.get_page(doi)
+    def get_metric_values(self, list_of_dois):
+        page = self.get_page(list_of_dois)
         if page:
-            response = self.extract_stats(page, doi)    
+            response = self.extract_stats(page, list_of_dois)    
         else:
             response = None
         return(response)    
@@ -113,33 +120,30 @@ class PluginClass(BasePluginClass):
             is_recognized = False
         return(is_recognized)   
         
-    def build_artifact_response(self, artifact_id):
-        if self.is_crossref_doi(artifact_id):
-            doi = artifact_id
-        if not self.is_crossref_doi(doi):
-            return(None)
-        metrics_response = self.get_metric_values(doi)
-        if not metrics_response:
-            return(None)
-        response = dict(type="article")    
-        if metrics_response:
-            response.update(metrics_response)
-        return(response)
+    def build_artifact_response(self, list_of_doi_lookups):
+        metrics_response = self.get_metric_values(list_of_doi_lookups)
+        return(metrics_response)
         
     ## Crossref API doesn't seem to have limits, though we should check every few months to make sure still true            
     def get_artifacts_metrics(self, query):
-        response_dict = dict()
-        error = "NA"
-        time_started = time.time()
+        error = None
+        doi_lookups = {}
         for artifact_id in query:
             (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["doi"])
             if (artifact_id):
-                artifact_response = self.build_artifact_response(lookup_id)
-                if artifact_response:
-                    response_dict[artifact_id] = artifact_response
-            if (time.time() - time_started > self.MAX_ELAPSED_TIME):
-                error = "TIMEOUT"
-                break
+                doi_lookups[lookup_id] = artifact_id
+        artifact_response = self.build_artifact_response(doi_lookups.keys())
+
+        response_dict = dict()
+        if artifact_response:
+            for (lookup_id, response) in artifact_response:
+                try:
+                    corresponding_article_id = doi_lookups[lookup_id]
+                    response_dict[doi_lookups[lookup_id]] = response
+                except KeyError:
+                    self.status["key error"] = str(self.status["key error"]) + "; Trouble looking up " + lookup_id + " with response " + str(response)
+                    error = "KeyError: " + self.status["key error"]
+            
         return(response_dict, error)
     
     

@@ -7,6 +7,8 @@ import nose
 from nose.tools import assert_equals
 import sys
 import os
+import time
+
 # This hack is to add current path when running script from command line
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import BasePlugin
@@ -34,6 +36,7 @@ class PluginClass(BasePluginClass):
         url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?term=%s&email=%s" % (doi, self.TOOL_EMAIL)
         (response, xml) = self.get_cache_timeout_response(url)
         soup = BeautifulStoneSoup(xml)
+        #print soup.prettify()
         try:
             pmid = soup.id.string
         except AttributeError:
@@ -52,16 +55,18 @@ class PluginClass(BasePluginClass):
             response = {}
         return(response)
                 
-    ## Crossref API doesn't seem to have limits, though we should check every few months to make sure still true            
+    ## EUtils only wants 3 queries a second, so requiring a sleep
+    ## ref: http://eutils.ncbi.nlm.nih.gov/corehtml/query/static/eutils_help.html#UserSystemRequirements
     def get_artifacts_metrics(self, query):
         response_dict = dict()
-        error = "NA"
+        error = None
         time_started = time.time()
         for artifact_id in query:
             if self.artifact_type_recognized(artifact_id):
                 artifact_response = self.build_artifact_response(artifact_id)
                 if artifact_response:
                     response_dict[artifact_id] = artifact_response
+                time.sleep(1/3)
             if (time.time() - time_started > self.MAX_ELAPSED_TIME):
                 error = "TIMEOUT"
                 break

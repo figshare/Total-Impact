@@ -7,6 +7,8 @@ import urllib2
 import nose
 from nose.tools import assert_equals
 import os
+import collections
+from collections import defaultdict
 
 # Permissions: RWX for owner, WX for others.  Set this here so that .pyc are created with these permissions
 os.umask(022) 
@@ -35,6 +37,8 @@ class TestInput(object):
     TEST_INPUT_ALL.update(TEST_INPUT_BAD_DOI)
     TEST_INPUT_PMID = {"17808382":{"pmid":"17808382","doi":"10.1126/science.141.3579.392"}}
     TEST_INPUT_ALL.update(TEST_INPUT_PMID)
+    TEST_INPUT_FIGSHARE_HANDLE = {"http://hdl.handle.net/10779/51bbbd9afc8d13d7385f26b0817f304d":{"url":"http://hdl.handle.net/10779/51bbbd9afc8d13d7385f26b0817f304d"}}
+    TEST_INPUT_ALL.update(TEST_INPUT_FIGSHARE_HANDLE)
     TEST_INPUT_URL = {"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract":{"url":"http://onlinelibrary.wiley.com/doi/10.1002/asi.21512/abstract"}}
     TEST_INPUT_ALL.update(TEST_INPUT_URL)
     TEST_INPUT_DUD = {"NotAValidDOI":{"doi":"NotAValidDOI"}}
@@ -60,18 +64,24 @@ class BasePluginClass(object):
     
     # All CrossRef DOI prefixes begin with "10" followed by a number of four or more digits
     #f rom http://www.crossref.org/02publishers/doi-guidelines.pdf
+    DOI_PATTERN = re.compile(r"^10\.(\d)+/(\S)+$", re.DOTALL)
     CROSSREF_DOI_PATTERN = re.compile(r"^10\.(\d)+/(\S)+$", re.DOTALL)
 
     # PMIDs are 1 to 8 digit numbers, as per http://www.nlm.nih.gov/bsd/mms/medlineelements.html#pmid    
     PMID_PATTERN = re.compile(r"^\d{1,8}$", re.DOTALL)
 
+    TOOL_NAME = "total-impact.org"
     TOOL_EMAIL = "total-impact@googlegroups.com"
-    MAX_ELAPSED_TIME = 30 # seconds, part of plugin API specification
+    MAX_ELAPSED_TIME = 120 # seconds, part of plugin API specification
+    
+    CACHE_DIR = "../../.cache"  #so that all plugins, alias and metrics, running on this server can share cache
 
     DEBUG = False
-
+    
+    status = defaultdict(int)
+    
     def is_crossref_doi(self, id):
-        response = (self.CROSSREF_DOI_PATTERN.search(id) != None)
+        response = (self.DOI_PATTERN.search(id) != None)  ## Would exclude DataCite ids from here?
         return(response)
 
     def is_doi(self, id):
@@ -82,6 +92,11 @@ class BasePluginClass(object):
         response = (self.PMID_PATTERN.search(id) != None)
         return(response)
 
+    def is_mendeley_uuid(self, id):
+        MENDELEY_UUID_PATTERN = re.compile(r"^\S{8}-\S{4}-\S{4}-\S{4}-\S{12}$", re.DOTALL)
+        response = (MENDELEY_UUID_PATTERN.search(id) != None)
+        return(response)
+        
     def is_url(self, id):
         response = False
         try:
@@ -93,7 +108,13 @@ class BasePluginClass(object):
         
     def run_plugin(self, json_in):
         query = self.parse_input(json_in)
+        start_time = time.time()
         (artifacts, error_msg) = self.get_artifacts_metrics(query)
+
+        self.status["input_query_length"] = len(query.keys())
+        self.status["elapsed_time"] = "%.4f" %(time.time() - start_time)
+        self.status["response_length"] = len(artifacts.keys())
+
         json_out = self.build_json_response(artifacts, error_msg)
         return(json_out)
         
@@ -114,11 +135,17 @@ class BasePluginClass(object):
         else:
             has_error = "FALSE"
             error_msg = "NA"
+        self.status["has_error"] = has_error
+        self.status["error_msg"] = error_msg
+        last_update = time.time()
+        self.status["last_update"] = int(last_update)
+        self.status["last_update_str"] = time.ctime(last_update)
         response = dict(source_name=self.SOURCE_NAME, 
-            last_update=str(int(time.time())),
+            last_update=last_update,
             has_error=has_error,
             error_msg=error_msg, 
             about=self.build_about(),
+            status=self.status,
             artifacts=artifacts)
         json_response = simplejson.dumps(response)
         return(json_response)
@@ -128,17 +155,35 @@ class BasePluginClass(object):
                                     http_timeout_in_seconds = 20, 
                                     max_cache_age_seconds = (1) * (24 * 60 * 60), # (number of days) * (number of seconds in a day), 
                                     header_addons = {}):
-        http_cached = httplib2.Http(".cache", timeout=http_timeout_in_seconds)
+        http_cached = httplib2.Http(self.CACHE_DIR, timeout=http_timeout_in_seconds)
         header_dict = {'cache-control':'max-age='+str(max_cache_age_seconds)}
         header_dict.update(header_addons)
-        try:
+                
+        cache_read = http_cached.cache.get(url)
+        if (cache_read):
+            (response, content) = cache_read.split("\r\n\r\n", 1)
+        else:
             (response, content) = http_cached.request(url, headers=header_dict)
-        except:
-            #(response, content) = http_cached.request(url, headers=header_dict.update({'cache-control':'no-cache'}))
-            req = urllib2.Request(url, headers=header_dict)
-            uh = urllib2.urlopen(req)
-            content = uh.read()
-            response = uh.info()
+            response['cache-control'] = "max-age=" + str(max_cache_age_seconds)
+            httplib2._updateCache(header_dict, response, content, http_cached.cache, url)
+            if response.fromcache:
+                self.status["count_got_response_from_cache"] += 1
+            else:
+                self.status["count_missed_cache"] += 1
+                self.status["count_cache_miss_details"] = str(self.status["count_cache_miss_details"]) + "; " + url
+                self.status["count_cache_miss_response"] = str(response)
+                self.status["count_api_requests"] += 1
+                
+            if False:    
+                self.status["count_request_exception"] = "EXCEPTION!"
+                self.status["count_uncached_call"] += 1
+                self.status["count_api_requests"] += 1
+                #(response, content) = http_cached.request(url, headers=header_dict.update({'cache-control':'no-cache'}))
+                req = urllib2.Request(url, headers=header_dict)
+                uh = urllib2.urlopen(req)
+                content = uh.read()
+                response = uh.info()
+        
         return(response, content)
 
     # each plugin needs to write a get_page and extract_stats    
@@ -152,6 +197,8 @@ class BasePluginClass(object):
 
     def get_candidate_ids(self, artifact_id, aliases, fields):
         response = [artifact_id]
+        #flip the order of the fields so that the first one in the fields list ends up at the front of the response
+        fields.reverse()
         for field in fields:
             if aliases.has_key(field):
                 # The fields have priority over the artifact name itself

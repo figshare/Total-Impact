@@ -11,7 +11,6 @@ import nose
 from nose.tools import assert_equals
 import sys
 import os
-
 # This hack is to add current path when running script from command line
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import BasePlugin
@@ -32,16 +31,15 @@ def skip(f):
 class PluginClass(BasePluginClass):
                            
     # each plugin needs to customize this stuff                
-    SOURCE_NAME = "pmid2doi"
-    SOURCE_DESCRIPTION = "PubMed comprises more than 21 million citations for biomedical literature from MEDLINE, life science journals, and online books."
-    SOURCE_URL = "http://www.ncbi.nlm.nih.gov/pubmed/"
-    SOURCE_ICON = "http://www.ncbi.nlm.nih.gov/favicon.ico"
-    SOURCE_METRICS = {}
+    SOURCE_NAME = "Wikipedia"
+    SOURCE_DESCRIPTION = "Wikipedia is the free encyclopedia that anyone can edit."
+    SOURCE_URL = "http://www.wikipedia.org/"
+    SOURCE_ICON = "http://wikipedia.org/favicon.ico"
+    SOURCE_METRICS = dict(article_mentions="The number of articles that mention this artifact")
 
     DEBUG = False
 
-    PUBMED_ESUMMARY_API_URL = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=%s&retmode=xml&tool=%s&email=%s"
-
+    WIKIPEDIA_API_URL = "http://en.wikipedia.org/w/api.php?action=query&list=search&srprop=timestamp&format=xml&srsearch=%s"
 
     def get_page(self, url):
         if not url:
@@ -56,68 +54,56 @@ class PluginClass(BasePluginClass):
             page = None
         return(page)
 
-    def extract_stats(self, page, list_of_pmids):
+    def extract_stats(self, page, doi):
         if not page:
-            return([])     
+            return(None)        
         (response_header, content) = page
     
-        response = []
         soup = BeautifulStoneSoup(content)
-        #print soup.prettify()
-
-        for docsum in soup.findAll("docsum"):
-            #print(tag.id.text)
-            id = docsum.id.text
-            author_list = []
-            response_dict = {}
-            for item in docsum.findAll("item"):
-                if item.get("name") == "DOI":
-                    doi = item.text
-                    response_dict.update(doi=doi)
-                if item.get("name") == "pmc":
-                    pmcid = item.text
-                    share_details_url = "http://www.ncbi.nlm.nih.gov/pmc/articles/%s/citedby/?tool=pubmed" %pmcid
-                    response_dict.update(pmcid=pmcid, share_details_url=share_details_url)
-            response += [(id, response_dict)]
-
-        return(response)
+        try:
+            articles = soup.search.findAll(title=True)
+            metrics_dict = dict(article_mentions=len(articles))
+        except AttributeError:
+            metrics_dict = None
+            
+        return(metrics_dict)
     
     
-    def get_dois_from_pmids(self, list_of_pmids):
-        string_of_lookups = ",".join(list_of_pmids)
-        url = self.PUBMED_ESUMMARY_API_URL % (string_of_lookups, self.TOOL_NAME, self.TOOL_EMAIL)
+    def get_metric_values(self, doi):
+        url = self.WIKIPEDIA_API_URL % doi
         page = self.get_page(url)
         if page:
-            response = self.extract_stats(page, list_of_pmids)    
+            response = self.extract_stats(page, doi)    
         else:
             response = None
         return(response)    
                                 
     def artifact_type_recognized(self, id):
-        response = self.is_pmid(id)
+        response = self.is_doi(id)
         return(response)   
         
-    def build_artifact_response(self, list_of_pmid_lookups):
-        metrics_response = self.get_dois_from_pmids(list_of_pmid_lookups)
+    def build_artifact_response(self, artifact_id):
+        metrics_response = self.get_metric_values(artifact_id)
+        if metrics_response:
+            show_details_url = "http://en.wikipedia.org/wiki/Special:Search?search=" + artifact_id + "&go=Go"
+            metrics_response.update({"type":"unknown", "show_details_url":show_details_url})
         return(metrics_response)
-
-                        
+                
     def get_artifacts_metrics(self, query):
-        pmid_lookups = {}
-        for artifact_id in query:
-            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["pmid"])
-            if (artifact_id):
-                pmid_lookups[lookup_id] = artifact_id
-        artifact_response = self.build_artifact_response(pmid_lookups.keys())
-
         response_dict = dict()
-        if artifact_response:
-            for (lookup_id, response) in artifact_response:
-                response_dict[pmid_lookups[lookup_id]] = response
-            
         error = None
+        time_started = time.time()
+        for artifact_id in query:
+            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["doi"])
+            if (artifact_id):
+                artifact_response = self.build_artifact_response(lookup_id)
+                if artifact_response:
+                    response_dict[artifact_id] = artifact_response
+            if (time.time() - time_started > self.MAX_ELAPSED_TIME):
+                error = "TIMEOUT"
+                break
         return(response_dict, error)
-      
+    
     
 class TestPluginClass(TestBasePluginClass):
 

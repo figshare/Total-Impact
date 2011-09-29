@@ -41,8 +41,17 @@ class PluginClass(BasePluginClass):
         Biod="", 
         Nature="The number of blog articles in Nature Blogs that have mentioned an article.", 
         Connotea="The Connotea API does not respond in a timely manner.", 
-        Counter="the number of downloads of the PLoS article", 
-        PubMed_Central_Usage_Stats="HTML page views, PDF downloads and XML downloads for an article from PubMed Central.", 
+        PLoS_html_view="the number of downloads of the PLoS HTML article", 
+        PLoS_pdf_view="the number of downloads of the PLoS PDF article", 
+        PLoS_xml_view="the number of downloads of the PLoS XML article", 
+        PMC_abstract="the number of times the abstract has been viewed at PubMed Central (confirm)",
+        PMC_supp_data="the number of times the supplementary material has been viewed at PubMed Central (confirm)",
+        PMC_unique_ip="the number of unique IP addresses that have viewed the artifact at PubMed Central (confirm)",
+        PMC_pdf="the number of times the PDF has been viewed at PubMed Central (confirm)",
+        PMC_scanned_page_browse="the number of times the scanned pages have been viewed at PubMed Central, if applicable (confirm)",
+        PMC_cited_by="the number of times the article has been cited by other articles in PubMed Central (confirm)", 
+        PMC_scanned_summary="the number of times the scanned summary has been viewed at PubMed Central, if applicable (confirm)",
+        PMC_full_text="the number of times the full text has been viewed at PubMed Central (confirm)",
         CiteULike="The number of times that a user has bookmarked an article in CiteULike.", 
         Scopus="The citation data reported for an article from Scopus.", 
         PubMed_Central="The citation data reported for an article from PubMed Central", 
@@ -53,14 +62,16 @@ class PluginClass(BasePluginClass):
     DEBUG = False
 
     PLOS_API_KEY = "n0ixcSmyvDdRNsq"
-    PLOS_API_URL = "http://alm.plos.org/articles/info:doi/%s.xml?history=1&api_key=" + PLOS_API_KEY
-
+    PLOS_ALM_POOLED_API_URL = "http://alm.plos.org/articles/info:doi/%s.xml?history=1&api_key=" + PLOS_API_KEY
+    PLOS_ALM_PLOS_USAGE_API_URL = "http://alm.plos.org/articles/info:doi/%s.xml?source=counter&citations=1&api_key=" + PLOS_API_KEY
+    PLOS_ALM_PMC_USAGE_API_URL = "http://alm.plos.org/articles/info:doi/%s.xml?source=pmc&citations=1&history=1&api_key=" + PLOS_API_KEY
     PLOS_DOI_PATTERN = re.compile(r"10.1371/journal.p", re.DOTALL | re.IGNORECASE)
 
-    def get_page(self, doi):
-        if not doi:
+    PLOS_HOSTNAME_LOOKUP = dict(pone="plosone", pbio="plosbiology", pmed="plosmedicine", pcbi="ploscompbiol", pgen="plosgenetics", ppat="plospathogens", pntd="plosntds")
+    
+    def get_page(self, url):
+        if not url:
             return(None)
-        url = self.PLOS_API_URL % doi
         if (self.DEBUG):
             print url
         try:
@@ -71,29 +82,65 @@ class PluginClass(BasePluginClass):
             page = None
         return(page)
 
-    def extract_stats(self, page, doi):
+    def extract_stats_pooled(self, page, doi):
         if not page:
             return(None)        
         (response_header, content) = page
     
         soup = BeautifulStoneSoup(content)
-        counts = soup.findAll(count=True)
+        sources = soup.findAll(source=True)
                 
         metrics_dict = {}
-        for source in counts:
-            try:
+        for source in sources:
+            if not source["source"] in ["Counter", "PubMed Central Usage Stats"]:
                 metrics_dict[source["source"]] = source["count"]
-            except:
-                pass
+
         return(metrics_dict)
     
+    def extract_stats_general(self, page, doi, prefix, exclude_fields, aggregator):
+        if not page:
+            return({})        
+        (response_header, content) = page
     
+        soup = BeautifulStoneSoup(content)
+        #print soup.prettify()
+        try:
+            details = soup.details.findAll(year=True)
+        except AttributeError:
+            return({})
+            
+        metrics_dict = {}
+        all_exclude_fields = ["month", "year"] + exclude_fields
+        for (metric_name, metric_value) in details[0].attrs:
+            if metric_name not in all_exclude_fields:
+                metric_values = [int(details[i][metric_name]) for i in range(len(details))]
+                metrics_dict[prefix + metric_name] = aggregator(metric_values)
+        return(metrics_dict)
+                        
     def get_metric_values(self, doi):
-        page = self.get_page(doi)
+        response = {}
+        
+        # Get main alm stats
+        page = self.get_page(self.PLOS_ALM_POOLED_API_URL %doi)
         if page:
-            response = self.extract_stats(page, doi)    
-        else:
-            response = None
+            response.update(self.extract_stats_pooled(page, doi))
+            
+        # Get PLoS html, pdf views
+        page = self.get_page(self.PLOS_ALM_PLOS_USAGE_API_URL %doi)
+        if page:
+            response.update(self.extract_stats_general(page, doi, "PLoS_", [], sum))
+
+        # Get detailed PMC usage
+        page = self.get_page(self.PLOS_ALM_PMC_USAGE_API_URL %doi)
+        if page:
+            response.update(self.extract_stats_general(page, doi, "PMC_", [], sum))
+
+        journal_key = re.search("10.1371/journal.(?P<prefix>[a-z]+).\d+", doi)
+        prefix = journal_key.group("prefix")
+        plos_host = self.PLOS_HOSTNAME_LOOKUP[prefix]
+        show_details_url = "http://www.%s.org/article/metrics/info:doi/%s" %(plos_host, doi)
+        response["show_details_url"] = show_details_url
+        
         return(response)    
     
     def is_plos_doi(self, id):        
@@ -106,12 +153,13 @@ class PluginClass(BasePluginClass):
         
     def build_artifact_response(self, artifact_id):
         metrics_response = self.get_metric_values(artifact_id)
-        metrics_response.update({"type":"article"})
+        if metrics_response:
+            metrics_response.update({"type":"article"})
         return(metrics_response)
                 
     def get_artifacts_metrics(self, query):
         response_dict = dict()
-        error = "NA"
+        error = None
         time_started = time.time()
         for artifact_id in query:
             (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["doi"])

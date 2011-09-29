@@ -57,7 +57,7 @@ class Models_Reporter {
 			$sourceName = $source->source_name;
             $ret[$sourceName] = date($format, $source->last_update);
 		}
-		$max_updated = min($ret);
+		$max_updated = max($ret);
 
 		return($max_updated);
     }
@@ -113,7 +113,7 @@ class Models_Reporter {
 		return $ret;
     }
 
-    public function render() {
+    public function render($showZeros=True) {
 		$sources = $this->data->sources;
         $ret = '';
         $ret .= "<div id='rendered-report'>";
@@ -127,101 +127,133 @@ class Models_Reporter {
 		#FB::log($abouts);
         foreach ($genres as $genreName => $artifacts){
 			#FB::log($genreName);
-            $ret .= $this->printGenre($genreName, $artifacts, $abouts);
+            $ret .= $this->printGenre($genreName, $artifacts, $abouts, $showZeros);
         }
 
         $ret .= "</div>";
         return $ret;
     }
 
-    public function render_as_plain_text() {
-		#FB::log("render as plain text");
-		
-		$sources = $this->data->sources;
-		$ret_string = '';
-		
-		/* if no artifacts have metrics, add call here to printNothingHereMsg() */
-        $genres = $this->sortByGenre($sources);
-		
-        foreach ($genres as $genreName => $artifacts){
-			#FB::log($genreName);
-	
-			$ret_string .= "<h1>$genreName</h1>";
-	
-	        foreach ($artifacts as $id => $artifact){
-				$biblio = "";
-				$metrics = '';
-		        foreach ($artifact as $sourceName => $sourceData) {
-					if ($sourceName=="CrossRef") {
-			           	#$biblio = "$sourceData->authors ($sourceData->year) $sourceData->title. $sourceData->journal. $sourceData->doi, PMID:$sourceData->pmid, $sourceData->url";
-			           	$biblio .= "$sourceData->authors ($sourceData->year) $sourceData->title. $sourceData->journal.";
-					} elseif ($sourceName=="Slideshare") {
-			           	$biblio .= "$sourceData->title; (uploaded in $sourceData->upload_year) $id";
-					} elseif ($sourceName=="Dryad" and $genreName=="dataset") {
-			           	$biblio .= "$sourceData->authors ($sourceData->year) $sourceData->title, Dryad Data Repository. $id";
-					} else {
-						$biblio .= "";
-					}
-			       	foreach ($sourceData as $metricName => $metricValue){
-						if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
-			           		$metrics .= "$sourceName" . "_" . "$metricName: $metricValue;  ";					
-						}
-					}
-		        }		
-				$ret_string .= "$id<br/>$biblio<br/>$metrics<br/><p>";
-	        }
-        }
+	public function render_status_of_metrics($sources) {
+		$ret_string = "";
+        foreach ($sources as $sourceName => $sourceData) {
+			$ret_string .= '<tr><td>';
+           	$ret_string .= $sourceName;
+			$ret_string .= '</td><td>';
+			$statuses = $sourceData->status;
+	       	foreach ($statuses as $statusName => $statusValue){
+	           	$ret_string .= "<b>$statusName:</b>" . " $statusValue<br/>";					
+			}
+           	$ret_string .= "</td></tr>";
+        }			
+		return $ret_string;
+	}
 
-        return(json_encode($ret_string));
+    public function render_status() {
+		$ret_string = "";
+		$ret_string .= "<b>Collection status: </b><br/>";
+       	foreach ($this->data->status as $statusName => $statusValue){
+           	$ret_string .= "<b>$statusName:</b>" . " $statusValue<br/>";					
+		}
+		$ret_string .= " <b>Input ids:</b></br>";
+		$ids = $this->data->artifact_ids;
+		sort($ids);
+		foreach ($ids as $id) {
+			$ret_string .= "$id</br>";
+		}
+		$ret_string .= '<table border="1">';
+	
+		$ret_string .= $this->render_status_of_metrics($this->data->aliases);
+		$ret_string .= $this->render_status_of_metrics($this->data->sources);
+		
+        $ret_string .= "</table>";
+		#error_log($ret_string, 0);
+        return($ret_string);
     }
 
-    public function render_as_csv() {
+    public function render_as_list() {
 		
 		$sources = $this->data->sources;
 		$ret_string = '';
 		
-		/* if no artifacts have metrics, add call here to printNothingHereMsg() */
         $genres = $this->sortByGenre($sources);
         foreach ($genres as $genreName => $artifacts){
 	        foreach ($artifacts as $id => $artifact){
 				$metrics = '';
 		        foreach ($artifact as $sourceName => $sourceData) {
 			       	foreach ($sourceData as $metricName => $metricValue){
-			           		$metrics .= "$id|$genreName|$sourceName" . "_" . "$metricName|$metricValue<p>";					
+			           		$metrics .= "$id|$genreName|$sourceName" . "_" . "$metricName|$metricValue<br/>";					
 					}
 		        }		
 				$ret_string .= "$metrics";
 	        }
         }
 		#FB::log($ret_string);
-        return(json_encode($ret_string));
+        return($ret_string);
     }
 
-    private function printGenre($name, $artifacts, $abouts){
+    private function printGenre($name, $artifacts, $abouts, $showZeros){
         $ret = '';
         $ret .= "<div class='genre $name'><h2>$name</h2>";
         $ret .= "<ul>";
         foreach ($artifacts as $id => $artifact){
-            $ret .= $this->printArtifact($id, $artifact, $abouts);
+            $ret .= $this->printArtifact($id, $artifact, $abouts, $showZeros);
         }
         $ret .=  "</ul></div>";
         return $ret;
     }
 
-    private function printArtifact($id, $artifact, $abouts) {
+    private function printArtifact($id, $artifact, $abouts, $showZeros) {
         $ret = '';
         $ret .= "<li class='artifact'>";
         $ret .= "<h3>$id</h3>"; // here's where we'd print a name/title of the artifact if we had it.
         $ret .= "<ul class='source-list'>";
+
+		$biblioSources = array("CrossRef", "PubMed", "Mendeley");
+		$biblioSource = "";
+		foreach ($biblioSources as $candidateSource)	{
+			if (isset($artifact->$candidateSource)) {
+				if (isset($artifact->$candidateSource->title)) {
+					if (strlen($artifact->$candidateSource->title) > 0 ) {
+						$biblioSource = $candidateSource;
+						break;
+					}
+				}
+			}
+		}
         foreach ($artifact as $sourceName => $sourceData) {
-            $ret .= $this->printSource($id, $sourceName, $sourceData, $abouts);
+            $ret .= $this->printSource($id, $sourceName, $sourceData, $abouts, $biblioSource, $showZeros);
         }
         $ret .= "</ul></li>";
         return $ret;
 
     }
 
-    private function printSource($id, $sourceName, $sourceData, $abouts){
+	private function printMetric($sourceData, $showZeros) {
+		# First check to see if will render any metrics.  If not, don't show the sourceData.
+		$metrics_ret = "";
+       	foreach ($sourceData as $metricName => $metricValue) {
+			if ($showZeros or ($metricValue != 0)) {
+				if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
+					if (isset($sourceData->show_details_url)) {
+           				$metrics_ret .= "$metricName: <a target='_blank' href='$sourceData->show_details_url'>$metricValue</a>;\t";					
+					} else {
+           				$metrics_ret .= "<b>$metricName:</b> $metricValue;\t";					
+					}
+				}
+			}
+		}
+		return($metrics_ret);
+	}
+	
+    private function printSource($id, $sourceName, $sourceData, $abouts, $biblioSource, $showZeros) {
+
+		# First check to see if will render any metrics.  If not, don't show the sourceData.
+		$metrics_ret = $this->printMetric($sourceData, $showZeros);
+		if (($sourceName != $biblioSource) and (strlen($metrics_ret) == 0)) {
+			return("");
+		}
+		
         $Img = '';
         if (isset($abouts->$sourceName->icon)){
             if ($abouts->$sourceName->icon){
@@ -231,23 +263,28 @@ class Models_Reporter {
             }
         }
         $ret = '';
-        $ret .= "<li class='source $sourceName'>";
-        $ret .= "<h4>$Img$sourceName</h4>";
-		if ($sourceName=="CrossRef") {
-           	#$ret .= "$sourceData->authors ($sourceData->year) <a href='$sourceData->url'>$sourceData->title</a>. <em>$sourceData->journal.</em> $sourceData->doi, PMID:$sourceData->pmid";
-           	$ret .= "$sourceData->authors ($sourceData->year) $sourceData->title. <em>$sourceData->journal.</em>";
-		} elseif ($sourceName=="Slideshare") {
-           	$ret .= "<a href='$id'>$sourceData->title</a>; Uploaded in $sourceData->upload_year";
+        #$ret .= "<li class='source $sourceName'>";
+        #$ret .= "<h4>$Img$sourceName</h4>";
+        $ret .= "<div class='source $sourceName'>";
+        $ret .= "<p>$Img";
+		if ($sourceName=="CrossRef" and $biblioSource=="CrossRef") {
+           	$ret .= "$sourceData->authors ($sourceData->year) <a target='_blank'  href='http://dx.doi.org/$sourceData->doi'>$sourceData->title</a>  <em>$sourceData->journal.</em> http://dx.doi.org/$sourceData->doi";
+		} elseif ($sourceName=="PubMed" and $biblioSource=="PubMed") {
+           	$ret .= "$sourceData->authors ($sourceData->year) <a target='_blank'  href='http://www.ncbi.nlm.nih.gov/pubmed/$sourceData->pmid'>$sourceData->title</a> <em>$sourceData->journal.</em>$sourceData->pmid<br/>";
+		} elseif ($sourceName=="Mendeley" and $biblioSource=="Mendeley") {
+           	$ret .= "$sourceData->authors ($sourceData->year) <a target='_blank' href='$sourceData->url'>$sourceData->title</a> <em>$sourceData->journal.</em><br/>";
+		} 
+		if ($sourceName=="Slideshare") {
+           	$ret .= "<a href='$id'>$sourceData->title</a>; Uploaded in $sourceData->upload_year<br/>";
+		} elseif ($sourceName=="FigShare") {
+           	$ret .= "<a href='$id'>$sourceData->title</a>, <em>FigShare.</em> $id<br/>";
 		} elseif ($sourceName=="Dryad") {
-           	$ret .= "$sourceData->authors ($sourceData->year) <a href='$id'>$sourceData->title</a>, <em>Dryad Data Repository.</em> $id";
+           	$ret .= "$sourceData->authors ($sourceData->year) <a href='http://dx.doi.org/$sourceData->doi'>$sourceData->title</a> <em>Dryad Data Repository.</em> http://dx.doi.org/$sourceData->doi<br/>";
 		}
-        $ret .= "<p>";
-       	foreach ($sourceData as $metricName => $metricValue){
-			if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
-           		$ret .= "$metricName: $metricValue;\t";					
-			}
-		}
-		$ret .= "</li>";
+
+		$ret .= $metrics_ret;
+
+		$ret .= "</div>";
         return $ret;
     }
 
@@ -294,7 +331,15 @@ class Models_Reporter {
 		if (array_key_exists("article", $flipped)) {
 			$genre = "article";
 		} else {
+			# set to first as backup plan
 			$genre = reset($list_of_all);
+			# now iter and get the first that isn't "unknown" if there is one
+			foreach ($list_of_all as $candidate) {
+				if ($candidate != "unknown") {
+					$genre = $candidate;
+					break;
+				}
+			}
 		}
 		if (!isset($genre)) {
 			$genre = "unknown";

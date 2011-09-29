@@ -34,7 +34,10 @@ class PluginClass(BasePluginClass):
     SOURCE_DESCRIPTION = "An international repository of data underlying peer-reviewed articles in the basic and applied biology."
     SOURCE_URL = "http://www.datadryad.org/"
     SOURCE_ICON = "http://dryad.googlecode.com/svn-history/r4402/trunk/dryad/dspace/modules/xmlui/src/main/webapp/themes/Dryad/images/favicon.ico"
-    SOURCE_METRICS = dict(  page_views="the journal where the paper was published",
+    SOURCE_METRICS = dict(  total_page_views="combined number of views of the data package and data files",
+                            package_views="number of views of the main package page",    
+                            total_downlaods="combined number of downloads of the data package and data files",
+                            downloads_of_most_popular_file="number of downloads of the most commonly downloaded data package component",    
                             year="the year of the publication",
                             title="the title of the publication", 
                             authors="the authors of the publication")
@@ -42,7 +45,8 @@ class PluginClass(BasePluginClass):
     DEBUG = False
 
     DRYAD_DOI_URL = "http://dx.doi.org/"
-    DRYAD_VIEWS_PATTERN = re.compile("(?P<views>\d+) views", re.DOTALL)
+    DRYAD_VIEWS_PACKAGE_PATTERN = re.compile("(?P<views>\d+) views</span>", re.DOTALL)
+    DRYAD_VIEWS_FILE_PATTERN = re.compile("(?P<views>\d+) views\S", re.DOTALL)
     DRYAD_DOWNLOADS_PATTERN = re.compile("(?P<downloads>\d+) downloads", re.DOTALL)
     DRYAD_CITATION_PATTERN = re.compile('please cite the Dryad data package:.*<blockquote>(?P<authors>.+?)\((?P<year>\d{4})\).*(?P<title>Data from.+?)<span>Dryad', re.DOTALL)
 
@@ -68,18 +72,24 @@ class PluginClass(BasePluginClass):
         if not page:
             return(None)        
         (response_header, content) = page
-    
-        view_matches = self.DRYAD_VIEWS_PATTERN.finditer(content)
+        
+        view_matches_package = self.DRYAD_VIEWS_PACKAGE_PATTERN.finditer(content)
+        view_matches_file = self.DRYAD_VIEWS_FILE_PATTERN.finditer(content)
         try:
-            views = sum([int(view_match.group("views")) for view_match in view_matches])
+            view_package = max([int(view_match.group("views")) for view_match in view_matches_package])
+            file_total_views = sum([int(view_match.group("views")) for view_match in view_matches_file]) - view_package
         except ValueError:
-            views = None
-
+            max_views = None
+            total_views = None
+        
         download_matches = self.DRYAD_DOWNLOADS_PATTERN.finditer(content)
         try:
-            downloads = sum([int(download_match.group("downloads")) for download_match in download_matches])
+            downloads = [int(download_match.group("downloads")) for download_match in download_matches]
+            total_downloads = sum(downloads)
+            max_downloads = max(downloads)
         except ValueError:
-            downloads = None
+            total_downloads = None
+            max_downloads = None
 
         citation_matches = self.DRYAD_CITATION_PATTERN.search(content)
         try:
@@ -91,7 +101,9 @@ class PluginClass(BasePluginClass):
             year = None
             title = None
                 
-        return({"page_views":views, "total_downloads":downloads, "title":title, "year":year, "authors":authors})
+        show_details_url = "http://dx.doi.org/" + doi
+                
+        return({"show_details_url":show_details_url, "total_file_views":file_total_views, "package_views":view_package, "total_downloads":total_downloads, "downloads_of_most_popular_file":max_downloads, "title":title, "year":year, "authors":authors})
     
     
     def get_metric_values(self, doi):
@@ -112,12 +124,12 @@ class PluginClass(BasePluginClass):
         
     def build_artifact_response(self, artifact_id):
         metrics_response = self.get_metric_values(artifact_id)
-        metrics_response.update({"type":"dataset"})
+        metrics_response.update({"type":"dataset", "doi":artifact_id})
         return(metrics_response)
                 
     def get_artifacts_metrics(self, query):
         response_dict = dict()
-        error = "NA"
+        error = None
         time_started = time.time()
         
         for artifact_id in query:
