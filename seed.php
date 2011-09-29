@@ -1,7 +1,7 @@
 <?php require_once './bootstrap.php'; 
 
 	function runseed($name, $type) {
-		error_log("in seed with " . $name . " " . $type);
+		breadcrumb("in seed with " . $name . " " . $type);
 	
 		$seed = new Models_Seeder();
 		$artifactIds = array();
@@ -28,17 +28,18 @@
 			$detailList = $seed->getPubMedGrantArtifacts($name);
 			$detailString = implode("\n", $detailList); # \n has to be in DOUBLE quotes not single quotes
 			$response = array("artifactIds"=>$detailString, "artifactCount"=>count($detailList));
-		} elseif ($type=="quick_report") {
-			$groups = $seed->getMendeleyProfileGroupsDisplay($name);
+		} elseif ($type=="quick_report_contacts") {
 			$contacts = $seed->getMendeleyProfileContactsDisplay($name);
-			$response = array("groups"=>$groups, "contacts"=>$contacts);
+			$response = array("contacts"=>$contacts);
+		} elseif ($type=="quick_report_groups") {
+			$groups = $seed->getMendeleyProfileGroupsDisplay($name);
+			$response = array("groups"=>$groups);
 		}
 
 		return($response);
 	}
 	
-	error_log("in seed.php");
-	error_log($_SERVER['QUERY_STRING']);
+	breadcrumb("finished seed.php");
 	echo json_encode(runseed(trim($_REQUEST['name']), trim($_REQUEST['type'])));
 	
 ?>
