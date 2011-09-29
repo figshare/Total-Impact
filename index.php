@@ -152,9 +152,9 @@ $(document).ready(function(){
 					<table><tr><td>
 					<input id="mendeley_profile_input" name="profileId" type="text" size="20" value="cameron-neylon"/>
 					</td><td>
-					<br/><button id="mendeley_profile">Import my pubs</button>
-					<br/><button id="quick_report_contacts">My contacts</button><a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley profile to get direct links to reports for your contacts', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a>
-					<br/><button id="quick_report_groups">My groups</button><a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley profile to get direct links to reports for your PUBLIC groups', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a>
+					<br/><button id="mendeley_profile">Import profile pubs</button>
+					<br/><button id="quick_report_contacts">Pull my contacts</button><a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley profile to get direct links to reports for your contacts', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a>
+					<br/><button id="quick_report_groups">Pull my groups</button><a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley profile to get direct links to reports for your PUBLIC groups', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a>
 					</td></tr></table>
 					<div id="mendeley_profile_div">
 					</div>
