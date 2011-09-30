@@ -190,7 +190,7 @@ $(document).ready(function(){
 					<div id="pubmed_grant_div">
 					</div>
 					</fieldset>
-				<p>Something missing on import?<br/> See a list of <a href="./about.php#Limitations">current limitations.</a> </p>
+				<p>Something missing on import?<br/> See a list of <a href="./about.php#limitations">current limitations.</a> </p>
 				</div>
 
 
