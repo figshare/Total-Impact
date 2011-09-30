@@ -129,7 +129,7 @@ $(document).ready(function(){
 				<div id="col1">
 					<form name="id_form">
 					<fieldset><legend>Create a collection:</legend>
-			           <p><label for="list">List your IDs here</label><a class="tooltip" onmouseover="tooltip.show('Valid identifiers are: DOIs, Slideshare links, dataset IDs', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
+			           <p><label for="list">List your IDs here</label><a class="tooltip" onmouseover="tooltip.show('Valid identifiers are: DOIs, Slideshare links, dataset IDs separated by newlines.  For example, 10.1371/journal.pbio.0050082 10.1371/journal.pone.0000308 http://www.slideshare.net/phylogenomics/eisenall-hands 10.5061/dryad.8384 GSE2109', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
 			           <textarea rows=15 name="list" id="artifactList"><?php echo $artifactIdsString; ?></textarea>
 
 			           <p><label for="name">Name this collection</label><a class="tooltip" onmouseover="tooltip.show('You can add a custom name to identify this collection', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
