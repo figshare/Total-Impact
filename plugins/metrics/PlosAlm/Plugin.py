@@ -34,7 +34,7 @@ class PluginClass(BasePluginClass):
     SOURCE_NAME = "PlosAlm"
     SOURCE_DESCRIPTION = "PLoS article level metrics."
     SOURCE_URL = "http://www.plos.org/"
-    SOURCE_ICON = "http://plos.org/favicon.ico"
+    SOURCE_ICON = "http://a0.twimg.com/profile_images/67542107/Globe_normal.jpg"
     SOURCE_METRICS = dict(  Postgenomic="This service was discontinued by Nature Publishing Group in 2009.", 
         Web_of_Science="The citation data reported for an article from Web of Science.", 
         Bloglines="This service no longer responds to API requests.", 

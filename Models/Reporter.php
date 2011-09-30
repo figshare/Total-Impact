@@ -99,7 +99,7 @@ class Models_Reporter {
 			$ret .= '<ul type="square" class="body">';
             $icon = $about->icon;
        		$Url = $about->url;
-            $ret .= "<a href='$Url'><img src='$icon' border=0 alt='' />$sourceName</a> ";
+            $ret .= "<a href='$Url'><img src='$icon' width='16'' height='16' border=0 alt='' />$sourceName</a> ";
             $ret .= $about->desc;
             $ret .= "<br>";
 	       	foreach ($about->metrics as $metricName => $metricDescription){
@@ -264,7 +264,7 @@ class Models_Reporter {
             if ($abouts->$sourceName->icon){
                 $icon = $abouts->$sourceName->icon;
         		$Url = $abouts->$sourceName->url;
-                $Img = "<a href='$Url'><img src='$icon' border=0 alt='' /></a>";
+                $Img = "<a href='$Url'><img src='$icon' width='16'' height='16' border=0 alt='' /></a>";
             }
         }
         $ret = '';

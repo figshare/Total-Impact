@@ -36,7 +36,7 @@ class PluginClass(BasePluginClass):
     SOURCE_ICON = "http://dryad.googlecode.com/svn-history/r4402/trunk/dryad/dspace/modules/xmlui/src/main/webapp/themes/Dryad/images/favicon.ico"
     SOURCE_METRICS = dict(  total_page_views="combined number of views of the data package and data files",
                             package_views="number of views of the main package page",    
-                            total_downlaods="combined number of downloads of the data package and data files",
+                            total_downloads="combined number of downloads of the data package and data files",
                             downloads_of_most_popular_file="number of downloads of the most commonly downloaded data package component",    
                             year="the year of the publication",
                             title="the title of the publication", 
