@@ -75,27 +75,40 @@ if (!$res){ header('Location: ../'); }
 		        <h2>Impact report for <?php echo $report->getBestIdentifier(); ?></h2>
 				<!-- START report-meta -->
 		        <div id="report-meta">
-		            <p>Created <span class="created-at"><?php echo $report->getCreatedAt('j M, Y');?></span>
-		                with <span class="artifacts-count"><?php echo $report->getArtifactsCount(); ?></span>
-		                research artifacts.</p>
-					<p>Last updated at <span class="updated-at"><?php echo $report->getUpdatedAt('j M, Y');?>. </span></p>
-						<ol>							
-						<li><a href="./update.php?id=<?php echo $collectionId; ?>">Update now</a> (may take a few minutes)</li>
-						<li><a href="./index.php?add-id=<?php echo $collectionId; ?>">Start over with this seed</a></li>
-						<li><a href="./index.php">Start over fresh</a></li>
-					 	<li><a href="./report.php?id=<?php echo $collectionId; ?>&mode=list">View as plain text list</a></li>
-					 	<li><a href="./about.php">FAQ</a></li>
-						</ol>
-
-					<p>Stable url: <a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a></p>
+					<div class="floatl" id="permalink">Permalink: <a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a></div>
+		        	<div class="clearl badge floatl artifacts-count"><?php echo $report->getArtifactsCount(); ?> artifacts</div> 
+		        	<div class="badge floatl created-at">created <?php echo $report->getCreatedAt('j M, Y');?></div>
+		        	<div class="badge floatl updated-at">updated <?php echo $report->getUpdatedAt('j M, Y');?></div>	        	
+					<!-- based on code here: https://dev.twitter.com/docs/tweet-button -->
+					<script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
+					<div class="clearl">
+					  <a href="https://twitter.com/share" class="twitter-share-button"
+					  data-url="<?php echo "http://total-impact.org/report.php?id=" . $collectionId?>"
+					  data-via="mytotalimpact"
+					  data-text="<?php echo "Check out My Total Impact: " . $report->getBestIdentifier() . " at";?>"
+					  data-count="horizontal">Tweet</a>
+					</div>
+						<!-- @@@ replace these links with an action form?
+						<ol class="clearl">
+							<li><a href="./update.php?id=<?php echo $collectionId; ?>">Update now</a> (may take a few minutes)</li>
+							<li><a href="./index.php?add-id=<?php echo $collectionId; ?>">Start over with this seed</a></li>
+					 		<li><a href="./report.php?id=<?php echo $collectionId; ?>&mode=list">View as plain text list</a></li>
+					 	</ol>
+						<!-- @@@ drop these two links as they are navigational -->
+						<!--<li><a href="./index.php">Start over fresh</a></li>-->
+					 	<!--<li><a href="./about.php">FAQ</a></li>-->
 		        </div>
 				
+				<!-- @@@ temporarily removed this (not quite sure what this means)
 				<div class="disabled">
 					<p> Option to display only Fully Open metrics &#8212; those suitable for commercial use &#8212; coming soon!</p>
 				</div>
+				-->
 				<!-- END report-meta -->
 
 				<!-- START metrics -->
+				<!-- @@@ we could use large icons to visually identify different types of artifacts -->
+				<!-- @@@ it'd be useful to separate artifact metadata from artifact metrics, Slideshare and Dryad display both in the same element -->
 		        <div id="metrics">
 		            <?php
 						echo "$rendered_report_text";
@@ -108,18 +121,7 @@ if (!$res){ header('Location: ../'); }
 		<!-- START footer -->
 			<p>Missing something? See <a href="./about.php#Limitations">current limitations.</a></p>
 			<p>Reactions and bugs welcome to <a href="http://twitter.com/#!/totalimpactdev">@totalimpactdev</a></p>
-			
-			Proud of your report?  Tweet it!
-			<!-- based on code here: https://dev.twitter.com/docs/tweet-button -->
-<script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
-<div>
-   <a href="https://twitter.com/share" class="twitter-share-button"
-      data-url="<?php echo "http://total-impact.org/report.php?id=" . $collectionId?>"
-      data-via="mytotalimpact"
-      data-text="<?php echo "Check out My Total Impact: " . $report->getBestIdentifier() . " at";?>"
-      data-count="horizontal">Tweet</a>
-</div>
-			
+						
 		<div id="footer" class="section">
 		    <h3>Metrics are computed based on the following data sources:</h3>
 		

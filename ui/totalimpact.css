@@ -46,13 +46,18 @@ body {
 
 
 #metrics {
-/*	margin-top: -440px;*/
-	margin-left: 50px;
+	padding-top: 2em;
+	clear:both;
 }
 
 #outputs {
 	font-size: 10pt;
 	float: right;
+}
+
+#report-meta {
+	font-size: 90%;
+	padding: .5em;
 }
 
 /* HTML elements */
@@ -94,6 +99,28 @@ p.howto {
 	padding: .6em;
 	font-size: 100%;
 	border: 1px solid #CCC;	
+}
+
+p.sp {
+	margin-top: 2em;	
+	margin-bottom: 0;	
+}
+
+li.artifact {
+	list-style-type: none;
+	border: 1px solid #CCC;
+	padding: 1em;
+	margin-bottom: 1em;
+}
+
+li.artifact h3 {
+	font-weight: normal;
+	margin-top: 0;
+	color: #AAA;
+}
+
+ul.source-list {
+	padding: 0;	
 }
 
 /* form elements */
@@ -184,9 +211,14 @@ legend {
 }
 
 .section {
-	background: #eee;
-	padding-bottom: 55px;
 }
+
+div#footer {
+	margin-top: 2em;	
+	background-color: #EEE;
+	padding: 1em 2em 3em 2em;
+}
+
 
 /* tooltip */
 
@@ -226,4 +258,48 @@ legend {
 	margin-left:5px;
 	background:url(img/tt_bottom.gif) top right no-repeat;
 	overflow:hidden;
+}
+
+.badge  {
+	margin-top: 3px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+    background: #EEE;
+    padding: 2px 3px;
+	border: 1px solid #CCC;
+    -webkit-border-radius: 3px;    /* CSS3 rounded borders for Safari                    */
+    -moz-border-radius: 3px;       /* CSS3 rounded borders for Firefox                   */
+    border-radius: 3px;	
+	text-shadow: 1px 1px 0px #FFF;	
+	font-size: 90%;
+	text-decoration: none;
+	color: #999;
+}
+
+#permalink  {
+	margin-top: 3px;
+	margin-right: 5px;
+	margin-bottom: 3px;
+    padding: 2px 3px;
+	border: 1px solid #CCC;
+    -webkit-border-radius: 3px;    /* CSS3 rounded borders for Safari                    */
+    -moz-border-radius: 3px;       /* CSS3 rounded borders for Firefox                   */
+    border-radius: 3px;	
+	text-shadow: 1px 1px 0px #FFF;	
+	font-size: 90%;
+	text-decoration: none;
+	color: #999;
+}
+
+#permalink a {
+	text-decoration: none;
+}
+
+.floatl {
+	float: left;
+	margin-right: .5em;	
+}
+
+.clearl {
+	clear: left;
 }
