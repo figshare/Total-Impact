@@ -49,7 +49,7 @@ $rendered_about_text = $report->render_about_text();
 
 	        <div id="instr">
 
-<h2><a NAME="what">what is total-impact?</a></h2>
+<h2><a>what is total-impact?</a></h2>
 
 <p>Total-impact makes it quick and easy to view the impact of a wide range of research artifacts.  It goes beyond traditional measurements of research output -- citations to papers -- to embrace a much broader evidence of use across a wide range of scholarly output types. The system aggregates impact data from many sources and displays it in a single report, which is given a permaurl for dissemination and can be updated any time.
 
@@ -80,21 +80,20 @@ Total-impact data can be:
 
 <ul>
 <li><b>as indication of comprehensive impact</b>
-<p>total-impact is in early development.  see limitations.  Numbers should be considered minimums.
+<p>Total-impact is in early development.  See <a href="#limitations">limitations</a> and take it all with a grain of salt.
 
 <li><b>for serious comparison</b>
-<p>Total-impact is currently better at collecting comprehensive metrics for some artifacts than others, in ways that are not clear in the report.  Extreme care should be taken in comparisons.  Numbers should be considered mimimums.
-between artifacts, and certainly between reports generated through the ID-pulling features.  See “what have we learned” for some of the outstanding challenges in doing this better.  Also, some of these metrics can be easily gamed.  This is one reason we believe having many metrics is better.
+<p>Total-impact is currently better at collecting comprehensive metrics for some artifacts than others, in ways that are not clear in the report.  Extreme care should be taken in comparisons.  Numbers should be considered minimums.  Even more care should be taken in comparing collections of artifacts, since some total-impact is currently better at identifying artifacts identified in some ways than others.  Finally, some of these metrics can be easily gamed.  This is one reason we believe having many metrics is valuable.
 
 <li><b>as if we knew exactly what it means</b>
-<p>the meaning of these metrics are not yet well understood; see the section below
+<p>The meaning of these metrics are not yet well understood; see <a href="#meaning">section</a> below.
 
 <li><b>as a substitute for personal judgement of quality</b>
-<p>Metrics are only one part of the story.  Read the paper, and talk about it with informed colleagues.
+<p>Metrics are only one part of the story.  Look at the research artifact for yourself and talk about it with informed colleagues.
 
 </ul>
 
-<h2>what do these number actually mean?</h2>
+<a name="meaning"><h2>what do these number actually mean?</h2></a>
 
 <p>The short answer is: probably something useful, but we’re not sure what. We believe that dismissing the metrics as “buzz” is short-sited: surely people bookmark and download things for a reason. The long answer, as well as a lot more speculation on the long-term significance of tools like total-impact, can be found in the nascent scholarly literature on “altmetrics.”
 
@@ -138,8 +137,7 @@ echo "$rendered_about_text";
 	
 <a name="limitations"><h2>what are the current limitations of the system?</h2></a>
 
-<p>Total-impact tracks the real-time online impact of various research artifacts. It aggregates impact metrics from many data sources and displays them all in one place.
-<p>Some limitations:
+<p>Total-impact is in early development and has many limitations:
 
 <h3>Gathering IDs and quick reports sometimes miss artifacts</h3>
 <ul>
@@ -151,21 +149,25 @@ echo "$rendered_about_text";
 </ul>
 
 <h3>Artifacts are sometimes missing metrics</h3>
-<p>doesn’t display zeros, though displayed in raw data for download
-sometimes the artifacts were received without sufficient information to use all metrics. For example, the system sometimes can't figure out the DOI from a Mendeley UUID or URL.
-
+<ul>
+<li>doesn’t display metrics with a zero value, though this information is included in raw data for download
+<li>sometimes the artifacts were received without sufficient information to use all metrics. For example, the system sometimes can't figure out the DOI from a Mendeley UUID or URL.
+</ul>
 
 <h3>Metrics sometimes have values that are too low</h3>
-<p>some sources have multiple records for a given artifact.  total-impact only identifies one copy and so only reports the impact metrics for that record.  It makes no current attempt to aggregate across duplications within a source.
-
+<ul>
+<li>some sources have multiple records for a given artifact.  Total-impact only identifies one copy and so only reports the impact metrics for that record.  It makes no current attempt to aggregate across duplications within a source.
+</ul>
 
 <h3>Other</h3>
-Max of 250 artifacts in a report
-<p>
+<ul>
+<li>max of 250 artifacts in a report; artifact list that are too long are truncated and a note is displayed on the report.
+</ul>
 
 <h2>is this data Open?</h2>
 
-<p>We’d like to make all of the data displayed by total-impact available under CC0.  Unforutunately, the terms-of-use of most of the data sources don’t allow that.  All of the data here is available for non-commericial purposes.  Option to restrict to Fully Open metrics — those suitable for commercial use — coming soon!
+<p>We’d like to make all of the data displayed by total-impact available under CC0.  Unfortunately, the terms-of-use of most of the data sources don’t allow that. 
+<p>An option to restrict the displayed reports to Fully Open metrics — those suitable for commercial use — is coming soon!
 
 <h2>does total-impact have an api?</h2>
 
