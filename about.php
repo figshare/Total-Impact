@@ -171,7 +171,7 @@ echo "$rendered_about_text";
 
 <h2>does total-impact have an api?</h2>
 
-<p>yes, kinda.  Our plugins do, and you can query the update.php with a series of GET requests.  Please don’t overload our servers, add an &email=YOUREMAIL tag on so we contact you if necessary based on your usage patterns.  This is still very new: don’t hesitate to get in touch to figure it out with us.
+<p>yes, kinda.  Our plugins do, and you can query the update.php with a series of GET requests.  Please don’t overload our servers, and do add an &email=YOUREMAIL tag on so we contact you if necessary based on your usage patterns.  This is still very new: don’t hesitate to get in touch to figure it out with us.
 
 <h2>who developed total-impact?</h2>
 
@@ -181,7 +181,7 @@ The majority of the development effort on this skunkworks project was done on pe
 <h2>what have we learned?</h2>
 
 <ul>
-<li>the multitude of IDs for an artifact is a bigger problem than we guessed.  Even articles that have DOIs often also have urls, PubMed IDs, PubMed Central IDs, Mendeley IDs, etc.  There is no one place to find all synonymns, yet the various APIs often only work with a specfic one or two ID types.  This makes comprehensive impact-gathering time consuming and error-prone.
+<li>the multitude of IDs for an artifact is a bigger problem than we guessed.  Even articles that have DOIs often also have urls, PubMed IDs, PubMed Central IDs, Mendeley IDs, etc.  There is no one place to find all synonyms, yet the various APIs often only work with a specific one or two ID types.  This makes comprehensive impact-gathering time consuming and error-prone.
 <li>some data is harder to get than we thought (wordpress stats without requesting consumer key information)
 <li>some data is easier to get than we thought (vendors willing to work out special agreements, permit web scraping for particular purposes, etc)
 <li>lack of an author-identifier makes us reliant on user-populated systems like Mendeley for tracking author-based work (we need ORCID and we need it now)
@@ -203,7 +203,7 @@ The majority of the development effort on this skunkworks project was done on pe
 <h2>this is so cool.</h2>
 
 <p>Thanks!  We agree :)  
-<p>You can help us.  We are currently trying to a) with the PLoS/Mendeley Binary Battle, b) raise funding for future total-impact developent, and c) justify spending more time on this ourselves.  Buzz and testimonials will help.  Tweet your reports.  Sign up for Mendeley, add public publications to your profile, and make some public groups.  Tweet, blog, send email, and show off total-impact at your next group meeting to help spread the word.  
+<p>You can help us.  We are currently trying to a) win the PLoS/Mendeley Binary Battle because that sounds fun, b) raise funding for future total-impact development, and c) justify spending more time on this ourselves.  Buzz and testimonials will help.  Tweet your reports.  Sign up for Mendeley, add public publications to your profile, and make some public groups.  Tweet, blog, send email, and show off total-impact at your next group meeting to help spread the word.  
 <p>Tell us how cool it is at <a href="http://twitter.com/#!/totalimpactdev">@totalimpactdev</a> (or via email to total-impact@googlegroups.com) so we can consolidate the feedback.
 
 <h2>I have a suggestion!</h2>
