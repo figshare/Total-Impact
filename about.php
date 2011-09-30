@@ -129,11 +129,11 @@ echo "$rendered_about_text";
 
 <p>You can also check out these similar tools:
 <ul>
-<li>altmetric.com API demo
-<li>CitedIn
-<li>PLoS Article-Level Metrics application
-<li>ReaderMeter
-<li>Science Card
+<li><a href="http://altmetric.com/interface/explorer.html">altmetric.com API demo</a>
+<li><a href="http://citedin.org/">CitedIn</a>
+<li><a href="http://code.google.com/p/alt-metrics/">PLoS Article-Level Metrics application</a>
+<li><a href="http://readermeter.org/">ReaderMeter</a>
+<li><a href="http://sciencecard.org/">Science Card</a>
 </ul>
 	
 <a name="limitations"><h2>what are the current limitations of the system?</h2></a>
