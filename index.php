@@ -106,7 +106,9 @@ $(document).ready(function(){
 			<!-- START instr -->
 
 	        <div id="instr">
-	            <p class="howto">Enter the identifiers for a collection of artifacts you want to track. We'll provide you a permanent URL to track statistics about this collection. You can peruse <a target="_blank" href="./report.php?id=hljHeI">a sample</a> and <a href="#recent">recently-shared reports</a>.</p>
+	            <p class="howto">Enter the identifiers for a collection of artifacts you want to track. We'll provide you a permanent URL to track statistics about this collection. You can peruse <a target="_blank" href="./report.php?id=hljHeI">a sample</a> and <a href="#recent">recently-shared reports</a>. 
+		</p>
+				
 	
 				<!--
 	            <p>To try it out, copy and paste these identifers below and hit <b>Go!</b> 
@@ -119,6 +121,7 @@ $(document).ready(function(){
 				</pre>
 				-->
 			</div>
+			
 			<!-- END instr -->
 			
 			<!-- START input -->
@@ -190,7 +193,10 @@ $(document).ready(function(){
 					<div id="pubmed_grant_div">
 					</div>
 					</fieldset>
-				<p>Something missing on import?<br/> See a list of <a href="./about.php#limitations">current limitations.</a> </p>
+				
+					<div class="floatl"><p>Something missing on import?<br/> See a list of <a href="./about.php#limitations">current limitations.</a> </p></div>
+					<div class="floatr"><p><form action="./about.php" method="get" target="_blank"><input type="submit" class="FAQ" value="FAQ"></form></div>
+
 				</div>
 
 
