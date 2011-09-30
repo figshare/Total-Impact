@@ -195,7 +195,7 @@ $(document).ready(function(){
 					</fieldset>
 				
 					<div class="floatl"><p>Something missing on import?<br/> See a list of <a href="./about.php#limitations">current limitations.</a> </p></div>
-					<div class="floatr"><p><form action="./about.php" method="get" target="_blank"><input type="submit" class="FAQ" value="FAQ"></form></div>
+					<!-- div class="floatr"><p><form action="./about.php" method="get" target="_blank"><input type="submit" class="FAQ" value="FAQ"></form></div -->
 
 				</div>
 
