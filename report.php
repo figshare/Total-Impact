@@ -89,8 +89,8 @@ if (!$res){ header('Location: ../'); }
 					</div>
 		
 					<div class="floatl">
-						<form action="./report.php" method="get">
-						<input type="hidden" name="id" value="<?php echo $collectionId; ?>" />
+						<form action="./report.php" method="get" target="_blank">
+						<input type="hidden" name="id" value="<?php echo $collectionId; ?>"  />
 						<input type="hidden" name="mode" value="list" />
 						<input type="submit" class="report" value="Download metrics"></form>
 					</div>
@@ -105,7 +105,7 @@ if (!$res){ header('Location: ../'); }
 						<input type="submit" class="report" value="Start over"></form>
 					</div>
 		
-					<div class="floatl"><form action="./about.php" method="get">
+					<div class="floatl"><form action="./about.php" method="get" target="_blank">
 						<input type="submit" class="FAQ" value="FAQ"></form>
 					</div>
 			
