@@ -144,6 +144,26 @@ button
 	color: #FFF;
 }
 
+input.report
+{
+	border-top: none;
+	border-left: none;	
+	border-bottom: 1px solid #EEE;
+	border-right: 1px solid #EEE;
+	background-color: #933;		
+	color: #FFF;
+}
+
+input.FAQ
+{
+	border-top: none;
+	border-left: none;	
+	border-bottom: 1px solid #EEE;
+	border-right: 1px solid #EEE;
+	background-color: grey;		
+	color: #FFF;
+}
+
 button:hover
 {
 	border-top: none;
@@ -212,6 +232,13 @@ legend {
 
 .section {
 }
+
+div#about_metrics {
+	margin-top: 2em;	
+	background-color: #EEE;
+	padding: 1em 2em 3em 2em;
+}
+
 
 div#footer {
 	margin-top: 2em;	
@@ -293,6 +320,16 @@ div#footer {
 
 #permalink a {
 	text-decoration: none;
+}
+
+.debugging {
+	float: right;
+	margin-right: .5em;	
+}
+
+.floatr {
+	float: right;
+	margin-right: .5em;	
 }
 
 .floatl {

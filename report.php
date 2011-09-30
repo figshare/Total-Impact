@@ -40,6 +40,7 @@ if (!$res){ header('Location: ../'); }
 				} else {
 			?>
 	<head>
+		
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	    <title>Total Impact: <?php echo $report->getBestIdentifier() ?></title>
 	    <link rel="stylesheet" type="text/css" href="ui/totalimpact.css" />
@@ -59,6 +60,7 @@ if (!$res){ header('Location: ../'); }
 		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 		  })();
 		</script>
+
 	</head>
 	<body>
 		<!-- START wrapper -->
@@ -78,7 +80,35 @@ if (!$res){ header('Location: ../'); }
 					<div class="floatl" id="permalink">Permalink: <a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a></div>
 		        	<div class="clearl badge floatl artifacts-count"><?php echo $report->getArtifactsCount(); ?> artifacts</div> 
 		        	<div class="badge floatl created-at">created <?php echo $report->getCreatedAt('j M, Y');?></div>
-		        	<div class="badge floatl updated-at">updated <?php echo $report->getUpdatedAt('j M, Y');?></div>	        	
+		        	<div class="badge floatl updated-at">updated <?php echo $report->getUpdatedAt('j M, Y');?></div>
+		
+					<div class="floatl">
+						<form action="./update.php" method="get">
+						<input type="hidden" name="id" value="<?php echo $collectionId; ?>" />
+						<input type="submit" class="report" value="Update now"></form>
+					</div>
+		
+					<div class="floatl">
+						<form action="./report.php" method="get">
+						<input type="hidden" name="id" value="<?php echo $collectionId; ?>" />
+						<input type="hidden" name="mode" value="list" />
+						<input type="submit" class="report" value="Download metrics"></form>
+					</div>
+		
+					<div class="floatl">
+						<form action="./index.php" method="get">
+						<input type="hidden" name="add-id" value="<?php echo $collectionId; ?>" />
+						<input type="submit" class="report" value="Refine report"></form>
+					</div>
+		
+					<div class="floatl"><form action="./index.php" method="get">
+						<input type="submit" class="report" value="Start over"></form>
+					</div>
+		
+					<div class="floatl"><form action="./about.php" method="get">
+						<input type="submit" class="FAQ" value="FAQ"></form>
+					</div>
+			
 					<!-- based on code here: https://dev.twitter.com/docs/tweet-button -->
 					<script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
 					<div class="clearl">
@@ -88,22 +118,8 @@ if (!$res){ header('Location: ../'); }
 					  data-text="<?php echo "Check out My Total Impact: " . $report->getBestIdentifier() . " at";?>"
 					  data-count="horizontal">Tweet</a>
 					</div>
-						<!-- @@@ replace these links with an action form?
-						<ol class="clearl">
-							<li><a href="./update.php?id=<?php echo $collectionId; ?>">Update now</a> (may take a few minutes)</li>
-							<li><a href="./index.php?add-id=<?php echo $collectionId; ?>">Start over with this seed</a></li>
-					 		<li><a href="./report.php?id=<?php echo $collectionId; ?>&mode=list">View as plain text list</a></li>
-					 	</ol>
-						<!-- @@@ drop these two links as they are navigational -->
-						<!--<li><a href="./index.php">Start over fresh</a></li>-->
-					 	<!--<li><a href="./about.php">FAQ</a></li>-->
 		        </div>
 				
-				<!-- @@@ temporarily removed this (not quite sure what this means)
-				<div class="disabled">
-					<p> Option to display only Fully Open metrics &#8212; those suitable for commercial use &#8212; coming soon!</p>
-				</div>
-				-->
 				<!-- END report-meta -->
 
 				<!-- START metrics -->
@@ -119,21 +135,27 @@ if (!$res){ header('Location: ../'); }
 			<!-- END report -->
 
 		<!-- START footer -->
-			<p>Missing something? See <a href="./about.php#Limitations">current limitations.</a></p>
-			<p>Reactions and bugs welcome to <a href="http://twitter.com/#!/totalimpactdev">@totalimpactdev</a></p>
+			<p>Missing some artifacts or metrics? See <a href="./about.php#Limitations">current limitations.</a>  Reactions and bugs welcome to <a href="http://twitter.com/#!/totalimpactdev">@totalimpactdev</a></p>
 						
-		<div id="footer" class="section">
+		<div id="about_metrics" class="section">
 		    <h3>Metrics are computed based on the following data sources:</h3>
 		
 		    <?php
 			echo "$rendered_about_text";
 			?>
-		
-		</div>
-		<!-- END footer -->
-		
-		<p>Debugging: <a target="_blank" href="./report.php?id=<?php echo $collectionId; ?>&mode=status">Status log</a>, <a target="_blank" href="https://cloudant.com/futon/document.html?total-impact%2Fdevelopment/<?php echo $_REQUEST['id']; ?>">DB entry</a>
+		<p class="debugging">Debugging: <a target="_blank" href="./report.php?id=<?php echo $collectionId; ?>&mode=status">Status log</a>, <a target="_blank" href="https://cloudant.com/futon/document.html?total-impact%2Fdevelopment/<?php echo $_REQUEST['id']; ?>">DB entry</a>
 		</p>
+
+		</div>
+
+		<div id="footer">
+			<table border=0 width=100%><tr>
+			<td><a href="./about.php">about total-impact</a></td>
+			<td align="center">Reactions and bugs welcome to <a href="http://twitter.com/#!/totalimpactdev">@totalimpactdev</a></td>			
+			<td align="left"><a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80" style="margin-bottom:5px" /></a></td>
+			</tr>
+		</div>
+		
 		
 		
 		</div>
