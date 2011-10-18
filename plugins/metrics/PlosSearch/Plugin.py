@@ -35,7 +35,7 @@ class PluginClass(BasePluginClass):
     SOURCE_DESCRIPTION = "PLoS full text search."
     SOURCE_URL = "http://www.plos.org/"
     SOURCE_ICON = "http://a0.twimg.com/profile_images/67542107/Globe_normal.jpg"
-    SOURCE_METRICS = dict(hits="the number of mentions in PLoS article full text")
+    SOURCE_METRICS = dict(mentions="the number of mentions in PLoS article full text")
 
     DEBUG = False
 
@@ -68,7 +68,7 @@ class PluginClass(BasePluginClass):
         except:
             hits = 0
             
-        return({"hits":hits})
+        return({"mentions":hits})
     
     
     def get_metric_values(self, id):

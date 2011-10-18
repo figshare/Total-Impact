@@ -32,15 +32,12 @@ class PluginClass(BasePluginClass):
     # each plugin needs to customize this stuff                
     SOURCE_NAME = "Dryad"
     SOURCE_DESCRIPTION = "An international repository of data underlying peer-reviewed articles in the basic and applied biology."
-    SOURCE_URL = "http://www.datadryad.org/"
+    SOURCE_URL = "http://www.datadryad.org/" # rgb(60, 134, 48)
     SOURCE_ICON = "http://dryad.googlecode.com/svn-history/r4402/trunk/dryad/dspace/modules/xmlui/src/main/webapp/themes/Dryad/images/favicon.ico"
-    SOURCE_METRICS = dict(  total_page_views="combined number of views of the data package and data files",
+    SOURCE_METRICS = dict(  file_views="combined number of views of the data package and data files",
                             package_views="number of views of the main package page",    
                             total_downloads="combined number of downloads of the data package and data files",
-                            downloads_of_most_popular_file="number of downloads of the most commonly downloaded data package component",    
-                            year="the year of the publication",
-                            title="the title of the publication", 
-                            authors="the authors of the publication")
+                            downloads_of_most_popular_file="number of downloads of the most commonly downloaded data package component")    
 
     DEBUG = False
 
@@ -103,7 +100,7 @@ class PluginClass(BasePluginClass):
                 
         show_details_url = "http://dx.doi.org/" + doi
                 
-        return({"show_details_url":show_details_url, "total_file_views":file_total_views, "package_views":view_package, "total_downloads":total_downloads, "downloads_of_most_popular_file":max_downloads, "title":title, "year":year, "authors":authors})
+        return({"show_details_url":show_details_url, "file_views":file_total_views, "package_views":view_package, "total_downloads":total_downloads, "downloads_of_most_popular_file":max_downloads, "title":title, "year":year, "authors":authors})
     
     
     def get_metric_values(self, doi):

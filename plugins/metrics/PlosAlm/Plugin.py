@@ -34,30 +34,72 @@ class PluginClass(BasePluginClass):
     SOURCE_NAME = "PlosAlm"
     SOURCE_DESCRIPTION = "PLoS article level metrics."
     SOURCE_URL = "http://www.plos.org/"
-    SOURCE_ICON = "http://a0.twimg.com/profile_images/67542107/Globe_normal.jpg"
-    SOURCE_METRICS = dict(  Postgenomic="This service was discontinued by Nature Publishing Group in 2009.", 
-        Web_of_Science="The citation data reported for an article from Web of Science.", 
-        Bloglines="This service no longer responds to API requests.", 
-        Biod="", 
-        Nature="The number of blog articles in Nature Blogs that have mentioned an article.", 
-        Connotea="The Connotea API does not respond in a timely manner.", 
-        PLoS_html_view="the number of downloads of the PLoS HTML article", 
-        PLoS_pdf_view="the number of downloads of the PLoS PDF article", 
-        PLoS_xml_view="the number of downloads of the PLoS XML article", 
-        PMC_abstract="the number of times the abstract has been viewed at PubMed Central (confirm)",
-        PMC_supp_data="the number of times the supplementary material has been viewed at PubMed Central (confirm)",
-        PMC_unique_ip="the number of unique IP addresses that have viewed the artifact at PubMed Central (confirm)",
-        PMC_pdf="the number of times the PDF has been viewed at PubMed Central (confirm)",
-        PMC_scanned_page_browse="the number of times the scanned pages have been viewed at PubMed Central, if applicable (confirm)",
-        PMC_cited_by="the number of times the article has been cited by other articles in PubMed Central (confirm)", 
-        PMC_scanned_summary="the number of times the scanned summary has been viewed at PubMed Central, if applicable (confirm)",
-        PMC_full_text="the number of times the full text has been viewed at PubMed Central (confirm)",
-        CiteULike="The number of times that a user has bookmarked an article in CiteULike.", 
-        Scopus="The citation data reported for an article from Scopus.", 
-        PubMed_Central="The citation data reported for an article from PubMed Central", 
-        Research_Blogging="This service no longer responds to API requests.", 
-        CrossRef="The citation data reported for an article from CrossRef."
-    )
+    #SOURCE_ICON = "http://a0.twimg.com/profile_images/67542107/Globe_normal.jpg"
+    PLOS_ICON = "http://a0.twimg.com/profile_images/67542107/Globe_normal.jpg"
+    PMC_ICON = "http://www.pubmedcentral.gov/corehtml/pmc/pmcgifs/pmclogo.gif"
+    # can be found by http://www.getfavicon.org/ 
+    SOURCE_ICON = {"Postgenomic":"http://www.postgenomic.com/images/logo.png",
+        "Web_of_Science":"http://thomsonreuters.com/favicon.ico",
+        "Bloglines":"http://www.bloglines.com/favicon.ico",
+        "Biod":"",
+        "Nature":"http://www.nature.com/favicon.ico",
+        "Connotea":"http://connotea.org/favicon.ico",
+        "html views":PLOS_ICON,
+        "pdf views":PLOS_ICON,
+        "xml views":PLOS_ICON,
+        "abstract views":PMC_ICON,
+        "supp data views":PMC_ICON,
+        "unique ip views":PMC_ICON,
+        "pdf views;PMC":PMC_ICON,
+        "scanned page views":PMC_ICON,
+        "figure views":PMC_ICON,
+        "cited by;PMC":PMC_ICON,
+        "citations;PMC":PMC_ICON,
+        "scanned summary views":PMC_ICON,
+        "html views;PMC":PMC_ICON,
+        "CiteULike":"http://citeulike.org/favicon.ico",
+        "Scopus":"http://scopus.com/static/images/favicon.ico",
+        "PubMed_Central":PMC_ICON,
+        "Research_Blogging":" http://researchblogging.org/favicon.ico",
+        "CrossRef":"http://www.crossref.org/favicon.ico"}
+    SOURCE_METRICS = {"Postgenomic":"This service was discontinued by Nature Publishing Group in 2009.", # rgb(67, 104, 178)
+        "Web_of_Science":"The citation data reported for an article from Web of Science.", 
+        "Bloglines":"This service no longer responds to API requests.", 
+        "Biod":"", 
+        "Nature":"The number of blog articles in Nature Blogs that have mentioned an article.", 
+        "Connotea":"The Connotea API does not respond in a timely manner.", 
+        "html views":"the number of downloads of the PLoS HTML article", # rgb(39,94,154)
+        "pdf views":"the number of downloads of the PLoS PDF article", 
+        "xml views":"the number of downloads of the PLoS XML article", 
+        "abstract views":"the number of times the abstract has been viewed at PubMed Central (confirm)",
+        "supp data views":"the number of times the supplementary material has been viewed at PubMed Central (confirm)",
+        "unique ip views":"the number of unique IP addresses that have viewed the artifact at PubMed Central (confirm)",
+        "pdf views;PMC":"the number of times the PDF has been viewed at PubMed Central (confirm)",
+        "scanned page views":"the number of times the scanned pages have been viewed at PubMed Central, if applicable (confirm)",
+        "figure views":"the number of times the figures have been viewed at PubMed Central, if applicable (confirm)",
+        "citations":"the number of times the article has been cited by other articles in PubMed Central (confirm)", 
+        "scanned summary views":"the number of times the scanned summary has been viewed at PubMed Central, if applicable (confirm)",
+        "html views;PMC":"the number of times the full text has been viewed at PubMed Central (confirm)",
+        "CiteULike":"The number of times that a user has bookmarked an article in CiteULike.", #rgb(38,131,200)
+        "Scopus":"The citation data reported for an article from Scopus.",  #rgb(44, 154, 80)
+        "citations;PMC":"The citation data reported for an article from PubMed Central", # rgb(4, 105, 150)
+        "cited by;PMC":"The citation data reported for an article from PubMed Central", 
+        "Research_Blogging":"This service no longer responds to API requests.", 
+        "CrossRef":"The citation data reported for an article from CrossRef." #rgb(2, 106, 161)
+    }
+    
+    SOURCE_METRICS_LOOKUP = {"PMC_abstract":"abstract views",
+    "PMC_figure":"figure views",
+    "PMC_unique-ip":"unique ip views",
+    "PMC_pdf":"pdf views;PMC",
+    "PubMed Central":"citations;PMC",
+    "PMC_full-text":"html views;PMC",
+    "PMC_cited-by":"cited by;PMC",
+    "PMC_supp-data":"supp data views",
+    "PLoS_xml_views":"xml views",
+    "PLoS_pdf_views":"pdf views",
+    "PLoS_html_views":"html views" }
+
 
     DEBUG = False
 
@@ -114,7 +156,10 @@ class PluginClass(BasePluginClass):
         for (metric_name, metric_value) in details[0].attrs:
             if metric_name not in all_exclude_fields:
                 metric_values = [int(details[i][metric_name]) for i in range(len(details))]
-                metrics_dict[prefix + metric_name] = aggregator(metric_values)
+                metric_dict_name = prefix + metric_name; 
+                if metric_dict_name in self.SOURCE_METRICS_LOOKUP.keys():
+                    metric_dict_name = self.SOURCE_METRICS_LOOKUP[metric_dict_name]
+                metrics_dict[metric_dict_name] = aggregator(metric_values)
         return(metrics_dict)
                         
     def get_metric_values(self, doi):

@@ -126,7 +126,7 @@ $(document).ready(function(){
 			
 			<!-- START input -->
 			<div id="input"> 	
-				<div id="col1">
+				<div id="enter-ids">
 					<form name="id_form">
 					<fieldset><legend>Create a collection:</legend>
 			           <p><label for="list">List your IDs here</label><a class="tooltip" onmouseover="tooltip.show('Valid identifiers are: DOIs, Slideshare links, dataset IDs separated by newlines.  For example, 10.1371/journal.pbio.0050082 10.1371/journal.pone.0000308 http://www.slideshare.net/phylogenomics/eisenall-hands 10.5061/dryad.8384 GSE2109', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
@@ -140,7 +140,7 @@ $(document).ready(function(){
 					</form>
 							
 				</div>
-				<div id="col2">
+				<div id="enter-mendeley">
 					<!--Want help gathering your IDs? Pull from these sources:-->
 					<fieldset><legend>Import from Mendeley</legend>
 					<p class="prompt">Your Mendeley group URL<a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley to import the references shared within group</em>', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
@@ -168,7 +168,7 @@ $(document).ready(function(){
 
 				</div>
 			
-				<div id="col3">
+				<div id="enter-other">
 					<fieldset><legend>Import from Slideshare</legend>			
 					<p class="prompt">Your Slideshare profile URL<a class="tooltip" onmouseover="tooltip.show('Fill in your Slideshare profile to import your public slidedecks', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
 					<em class="url">http://www.slideshare.net/</em>
@@ -194,7 +194,7 @@ $(document).ready(function(){
 					</div>
 					</fieldset>
 				
-					<div class="floatl"><p>Something missing on import?<br/> See a list of <a href="./about.php#limitations">current limitations.</a> </p></div>
+					<div class="something-missing"><p>Something missing on import?<br/> See a list of <a href="./about.php#limitations">current limitations.</a> </p></div>
 					<!-- div class="floatr"><p><form action="./about.php" method="get" target="_blank"><input type="submit" class="FAQ" value="FAQ"></form></div -->
 
 				</div>
@@ -206,7 +206,7 @@ $(document).ready(function(){
 
 			<!-- START footer -->
 
-			<div id="twitterfeed" style="clear:both; padding-top: 30px">
+			<div class="twitterfeed">
 
 				<h2><a name="recent">recently-shared reports</a></h2>
 				<!-- https://twitter.com/about/resources/widgets/widget_search -->

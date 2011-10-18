@@ -33,7 +33,7 @@ class PluginClass(BasePluginClass):
     SOURCE_NAME = "Delicious"
     SOURCE_DESCRIPTION = "The tastiest bookmarks on the web."
     SOURCE_URL = "http://www.delicious.com/"
-    SOURCE_ICON = "http://www.delicious.com/favicon.ico"
+    SOURCE_ICON = "http://www.delicious.com/favicon.ico" #rgb(51, 118, 202)
     SOURCE_METRICS = dict(bookmarks="The number of bookmarks to this artifact (maximum=100)")
 
     DEBUG = False

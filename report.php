@@ -77,41 +77,41 @@ if (!$res){ header('Location: ../'); }
 		        <h2>Impact report for <?php echo $report->getBestIdentifier(); ?></h2>
 				<!-- START report-meta -->
 		        <div id="report-meta">
-					<div class="floatl" id="permalink">Permalink: <a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a></div>
-		        	<div class="clearl badge floatl artifacts-count"><?php echo $report->getArtifactsCount(); ?> artifacts</div> 
-		        	<div class="badge floatl created-at">created <?php echo $report->getCreatedAt('j M, Y');?></div>
-		        	<div class="badge floatl updated-at">updated <?php echo $report->getUpdatedAt('j M, Y');?></div>
+					<div class="permalink" id="permalink">Permalink: <a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a></div>
+		        	<div class="badge artifacts-count"><?php echo $report->getArtifactsCount(); ?> artifacts</div> 
+		        	<div class="badge created-at">created <?php echo $report->getCreatedAt('j M, Y');?></div>
+		        	<div class="badge updated-at">updated <?php echo $report->getUpdatedAt('j M, Y');?></div>
 		
-					<div class="floatl">
+					<div class="report-button">
 						<form action="./update.php" method="get">
 						<input type="hidden" name="id" value="<?php echo $collectionId; ?>" />
 						<input type="submit" class="report" value="Update now"></form>
 					</div>
 		
-					<div class="floatl">
+					<div class="report-button">
 						<form action="./report.php" method="get" target="_blank">
 						<input type="hidden" name="id" value="<?php echo $collectionId; ?>"  />
 						<input type="hidden" name="mode" value="list" />
 						<input type="submit" class="report" value="Download metrics"></form>
 					</div>
 		
-					<div class="floatl">
+					<div class="report-button">
 						<form action="./index.php" method="get">
 						<input type="hidden" name="add-id" value="<?php echo $collectionId; ?>" />
 						<input type="submit" class="report" value="Refine report"></form>
 					</div>
 		
-					<div class="floatl"><form action="./index.php" method="get">
+					<div class="report-button"><form action="./index.php" method="get">
 						<input type="submit" class="report" value="Start over"></form>
 					</div>
 		
-					<div class="floatl"><form action="./about.php" method="get" target="_blank">
+					<div class="report-button"><form action="./about.php" method="get" target="_blank">
 						<input type="submit" class="FAQ" value="FAQ"></form>
 					</div>
 			
 					<!-- based on code here: https://dev.twitter.com/docs/tweet-button -->
 					<script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
-					<div class="clearl">
+					<div class="tweet-this">
 					  <a href="https://twitter.com/share" class="twitter-share-button"
 					  data-url="<?php echo "http://total-impact.org/report.php?id=" . $collectionId?>"
 					  data-via="mytotalimpact"
@@ -135,9 +135,9 @@ if (!$res){ header('Location: ../'); }
 			<!-- END report -->
 
 		<!-- START footer -->
-			<p>Missing some artifacts or metrics? See <a href="./about.php#Limitations">current limitations.</a>  Reactions and bugs welcome to <a href="http://twitter.com/#!/totalimpactdev">@totalimpactdev</a></p>
+			<p class="something-missing">Missing some artifacts or metrics? See <a href="./about.php#Limitations">current limitations.</a>  Reactions and bugs welcome to <a href="http://twitter.com/#!/totalimpactdev">@totalimpactdev</a></p>
 						
-		<div id="about_metrics" class="section">
+		<div id="about_metrics" class="about_metrics">
 		    <h3>Metrics are computed based on the following data sources:</h3>
 		
 		    <?php

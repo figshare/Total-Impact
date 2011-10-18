@@ -34,8 +34,8 @@ class PluginClass(BasePluginClass):
     SOURCE_NAME = "PubMed"
     SOURCE_DESCRIPTION = "PubMed comprises more than 21 million citations for biomedical literature from MEDLINE, life science journals, and online books."
     SOURCE_URL = "http://www.ncbi.nlm.nih.gov/pubmed/"
-    SOURCE_ICON = "http://www.ncbi.nlm.nih.gov/favicon.ico"
-    SOURCE_METRICS = dict(citations_in_pmc="The number of times this DOI has been cited in papers in PubMed Central")
+    SOURCE_ICON = "http://www.ncbi.nlm.nih.gov/favicon.ico" #rgb(45, 74, 104)
+    SOURCE_METRICS = dict(citations="The number of times this DOI has been cited in papers in PubMed Central")
 
     DEBUG = False
 
@@ -80,7 +80,7 @@ class PluginClass(BasePluginClass):
                     author_list += [item.text]
             authors = ", ".join(author_list)
             show_details_url = "http://www.ncbi.nlm.nih.gov/pmc/articles/pmid/%s/citedby/?tool=pubmed" %id
-            response += [(id, dict(type="article", pmid=id, show_details_url=show_details_url, citations_in_pmc=citations_in_pmc, journal=journal, year=year, title=title, authors=authors))]
+            response += [(id, dict(type="article", pmid=id, show_details_url=show_details_url, citations=citations_in_pmc, journal=journal, year=year, title=title, authors=authors))]
 
         return(response)
     

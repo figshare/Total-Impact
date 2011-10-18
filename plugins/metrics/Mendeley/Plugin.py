@@ -31,7 +31,7 @@ class PluginClass(BasePluginClass):
     SOURCE_NAME = "Mendeley"
     SOURCE_DESCRIPTION = "A research management tool for desktop and web."
     SOURCE_URL = "http://www.mendeley.com/"
-    SOURCE_ICON = "http://www.mendeley.com/favicon.ico"
+    SOURCE_ICON = "http://www.mendeley.com/favicon.ico" #rgb(159,0,34)
     SOURCE_METRICS = dict(  readers="the number of readers of the article",
                             groups="the number of groups of the article")
 
@@ -92,13 +92,13 @@ class PluginClass(BasePluginClass):
             pass
 
         try:
-            response.update(dict(number_readers=json_page["stats"]["readers"]))
+            response.update(dict(readers=json_page["stats"]["readers"]))
         except KeyError:
             pass
                     
         try:
             group_list = json_page["groups"]
-            response.update(dict(number_groups=len(group_list)))
+            response.update(dict(groups=len(group_list)))
         except KeyError:
             pass
 

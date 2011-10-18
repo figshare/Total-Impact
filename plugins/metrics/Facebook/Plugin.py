@@ -34,7 +34,7 @@ class PluginClass(BasePluginClass):
     SOURCE_NAME = "Facebook"
     SOURCE_DESCRIPTION = "A social networking service."
     SOURCE_URL = "http://www.facebook.com/"
-    SOURCE_ICON = "http://www.facebook.com/favicon.ico"
+    SOURCE_ICON = "http://www.facebook.com/favicon.ico" #rgb(60, 90, 148)
     SOURCE_METRICS = dict(  likes="the number of users who liked a post about the object",
                             shares="the number of users who shared a post about the object",
                             comments="the number of users who commented on a post about the object",

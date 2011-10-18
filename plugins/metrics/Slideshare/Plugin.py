@@ -34,10 +34,8 @@ class PluginClass(BasePluginClass):
     SOURCE_NAME = "Slideshare"
     SOURCE_DESCRIPTION = "The best way to share presentations, documents and professional videos."
     SOURCE_URL = "http://www.slideshare.net/"
-    SOURCE_ICON = "http://www.slideshare.net/favicon.ico"
-    SOURCE_METRICS = dict(  title="the title of the publication",
-                            year_uploaded="the year the presentation was uploaded",
-                            downloads="the number of downloads of the presentation",
+    SOURCE_ICON = "http://www.slideshare.net/favicon.ico" #rgb(244, 138, 52)
+    SOURCE_METRICS = dict(  downloads="the number of downloads of the presentation",
                             favorites="the number of times a presentation has been favorited",
                             comments="the number of comments on the presentation",
                             views="the number of views of the presentation"

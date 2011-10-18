@@ -35,7 +35,7 @@ class PluginClass(BasePluginClass):
     SOURCE_DESCRIPTION = "Wikipedia is the free encyclopedia that anyone can edit."
     SOURCE_URL = "http://www.wikipedia.org/"
     SOURCE_ICON = "http://wikipedia.org/favicon.ico"
-    SOURCE_METRICS = dict(article_mentions="The number of articles that mention this artifact")
+    SOURCE_METRICS = dict(mentions="The number of articles that mention this artifact")
 
     DEBUG = False
 
@@ -62,7 +62,7 @@ class PluginClass(BasePluginClass):
         soup = BeautifulStoneSoup(content)
         try:
             articles = soup.search.findAll(title=True)
-            metrics_dict = dict(article_mentions=len(articles))
+            metrics_dict = dict(mentions=len(articles))
         except AttributeError:
             metrics_dict = None
             
