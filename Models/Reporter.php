@@ -105,14 +105,14 @@ class Models_Reporter {
         $abouts = $this->getSourceAbouts($sources);
         foreach ($abouts as $sourceName => $about) {
 			$ret .= '<ul type="square" class="body">';
-            $icon = $about->icon;
        		$Url = $about->url;
-            $ret .= "<a href='$Url'><img src='$icon' width='16'' height='16' border=0 alt='' />$sourceName</a> ";
+            $ret .= "<a href='$Url'>$sourceName</a> ";
             $ret .= $about->desc;
             $ret .= "<br>";
 	       	foreach ($about->metrics as $metricName => $metricDescription){
+				$Img = $this->getMetricImage($sourceName, $metricName, $abouts);
            		$ret .= "<li>";
-				$ret .= "<strong><span class='about-metric-name'>$metricName</span></strong>: <span class='desc''>$metricDescription</span>";
+				$ret .= "$Img<strong><span class='about-metric-name'>$metricName</span></strong>: <span class='desc''>$metricDescription</span>";
 				$ret .= "</li>";
 			}
 			$ret .= "</ul>";
@@ -244,6 +244,22 @@ class Models_Reporter {
 
     }
 
+	private function getMetricImage($sourceName, $metricName, $abouts) {
+		$Img = "";
+        if (isset($abouts->$sourceName->icon)){
+            if ($abouts->$sourceName->icon){
+				if (isset($abouts->$sourceName->icon->$metricName)) {
+	                $icon = $abouts->$sourceName->icon->$metricName;						
+				} else {
+	                $icon = $abouts->$sourceName->icon;
+				}
+        		$Url = $abouts->$sourceName->url;
+        		$Img = "<span class='metric-image'><a href='$Url'><img src='$icon' width='16'' height='16' border=0 alt='' /></a></span>";					
+			}
+		}
+		return($Img);
+	}
+
 	private function printArtifactMetrics($artifact, $abouts, $showZeros) {
 		# First check to see if will render any metrics.  If not, don't show the sourceData.
 		$metrics_array = array();
@@ -255,19 +271,7 @@ class Models_Reporter {
 
 				if ($showZeros or ($metricValue != 0)) {
 					if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
-						$Img = "";
-				        if (isset($abouts->$sourceName->icon)){
-				            if ($abouts->$sourceName->icon){
-								if (isset($abouts->$sourceName->icon->$metricName)) {
-					                $icon = $abouts->$sourceName->icon->$metricName;						
-								} else {
-					                $icon = $abouts->$sourceName->icon;
-								}
-				        		$Url = $abouts->$sourceName->url;
-				        		$Img = "<span class='metric-image'><a href='$Url'><img src='$icon' width='16'' height='16' border=0 alt='' /></a></span>";					
-							}
-						}
-
+						$Img = $this->getMetricImage($sourceName, $metricName, $abouts);
 						$metrics_ret .= "<div class='metrics-div'>";
 						if (isset($sourceData->show_details_url)) {
 	           				$metrics_ret .= "<a target='_blank' href='$sourceData->show_details_url'><span class='metric-value'>$metricValue</span></a>$Img<span class='metric-name'>$metricName</span> \t";					
