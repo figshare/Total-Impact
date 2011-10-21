@@ -4,7 +4,7 @@ require './bootstrap.php';
 
 $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
 $couch = new Couch_Client($config->db->dsn, $config->db->name);
-$collectionId = "RwIjOc"; #TODO: substitute with a collection with ID of"EXAMPLE_ALL_PLUGINS"
+$collectionId = "hljHeI"; #TODO: substitute with a collection with ID of"EXAMPLE_ALL_PLUGINS"
 
 $report = new Models_Reporter($couch, $collectionId);
 $res = $report->fetch();
