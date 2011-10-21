@@ -38,12 +38,11 @@ class PluginClass(BasePluginClass):
     PLOS_ICON = "http://a0.twimg.com/profile_images/67542107/Globe_normal.jpg"
     PMC_ICON = "http://www.pubmedcentral.gov/corehtml/pmc/pmcgifs/pmclogo.gif"
     # can be found by http://www.getfavicon.org/ 
-    SOURCE_ICON = {"Postgenomic":"http://www.postgenomic.com/images/logo.png",
-        "Web_of_Science":"http://thomsonreuters.com/favicon.ico",
-        "Bloglines":"http://www.bloglines.com/favicon.ico",
-        "Biod":"",
-        "Nature":"http://www.nature.com/favicon.ico",
-        "Connotea":"http://connotea.org/favicon.ico",
+    SOURCE_ICON = {"blogs;Postgenomic":"http://www.postgenomic.com/images/logo.png",
+        "citations;Web_of_Science":"http://thomsonreuters.com/favicon.ico",
+        "blogs;Bloglines":"http://www.bloglines.com/favicon.ico",
+        "blogs;Nature":"http://www.nature.com/favicon.ico",
+        "bookmarks;Connotea":"http://connotea.org/favicon.ico",
         "html views":PLOS_ICON,
         "pdf views":PLOS_ICON,
         "xml views":PLOS_ICON,
@@ -57,17 +56,16 @@ class PluginClass(BasePluginClass):
         "citations;PMC":PMC_ICON,
         "scanned summary views":PMC_ICON,
         "html views;PMC":PMC_ICON,
-        "CiteULike":"http://citeulike.org/favicon.ico",
-        "Scopus":"http://scopus.com/static/images/favicon.ico",
-        "PubMed_Central":PMC_ICON,
-        "Research_Blogging":" http://researchblogging.org/favicon.ico",
-        "CrossRef":"http://www.crossref.org/favicon.ico"}
-    SOURCE_METRICS = {"Postgenomic":"This service was discontinued by Nature Publishing Group in 2009.", # rgb(67, 104, 178)
-        "Web_of_Science":"The citation data reported for an article from Web of Science.", 
-        "Bloglines":"This service no longer responds to API requests.", 
-        "Biod":"", 
-        "Nature":"The number of blog articles in Nature Blogs that have mentioned an article.", 
-        "Connotea":"The Connotea API does not respond in a timely manner.", 
+        "bookmarks;CiteULike":"http://citeulike.org/favicon.ico",
+        "citations;Scopus":"http://scopus.com/static/images/favicon.ico",
+        "citations;PMC":PMC_ICON,
+        "blogs;Research_Blogging":" http://researchblogging.org/favicon.ico",
+        "citations;Crossref":"http://www.crossref.org/favicon.ico"}
+    SOURCE_METRICS = {"blogs;Postgenomic":"Blogs. This service was discontinued by Nature Publishing Group in 2009.", # rgb(67, 104, 178)
+        "citations;Web_of_Science":"The citation data reported for an article from Web of Science.", 
+        "blogs;Bloglines":"This service no longer responds to API requests.", 
+        "blogs;Nature":"The number of blog articles in Nature Blogs that have mentioned an article.", 
+        "bookmarks;Connotea":"The Connotea API does not respond in a timely manner.", 
         "html views":"the number of downloads of the PLoS HTML article", # rgb(39,94,154)
         "pdf views":"the number of downloads of the PLoS PDF article", 
         "xml views":"the number of downloads of the PLoS XML article", 
@@ -80,12 +78,12 @@ class PluginClass(BasePluginClass):
         "citations":"the number of times the article has been cited by other articles in PubMed Central (confirm)", 
         "scanned summary views":"the number of times the scanned summary has been viewed at PubMed Central, if applicable (confirm)",
         "html views;PMC":"the number of times the full text has been viewed at PubMed Central (confirm)",
-        "CiteULike":"The number of times that a user has bookmarked an article in CiteULike.", #rgb(38,131,200)
-        "Scopus":"The citation data reported for an article from Scopus.",  #rgb(44, 154, 80)
+        "bookmarks;CiteULike":"The number of times that a user has bookmarked an article in CiteULike.", #rgb(38,131,200)
+        "citations;Scopus":"The citation data reported for an article from Scopus.",  #rgb(44, 154, 80)
         "citations;PMC":"The citation data reported for an article from PubMed Central", # rgb(4, 105, 150)
         "cited by;PMC":"The citation data reported for an article from PubMed Central", 
-        "Research_Blogging":"This service no longer responds to API requests.", 
-        "CrossRef":"The citation data reported for an article from CrossRef." #rgb(2, 106, 161)
+        "blogs;Research_Blogging":"This service no longer responds to API requests.", 
+        "citations;Crossref":"The citation data reported for an article from CrossRef." #rgb(2, 106, 161)
     }
     
     SOURCE_METRICS_LOOKUP = {"PMC_abstract":"abstract views",
@@ -93,9 +91,18 @@ class PluginClass(BasePluginClass):
     "PMC_unique-ip":"unique ip views",
     "PMC_pdf":"pdf views;PMC",
     "PubMed Central":"citations;PMC",
+    "CrossRef":"citations;Crossref",
+    "Scopus":"citations;Scopus",
+    "Web_of_Science":"citations;Web_of_Science",
+    "CiteULike":"bookmarks;CiteULike",
+    "Connotea":"bookmarks;Connotea",
     "PMC_full-text":"html views;PMC",
     "PMC_cited-by":"cited by;PMC",
     "PMC_supp-data":"supp data views",
+    "Research_Blogging":"blogs;Research_Blogging",
+    "Postgenomic":"blogs;Postgenomic",
+    "Bloglines":"blogs;Bloglines",
+    "Nature":"blogs;Nature",
     "PLoS_xml_views":"xml views",
     "PLoS_pdf_views":"pdf views",
     "PLoS_html_views":"html views" }
@@ -134,8 +141,13 @@ class PluginClass(BasePluginClass):
                 
         metrics_dict = {}
         for source in sources:
+            #print (source, source["source"], source["count"])
+            
             if not source["source"] in ["Counter", "PubMed Central Usage Stats"]:
-                metrics_dict[source["source"]] = source["count"]
+                metric_dict_name = source["source"]  
+                if metric_dict_name in self.SOURCE_METRICS_LOOKUP.keys():
+                    metric_dict_name = self.SOURCE_METRICS_LOOKUP[metric_dict_name]
+                metrics_dict[metric_dict_name] = source["count"]
 
         return(metrics_dict)
     

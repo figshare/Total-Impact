@@ -99,6 +99,16 @@ class Models_Reporter {
         return $this->data;
     }
 
+	public function getPrettyMetricName($metricName) {
+		$prettyMetricName = str_replace("_", " ", $metricName);
+		$semicolonLocation = strpos($prettyMetricName, ";");
+		if ($semicolonLocation !== false) {
+			#remove stuff after the semicolon
+			$prettyMetricName = substr($prettyMetricName, 0, $semicolonLocation);
+		}
+		return($prettyMetricName);
+	}
+	
     public function render_about_text() {
 		$sources = $this->data->sources;
         $ret = '';
@@ -112,7 +122,7 @@ class Models_Reporter {
 	       	foreach ($about->metrics as $metricName => $metricDescription){
 				$Img = $this->getMetricImage($sourceName, $metricName, $abouts);
            		$ret .= "<li>";
-				$prettyMetricName = str_replace("_", " ", $metricName);
+				$prettyMetricName = $this->getPrettyMetricName($metricName);
 				$ret .= "$Img <strong><span class='about metricName $sourceName $metricName '>$prettyMetricName</span></strong>: <span class='about metricDescription $sourceName $metricName '>$metricDescription</span>";
 				$ret .= "</li>";
 			}
@@ -262,7 +272,7 @@ class Models_Reporter {
 	}
 
 	private function getTooltipText($sourceName, $metricName, $abouts) {
-		$prettyMetricName = str_replace("_", " ", $metricName);
+		$prettyMetricName = $this->getPrettyMetricName($metricName);
 		$tooltiptext = $sourceName . " " . $prettyMetricName . ": " . $abouts->$sourceName->metrics->$metricName;
 		return($tooltiptext);
 	}
@@ -278,11 +288,10 @@ class Models_Reporter {
 
 				if ($showZeros or ($metricValue != 0)) {
 					if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
-						$prettyMetricName = str_replace("_", " ", $metricName);
+						$prettyMetricName = $this->getPrettyMetricName($metricName);
 
 						$Img = $this->getMetricImage($sourceName, $metricName, $abouts);
 						$tooltiptext = $this->getTooltipText($sourceName, $metricName, $abouts);
-						$prettyMetricName = str_replace("_", " ", $metricName);
 
 						#FB::log($tooltiptext);
 						$metrics_ret .= "<div class='metrics-div'>";
@@ -306,7 +315,11 @@ class Models_Reporter {
     private function printBiblio($id, $sourceName, $sourceData, $abouts, $biblioSource, $showZeros) {
         $ret = "<div class='biblio $sourceName'>";
 
-		$title = "<span class='title'>$sourceData->title</span>";
+		if (isset($sourceData->title)) {
+			$title = "<span class='title'>$sourceData->title</span>";
+		} else {
+			$title = "<span class='title'></span>";
+		}
 		if ($sourceName=="CrossRef" and $biblioSource=="CrossRef") {
 			$authors = "<span class='meta-author'>$sourceData->authors</span>";
 			$year = "<span class='meta-year'>($sourceData->year) </span>";
