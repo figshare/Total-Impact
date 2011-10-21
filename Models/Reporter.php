@@ -1,6 +1,6 @@
 <?php
 
-#require_once 'FirePHPCore/fb.php';
+require_once 'FirePHPCore/fb.php';
 #ob_start();
 
 /**
@@ -104,15 +104,15 @@ class Models_Reporter {
         $ret = '';
         $abouts = $this->getSourceAbouts($sources);
         foreach ($abouts as $sourceName => $about) {
-			$ret .= '<ul type="square" class="body">';
+			$ret .= '<ul type="square" class="about $sourceName">';
        		$Url = $about->url;
-            $ret .= "<a href='$Url'>$sourceName</a> ";
-            $ret .= $about->desc;
+            $ret .= "<a href='$Url'>$sourceName</a>";
+            $ret .= "<span class='about sourceDescription $sourceName'>" . $about->desc . "</span>";
             $ret .= "<br>";
 	       	foreach ($about->metrics as $metricName => $metricDescription){
 				$Img = $this->getMetricImage($sourceName, $metricName, $abouts);
            		$ret .= "<li>";
-				$ret .= "$Img<strong><span class='about-metric-name'>$metricName</span></strong>: <span class='desc''>$metricDescription</span>";
+				$ret .= "$Img<strong><span class='about metricName $sourceName $metricName '>$metricName</span></strong>: <span class='about metricDescription $sourceName $metricName '>$metricDescription</span>";
 				$ret .= "</li>";
 			}
 			$ret .= "</ul>";
@@ -260,6 +260,11 @@ class Models_Reporter {
 		return($Img);
 	}
 
+	private function getTooltipText($sourceName, $metricName, $abouts) {
+		$tooltiptext = $sourceName . " " . $metricName . ": " . $abouts->$sourceName->metrics->$metricName;
+		return($tooltiptext);
+	}
+	
 	private function printArtifactMetrics($artifact, $abouts, $showZeros) {
 		# First check to see if will render any metrics.  If not, don't show the sourceData.
 		$metrics_array = array();
@@ -272,11 +277,13 @@ class Models_Reporter {
 				if ($showZeros or ($metricValue != 0)) {
 					if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
 						$Img = $this->getMetricImage($sourceName, $metricName, $abouts);
+						$tooltiptext = $this->getTooltipText($sourceName, $metricName, $abouts);
+						FB::log($tooltiptext);
 						$metrics_ret .= "<div class='metrics-div'>";
 						if (isset($sourceData->show_details_url)) {
-	           				$metrics_ret .= "<a target='_blank' href='$sourceData->show_details_url'><span class='metric-value'>$metricValue</span></a>$Img<span class='metric-name'>$metricName</span> \t";					
+	           				$metrics_ret .= "<a target='_blank' href='$sourceData->show_details_url'><span class='metric-value'>$metricValue</span></a>$Img<span class='metric-name' title='$tooltiptext'>$metricName</span> \t";					
 						} else {
-	           				$metrics_ret .= "<span class='metric-value'>$metricValue</span>$Img<span class='metric-name'>$metricName</span> \t";					
+	           				$metrics_ret .= "<span class='metric-value'>$metricValue</span>$Img<span class='metric-name' title='$tooltiptext'>$metricName</span> \t";					
 						}
 						$metrics_ret .= "</div>";
 					}

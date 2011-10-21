@@ -61,6 +61,23 @@ if (!$res){ header('Location: ../'); }
 		  })();
 		</script>
 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="/total-impact/ui/js/jquery.tooltip.js"></script>
+<script type="text/javascript">
+
+$.ajaxSetup ({  
+    cache: false  
+}); 
+var ajax_load = "<img src='./ui/img/ajax-loader.gif' alt='loading...' />";  
+
+$(document).ready(function(){
+
+	$('.metrics-div.metric-name').tooltip();
+	$('#about_metrics').hide();
+	
+});
+</script>
+
 	</head>
 	<body>
 		<!-- START wrapper -->
