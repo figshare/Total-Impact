@@ -72,7 +72,7 @@ var ajax_load = "<img src='./ui/img/ajax-loader.gif' alt='loading...' />";
 
 $(document).ready(function(){
 
-	$('.metrics-div.metric-name').tooltip();
+	$('.metrics-div.metric-img-name').tooltip();
 	$('#about-metrics').hide();
 	
 });
@@ -152,7 +152,7 @@ $(document).ready(function(){
 			<!-- END report -->
 
 		<!-- START footer -->
-			<p class="something-missing">Missing some artifacts or metrics? See <a href="./about.php#Limitations">current limitations.</a>  </p>
+			<p class="something-missing"><a href="./about.php#metrics">More details on available metrics.</a> Missing some artifacts or metrics? See <a href="./about.php#limitations">current limitations.</a>  </p>
 						
 		<div id="about-metrics" class="about-metrics">
 		    <h3>Metrics are computed based on the following data sources:</h3>

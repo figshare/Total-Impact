@@ -402,6 +402,10 @@ ul.source-list {
 	padding-right: 2px;
 }
 
+.metric-img-name {
+    display:inline-block;
+}
+
 .metrics {
 	padding-top: 2em;
 }

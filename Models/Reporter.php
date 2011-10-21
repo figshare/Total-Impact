@@ -265,7 +265,7 @@ class Models_Reporter {
 	                $icon = $abouts->$sourceName->icon;
 				}
         		$Url = $abouts->$sourceName->url;
-        		$Img = "<span class='metric-image'><a href='$Url'><img src='$icon' width='16'' height='16' border=0 alt='' /></a></span>";					
+        		$Img = "<img class='metric-image' src='$icon' width='16'' height='16' border=0 alt='' />";					
 			}
 		}
 		return($Img);
@@ -296,9 +296,9 @@ class Models_Reporter {
 						#FB::log($tooltiptext);
 						$metrics_ret .= "<div class='metrics-div'>";
 						if (isset($sourceData->show_details_url)) {
-	           				$metrics_ret .= "<a target='_blank' href='$sourceData->show_details_url'><span class='metric-value'>$metricValue</span></a>$Img<span class='metric-name' title='$tooltiptext'>$prettyMetricName</span> \t";					
+	           				$metrics_ret .= "<a target='_blank' href='$sourceData->show_details_url'><span class='metric-value'>$metricValue</span></a><div class='metric-img-name' title='$tooltiptext'>$Img<span class='metric-name'>$prettyMetricName</span></div> \t";					
 						} else {
-	           				$metrics_ret .= "<span class='metric-value'>$metricValue</span>$Img<span class='metric-name' title='$tooltiptext'>$prettyMetricName</span> \t";					
+	           				$metrics_ret .= "<span class='metric-value'>$metricValue</span><div class='metric-img-name' title='$tooltiptext'>$Img<span class='metric-name'>$prettyMetricName</span></div> \t";					
 						}
 						$metrics_ret .= "</div>";
 					}

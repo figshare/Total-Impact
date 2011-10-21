@@ -99,7 +99,7 @@ Total-impact data can be:
 
 <p><a href="http://altmetrics.org/manifesto/">The Altmetrics Manifesto</a> is a good, easily-readable introduction to this literature, while the proceedings of the recent <a href="http://altmetrics.org/workshop2011/">altmetrics11</a> workshop goes into more detail. You can check out the shared <a href="http://www.mendeley.com/groups/586171/alt-metrics/papers/">altmetrics library</a> on Mendeley for more even relevant research. Finally, the poster <a href="http://jasonpriem.com/self-archived/two-altmetrics-tools.pdf">Uncovering impacts: CitedIn and total-impact, two new tools for gathering altmetrics</a>, recently submitted to the 2012 iConference, describes a case study using total-impact to evaluate a set of research papers funded by NESCent; it has some brief statistical analysis and some visualisations of the results.
 
-<h2>what types of research output does it track?</h2>
+<h2>what types of research output are tracked?</h2>
 
 <ul>
 <li>Papers by DOI, PubMed ID, Mendeley UUID
@@ -109,7 +109,7 @@ Total-impact data can be:
 
 We expect to support more artifact types soon!
 
-<h2>what types of metrics does it track?</h2>
+<a name="metrics"><h2>what types of metrics are tracked?</h2></a>
 
    <p>Metrics are computed based on the following data sources:</p>
 

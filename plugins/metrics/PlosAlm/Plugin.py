@@ -59,7 +59,7 @@ class PluginClass(BasePluginClass):
         "bookmarks;CiteULike":"http://citeulike.org/favicon.ico",
         "citations;Scopus":"http://scopus.com/static/images/favicon.ico",
         "citations;PMC":PMC_ICON,
-        "blogs;Research_Blogging":" http://researchblogging.org/favicon.ico",
+        "blogs;Research_Blogging":"http://researchblogging.org/favicon.ico",
         "citations;Crossref":"http://www.crossref.org/favicon.ico"}
     SOURCE_METRICS = {"blogs;Postgenomic":"Blogs. This service was discontinued by Nature Publishing Group in 2009.", # rgb(67, 104, 178)
         "citations;Web_of_Science":"The citation data reported for an article from Web of Science.", 
