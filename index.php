@@ -11,7 +11,7 @@ ob_implicit_flush(TRUE);
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title>Total Impact</title>
+        <title>total-impact</title>
         <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
 		<link rel="icon" type="image/png" href="ui/favicon.ico">
 

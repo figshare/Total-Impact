@@ -42,7 +42,7 @@ if (!$res){ header('Location: ../'); }
 	<head>
 		
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	    <title>Total Impact: <?php echo $report->getBestIdentifier() ?></title>
+	    <title>total-impact: <?php echo $report->getBestIdentifier() ?></title>
 	    <link rel="stylesheet" type="text/css" href="ui/totalimpact.css" />
 		<link rel="icon" type="image/png" href="ui/favicon.ico">
 	    <script type="text/javascript" src="ui/jquery/jquery-1.4.2.js"></script>
