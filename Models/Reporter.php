@@ -112,7 +112,8 @@ class Models_Reporter {
 	       	foreach ($about->metrics as $metricName => $metricDescription){
 				$Img = $this->getMetricImage($sourceName, $metricName, $abouts);
            		$ret .= "<li>";
-				$ret .= "$Img <strong><span class='about metricName $sourceName $metricName '>$metricName</span></strong>: <span class='about metricDescription $sourceName $metricName '>$metricDescription</span>";
+				$prettyMetricName = str_replace("_", " ", $metricName);
+				$ret .= "$Img <strong><span class='about metricName $sourceName $metricName '>$prettyMetricName</span></strong>: <span class='about metricDescription $sourceName $metricName '>$metricDescription</span>";
 				$ret .= "</li>";
 			}
 			$ret .= "</ul>";
@@ -261,7 +262,8 @@ class Models_Reporter {
 	}
 
 	private function getTooltipText($sourceName, $metricName, $abouts) {
-		$tooltiptext = $sourceName . " " . $metricName . ": " . $abouts->$sourceName->metrics->$metricName;
+		$prettyMetricName = str_replace("_", " ", $metricName);
+		$tooltiptext = $sourceName . " " . $prettyMetricName . ": " . $abouts->$sourceName->metrics->$metricName;
 		return($tooltiptext);
 	}
 	
@@ -276,14 +278,18 @@ class Models_Reporter {
 
 				if ($showZeros or ($metricValue != 0)) {
 					if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
+						$prettyMetricName = str_replace("_", " ", $metricName);
+
 						$Img = $this->getMetricImage($sourceName, $metricName, $abouts);
 						$tooltiptext = $this->getTooltipText($sourceName, $metricName, $abouts);
+						$prettyMetricName = str_replace("_", " ", $metricName);
+
 						#FB::log($tooltiptext);
 						$metrics_ret .= "<div class='metrics-div'>";
 						if (isset($sourceData->show_details_url)) {
-	           				$metrics_ret .= "<a target='_blank' href='$sourceData->show_details_url'><span class='metric-value'>$metricValue</span></a>$Img<span class='metric-name' title='$tooltiptext'>$metricName</span> \t";					
+	           				$metrics_ret .= "<a target='_blank' href='$sourceData->show_details_url'><span class='metric-value'>$metricValue</span></a>$Img<span class='metric-name' title='$tooltiptext'>$prettyMetricName</span> \t";					
 						} else {
-	           				$metrics_ret .= "<span class='metric-value'>$metricValue</span>$Img<span class='metric-name' title='$tooltiptext'>$metricName</span> \t";					
+	           				$metrics_ret .= "<span class='metric-value'>$metricValue</span>$Img<span class='metric-name' title='$tooltiptext'>$prettyMetricName</span> \t";					
 						}
 						$metrics_ret .= "</div>";
 					}
