@@ -31,7 +31,7 @@ def skip(f):
 class PluginClass(BasePluginClass):
                            
     # each plugin needs to customize this stuff                
-    SOURCE_NAME = "PlosSearch"
+    SOURCE_NAME = "PLoSsearch"
     SOURCE_DESCRIPTION = "PLoS full text search."
     SOURCE_URL = "http://www.plos.org/"
     SOURCE_ICON = "http://a0.twimg.com/profile_images/67542107/Globe_normal.jpg"

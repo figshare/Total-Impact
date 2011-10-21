@@ -44,6 +44,7 @@ if (!$res){ header('Location: ../'); }
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	    <title>Total Impact: <?php echo $report->getBestIdentifier() ?></title>
 	    <link rel="stylesheet" type="text/css" href="ui/totalimpact.css" />
+		<link rel="icon" type="image/png" href="ui/favicon.ico">
 	    <script type="text/javascript" src="ui/jquery/jquery-1.4.2.js"></script>
 	    <script type="text/javascript" src="ui/jquery/jquery.tools.min.js"></script>
 	    <script type="text/javascript" src="ui/protovis-3.2/protovis-r3.2.js"></script>

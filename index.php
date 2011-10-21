@@ -13,6 +13,7 @@ ob_implicit_flush(TRUE);
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>Total Impact</title>
         <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
+		<link rel="icon" type="image/png" href="ui/favicon.ico">
 
 		<script type="text/javascript" src="./ui/js/tooltip.js"></script>
 		<script type="text/javascript">
