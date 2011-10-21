@@ -152,7 +152,7 @@ $(document).ready(function(){
 			<!-- END report -->
 
 		<!-- START footer -->
-			<p class="something-missing">Missing some artifacts or metrics? See <a href="./about.php#Limitations">current limitations.</a>  Reactions and bugs welcome to <a href="http://twitter.com/#!/totalimpactdev">@totalimpactdev</a></p>
+			<p class="something-missing">Missing some artifacts or metrics? See <a href="./about.php#Limitations">current limitations.</a>  </p>
 						
 		<div id="about-metrics" class="about-metrics">
 		    <h3>Metrics are computed based on the following data sources:</h3>

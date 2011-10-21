@@ -1,6 +1,6 @@
 <?php
 
-require_once 'FirePHPCore/fb.php';
+#require_once 'FirePHPCore/fb.php';
 #ob_start();
 
 /**
@@ -278,7 +278,7 @@ class Models_Reporter {
 					if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
 						$Img = $this->getMetricImage($sourceName, $metricName, $abouts);
 						$tooltiptext = $this->getTooltipText($sourceName, $metricName, $abouts);
-						FB::log($tooltiptext);
+						#FB::log($tooltiptext);
 						$metrics_ret .= "<div class='metrics-div'>";
 						if (isset($sourceData->show_details_url)) {
 	           				$metrics_ret .= "<a target='_blank' href='$sourceData->show_details_url'><span class='metric-value'>$metricValue</span></a>$Img<span class='metric-name' title='$tooltiptext'>$metricName</span> \t";					
