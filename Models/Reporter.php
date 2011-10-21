@@ -107,12 +107,12 @@ class Models_Reporter {
 			$ret .= '<ul type="square" class="about $sourceName">';
        		$Url = $about->url;
             $ret .= "<a href='$Url'>$sourceName</a>";
-            $ret .= "<span class='about sourceDescription $sourceName'>" . $about->desc . "</span>";
+            $ret .= " <span class='about sourceDescription $sourceName'>" . $about->desc . "</span>";
             $ret .= "<br>";
 	       	foreach ($about->metrics as $metricName => $metricDescription){
 				$Img = $this->getMetricImage($sourceName, $metricName, $abouts);
            		$ret .= "<li>";
-				$ret .= "$Img<strong><span class='about metricName $sourceName $metricName '>$metricName</span></strong>: <span class='about metricDescription $sourceName $metricName '>$metricDescription</span>";
+				$ret .= "$Img <strong><span class='about metricName $sourceName $metricName '>$metricName</span></strong>: <span class='about metricDescription $sourceName $metricName '>$metricDescription</span>";
 				$ret .= "</li>";
 			}
 			$ret .= "</ul>";
