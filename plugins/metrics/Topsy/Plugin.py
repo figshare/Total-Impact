@@ -29,9 +29,10 @@ class PluginClass(BasePluginClass):
                 
     # each plugin needs to customize this stuff                
     SOURCE_NAME = "Topsy"
-    SOURCE_DESCRIPTION = "Real-time search for the social web."
+    POWERED_BY_TOPSY = ", <a href='http://topsy.com'><img src='http://cdn.topsy.com/img/powered.png'/></a>" #part of otter terms of use to include this http://modules.topsy.com/app-terms/
+    SOURCE_DESCRIPTION = "Real-time search for the social web" + POWERED_BY_TOPSY
     SOURCE_URL = "http://www.topsy.com/"
-    SOURCE_ICON = "http://cdn.topsy.com/img/powered.png" 
+    SOURCE_ICON = "http://twitter.com/phoenix/favicon.ico" 
     SOURCE_METRICS = dict(  tweets="the number of tweets of the artifact",
                             influential_tweets="the number of tweets of the artifact by influential tweeters")
 
