@@ -51,6 +51,8 @@ class TestInput(object):
     TEST_INPUT_ALL.update(TEST_INPUT_SLIDESHARE_URL)
     TEST_INPUT_GEO = {"GSE2109":{}}
     TEST_INPUT_ALL.update(TEST_INPUT_GEO)
+    TEST_INPUT_TWEETED_URL = {"http://ow.ly/73HQN":{}}
+    TEST_INPUT_ALL.update(TEST_INPUT_TWEETED_URL)
         
 class BasePluginClass(object):
 
