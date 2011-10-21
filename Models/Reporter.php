@@ -238,54 +238,52 @@ class Models_Reporter {
             $ret .= $this->printBiblio($id, $sourceName, $sourceData, $abouts, $biblioSource, $showZeros);
         }
 		
-		$metrics = array();
-        foreach ($artifact as $sourceName => $sourceData) {
-       		foreach ($sourceData as $metricName => $metricValue) {
-            	#$metrics[$metricName] = $metricValue;
-			}
-        }
-		#var_dump($metrics);
-		#usort(get_object_vars($artifact), 'sortByValue');
-		
-        foreach ($artifact as $sourceName => $sourceData) {
-            $ret .= $this->printSource($id, $sourceName, $sourceData, $abouts, $biblioSource, $showZeros);
-        }
+        $ret .= $this->printArtifactMetrics($artifact, $abouts, $showZeros);
         $ret .= "</ul></li>";
         return $ret;
 
     }
 
-	private function printMetric($sourceName, $sourceData, $abouts, $showZeros) {
+	private function printArtifactMetrics($artifact, $abouts, $showZeros) {
 		# First check to see if will render any metrics.  If not, don't show the sourceData.
-		$metrics_ret = "";
-						
-       	foreach ($sourceData as $metricName => $metricValue) {
-			$Img = "";
-	        if (isset($abouts->$sourceName->icon)){
-	            if ($abouts->$sourceName->icon){
-					if (isset($abouts->$sourceName->icon->$metricName)) {
-		                $icon = $abouts->$sourceName->icon->$metricName;						
-					} else {
-		                $icon = $abouts->$sourceName->icon;
-					}
-	        		$Url = $abouts->$sourceName->url;
-	        		$Img = "<span class='metric-image'><a href='$Url'><img src='$icon' width='16'' height='16' border=0 alt='' /></a></span>";					
-				}
-			}
+		$metrics_array = array();
 
-			if ($showZeros or ($metricValue != 0)) {
-				if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
-					$metrics_ret .= "<div class='metrics-div'>";
-					if (isset($sourceData->show_details_url)) {
-           				$metrics_ret .= "<a target='_blank' href='$sourceData->show_details_url'><span class='metric-value'>$metricValue</span></a>$Img<span class='metric-name'>$metricName</span> \t";					
-					} else {
-           				$metrics_ret .= "<span class='metric-value'>$metricValue</span>$Img<span class='metric-name'>$metricName</span> \t";					
+        foreach ($artifact as $sourceName => $sourceData) {
+						
+	       	foreach ($sourceData as $metricName => $metricValue) {
+				$metrics_ret = "";
+
+				if ($showZeros or ($metricValue != 0)) {
+					if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
+						$Img = "";
+				        if (isset($abouts->$sourceName->icon)){
+				            if ($abouts->$sourceName->icon){
+								if (isset($abouts->$sourceName->icon->$metricName)) {
+					                $icon = $abouts->$sourceName->icon->$metricName;						
+								} else {
+					                $icon = $abouts->$sourceName->icon;
+								}
+				        		$Url = $abouts->$sourceName->url;
+				        		$Img = "<span class='metric-image'><a href='$Url'><img src='$icon' width='16'' height='16' border=0 alt='' /></a></span>";					
+							}
+						}
+
+						$metrics_ret .= "<div class='metrics-div'>";
+						if (isset($sourceData->show_details_url)) {
+	           				$metrics_ret .= "<a target='_blank' href='$sourceData->show_details_url'><span class='metric-value'>$metricValue</span></a>$Img<span class='metric-name'>$metricName</span> \t";					
+						} else {
+	           				$metrics_ret .= "<span class='metric-value'>$metricValue</span>$Img<span class='metric-name'>$metricName</span> \t";					
+						}
+						$metrics_ret .= "</div>";
 					}
-					$metrics_ret .= "</div>";
 				}
+				$metrics_array[$metrics_ret] = $metricValue;
 			}
 		}
-		return($metrics_ret);
+		arsort($metrics_array);
+		$return = implode("" ,array_keys($metrics_array));
+		#FB::log($return);
+		return($return);
 	}
 
     private function printBiblio($id, $sourceName, $sourceData, $abouts, $biblioSource, $showZeros) {
@@ -325,33 +323,6 @@ class Models_Reporter {
 			$doi = "<span class='meta-doi'> http://dx.doi.org/$sourceData->doi</span>";
            	$ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $repo $doi<br/>";
 		}
-		$ret .= "</div>";
-        return $ret;
-    }
-
-	
-    private function printSource($id, $sourceName, $sourceData, $abouts, $biblioSource, $showZeros) {
-
-		# First check to see if will render any metrics.  If not, don't show the sourceData.
-		$metrics_ret = $this->printMetric($sourceName, $sourceData, $abouts, $showZeros);
-		
-		if (($sourceName != $biblioSource) and (strlen($metrics_ret) == 0)) {
-			return("");
-		}
-		
-        $Img = '';
-        if (isset($abouts->$sourceName->icon)){
-            if ($abouts->$sourceName->icon){
-                $icon = $abouts->$sourceName->icon;
-        		$Url = $abouts->$sourceName->url;
-            }
-        }
-        $ret = '';
-        $ret .= "<div class='source $sourceName'>";
-        $ret .= "$Img";
-
-		$ret .= $metrics_ret;
-
 		$ret .= "</div>";
         return $ret;
     }
