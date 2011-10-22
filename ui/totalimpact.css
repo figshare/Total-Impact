@@ -378,15 +378,24 @@ li.artifact h3 {
 
 .metrics-div {
     float: left;
+    height: 6em;
+    margin-right: 7px;
 }
 
-.source a{
+.metrics-div a{
     text-decoration: none;
-    color:black;
+    font-weight: bold;
 }
 
 .metric-name {
-	font-size: 50%;    
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(-90deg);
+    -ms-filter: 'progid:DXImageTransform.Microsoft.BasicImage(rotation=3)';
+    color: #CCCCCC;
+    display: block;
+    font-size: 50%;
+    margin-top: 4px;
+    width: 3em;
 }
 
 ul.source-list {
@@ -394,16 +403,15 @@ ul.source-list {
 }
 
 .metric-image {
+    margin: 0 3px;
 }
 
 .metric-value {
 	font-size:150%;   
-	padding-left: 12px;
-	padding-right: 2px;
 }
 
 .metric-img-name {
-    display:inline-block;
+    display:block;
 }
 
 .metrics {
