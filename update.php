@@ -8,10 +8,10 @@ ob_implicit_flush(TRUE);
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 		 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:laImpactng="en">
     <head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title>total-impact</title>
+        <title>total-Impact</title>
         <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
 		<link rel="icon" type="image/png" href="ui/favicon.ico">
 		<script type="text/javascript">
@@ -33,7 +33,7 @@ ob_implicit_flush(TRUE);
 
 			<!-- START header -->
 	        <div id="header">
-	            <a href="./index.php"><img src="./ui/img/ti_logo.png" alt="total-impact" width="200px" /></a> 
+	            <a href="./index.php"><img src="./ui/img/ti_logo.png" alt="total-Impact" width="200px" /></a> 
 	        </div>
 			<!-- END header -->
 	        
@@ -95,7 +95,7 @@ ob_implicit_flush(TRUE);
 			<!-- END updating -->
 			<!-- START footer -->
 			<div id="footer">
-			<p>Concept originally hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/total-impact">Source and contributors.</a></p>
+			<p>Concept originally hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/total-Impact">Source and contributors.</a></p>
 			</div>
 			<!-- END footer -->
 		</div>

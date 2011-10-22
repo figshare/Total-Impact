@@ -42,7 +42,7 @@ if (!$res){ header('Location: ../'); }
 	<head>
 		
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	    <title>total-impact: <?php echo $report->getBestIdentifier() ?></title>
+	    <title>total-Impact: <?php echo $report->getBestIdentifier() ?></title>
 	    <link rel="stylesheet" type="text/css" href="ui/totalimpact.css" />
 		<link rel="icon" type="image/png" href="ui/favicon.ico">
 	    <script type="text/javascript" src="ui/jquery/jquery-1.4.2.js"></script>
@@ -86,7 +86,7 @@ $(document).ready(function(){
 		
 			<!-- START header -->
 	        <div id="header">
-	            <a href="./index.php"><img src="./ui/img/ti_logo.png" alt="total-impact" width='200px' /></a> 
+	            <a href="./index.php"><img src="./ui/img/ti_logo.png" alt="total-Impact" width='200px' /></a> 
 			</div>   
 			<!-- END header -->
 
@@ -131,8 +131,8 @@ $(document).ready(function(){
 					<script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
 					<div class="tweet-this">
 					  <a href="https://twitter.com/share" class="twitter-share-button"
-					  data-url="<?php echo "http://total-impact.org/report.php?id=" . $collectionId?>"
-					  data-via="mytotalimpact"
+					  data-url="<?php echo "http://total-Impact.org/report.php?id=" . $collectionId?>"
+					  data-via="mytotalImpact"
 					  data-text="<?php echo "Check out My Total Impact: " . $report->getBestIdentifier() . " at";?>"
 					  data-count="horizontal">Tweet</a>
 					</div>
@@ -168,8 +168,8 @@ $(document).ready(function(){
 
 		<div id="footer">
 			<table border=0 width=100%><tr>
-			<td><a href="./about.php">about total-impact</a></td>
-			<td align="center">Reactions and bugs welcome to <a href="http://twitter.com/#!/totalimpactdev">@totalimpactdev</a></td>			
+			<td><a href="./about.php">about total-Impact</a></td>
+			<td align="center">Reactions and bugs welcome to <a href="http://twitter.com/#!/totalImpactdev">@totalImpactdev</a></td>			
 			<td align="left"><a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80" style="margin-bottom:5px" /></a></td>
 			</tr>
 		</div>

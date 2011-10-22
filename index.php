@@ -11,7 +11,7 @@ ob_implicit_flush(TRUE);
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title>total-impact</title>
+        <title>total-Impact</title>
         <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
 		<link rel="icon" type="image/png" href="ui/favicon.ico">
 
@@ -73,7 +73,7 @@ $(document).ready(function(){
 			
 			<!-- START header -->
 	        <div id="header">
-	            <img src="./ui/img/ti_logo.png" alt="total-impact" width="200px" /> 
+	            <img src="./ui/img/ti_logo.png" alt="total-Impact" width="200px" /> 
 			<?php
 				if (isset($_REQUEST['run'])) {
 					$query_string = $_SERVER['QUERY_STRING'];
@@ -100,7 +100,7 @@ $(document).ready(function(){
 					}
 				}
 	     	?>
-	        	<br/>Total-impact makes it quick and easy to view the impact of a wide range of research artifacts.
+	        	<br/>total-Impact makes it quick and easy to view the impact of a wide range of research artifacts.
 	        </div>
 			<!-- END header -->
 
@@ -130,7 +130,7 @@ $(document).ready(function(){
 				<div id="enter-ids">
 					<form name="id_form">
 					<fieldset><legend>Create a collection:</legend>
-			           <p><label for="list">List your IDs here</label><a class="tooltip" onmouseover="tooltip.show('Valid identifiers are: DOIs, Slideshare links, dataset IDs separated by newlines.  For example, 10.1371/journal.pbio.0050082 10.1371/journal.pone.0000308 http://www.slideshare.net/phylogenomics/eisenall-hands 10.5061/dryad.8384 GSE2109', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
+			           <p><label for="list">List your IDs here</label><a class="tooltip" onmouseover="tooltip.show('Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a> <a target="_blank" href="examples.php">(cool examples)</a></p>
 			           <textarea rows=15 name="list" id="artifactList"><?php echo $artifactIdsString; ?></textarea>
 
 			           <p><label for="name">Name this collection</label><a class="tooltip" onmouseover="tooltip.show('You can add a custom name to identify this collection', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
@@ -217,9 +217,9 @@ $(document).ready(function(){
 					new TWTR.Widget({
 					  version: 2,
 					  type: 'search',
-					  search: 'via @mytotalimpact',
+					  search: 'via @mytotalImpact',
 					  interval: 30000,
-					  title: 'Recent public reports: "via @mytotalimpact"',
+					  title: 'Recent public reports: "via @mytotalImpact"',
 					  subject: 'Tweet yours to see it here!',
 					  width: "80%",
 					  height: 200,
@@ -251,8 +251,8 @@ $(document).ready(function(){
 
 			<div id="footer">
 				<table border=0 width=100%><tr>
-				<td><a href="./about.php">about total-impact</a></td>
-				<td align="center">Reactions and bugs welcome to <a href="http://twitter.com/#!/totalimpactdev">@totalimpactdev</a></td>			
+				<td><a href="./about.php">about total-Impact</a></td>
+				<td align="center">Reactions and bugs welcome to <a href="http://twitter.com/#!/totalImpactdev">@totalImpactdev</a></td>			
 				<td align="left"><a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80" style="margin-bottom:5px" /></a></td>
 				</tr>
 			</div>
