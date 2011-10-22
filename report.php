@@ -95,7 +95,7 @@ $(document).ready(function(){
 		        <h2>Impact report for <?php echo $report->getBestIdentifier(); ?></h2>
 				<!-- START report-meta -->
 		        <div id="report-meta">
-					<div class="permalink" id="permalink">Permalink: <a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a></div>
+				<div class="permalink" id="permalink">Permalink: <a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a></div>
 		        	<div class="badge artifacts-count"><?php echo $report->getArtifactsCount(); ?> artifacts</div> 
 		        	<div class="badge created-at">created <?php echo $report->getCreatedAt('j M, Y');?></div>
 		        	<div class="badge updated-at">updated <?php echo $report->getUpdatedAt('j M, Y');?></div>

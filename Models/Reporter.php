@@ -143,7 +143,7 @@ class Models_Reporter {
 			$ret .= "<p>Article ID list was truncated to maximum length: 250 artifacts.</p>"; 
 		}
 
-		/* if no artifacts have metrics, add call here to printNothingHereMsg() */
+	/* if no artifacts have metrics, add call here to printNothingHereMsg() */
         $genres = $this->sortByGenre($sources);
 		#FB::log($genres);
         $abouts = $this->getSourceAbouts($sources);
@@ -231,26 +231,34 @@ class Models_Reporter {
         $ret = '';
         $ret .= "<li class='artifact'>";
         $ret .= "<h3>$id</h3>"; // here's where we'd print a name/title of the artifact if we had it.
-        $ret .= "<ul class='source-list'>";
 
-		$biblioSources = array("CrossRef", "PubMed", "Mendeley");
-		$biblioSource = "";
-		foreach ($biblioSources as $candidateSource)	{
-			if (isset($artifact->$candidateSource)) {
-				if (isset($artifact->$candidateSource->title)) {
-					if (strlen($artifact->$candidateSource->title) > 0 ) {
-						$biblioSource = $candidateSource;
-						break;
-					}
-				}
-			}
-		}
-        foreach ($artifact as $sourceName => $sourceData) {
-            $ret .= $this->printBiblio($id, $sourceName, $sourceData, $abouts, $biblioSource, $showZeros);
+        $biblioSources = array("CrossRef", "PubMed", "Mendeley");
+        $biblioSource = "";
+        foreach ($biblioSources as $candidateSource)	{
+                if (isset($artifact->$candidateSource)) {
+                        if (isset($artifact->$candidateSource->title)) {
+                                if (strlen($artifact->$candidateSource->title) > 0 ) {
+                                        $biblioSource = $candidateSource;
+                                        break;
+                                }
+                        }
+                }
         }
-		
-        $ret .= $this->printArtifactMetrics($artifact, $abouts, $showZeros);
-        $ret .= "</ul></li>";
+
+        $biblioSection = '';
+
+        foreach ($artifact as $sourceName => $sourceData) {
+            $biblioSection .= $this->printBiblio($id, $sourceName, $sourceData, $abouts, $biblioSource, $showZeros);
+        }
+        if (!$biblioSection){
+            $biblioSection = "<span class='missing biblio'>no bibliographic info available.</span>";
+        }
+        
+        $metricSection = '' . $this->printArtifactMetrics($artifact, $abouts, $showZeros);
+        if (!$metricSection){
+            $metricSection = "<span class='missing metrics'>all available metrics are zero.</span>";
+        }
+        $ret .= "<div class='biblio'>$biblioSection</div><div class='metrics'>$metricSection</div></li>";
         return $ret;
 
     }
@@ -281,31 +289,31 @@ class Models_Reporter {
 		# First check to see if will render any metrics.  If not, don't show the sourceData.
 		$metrics_array = array();
 
-        foreach ($artifact as $sourceName => $sourceData) {
-						
-	       	foreach ($sourceData as $metricName => $metricValue) {
-				$metrics_ret = "";
+                foreach ($artifact as $sourceName => $sourceData) {
 
-				if ($showZeros or ($metricValue != 0)) {
-					if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
-						$prettyMetricName = $this->getPrettyMetricName($metricName);
+                        foreach ($sourceData as $metricName => $metricValue) {
+                                $metrics_ret = "";
 
-						$Img = $this->getMetricImage($sourceName, $metricName, $abouts);
-						$tooltiptext = $this->getTooltipText($sourceName, $metricName, $abouts);
+                                if ($showZeros or ($metricValue != 0)) {
+                                        if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type"))) {
+                                                $prettyMetricName = $this->getPrettyMetricName($metricName);
 
-						#FB::log($tooltiptext);
-						$metrics_ret .= "<div class='metrics-div'>";
-						if (isset($sourceData->show_details_url)) {
-	           				$metrics_ret .= "<a target='_blank' href='$sourceData->show_details_url'><span class='metric-value'>$metricValue</span></a><div class='metric-img-name' title='$tooltiptext'>$Img<span class='metric-name'>$prettyMetricName</span></div> \t";					
-						} else {
-	           				$metrics_ret .= "<span class='metric-value'>$metricValue</span><div class='metric-img-name' title='$tooltiptext'>$Img<span class='metric-name'>$prettyMetricName</span></div> \t";					
-						}
-						$metrics_ret .= "</div>";
-					}
-				}
-				$metrics_array[$metrics_ret] = $metricValue;
-			}
-		}
+                                                $Img = $this->getMetricImage($sourceName, $metricName, $abouts);
+                                                $tooltiptext = $this->getTooltipText($sourceName, $metricName, $abouts);
+
+                                                #FB::log($tooltiptext);
+                                                $metrics_ret .= "<div class='metrics-div'>";
+                                                if (isset($sourceData->show_details_url)) {
+                                                $metrics_ret .= "<a target='_blank' href='$sourceData->show_details_url'><span class='metric-value'>$metricValue</span></a><div class='metric-img-name' title='$tooltiptext'>$Img<span class='metric-name'>$prettyMetricName</span></div> \t";
+                                                } else {
+                                                $metrics_ret .= "<span class='metric-value'>$metricValue</span><div class='metric-img-name' title='$tooltiptext'>$Img<span class='metric-name'>$prettyMetricName</span></div> \t";
+                                                }
+                                                $metrics_ret .= "</div>";
+                                        }
+                                }
+                                $metrics_array[$metrics_ret] = $metricValue;
+                        }
+                }
 		arsort($metrics_array);
 		$return = implode("" ,array_keys($metrics_array));
 		#FB::log($return);
@@ -313,48 +321,48 @@ class Models_Reporter {
 	}
 
     private function printBiblio($id, $sourceName, $sourceData, $abouts, $biblioSource, $showZeros) {
-        $ret = "<div class='biblio $sourceName'>";
+        $ret = "";
 
-		if (isset($sourceData->title)) {
-			$title = "<span class='title'>$sourceData->title</span>";
-		} else {
-			$title = "<span class='title'></span>";
-		}
-		if ($sourceName=="CrossRef" and $biblioSource=="CrossRef") {
-			$authors = "<span class='meta-author'>$sourceData->authors</span>";
-			$year = "<span class='meta-year'>($sourceData->year) </span>";
-			$journal = "<span class='meta-repo'>$sourceData->journal.</span>";
-			$doi = "<span class='meta-doi'> http://dx.doi.org/$sourceData->doi</span>";
-			$url = "http://dx.doi.org/$sourceData->doi";
-           	$ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $journal $doi<br/>";
-		} elseif ($sourceName=="PubMed" and $biblioSource=="PubMed") {
-			$authors = "<span class='meta-author'>$sourceData->authors</span>";
-			$year = "<span class='meta-year'>($sourceData->year) </span>";
-			$journal = "<span class='meta-repo'>$sourceData->journal.</span>";
-			$url = "http://www.ncbi.nlm.nih.gov/pubmed/$sourceData->pmid";
-			$pmid = "<span class='meta-pmid'>$sourceData->pmid</span>";
-           	$ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $journal $pmid<br/>";
-		} elseif ($sourceName=="Mendeley" and $biblioSource=="Mendeley") {
-			$authors = "<span class='meta-author'>$sourceData->authors</span>";
-			$year = "<span class='meta-year'>($sourceData->year) </span>";
-			$journal = "<span class='meta-repo'>$sourceData->journal.</span>";
-			$url = $sourceData->url;
-           	$ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $journal<br/>";
-		} 
-		if ($sourceName=="Slideshare") {
-           	$ret .= "<a class='meta-doi' href='$id'>$sourceData->title</a>; Uploaded in $sourceData->upload_year<br/>";
-		} elseif ($sourceName=="FigShare") {
-			$repo = "<span class='meta-repo'>FigShare.</span>";
-           	$ret .= "<a class='meta-doi' href='$id'>$sourceData->title</a>, $repo $id<br/>";
-		} elseif ($sourceName=="Dryad") {
-			$authors = "<span class='meta-author'>$sourceData->authors</span>";
-			$repo = "<span class='meta-repo'>Dryad Data Repository.</span>";
-			$url = "http://dx.doi.org/$sourceData->doi";
-			$doi = "<span class='meta-doi'> http://dx.doi.org/$sourceData->doi</span>";
-           	$ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $repo $doi<br/>";
-		}
-		$ret .= "</div>";
-        return $ret;
+        if (isset($sourceData->title)) {
+                $title = "<span class='title'>$sourceData->title</span>";
+        } else {
+                $title = "<span class='title'></span>";
+        }
+        if ($sourceName=="CrossRef" and $biblioSource=="CrossRef") {
+                $authors = "<span class='meta-author'>$sourceData->authors</span>";
+                $year = "<span class='meta-year'>($sourceData->year) </span>";
+                $journal = "<span class='meta-repo'>$sourceData->journal.</span>";
+                $doi = "<span class='meta-doi'> http://dx.doi.org/$sourceData->doi</span>";
+                $url = "http://dx.doi.org/$sourceData->doi";
+        $ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $journal $doi<br/>";
+        } elseif ($sourceName=="PubMed" and $biblioSource=="PubMed") {
+                $authors = "<span class='meta-author'>$sourceData->authors</span>";
+                $year = "<span class='meta-year'>($sourceData->year) </span>";
+                $journal = "<span class='meta-repo'>$sourceData->journal.</span>";
+                $url = "http://www.ncbi.nlm.nih.gov/pubmed/$sourceData->pmid";
+                $pmid = "<span class='meta-pmid'>$sourceData->pmid</span>";
+        $ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $journal $pmid<br/>";
+        } elseif ($sourceName=="Mendeley" and $biblioSource=="Mendeley") {
+                $authors = "<span class='meta-author'>$sourceData->authors</span>";
+                $year = "<span class='meta-year'>($sourceData->year) </span>";
+                $journal = "<span class='meta-repo'>$sourceData->journal.</span>";
+                $url = $sourceData->url;
+        $ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $journal<br/>";
+        }
+        if ($sourceName=="Slideshare") {
+        $ret .= "<a class='meta-doi' href='$id'>$sourceData->title</a>; Uploaded in $sourceData->upload_year<br/>";
+        } elseif ($sourceName=="FigShare") {
+                $repo = "<span class='meta-repo'>FigShare.</span>";
+        $ret .= "<a class='meta-doi' href='$id'>$sourceData->title</a>, $repo $id<br/>";
+        } elseif ($sourceName=="Dryad") {
+                $authors = "<span class='meta-author'>$sourceData->authors</span>";
+                $repo = "<span class='meta-repo'>Dryad Data Repository.</span>";
+                $url = "http://dx.doi.org/$sourceData->doi";
+                $doi = "<span class='meta-doi'> http://dx.doi.org/$sourceData->doi</span>";
+        $ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $repo $doi<br/>";
+        }
+        
+        return ($ret) ? "<div class='biblio $sourceName'>" . $ret . "</div>" : "";
     }
 
     private function printNothingHereMsg(){
