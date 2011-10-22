@@ -246,7 +246,6 @@ class Models_Reporter {
         }
 
         $biblioSection = '';
-
         foreach ($artifact as $sourceName => $sourceData) {
             $biblioSection .= $this->printBiblio($id, $sourceName, $sourceData, $abouts, $biblioSource, $showZeros);
         }
@@ -258,7 +257,7 @@ class Models_Reporter {
         if (!$metricSection){
             $metricSection = "<span class='missing metrics'>all available metrics are zero.</span>";
         }
-        $ret .= "<div class='biblio'>$biblioSection</div><div class='metrics'>$metricSection</div></li>";
+        $ret .= "<ul class='biblio'>$biblioSection</ul><ul class='metrics'>$metricSection</ul></li>";
         return $ret;
 
     }
@@ -302,13 +301,13 @@ class Models_Reporter {
                                                 $tooltiptext = $this->getTooltipText($sourceName, $metricName, $abouts);
 
                                                 #FB::log($tooltiptext);
-                                                $metrics_ret .= "<div class='metrics-div'>";
+                                                $metrics_ret .= "<li>";
                                                 if (isset($sourceData->show_details_url)) {
                                                 $metrics_ret .= "<a target='_blank' href='$sourceData->show_details_url'><span class='metric-value'>$metricValue</span></a><div class='metric-img-name' title='$tooltiptext'>$Img<span class='metric-name'>$prettyMetricName</span></div> \t";
                                                 } else {
                                                 $metrics_ret .= "<span class='metric-value'>$metricValue</span><div class='metric-img-name' title='$tooltiptext'>$Img<span class='metric-name'>$prettyMetricName</span></div> \t";
                                                 }
-                                                $metrics_ret .= "</div>";
+                                                $metrics_ret .= "</li>";
                                         }
                                 }
                                 $metrics_array[$metrics_ret] = $metricValue;
@@ -362,7 +361,7 @@ class Models_Reporter {
         $ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $repo $doi<br/>";
         }
         
-        return ($ret) ? "<div class='biblio $sourceName'>" . $ret . "</div>" : "";
+        return ($ret) ? "<li class='biblio $sourceName'>" . $ret . "</li>" : "";
     }
 
     private function printNothingHereMsg(){

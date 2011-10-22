@@ -375,16 +375,22 @@ li.artifact h3 {
     color: green;
 }
 */
-
-.metrics-div {
+ul.metrics li{
+    list-style-type:none;
+}
+ul.biblio li {
+    list-style-type: none;
+}
+ul.metrics li {
     float: left;
     height: 6em;
     margin-right: 7px;
 }
 
-.metrics-div a{
+ul.metrics a{
     text-decoration: none;
     font-weight: bold;
+    list-style-type:none;
 }
 
 .metric-name {
@@ -404,10 +410,6 @@ ul.source-list {
 
 .metric-image {
     margin: 0 3px;
-}
-
-.metric-value {
-	font-size:150%;   
 }
 
 .metric-img-name {
