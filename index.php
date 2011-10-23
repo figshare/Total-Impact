@@ -69,42 +69,42 @@ $(document).ready(function(){
 
     </head>
     <body>
+    	<!-- START header -->
+        <div id="header">
+            <h1><a href="./index.php">total-impact</a></h1>
+            <ul id="nav">
+                <li><a href="./about.php">about</a></li>
+                <li><a href="http://twitter.com/#!/totalImpactdev">twitter</a></li>
+            </ul>
+                    <?php
+                            if (isset($_REQUEST['run'])) {
+                                    $query_string = $_SERVER['QUERY_STRING'];
+                    echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
+                    echo "<script>location.href='./update.php?$query_string'</script>";
+                            }
+                            else {
+                                    $title = "";
+                                    $artifactIdsString = "";
+                                    if (isset($_REQUEST['list'])) {
+                                            $artifactIdsString = $_REQUEST['list'];
+                                    }
+                                    if (isset($_REQUEST['name'])) {
+                                            $title = $_REQUEST['name'];
+                                    }
+                                    if (isset($_REQUEST['add-id'])) {
+                                            $collectionId = $_REQUEST['add-id'];
+                                    $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
+                            $collection = new Models_Collection();
+                                            $doc = $collection->fetch($collectionId, $config);
+                                            $title = $doc->title;
+                                            $artifactIds = $doc->artifact_ids;
+                                            $artifactIdsString .= implode('&#013;&#010;', $artifactIds);
+                                    }
+                            }
+            ?>
+        </div>
 	<!-- START wrapper -->
         <div id="wrapper">
-    	<!-- START header -->
-            <div id="header">
-                <h1>total-impact</h1>
-                <ul id="nav">
-                    <li><a href="./about.php">about</a></li>
-                    <li><a href="http://twitter.com/#!/totalImpactdev">twitter</a></li>
-                </ul>
-			<?php
-				if (isset($_REQUEST['run'])) {
-					$query_string = $_SERVER['QUERY_STRING'];
-	            	echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
-	            	echo "<script>location.href='./update.php?$query_string'</script>";
-				}
-				else {
-					$title = "";
-					$artifactIdsString = "";
-					if (isset($_REQUEST['list'])) {
-						$artifactIdsString = $_REQUEST['list'];
-					}
-					if (isset($_REQUEST['name'])) {
-						$title = $_REQUEST['name'];
-					}
-					if (isset($_REQUEST['add-id'])) {
-						$collectionId = $_REQUEST['add-id'];
-		           		$config = new Zend_Config_Ini(CONFIG_PATH, ENV);
-		            	$collection = new Models_Collection();
-						$doc = $collection->fetch($collectionId, $config);
-						$title = $doc->title;
-						$artifactIds = $doc->artifact_ids;
-						$artifactIdsString .= implode('&#013;&#010;', $artifactIds);
-					}
-				}
-	     	?>
-            </div>
             <div id="about">
                 <p id="tagline">uncoving the invisible impacts of your research.</p>
                 <div id="instr">
