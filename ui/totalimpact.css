@@ -17,7 +17,7 @@ body a:hover {
 
 #wrapper {
 	margin: 100px auto 0;
-	width: 1200px;
+	width: 1150px;
 	border-bottom: 8px solid #AAA;
 }
 
@@ -160,10 +160,21 @@ div#about{
 	font-size: 10pt;
 	float: right;
 }
-
+#report h2 {
+    text-align:right;
+    font-family: 'Lobster Two';
+    font-weight: normal;
+    font-style: italic;
+    margin-right:100px;
+}
+#report h2 span.title {
+    font-family: 'helvitica', 'arial', sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    font-size:35px;
+}
 #report-meta {
-	font-size: 90%;
-	padding: .5em;
+
 }
 
 /* HTML elements */
@@ -219,6 +230,7 @@ p#tagline {
     font-family: 'Lobster Two', helvetica, arial, sans-serif;
     font-size: 30px;
     font-style:italic;
+    font-weight: normal;
 }
 
 
@@ -493,6 +505,7 @@ div.genre h3 {
         color:#555;
         padding-left:116px;
         border-bottom: 3px dotted #ddd;
+        font-weight:normal;
 
 }
 

@@ -49,6 +49,7 @@ if (!$res){ header('Location: ../'); }
             <link rel="icon" type="image/png" href="ui/favicon.ico">
             <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	    <script type="text/javascript" src="ui/jquery/jquery.tooltip.js"></script>
+	    <script type="text/javascript" src="ui/jquery/jquery.zclip.js"></script>
 
 
 	
@@ -76,6 +77,15 @@ var ajax_load = "<img src='./ui/img/ajax-loader.gif' alt='loading...' />";
 $(document).ready(function(){
 
 	$('ul.metrics li').tooltip();
+        $('a#copy-permalink').zclip({
+            path:'ui/jquery/ZeroClipboard.swf',
+            copy:"test text",
+            afterCopy:function(){
+                alert("i worked");
+                $('a#copy-permalink').text('copied.');
+            }
+        });
+
 	$('#about-metrics').hide();
 	
 });
@@ -101,7 +111,7 @@ $(document).ready(function(){
 		        <h2>report for <span class="title"><?php echo $report->getBestIdentifier(); ?></span></h2>
 				<!-- START report-meta -->
 		        <div id="report-meta">
-				<div class="permalink" id="permalink">Permalink: <a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a></div>
+                            <div id="permalink" class="permalink">Permalink: <a class="copyable", href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"</a></div><a href="#" id="copy-permalink">copy</a>
 		        	<div class="badge artifacts-count"><?php echo $report->getArtifactsCount(); ?> artifacts</div> 
 		        	<div class="badge created-at">created <?php echo $report->getCreatedAt('j M, Y');?></div>
 		        	<div class="badge updated-at">updated <?php echo $report->getUpdatedAt('j M, Y');?></div>
