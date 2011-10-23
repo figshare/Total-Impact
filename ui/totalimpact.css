@@ -16,9 +16,11 @@ body a:hover {
 }
 
 #wrapper {
-	margin: 100px auto 0;
+	margin: 150px auto 0;
 	width: 1150px;
-	border-bottom: 8px solid #AAA;
+}
+body.report #wrapper {
+    margin-top: 100px;
 }
 
 body div#tooltip {
@@ -139,19 +141,41 @@ div#about{
 
 #enter-ids {
 	float:left;
-	width: 33%;	
-	margin-right:1%;
+	width: 42%;
+	margin-right:3%;
 }
+#enter-ids fieldset {
+    border: 3px solid #933;
+    height: 750px;
+    margin-bottom: 150px;
+    -webkit-border-radius: 7px;    /* CSS3 rounded borders for Safari                    */
+    -moz-border-radius: 7px;       /* CSS3 rounded borders for Firefox                   */
+    border-radius: 7px;
+}
+#enter-ids textarea {
+    height: 500px;
+
+}
+#enter-ids legend {
+    color: #933;
+    paddding: 0 5px;
+    font-size: 150%;
+    font-weight: bold;
+}
+
 
 #enter-mendeley {
 	float:left;
-	width: 32%;	
-	margin-right:1%;
+	width: 26%;
+	margin-right:3%;
+}
+#enter-mendeley table input {
+    width: 100%;
 }
 
 #enter-other {
 	float:left;
-	width: 32%;	
+	width: 26%;
 }
 
 
@@ -169,14 +193,7 @@ div#about{
     color: #555;
     font-size: 16px;
 }
-#report h2 span.title {
-    font-family: 'helvitica', 'arial', sans-serif;
-    font-weight: bold;
-    font-style: normal;
-    font-size:35px;
-    color:#933;
 
-}
 
 #share {
     clear:both;
@@ -213,12 +230,18 @@ p.prompt {
 }
 
 p.howto {
-	width: 95%;
-	background-color: #EEE;
-	color: #666;
-	padding: .6em;
-	font-size: 100%;
-	border: 1px solid #CCC;	
+    width: 98%;
+    background-color: #EEE;
+    color: #666;
+    padding: .6em;
+    font-size: 110%;
+    border: 1px solid #CCC;
+    -webkit-border-radius: 4px;    /* CSS3 rounded borders for Safari                    */
+    -moz-border-radius: 4px;       /* CSS3 rounded borders for Firefox                   */
+    border-radius: 4px;
+    text-shadow: 1px 1px 0px #FFF;
+    margin-top:0;
+    margin-bottom: 30px
 }
 
 p.sp {
@@ -244,34 +267,56 @@ td {
 /* home page **************************************************************/
 
 p#tagline {
-    font-family: 'Lobster Two', helvetica, arial, sans-serif;
-    font-size: 30px;
-    font-style:italic;
+  color: #993333;
+    font-family: 'Lobster Two',helvetica,arial,sans-serif;
+    font-size: 35px;
+    font-style: italic;
     font-weight: normal;
+    margin: 0 0 10px;
 }
 
 
 /* form elements */
 
 textarea#artifactList {
-	width: 98%;	
+	width: 98%;
+        margin-bottom: 25px;
 }
 
 input, textarea {
 	border: 1px solid #CCC;	
 	background-color: #EEE;	
 }
+input {
+    width: 60%;
+}
+
 
 button
 {
-	border-top: none;
-	border-left: none;	
-	border-bottom: 1px solid #EEE;
-	border-right: 1px solid #EEE;
-	background-color: #933;		
-	color: #FFF;
+
+	border: 1px solid #aaa;
+	background-color: #eee;
+	color: #333;
+        margin-top: 2px;
+}
+p#name-collection {
+    float:right;
+    width: 35%;
+    margin-top: -3px;
 }
 
+#enter-ids input#go-button {
+    background-color: #933;
+    color: #fff;
+    font-size: 36px;
+    float:right;
+    height: 2em;
+    width: 100%;
+    font-family: 'Lobster Two', 'Helvetica', arial, sans-serif;
+    font-style: italic;
+    border:1px solid #333;
+}
 
 
 input.FAQ
@@ -286,24 +331,27 @@ input.FAQ
 
 button:hover
 {
-	border-top: none;
-	border-left: none;	
-	border-bottom: 1px solid #EEE;
-	border-right: 1px solid #EEE;
-	background-color: #999;		
+	background-color: #933;
+        border-color:#333;
 	color: #FFF;
 }
 
 fieldset {
-	border: 1px solid #CCC;
-	margin-top:0.5em;
-	margin-right:1em;
+    border: 2px dotted #CCC;
+    margin-top:0.5em;
+
 }
 
 legend {
 	font-size: 1.2em;
-	color: #BBB;
+	color: #bbb;
 	padding:0;
+}
+legend span {
+    font-family: 'Lobster Two', helvetica, arial, sans-serif;
+
+    font-size: 80%;
+
 }
 
 /* custom classes */
@@ -359,13 +407,20 @@ div#about_metrics {
 	padding: 1em 2em 3em 2em;
 }
 div#twitterfeed {
+    margin-top: -513px;
+    height:300px;
     clear:both;
+    float:right;
+    width: 52%;
 }
 
 div#footer {
 	margin-top: 2em;	
-	background-color: #EEE;
 	padding: 1em 2em 3em 2em;
+        border-top:5px solid #555;
+        text-align: right;
+        clear:both;
+        background: url(./img/header-shadow.png) repeat-x;
 }
 
 
@@ -384,7 +439,10 @@ div#footer {
     font-family: 'helvitica', 'arial', sans-serif;
     font-weight: bold;
     font-style: normal;
-    font-size:35px;
+    font-size:50px;
+    color:#933;
+    text-shadow: #ddd 2px 2px 2px;
+    margin-left: 10px;
 }
 #report-meta {
     left: 0;
@@ -477,7 +535,10 @@ a.report-button:hover {
 .something-missing {
 	clear: left;
 	margin-right: .5em;	
-	padding-top: .5em;	
+	padding-top: .5em;
+        font-size: 75%;
+        color: #777;
+        text-align:right;
 }
 
 .created-at {

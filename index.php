@@ -118,21 +118,21 @@ $(document).ready(function(){
             <div id="input">
                     <div id="enter-ids">
                             <form name="id_form">
-                            <fieldset><legend>Create a collection:</legend>
+                            <fieldset><legend>create a collection:</legend>
                        <p><label for="list">List your IDs here</label><a class="tooltip" onmouseover="tooltip.show('Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a> <a target="_blank" href="examples.php">(cool examples)</a></p>
                        <textarea rows=15 name="list" id="artifactList"><?php echo $artifactIdsString; ?></textarea>
 
-                       <p><label for="name">Name this collection</label><a class="tooltip" onmouseover="tooltip.show('You can add a custom name to identify this collection', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
+                       <p id="name-collection"><label for="name">Name this collection</label><a class="tooltip" onmouseover="tooltip.show('You can add a custom name to identify this collection', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
                        <input name="name" id="name" value="<?php echo $title; ?>" />
 
-                       <input type="submit" name="run" value="Go!" />
+                       <input type="submit" id="go-button" name="run" value="get my metrics!" />
                             </fieldset>
                             </form>
 
                     </div>
                     <div id="enter-mendeley">
                             <!--Want help gathering your IDs? Pull from these sources:-->
-                            <fieldset><legend>Import from Mendeley</legend>
+                            <fieldset><legend><span>ids from</span> Mendeley</legend>
                             <p class="prompt">Your Mendeley group URL<a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley to import the references shared within group</em>', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
                             <em class="url">http://www.mendeley.com/group/</em>
                         <input id="mendeley_group_input" name="groupId" type="text" size="20" value="1389803"/>
@@ -159,7 +159,7 @@ $(document).ready(function(){
                     </div>
 
                     <div id="enter-other">
-                            <fieldset><legend>Import from Slideshare</legend>
+                            <fieldset><legend><span>ids from</span> Slideshare</legend>
                             <p class="prompt">Your Slideshare profile URL<a class="tooltip" onmouseover="tooltip.show('Fill in your Slideshare profile to import your public slidedecks', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
                             <em class="url">http://www.slideshare.net/</em>
                         <input id="slideshare_profile_input" name="slideshareName" type="text" size="20" value="cavlec"/>
@@ -168,7 +168,7 @@ $(document).ready(function(){
                             </div>
                             </fieldset>
 
-                            <fieldset><legend>Import from Dryad</legend>
+                            <fieldset><legend><span>ids from</span> Dryad</legend>
                             <p class="prompt">Your Dryad author name<a class="tooltip" onmouseover="tooltip.show('Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve your datasets', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
                         <input id="dryad_profile_input" name="dryadName" type="text" size="20" value="Otto, Sarah P."/>
                             <button id="dryad_profile">Import</button>
@@ -176,7 +176,7 @@ $(document).ready(function(){
                             </div>
                             </fieldset>
 
-                            <fieldset><legend>Import from PubMed</legend>
+                            <fieldset><legend><span>ids from</span> PubMed</legend>
                             <p class="prompt">Your Grant number<a class="tooltip" onmouseover="tooltip.show('Fill in your Grant number to retrieve publications from PubMed', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
                         <input id="pubmed_grant_input" name="grantId" type="text" size="20" value="U54-CA121852"/>
                             <button id="pubmed_grant">Import</button>
@@ -238,13 +238,9 @@ $(document).ready(function(){
 
             </div>
 
-            <div id="footer">
-                    <table border=0 width=100%><tr>
-                    <td><a href="./about.php">about total-Impact</a></td>
-                    <td align="center">Reactions and bugs welcome to <a href="http://twitter.com/#!/totalImpactdev">@totalImpactdev</a></td>
-                    <td align="left"><a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80" style="margin-bottom:5px" /></a></td>
-                    </tr>
-            </div><!-- END footer -->
         </div><!-- END wrapper -->
+        <div id="footer">
+        <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80" style="margin-bottom:5px" /></a>
+        </div>
     </body>
 </html>

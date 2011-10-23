@@ -97,13 +97,13 @@ Total-Impact data can be:
 
 </ul>
 
-<a name="meaning"><h2>what do these number actually mean?</h2></a>
+<h2>what do these number actually mean?</h2>
 
 <p>The short answer is: probably something useful, but we’re not sure what. We believe that dismissing the metrics as “buzz” is short-sited: surely people bookmark and download things for a reason. The long answer, as well as a lot more speculation on the long-term significance of tools like total-Impact, can be found in the nascent scholarly literature on “altmetrics.”
 
 <p><a href="http://altmetrics.org/manifesto/">The Altmetrics Manifesto</a> is a good, easily-readable introduction to this literature, while the proceedings of the recent <a href="http://altmetrics.org/workshop2011/">altmetrics11</a> workshop goes into more detail. You can check out the shared <a href="http://www.mendeley.com/groups/586171/alt-metrics/papers/">altmetrics library</a> on Mendeley for more even relevant research. Finally, the poster <a href="http://jasonpriem.com/self-archived/two-altmetrics-tools.pdf">Uncovering impacts: CitedIn and total-Impact, two new tools for gathering altmetrics</a>, recently submitted to the 2012 iConference, describes a case study using total-Impact to evaluate a set of research papers funded by NESCent; it has some brief statistical analysis and some visualisations of the results.
 
-<a name="whichartifacts"><h2>what kind of research artifacts can be tracked?</h2></a>
+<h2>what kind of research artifacts can be tracked?</h2>
 
 Total-Impact currently tracks a wide range of research artifacts, including papers, datasets, software, preprints, and slides.  
 
@@ -136,7 +136,7 @@ Total-Impact currently tracks a wide range of research artifacts, including pape
 
 <p>Stay tuned, we expect to support more artifact sources soon!  Want to see something included that isn't here?  See the <a href="#howhelp">How can I help</a> section below.
 
-<a name="whichmetrics"><h2>which metrics are measured?</h2></a>
+<h2>which metrics are measured?</h2>
 
    <p>Metrics are computed based on the following data sources:</p>
 
@@ -162,7 +162,7 @@ echo "$rendered_about_text";
 <li><a href="http://sciencecard.org/">Science Card</a>
 </ul>
 	
-<a name="limitations"><h2>what are the current limitations of the system?</h2></a>
+<h2>what are the current limitations of the system?</h2>
 
 <p>Total-Impact is in early development and has many limitations.  Some of the ones we know about:
 
@@ -216,7 +216,7 @@ The majority of the development effort on this skunkworks project was done on pe
 <li>API limits like those on PubMed Central (3 request per second) make their data difficult to incorporate in this sort of application
 </ul>
 
-<a name="howhelp"><h2>how can I help?</h2></a>
+<h2>how can I help?</h2>
 
 <ul>
 <li><b>can you write code?</b>  Dive in!  github url: <a href="https://github.com/mhahnel/total-Impact">https://github.com/mhahnel/total-Impact</a>.
@@ -228,7 +228,7 @@ The majority of the development effort on this skunkworks project was done on pe
 <li><b>can you email, blog, post, tweet, or walk down the hall to tell a friend?</b>  See the <a href="#cool">this is so cool</a> section for your vital role....
 </ul>
 
-<a name="cool"><h2>this is so cool.</h2></a>
+<h2>this is so cool.</h2>
 
 <p>Thanks!  We agree :)  
 <p>You can help us.  We are currently trying to a) win the PLoS/Mendeley Binary Battle because that sounds fun, b) raise funding for future total-Impact development, and c) justify spending more time on this ourselves.  
@@ -243,11 +243,7 @@ The majority of the development effort on this skunkworks project was done on pe
 			</div>
 			<!-- END instr -->
 			<div id="footer">
-				<table border=0 width=100%><tr>
-				<td><a href="./about.php">about total-Impact</a></td>
-				<td align="center">Reactions and bugs welcome to <a href="http://twitter.com/#!/totalImpactdev">@totalImpactdev</a></td>			
-				<td align="left"><a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80" style="margin-bottom:5px" /></a></td>
-				</tr>
+			<a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80" style="margin-bottom:5px" /></a>
 			</div>
 			<!-- END footer -->
 			

@@ -91,7 +91,7 @@ $(document).ready(function(){
 </script>
 
 	</head>
-	<body>
+	<body class="report">
 		<!-- START wrapper -->
 
 		
@@ -160,18 +160,14 @@ $(document).ready(function(){
 
 		</div>
 
-		<div id="footer">
-			<table border=0 width=100%><tr>
-			<td><a href="./about.php">about total-Impact</a></td>
-			<td align="center">Reactions and bugs welcome to <a href="http://twitter.com/#!/totalImpactdev">@totalImpactdev</a></td>			
-			<td align="left"><a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80" style="margin-bottom:5px" /></a></td>
-			</tr>
-		</div>
-		
 		
 		
 		</div>
 		<!-- END wrapper -->
+			<div id="footer">
+			<a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80" style="margin-bottom:5px" /></a>
+			</div>
+
 	</body>
 	<?php } ?>
 </html>
