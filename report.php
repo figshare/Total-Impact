@@ -41,8 +41,8 @@ if (!$res){ header('Location: ../'); }
 			?>
 	<head>
 		
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <link href='http://fonts.googleapis.com/css?family=Lobster+Two:400italic' rel='stylesheet' type='text/css' />
+            <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+            <link href='http://fonts.googleapis.com/css?family=Lobster+Two:400italic' rel='stylesheet' type='text/css' >
 
 	    <title>total-Impact: <?php echo $report->getBestIdentifier() ?></title>
 	    <link rel="stylesheet" type="text/css" href="ui/totalimpact.css" />
