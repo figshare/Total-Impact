@@ -240,7 +240,7 @@ $(document).ready(function(){
 
         </div><!-- END wrapper -->
         <div id="footer">
-        <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80" style="margin-bottom:5px" /></a>
+        an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project.
         </div>
     </body>
 </html>

@@ -243,7 +243,7 @@ The majority of the development effort on this skunkworks project was done on pe
 			</div>
 			<!-- END instr -->
 			<div id="footer">
-			<a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80" style="margin-bottom:5px" /></a>
+			an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80" /></a> prject.
 			</div>
 			<!-- END footer -->
 			

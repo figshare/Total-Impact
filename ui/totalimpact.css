@@ -281,11 +281,13 @@ p#tagline {
 textarea#artifactList {
 	width: 98%;
         margin-bottom: 25px;
+        background-image: url(./img/header-shadow.png);
 }
 
 input, textarea {
 	border: 1px solid #CCC;	
-	background-color: #EEE;	
+        background-repeat:  repeat-x;
+	background-color: #fff;
 }
 input {
     width: 60%;
@@ -417,10 +419,10 @@ div#twitterfeed {
 div#footer {
 	margin-top: 2em;	
 	padding: 1em 2em 3em 2em;
-        border-top:5px solid #555;
+        border-top:4px dotted #ddd;
         text-align: right;
         clear:both;
-        background: url(./img/header-shadow.png) repeat-x;
+        color: #aaa;
 }
 
 
