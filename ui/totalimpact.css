@@ -109,7 +109,7 @@ ul#nav li a {
     color: #fff;
     display:block;
     border:1px solid #ddd;
-    border-top:4px solid #555;
+    border-top:5px solid #555;
     -moz-border-radius-bottomright: 5px;
     -moz-border-radius-bottomleft: 5px;
     -webkit-border-bottom-right-radius: 5px;
@@ -165,15 +165,18 @@ div#about{
     font-weight: normal;
     font-style: italic;
     margin-right:100px;
+    color: #555;
+    font-size: 16px;
 }
 #report h2 span.title {
     font-family: 'helvitica', 'arial', sans-serif;
     font-weight: bold;
     font-style: normal;
     font-size:35px;
+    color:#933;
+
 }
-#report-meta {
-}
+
 #share {
     clear:both;
 }
@@ -181,10 +184,6 @@ div#about{
 
 /* HTML elements */
 
-h2 {
-	color: #933;
-        margin-left: 205px;
-}
 
 h3 {
 	margin: 0px;
@@ -355,12 +354,15 @@ div#footer {
 
 
 
+
+/* report meta *************/
+
+
 #report h2 {
-    text-align:right;
+    text-align:left;
     font-family: 'Lobster Two';
     font-weight: normal;
     font-style: italic;
-    margin-right:100px;
 }
 #report h2 span.title {
     font-family: 'helvitica', 'arial', sans-serif;
@@ -369,29 +371,50 @@ div#footer {
     font-size:35px;
 }
 #report-meta {
-}
-#share {
-    clear:both;
+    left: 0;
+    margin-left: 371px;
+    position: relative;
+    top: 41px;
 }
 
+span.badge {
+    float:left;
+    font-size: 75%;
+    padding-top:5px;
+    margin-left: 10px;
+}
 
-.badge  {
-	margin-top: 3px;
-	margin-right: 5px;
-	margin-bottom: 5px;
+ a.report-button  {
+    margin-right: 5px;
+    margin-bottom: 5px;
     background: #EEE;
     padding: 2px 3px;
-	border: 1px solid #CCC;
+    border: 1px solid #CCC;
     -webkit-border-radius: 3px;    /* CSS3 rounded borders for Safari                    */
     -moz-border-radius: 3px;       /* CSS3 rounded borders for Firefox                   */
-    border-radius: 3px;	
-	text-shadow: 1px 1px 0px #FFF;	
-	font-size: 90%;
-	text-decoration: none;
-	color: #999;
+    border-radius: 3px;
+    text-shadow: 1px 1px 0px #FFF;
+    font-size: 90%;
+    text-decoration: none;
+    color: #999;
+    display: block;
+    height:1.3em;
+    padding-left:8px;
+    padding-right:8px;
+    float:left;
+}
+a.report-button:hover {
+    background: #933;
+    color:#fff;
+    text-shadow:none;
+    text-decoration:none;
 }
 
-/* report meta *************/
+#share {
+    clear:both;
+    padding-top:7px;
+    float:left;
+}
 
 #permalink {
     float:right;
@@ -441,16 +464,6 @@ div#footer {
 	padding-top: .5em;	
 }
 
-.report-button {
-	float: left;
-	margin-right: .5em;	
-}
-
-span.badge {
-    display: block;
-    height:28px;
-    paddding:0;
-}
 .created-at {
 	float: left;
 	margin-right: .5em;	
@@ -467,13 +480,15 @@ span.badge {
 }
 
 .artifacts-count {
-	clear: left;
 	float: left;
 	margin-right: .5em;	
 }
 
 .tweet-this {
 	float:right;
+}
+.tweet-this iframe {
+    width:97px;
 }
 
 .twitter-feed {
@@ -492,6 +507,10 @@ input.report {
 }
 
 /** report printout ******************************************************/
+
+div#metrics {
+    margin-top:100px;
+}
 
 li.artifact {
 	list-style-type: none;
@@ -516,12 +535,15 @@ div.genre h3 {
         padding-left:116px;
         border-bottom: 3px dotted #ddd;
         font-weight:normal;
+        margin-top:0;
 
 }
 
-.genre {
-    clear: left;    
-	padding-top: 1em;
+div.genre {
+   float:left;
+   width:100%;
+   margin-bottom:40px;
+   
 }
 
 
