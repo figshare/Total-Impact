@@ -22,7 +22,13 @@ body a:hover {
 body.report #wrapper {
     margin-top: 100px;
 }
-
+body.home #wrapper {
+/*    width: 1000px;*/
+}
+body#about #wrapper {
+    margin-top: 150px;
+        width: 900px;
+}
 body div#tooltip {
     position: absolute;
     z-index: 3000;
@@ -142,7 +148,7 @@ div#about{
 #enter-ids {
 	float:left;
 	width: 42%;
-	margin-right:3%;
+	margin-right:5%;
 }
 #enter-ids fieldset {
     border: 3px solid #933;
@@ -167,8 +173,8 @@ div#about{
 
 #enter-mendeley {
 	float:left;
-	width: 26%;
-	margin-right:3%;
+	width: 24%;
+	margin-right:5%;
 }
 #enter-mendeley table input {
     width: 100%;
@@ -176,7 +182,7 @@ div#about{
 
 #enter-other {
 	float:left;
-	width: 26%;
+	width: 24%;
 }
 
 
@@ -251,10 +257,7 @@ p.sp {
 }
 
 /* about page ************************************************************/
-body#about #wrapper {
-    margin-top: 150px;
-        width: 900px;
-}
+
 table {
     border-collapse: collapse;
     padding:2px;
@@ -346,13 +349,14 @@ fieldset {
 
 legend {
 	font-size: 1.2em;
-	color: #bbb;
+	color: #888;
 	padding:0;
 }
 legend span {
     font-family: 'Lobster Two', helvetica, arial, sans-serif;
-
+    font-style:italic;
     font-size: 80%;
+    color: #bbb;
 
 }
 

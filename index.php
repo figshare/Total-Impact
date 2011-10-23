@@ -70,7 +70,7 @@ $(document).ready(function(){
 </script>
 
     </head>
-    <body>
+    <body class="home">
     	<!-- START header -->
         <div id="header">
             <h1><a href="./index.php">total-impact</a></h1>
