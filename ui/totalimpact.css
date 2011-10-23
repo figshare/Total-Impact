@@ -109,7 +109,7 @@ ul#nav li a {
     color: #fff;
     display:block;
     border:1px solid #ddd;
-    border-top:5px solid #555;
+    border-top:5px solid #888;
     -moz-border-radius-bottomright: 5px;
     -moz-border-radius-bottomleft: 5px;
     -webkit-border-bottom-right-radius: 5px;
@@ -126,6 +126,7 @@ ul#nav li a:hover {
 
 div#about{
     margin-top: 50px;
+
 }
 
 
@@ -223,6 +224,21 @@ p.howto {
 p.sp {
 	margin-top: 2em;	
 	margin-bottom: 0;	
+}
+
+/* about page ************************************************************/
+body#about #wrapper {
+    margin-top: 150px;
+        width: 900px;
+}
+table {
+    border-collapse: collapse;
+    padding:2px;
+    border-color: #999;
+}
+td {
+    padding: 2px 4px;
+    border-color: #ccc;
 }
 
 /* home page **************************************************************/

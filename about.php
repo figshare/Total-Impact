@@ -37,7 +37,7 @@ $rendered_about_text = $report->render_about_text();
 		</script>
 
     </head>
-    <body>
+    <body id="about">
 
 			
                 <div id="header">
@@ -51,9 +51,9 @@ $rendered_about_text = $report->render_about_text();
 
 			<!-- START instr -->
 
-	        <div id="instr">
+	        <div id="wrapper">
 
-<h2><a>what is total-Impact?</a></h2>
+<h2>what is total-Impact?</h2>
 
 <p>Total-Impact is a website that makes it quick and easy to view the impact of a wide range of research output.  It goes beyond traditional measurements of research output -- citations to papers -- to embrace a much broader evidence of use across a wide range of scholarly output types. The system aggregates impact data from many sources and displays it in a single report, which is given a permaurl for dissemination and can be updated any time.
 
