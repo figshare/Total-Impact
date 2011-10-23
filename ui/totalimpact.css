@@ -4,7 +4,7 @@
 body {
 	font-family: "Helvetica", sans-serif;       
 	margin: 0;
-        border-top:5px solid #333;
+        border-top:5px solid #555;
 
 }
 
@@ -106,16 +106,15 @@ ul#nav li {
 ul#nav li a {
     padding: 5px 10px 0;
     background-color: #aaa;
-    border-top:2px solid #999;
     color: #fff;
     display:block;
     border:1px solid #ddd;
-    border-top:none;
+    border-top:4px solid #555;
     -moz-border-radius-bottomright: 5px;
     -moz-border-radius-bottomleft: 5px;
     -webkit-border-bottom-right-radius: 5px;
     -webkit-border-bottom-left-radius: 5px;
-    box-shadow: -2px 1px 5px -1px #333333;    border-top:none;
+    box-shadow: -2px 1px 5px -1px #333333; 
 }
 
 ul#nav li a:hover {
@@ -174,8 +173,11 @@ div#about{
     font-size:35px;
 }
 #report-meta {
-
 }
+#share {
+    clear:both;
+}
+
 
 /* HTML elements */
 
@@ -255,15 +257,7 @@ button
 	color: #FFF;
 }
 
-input.report
-{
-	border-top: none;
-	border-left: none;	
-	border-bottom: 1px solid #EEE;
-	border-right: 1px solid #EEE;
-	background-color: #933;		
-	color: #FFF;
-}
+
 
 input.FAQ
 {
@@ -360,45 +354,26 @@ div#footer {
 }
 
 
-/* tooltip */
 
-.tooltip, .trigger {
-	cursor: help;
-	padding-left:.2em;
-	font-size: .9em;
-	font-family: serif;
+#report h2 {
+    text-align:right;
+    font-family: 'Lobster Two';
+    font-weight: normal;
+    font-style: italic;
+    margin-right:100px;
+}
+#report h2 span.title {
+    font-family: 'helvitica', 'arial', sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    font-size:35px;
+}
+#report-meta {
+}
+#share {
+    clear:both;
 }
 
-#tt {
-	position:absolute;
-	display:block;
-	background:url(img/tt_left.gif) top left no-repeat;
-}
-
-#tttop {
-	display:block;
-	height:5px;
-	margin-left:5px;
-	background:url(img/tt_top.gif) top right no-repeat;
-	overflow:hidden;
-}
-
-#ttcont {
-	display:block;
-	padding:2px 12px 3px 7px;
-	margin-left:5px;
-	background:#666;
-	color:#fff;
-	text-align: left;
-}
-
-#ttbot {
-	display:block;
-	height:5px;
-	margin-left:5px;
-	background:url(img/tt_bottom.gif) top right no-repeat;
-	overflow:hidden;
-}
 
 .badge  {
 	margin-top: 3px;
@@ -416,7 +391,13 @@ div#footer {
 	color: #999;
 }
 
-#permalink  {
+/* report meta *************/
+
+#permalink {
+    float:right;
+    margin-right: 25px;
+}
+#permalink a.copyable  {
 	margin-top: 3px;
 	margin-right: 5px;
 	margin-bottom: 3px;
@@ -430,10 +411,24 @@ div#footer {
 	text-decoration: none;
 	color: #999;
 }
-
+#permalink a#copy-permalink {
+    font-size: 75%;
+    cursor: pointer;
+    color:#999;
+    text-decoration: underline;
+}
+#permalink a#copy-permalink.hover {
+    color: #933;
+}
 #permalink a {
 	text-decoration: none;
 }
+#permalink span.label {
+    font-family:'Lobster Two';
+    font-style:italic;
+    color:#555;
+}
+
 
 .debugging {
 	float: right;
@@ -451,6 +446,11 @@ div#footer {
 	margin-right: .5em;	
 }
 
+span.badge {
+    display: block;
+    height:28px;
+    paddding:0;
+}
 .created-at {
 	float: left;
 	margin-right: .5em;	
@@ -473,12 +473,22 @@ div#footer {
 }
 
 .tweet-this {
-	clear: left;
+	float:right;
 }
 
 .twitter-feed {
     clear:both; 
     padding-top: 30px;
+}
+input.report {
+	border-top: none;
+	border-left: none;
+	border-bottom: 1px solid #EEE;
+	border-right: 1px solid #EEE;
+	background-color: #933;
+	color: #FFF;
+        margin-top:3px;
+        height:28px;
 }
 
 /** report printout ******************************************************/

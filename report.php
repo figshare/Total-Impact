@@ -81,7 +81,6 @@ $(document).ready(function(){
             path:'ui/jquery/ZeroClipboard.swf',
             copy:"test text",
             afterCopy:function(){
-                alert("i worked");
                 $('a#copy-permalink').text('copied.');
             }
         });
@@ -111,48 +110,27 @@ $(document).ready(function(){
 		        <h2>report for <span class="title"><?php echo $report->getBestIdentifier(); ?></span></h2>
 				<!-- START report-meta -->
 		        <div id="report-meta">
-                            <div id="permalink" class="permalink">Permalink: <a class="copyable", href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"</a></div><a href="#" id="copy-permalink">copy</a>
-		        	<div class="badge artifacts-count"><?php echo $report->getArtifactsCount(); ?> artifacts</div> 
-		        	<div class="badge created-at">created <?php echo $report->getCreatedAt('j M, Y');?></div>
-		        	<div class="badge updated-at">updated <?php echo $report->getUpdatedAt('j M, Y');?></div>
+		        	<span class="badge artifacts-count"><?php echo $report->getArtifactsCount(); ?> artifacts</span>
+		        	<span class="badge created-at">created <?php echo $report->getCreatedAt('j M, Y');?></span>
+		        	<span class="badge updated-at">updated <?php echo $report->getUpdatedAt('j M, Y');?></span>
+                                <a class="report-button" href="./update.php?id=<?php echo $collectionId; ?>">update</a>
+                                <a class="report-button" href="./report.php?id=<?php echo $collectionId; ?>&mode=list">download</a>
+                                <a class="report-button" href="./?add-id=<?php echo $collectionId; ?>">refine</a>
 		
-					<div class="report-button">
-						<form action="./update.php" method="get">
-						<input type="hidden" name="id" value="<?php echo $collectionId; ?>" />
-						<input type="submit" class="report" value="Update now"></form>
-					</div>
 		
-					<div class="report-button">
-						<form action="./report.php" method="get" target="_blank">
-						<input type="hidden" name="id" value="<?php echo $collectionId; ?>"  />
-						<input type="hidden" name="mode" value="list" />
-						<input type="submit" class="report" value="Download metrics"></form>
-					</div>
-		
-					<div class="report-button">
-						<form action="./index.php" method="get">
-						<input type="hidden" name="add-id" value="<?php echo $collectionId; ?>" />
-						<input type="submit" class="report" value="Refine report"></form>
-					</div>
-		
-					<div class="report-button"><form action="./index.php" method="get">
-						<input type="submit" class="report" value="Start over"></form>
-					</div>
-		
-					<div class="report-button"><form action="./about.php" method="get" target="_blank">
-						<input type="submit" class="FAQ" value="FAQ"></form>
-					</div>
-			
-					<!-- based on code here: https://dev.twitter.com/docs/tweet-button -->
-					<script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
-					<div class="tweet-this">
-					  <a href="https://twitter.com/share" class="twitter-share-button"
-					  data-url="<?php echo "http://total-Impact.org/report.php?id=" . $collectionId?>"
-					  data-via="mytotalImpact"
-					  data-text="<?php echo "Check out My Total Impact: " . $report->getBestIdentifier() . " at";?>"
-					  data-count="horizontal">Tweet</a>
-					</div>
-		        </div>
+                                <div id="share">
+                                    <!-- based on code here: https://dev.twitter.com/docs/tweet-button -->
+                                    <script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
+                                    <span class="tweet-this">
+                                      <a href="https://twitter.com/share" class="twitter-share-button"
+                                      data-url="<?php echo "http://total-Impact.org/report.php?id=" . $collectionId?>"
+                                      data-via="mytotalImpact"
+                                      data-text="<?php echo "Check out My Total Impact: " . $report->getBestIdentifier() . " at";?>"
+                                      data-count="horizontal">Tweet</a>
+                                    </span>
+                                    <span id="permalink"><span class="label"> Permalink: </span><a class="copyable", href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"</a><a href="#" id="copy-permalink">copy</a></span>
+                                </div>
+                                </div>
 				
 				<!-- END report-meta -->
 
