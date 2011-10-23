@@ -92,7 +92,7 @@ $(document).ready(function(){
 
 			<!-- START report -->
 		    <div id="report">
-		        <h2>Impact report for <?php echo $report->getBestIdentifier(); ?></h2>
+		        <h2>report for <span class="title"><?php echo $report->getBestIdentifier(); ?></span></h2>
 				<!-- START report-meta -->
 		        <div id="report-meta">
 				<div class="permalink" id="permalink">Permalink: <a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a></div>

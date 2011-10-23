@@ -1,24 +1,64 @@
 /* globals */
+* {
+    margin:0;
+    padding:0;
+}
 
 body {
 	font-family: "Helvetica", sans-serif;       
 	margin: 0;
 }
 
-/* layout */
+body a {
+    text-decoration: none;
+}
+body a:hover {
+    text-decoration: underline;
+}
 
 #wrapper {
 	margin: 0px auto;
-	padding-top: 5px;
 	width: 1200px;
-	border-top: 8px solid #AAA;
 	border-bottom: 8px solid #AAA;
 }
+
+/* header ************************************/
 
 #header {
 	font-size: 1.5em;
 	color: #BBB;
 }
+
+h1{
+    background:url(./img/ti_logo.png);
+    height: 59px;
+    text-indent: -9999px;
+    width: 253px;
+    margin-top: 10px;
+    padding-top:0;
+}
+
+ul#nav {
+    margin-top: -2em;
+    text-align: right;
+}
+
+ul#nav li {
+    font-size: 14px;
+    display:inline;
+    list-style-type:none;
+}
+
+ul#nav li a {
+    text-decoration: none;
+}
+
+/* about ************************************/
+
+div#about{
+    margin-top: 50px;
+}
+
 
 #input{
 }
@@ -59,7 +99,9 @@ body {
 /* HTML elements */
 
 h2 {
-	color: #933;	
+	color: #933;
+        margin-top:-2em;
+        margin-left: 205px;
 }
 
 h3 {
@@ -218,7 +260,9 @@ div#about_metrics {
 	background-color: #EEE;
 	padding: 1em 2em 3em 2em;
 }
-
+div#twitterfeed {
+    clear:both;
+}
 
 div#footer {
 	margin-top: 2em;	
@@ -393,13 +437,21 @@ ul.metrics {
 ul.metrics li {
     float: left;
     height: 4em;
-    margin-right: 10px;
 }
 
 ul.metrics a{
-    text-decoration: none;
     font-weight: bold;
     list-style-type:none;
+    padding:0 5px;
+    margin-bottom: 2px;
+    -webkit-border-radius: 3px;    /* CSS3 rounded borders for Safari                    */
+    -moz-border-radius: 3px;       /* CSS3 rounded borders for Firefox                   */
+    border-radius: 3px;	
+}
+ul.metrics a:hover {
+    color:#fff;
+    background: #933;
+    text-decoration: none;
 }
 
 .metric-name {
@@ -409,8 +461,8 @@ ul.metrics a{
     color: #CCCCCC;
     display: block;
     font-size: 50%;
-    margin-top: 4px;
-    width: 3em;
+    width: 4em;
+    margin: 7px auto 0;
 }
 span.meta-doi {
     display: none;
@@ -422,11 +474,12 @@ ul.source-list {
 }
 
 .metric-image {
-    margin: 0 3px;
+    margin: 4px 3px;
 }
 
 .metric-img-name {
     display:block;
+    text-align:center;
 }
 
 
