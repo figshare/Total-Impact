@@ -42,12 +42,15 @@ if (!$res){ header('Location: ../'); }
 	<head>
 		
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <link href='http://fonts.googleapis.com/css?family=Lobster+Two:400italic' rel='stylesheet' type='text/css' />
+
 	    <title>total-Impact: <?php echo $report->getBestIdentifier() ?></title>
 	    <link rel="stylesheet" type="text/css" href="ui/totalimpact.css" />
-		<link rel="icon" type="image/png" href="ui/favicon.ico">
-	    <script type="text/javascript" src="ui/jquery/jquery-1.4.2.js"></script>
-	    <script type="text/javascript" src="ui/jquery/jquery.tools.min.js"></script>
-	    <script type="text/javascript" src="ui/protovis-3.2/protovis-r3.2.js"></script>
+            <link rel="icon" type="image/png" href="ui/favicon.ico">
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	    <script type="text/javascript" src="ui/jquery/jquery.tooltip.js"></script>
+
+
 	
 		<script type="text/javascript">
 		//Google Analytics code
@@ -62,8 +65,7 @@ if (!$res){ header('Location: ../'); }
 		  })();
 		</script>
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script type="text/javascript" src="ui/jquery/jquery.tooltip.js"></script>
+
 <script type="text/javascript">
 
 $.ajaxSetup ({  
@@ -73,7 +75,7 @@ var ajax_load = "<img src='./ui/img/ajax-loader.gif' alt='loading...' />";
 
 $(document).ready(function(){
 
-	$('.metrics-div.metric-img-name').tooltip();
+	$('ul.metrics li').tooltip();
 	$('#about-metrics').hide();
 	
 });
@@ -82,13 +84,17 @@ $(document).ready(function(){
 	</head>
 	<body>
 		<!-- START wrapper -->
-		<div id="wrapper">
+
 		
 			<!-- START header -->
-	        <div id="header">
-	            <a href="./index.php"><img src="./ui/img/ti_logo.png" alt="total-Impact" width='200px' /></a> 
-			</div>   
-			<!-- END header -->
+                <div id="header">
+                    <h1><a href="./index.php">total-impact</a></h1>
+                    <ul id="nav">
+                        <li><a href="./about.php">about</a></li>
+                        <li><a href="http://twitter.com/#!/totalImpactdev">twitter</a></li>
+                    </ul>
+                </div><!-- END header -->
+                <div id="wrapper">
 
 			<!-- START report -->
 		    <div id="report">

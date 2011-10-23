@@ -16,7 +16,7 @@ ob_implicit_flush(TRUE);
         <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
 		<link rel="icon" type="image/png" href="ui/favicon.ico" />
 
-		<script type="text/javascript" src="./ui/js/tooltip.js"></script>
+		<script type="text/javascript" src="./ui/jquery/jquery.qtip-1.0.0-rc3.min.js"></script>
 		<script type="text/javascript">
 		//Google Analytics code
 		  var _gaq = _gaq || [];
@@ -39,6 +39,8 @@ $.ajaxSetup ({
 var ajax_load = "<img src='./ui/img/ajax-loader.gif' alt='loading...' />";  
 
 $(document).ready(function(){
+    // tooltips
+
 		
   $("button").click(function(){
 	var myId = this.id;

@@ -230,7 +230,7 @@ class Models_Reporter {
     private function printArtifact($id, $artifact, $abouts, $showZeros) {
         $ret = '';
         $ret .= "<li class='artifact'>";
-        $ret .= "<h3>$id</h3>"; // here's where we'd print a name/title of the artifact if we had it.
+        $ret .= "<h4>$id</h4>"; // here's where we'd print a name/title of the artifact if we had it.
 
         $biblioSources = array("CrossRef", "PubMed", "Mendeley");
         $biblioSource = "";
@@ -301,11 +301,11 @@ class Models_Reporter {
                                                 $tooltiptext = $this->getTooltipText($sourceName, $metricName, $abouts);
 
                                                 #FB::log($tooltiptext);
-                                                $metrics_ret .= "<li>";
+                                                $metrics_ret .= "<li title='$tooltiptext'>";
                                                 if (isset($sourceData->show_details_url)) {
-                                                $metrics_ret .= "<a target='_blank' href='$sourceData->show_details_url'><span class='metric-value'>$metricValue</span></a><div class='metric-img-name' title='$tooltiptext'>$Img<span class='metric-name'>$prettyMetricName</span></div> \t";
+                                                $metrics_ret .= "<a target='_blank' href='$sourceData->show_details_url'><span class='metric-value'>$metricValue</span><span class='metric-img-name'>$Img<span class='metric-name'>$prettyMetricName</span></span></a> \t";
                                                 } else {
-                                                $metrics_ret .= "<span class='metric-value'>$metricValue</span><div class='metric-img-name' title='$tooltiptext'>$Img<span class='metric-name'>$prettyMetricName</span></div> \t";
+                                                $metrics_ret .= "<span class='metric-value'>$metricValue</span><span class='metric-img-name'>$Img<span class='metric-name'>$prettyMetricName</span></span> \t";
                                                 }
                                                 $metrics_ret .= "</li>";
                                         }

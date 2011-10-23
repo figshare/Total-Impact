@@ -15,7 +15,9 @@ $rendered_about_text = $report->render_about_text();
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title>total-Impact</title>
+        <title>total-Impact: about</title>
+        <link href='http://fonts.googleapis.com/css?family=Lobster+Two:400italic' rel='stylesheet' type='text/css' />
+
         <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
 		<link rel="icon" type="image/png" href="ui/favicon.ico">
 
@@ -37,13 +39,14 @@ $rendered_about_text = $report->render_about_text();
     </head>
     <body>
 
-		<!-- START wrapper -->
-		<div id="wrapper">
 			
-			<!-- START header -->
-	        <div id="header">
-	            <a href="./index.php"><img src="./ui/img/ti_logo.png" alt="total-Impact" width='200px' /></a> 
-	        </div>
+                <div id="header">
+                    <h1><a href="./index.php">total-impact</a></h1>
+                    <ul id="nav">
+                        <li><a href="./about.php">about</a></li>
+                        <li><a href="http://twitter.com/#!/totalImpactdev">twitter</a></li>
+                    </ul>
+                </div><!-- END header -->
 			<!-- END header -->
 
 			<!-- START instr -->
