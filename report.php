@@ -165,8 +165,9 @@ $(document).ready(function(){
 		</div>
 		<!-- END wrapper -->
 			<div id="footer">
-			an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80" /></a> project.
-			</div>
+                            <p>an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project.</p>
+                            <p>source code on <a href="https://github.com/mhahnel/Total-Impact">github</a>
+                        </div>
 
 	</body>
 	<?php } ?>
