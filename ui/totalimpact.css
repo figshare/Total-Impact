@@ -18,6 +18,7 @@ body a:hover {
 #wrapper {
 	margin: 150px auto 0;
 	width: 1150px;
+        min-height: 400px;
 }
 body.report #wrapper {
     margin-top: 100px;
@@ -254,6 +255,20 @@ p.howto {
 p.sp {
 	margin-top: 2em;	
 	margin-bottom: 0;	
+}
+
+/* updating page ********************************************************/
+h2.loading {
+    font-family: 'Lobster Two', 'helvetica', 'arial', sans-serif;
+        color: #333;
+        font-size: 50px;
+        margin: 200px auto;
+        width: 800px;
+}
+h2.loading span {
+    display:block;
+    font-size: 15px;
+    font-family: "Helvetica Neue", "helvetica", 'arial', sans-serif;
 }
 
 /* about page ************************************************************/

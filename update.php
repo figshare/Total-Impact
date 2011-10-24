@@ -11,7 +11,9 @@ ob_implicit_flush(TRUE);
 <html xmlns="http://www.w3.org/1999/xhtml" xml:laImpactng="en">
     <head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title>total-Impact</title>
+        <title>total-Impact: updating</title>
+        <link href='http://fonts.googleapis.com/css?family=Lobster+Two:400italic' rel='stylesheet' type='text/css' />
+
         <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
 		<link rel="icon" type="image/png" href="ui/favicon.ico">
 		<script type="text/javascript">
@@ -27,21 +29,26 @@ ob_implicit_flush(TRUE);
 			  })();
 		</script>
     </head>
-    <body>
+    <body class="">
+        
+			<!-- START header -->
+                <div id="header">
+                    <h1><a href="./index.php">total-impact</a></h1>
+                    <ul id="nav">
+                        <li><a href="./about.php">about</a></li>
+                        <li><a href="http://twitter.com/#!/totalImpactdev">twitter</a></li>
+                    </ul>
+                </div><!-- END header -->
+                
 		<!-- START wrapper -->
 		<div id="wrapper">
 
-			<!-- START header -->
-	        <div id="header">
-	            <a href="./index.php"><img src="./ui/img/ti_logo.png" alt="total-Impact" width="200px" /></a> 
-	        </div>
-			<!-- END header -->
 	        
 			<!-- START loading -->
 	       	<div id="loading">
 	        <?php		
 	            // show the user some kind of updating screen
-	            echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
+	            echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> we're compiling your report now...<span>(it generally takes a few minutes to cook)</span></h2>";
 				#echo $_SERVER['QUERY_STRING'];
 			?>
 			</div>
@@ -83,22 +90,23 @@ ob_implicit_flush(TRUE);
 			</div>
 			<!-- END saving -->
 			<!-- START updating -->
-	       	<div id="updating">
-			<?php
-				error_log("now update");
-	            // get the updates
-				$collection->update($collectionId, $config);
-	            // redirect to the report page for this plugin
-	            echo "<script>location.href='./report.php?id=$collectionId'</script>";
-			?>
-			</div>
 			<!-- END updating -->
 			<!-- START footer -->
-			<div id="footer">
-			<p>Concept originally hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/total-Impact">Source and contributors.</a></p>
-			</div>
 			<!-- END footer -->
 		</div>
 		<!-- END wrapper -->
+        <div id="footer">
+        an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project.
+        </div>
+        <div id="updating">
+                <?php
+                        error_log("now update");
+            // get the updates
+                        $collection->update($collectionId, $config);
+            // redirect to the report page for this plugin
+            echo "<script>location.href='./report.php?id=$collectionId'</script>";
+                ?>
+
+        </div>
     </body>
 </html>
