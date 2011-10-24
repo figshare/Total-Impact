@@ -33,7 +33,7 @@ class PluginClass(BasePluginClass):
     SOURCE_NAME = "Dryad"
     SOURCE_DESCRIPTION = "An international repository of data underlying peer-reviewed articles in the basic and applied biology."
     SOURCE_URL = "http://www.datadryad.org/" # rgb(60, 134, 48)
-    SOURCE_ICON = "http://dryad.googlecode.com/svn-history/r4402/trunk/dryad/dspace/modules/xmlui/src/main/webapp/themes/Dryad/images/favicon.ico"
+    SOURCE_ICON = "http://datadryad.org/themes/Dryad/images/favicon.ico"
     SOURCE_METRICS = dict(  file_views="combined number of views of the data package and data files",
                             package_views="number of views of the main package page",    
                             total_downloads="combined number of downloads of the data package and data files",
