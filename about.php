@@ -53,11 +53,11 @@ $rendered_about_text = $report->render_about_text();
 
 	        <div id="wrapper">
 
-<h2>what is total-Impact?</h2>
+<a name="what"><h2>what is total-Impact?</h2></a>
 
 <p>Total-Impact is a website that makes it quick and easy to view the impact of a wide range of research output.  It goes beyond traditional measurements of research output -- citations to papers -- to embrace a much broader evidence of use across a wide range of scholarly output types. The system aggregates impact data from many sources and displays it in a single report, which is given a permaurl for dissemination and can be updated any time.
 
-<h2>who is it for?</h2>
+<a name="audience"><h2>who is it for?</h2></a>
 
 <ul>
 <li><b>researchers</b> who want to know how many times their work has been downloaded, bookmarked, and blogged
@@ -67,7 +67,7 @@ $rendered_about_text = $report->render_about_text();
 <li><b>all of us</b> who believe that people should be rewarded when their work (no matter what the format) makes a positive impact (no matter what the venue).  Aggregating evidence of impact will facilitate appropriate rewards, thereby encouraging additional openness of useful forms of research output. 
 </ul>
 
-<h2>how should it be used?</h2>
+<a name="uses"><h2>how should it be used?</h2></a>
 
 Total-Impact data can be:
 <ul>
@@ -78,7 +78,7 @@ Total-Impact data can be:
 <li>analyzed by downloading detailed metric information
 </ul>
 
-<h2>how <em>shouldn’t</em> it be used?</h2>
+<a name="pooruses"><h2>how <em>shouldn’t</em> it be used?</h2></a>
 
 <p>Some of these issues relate to the early-development phase of total-Impact, some reflect our early-understanding of altmetrics, and some are just common sense.  Total-Impact reports shouldn't be used:
 
@@ -97,7 +97,7 @@ Total-Impact data can be:
 
 </ul>
 
-<h2>what do these number actually mean?</h2>
+<a name="meaning"><h2>what do these number actually mean?</h2></a>
 
 <p>The short answer is: probably something useful, but we’re not sure what. We believe that dismissing the metrics as “buzz” is short-sited: surely people bookmark and download things for a reason. The long answer, as well as a lot more speculation on the long-term significance of tools like total-Impact, can be found in the nascent scholarly literature on “altmetrics.”
 
@@ -135,7 +135,7 @@ Total-Impact currently tracks a wide range of research artifacts, including pape
 
 <p>Stay tuned, we expect to support more artifact sources soon!  Want to see something included that isn't here?  See the <a href="#howhelp">How can I help</a> section below.
 
-<h2>which metrics are measured?</h2>
+<a name="whichmetrics"><h2>which metrics are measured?</h2></a>
 
    <p>Metrics are computed based on the following data sources:</p>
 
@@ -144,11 +144,11 @@ echo "$rendered_about_text";
 	?>
 
 
-<h2>where is the journal impact factor?</h2>
+<a name="whereisif"><h2>where is the journal impact factor?</h2></a>
 
 <p>We do not include the Journal Impact Factor (or any similar proxy) on purpose.  As has been <a href="https://www.zotero.org/groups/impact_factor_problems/items">repeatedly shown</a>, the Impact Factor is not appropriate for judging the quality of individual research artifacts.  Individual article citations reflect much more about how useful papers actually were.  Better yet are article-level metrics, as initiated by PLoS, in which we examine traces of impact beyond citation.  total-Impact broadens this approach to reflect <b>artifact-level metrics</b>, by inclusion of preprints, datasets, presentation slides, and other research output formats.
 
-<h2>where is my other favourite metric?</h2>
+<a name="similar"><h2>where is my other favourite metric?</h2></a>
 
 <p>We only include open metrics here, and only a selection of those.  We welcome contributions of plugins.  Your plugin need not reside on our server: you can host it if we can call it with our REST interface.  Write your own and tell us about it. 
 
@@ -190,22 +190,22 @@ echo "$rendered_about_text";
 <li>max of 250 artifacts in a report; artifact list that are too long are truncated and a note is displayed on the report.
 </ul>
 
-<h2>is this data Open?</h2>
+<a name="isitopen"><h2>is this data Open?</h2></a>
 
 <p>We’d like to make all of the data displayed by total-Impact available under CC0.  Unfortunately, the terms-of-use of most of the data sources don’t allow that. We're trying to figure out how to handle this.
 <p>An option to restrict the displayed reports to Fully Open metrics — those suitable for commercial use — is coming soon!
 <p>The total-Impact software itself is fully open source under an MIT license.  <a href="https://github.com/mhahnel/total-Impact">GitHub</a>
 	
-<h2>does total-Impact have an api?</h2>
+<a name="api"><h2>does total-Impact have an api?</h2></a>
 
 <p>yes, kinda.  Our plugins do, and you can query the update.php with a series of GET requests.  Please don’t overload our server, and do add an &email=YOUREMAIL tag on so we contact you if necessary based on your usage patterns.  This is still very new: don’t hesitate to get in touch to figure it out with us.
 
-<h2>who developed total-Impact?</h2>
+<a name="who"><h2>who developed total-Impact?</h2></a>
 
 <p>Concept originally hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/Total-Impact/contributors">Contributors</a>.  
 Continued development effort on this skunkworks project was done on personal time, plus some discretionary time while funded through <a href="http://dataone.org">DataONE</a> (Heather Piwowar) and a UNC Royster Fellowship (Jason Priem).
 
-<h2>what have you learned?</h2>
+<a name="learned"><h2>what have you learned?</h2></a>
 
 <ul>
 <li>the multitude of IDs for a given artifact is a bigger problem than we guessed.  Even articles that have DOIs often also have urls, PubMed IDs, PubMed Central IDs, Mendeley IDs, etc.  There is no one place to find all synonyms, yet the various APIs often only work with a specific one or two ID types.  This makes comprehensive impact-gathering time consuming and error-prone.
@@ -227,14 +227,14 @@ Continued development effort on this skunkworks project was done on personal tim
 <li><b>can you email, blog, post, tweet, or walk down the hall to tell a friend?</b>  See the <a href="#cool">this is so cool</a> section for your vital role....
 </ul>
 
-<h2>this is so cool.</h2>
+<a name="cool"><h2>this is so cool.</h2></a>
 
 <p>Thanks!  We agree :)  
 <p>You can help us.  We are currently trying to a) win the PLoS/Mendeley Binary Battle because that sounds fun, b) raise funding for future total-Impact development, and c) justify spending more time on this ourselves.  
 	<p>Buzz and testimonials will help.  Tweet your reports.  Sign up for Mendeley, add public publications to your profile, and make some public groups.  Tweet, blog, send email, and show off total-Impact at your next group meeting to help spread the word.  
 <p>Tell us how cool it is at <a href="http://twitter.com/#!/totalImpactdev">@totalImpactdev</a> (or via email to total-Impact@googlegroups.com) so we can consolidate the feedback.
 
-<h2>I have a suggestion!</h2>
+<a name="suggestion"><h2>I have a suggestion!</h2></a>
 
 <p><b>We want to hear it.</b>  Send it to us at <a href="http://twitter.com/#!/totalImpactdev">@totalImpactdev</a> (or via email to total-Impact@googlegroups.com).  Total-Impact development will slow for a bit while we get back to our research-paper-writing day jobs, so we aren’t sure when we’ll have another spurt of time for implementation.... but we want to hear your idea now so we can work on it as soon as we can.
 
