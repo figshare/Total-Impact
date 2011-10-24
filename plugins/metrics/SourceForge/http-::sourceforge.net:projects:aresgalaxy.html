@@ -1,0 +1,799 @@
+<!doctype html>
+<!-- Server: sfs-consume-4 -->
+
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6" xmlns:fb="https://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7" xmlns:fb="https://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8" xmlns:fb="https://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9" xmlns:fb="https://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]>--> <html lang="en" class="no-js"> <!--<![endif]-->
+    <head>
+<!-- Google Website Optimizer Control Script -->
+<script>
+function utmx_section(){}function utmx(){}
+(function(){var k='0939410754',d=document,l=d.location,c=d.cookie;function f(n){
+if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.indexOf(';',i);return escape(c.substring(i+n.
+length+1,j<0?c.length:j))}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;
+d.write('<sc'+'ript src="'+
+'http'+(l.protocol=='https:'?'s://ssl':'://www')+'.google-analytics.com'
++'/siteopt.js?v=1&utmxkey='+k+'&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='
++new Date().valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
+'" type="text/javascript" charset="utf-8"></sc'+'ript>')})();
+</script>
+<!-- End of Google Website Optimizer Control Script -->
+
+<script> 
+var b = utmx('variation_content', 'page-url'); 
+function filter(v) { 
+var u = v[0].contents; 
+if (b && u.substr(0,7) == 'http://' && b.substr(0, 7) != 'http://') { 
+u = u.substr(7); 
+} 
+
+var l = document.location.href; 
+var prefix = 'sourceforge.net/projects/'; 
+var i = l.indexOf(prefix); 
+var j = l.indexOf('/', i + prefix.length); 
+u = u.replace('PROJECT', l.substring(i + prefix.length, j)); 
+
+return u; 
+} 
+utmx('url', 'page-url', 0, filter); 
+</script>
+<!-- utmx section name="page-url" -->
+<!-- Google Website Optimizer Tracking Script -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['gwo._setAccount', 'UA-32013-38']);
+  _gaq.push(['gwo._trackPageview', '/0939410754/test']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<!-- End of Google Website Optimizer Tracking Script -->
+
+        <meta charset="utf-8">
+        <meta name="description" content="Filesharing-Bittorrent p2p client connected to TCP supernode/leaf network and UDP DHT network. Ares features a built-in directshow media player, a powerful library manager, shoutcast radio support and can be used to host p2p Chatrooms.">
+        <meta name="keywords" content="Chat, File Sharing,  Open Source, Open Source Software, Development, Community, Source Code, Secure,  Downloads, Free Software">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ares Galaxy | Free Communications software downloads at SourceForge.net</title>
+        <link rel="shortcut icon" href="http://a.fsdn.com/con/img/sftheme/favicon.ico">
+        <script type="text/javascript">
+            /*global unescape, window, jQuery, $, net, COMSCORE, DD_belatedPNG */
+            // Setup our namespace
+            if (!window.net) { window.net = {}; }
+            if (!window.net.sf) { window.net.sf = {}; }
+        </script>
+
+<script src="http://a.fsdn.com/con/js/sftheme/modernizr.custom.90514.js"></script>
+
+<script src="http://a.fsdn.com/con/js/sftheme/jquery-1.5.1.js"></script>
+<!--[if lt IE 7 ]>
+  <script src="http://a.fsdn.com/con/js/sftheme/dd_belatedpng.js"></script>
+  <script> DD_belatedPNG.fix('img, .png_bg'); //fix any <img> or .png_bg background-images </script>
+<![endif]-->
+
+<link href='//fonts.googleapis.com/css?family=Ubuntu:regular' rel='stylesheet' type='text/css'>
+<style type="text/css">
+    @font-face {
+        font-family: "Pictos";
+        src: url('http://a.fsdn.com/con/css/fonts/sftheme/pictos-web.eot');
+        src: local("☺"), url('http://a.fsdn.com/con/css/fonts/sftheme/pictos-web.woff') format('woff'), url('http://a.fsdn.com/con/css/fonts/sftheme/pictos-web.ttf') format('truetype'), url('http://a.fsdn.com/con/css/fonts/sftheme/pictos-web.svg') format('svg');
+    }
+</style>
+ <link rel="stylesheet" href="http://a.fsdn.com/con/css/sf.css?1319050933" type="text/css">
+
+    <style type="text/css" >.sfdl { width:165px;height:39px;padding:0;position:relative;font:bold 12px !important; border:1px solid #aaa;display:inline;float:left;text-decoration:none;-moz-box-shadow:rgba(255, 255, 255, 0.6) 0 1px 0 0;-webkit-box-shadow:rgba(255, 255, 255, 0.6) 0 1px 0 0;-o-box-shadow:rgba(255, 255, 255, 0.6) 0 1px 0 0;box-shadow:rgba(255, 255, 255, 0.6) 0 1px 0 0;-moz-border-radius:4px;-webkit-border-radius:4px;-o-border-radius:4px;-ms-border-radius:4px;-khtml-border-radius:4px;border-radius:4px;background:#e5e5e5;background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #fff), color-stop(100%, #ccc));background-image:-moz-linear-gradient(top, #fff 0%, #ccc 100%);background-image:linear-gradient(top, #fff 0%, #ccc 100%);text-shadow:#fff 0 1px;margin:0 10px 7px 0;overflow:hidden;color:#555 !important;}.sfdl:hover { cursor:pointer !important;text-decoration:none;background:#eee !important;background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #fff), color-stop(100%, #eee));background-image:-moz-linear-gradient(top, #fff 0%, #eee 100%);background-image:linear-gradient(top, #fff 0%, #eee 100%);}.sfdl span { border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;height:29px;line-height:13px;margin:3px;padding:4px 0 0 4px;text-align:left;text-shadow:none;width:123px;float:right;margin-left:20px;color:#FFF;background:#363;background-image:-moz-linear-gradient(center top, #393 0%, #373 100%);background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #393),color-stop(1, #373));}.sfdl small { background:no-repeat url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAANCAYAAABPeYUaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAANFJREFUeNqcUosNgjAUbE0HcARGwAnqZxBxBCbQDXQE2UOkTIAj4AZsgPfMa1JeGqhecimU63HvvepxHFUq6mebY2nAdbi/Ur/hKg0IRv2H3WFvnX/Rj9qRcxH7A+BIjDK2eCYewQy8g2/WDJSk4w8xWDICz2ziUchyvMGLXIVJK9acE0+0VM53PIitE6bTcKJJT0wg6ESSHiwhHpbMDYszjhrDKcVkE5mO5dhZyrwNx72J2i9iGvMmODB372U/aCpV2NSlG0sGVbiBw2VM+BFgALYfPdL6UCEWAAAAAElFTkSuQmCC);color:#ADC2AD; font-weight:normal;height:34px;left:9px;padding:9px 0 0 30px;position:absolute;top:12px;width:120px;white-space:nowrap;overflow:hidden;font-size:77%;}</style>
+
+    <link rel="alternate" type="application/rss+xml" title="Ares Galaxy&#8230;Recent Activity" href="/export/rss2_keepsake.php?group_id=112366" />
+    <link rel="alternate" type="application/rss+xml" title="Ares Galaxy&#8230;News" href="/export/rss2_projnews.php?group_id=112366" />
+    <link rel="alternate" type="application/rss+xml" title="Ares Galaxy&#8230;File Releases" href="/api/file/index/project-id/112366/mtime/desc/limit/20/rss" />
+    <link rel="alternate" type="application/rss+xml" title="Ares Galaxy&#8230;Reviews" href="/projects/aresgalaxy/reviews_feed.rss" />
+    <link rel="canonical" href="/projects/aresgalaxy/">
+        
+<!-- DoubleClick Random Number -->
+<script type="text/javascript">
+    var dfp_ord = Math.random() * 10000000000000000;
+    var dfp_tile = 1;
+    var ad_prefix = '';
+    var adspot = '';
+    var demandbase = demandbase || '';
+    var adblock = true;
+    var uidsRE = new RegExp(";?ord=\\d+(.\\d+)?|;?ip=(?:\\d{1,3}\\.){3}\\d{1,3}", "g");
+
+    
+    var ad_page = '/projects';
+    
+
+    var adid = '';
+    var sponsored = '';
+    var ad_topics = '';
+    var dfp_dcopt = 'dcopt=ist;';
+
+    
+    var page_id = '';
+    
+
+    
+    var ad_zone = net.sf.ab_test || 'mobile';
+    if (page_id) {
+        ad_prefix = 'cons_' + page_id + '_' + ad_zone + '_';
+    } else {
+        ad_prefix = 'cons_' + ad_zone + '_';
+    }
+    
+
+    var ad_logged_in = 0;
+    var ad_search = 0;
+    var immersion_adcode = "";
+    var dfp_u = '';
+
+    var google_page_url = 'http://sourceforge.net/projects/aresgalaxy';
+    var sourceforge_project_name = 'Ares Galaxy';
+    var sourceforge_project_description = 'Filesharing Bittorrent p2p client connected to TCP supernode leaf network and UDP DHT network Ares features a built in directshow media player a powerful library manager shoutcast radio support and can be used to host p2p Chatrooms ';
+    ad_topics = 'tpc=aresgalaxy;';
+    
+    var google_hints = 'communications,Delphi,chat,filesharing';
+    dfp_u = '20040618_aresgalaxy_Chat';
+    ad_topics += 'tpc=communications;tpc=Delphi;tpc=chat;tpc=filesharing;aud=endusers;';
+    
+
+</script>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-32013-6']);
+            _gaq.push(['_setCustomVar', 1, 'Page Type', 'pg_project', 3]);
+            _gaq.push(['_setCustomVar', 3, 'Project', 'aresgalaxy', 3]);
+            _gaq.push(['_setCustomVar', 4, 'Topic', 'Chat, File Sharing', 3]);
+            
+
+function munch(n){var d=document,c=d.cookie;if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.indexOf(';',i);return c.substring(i+n.length+1,j<0?c.length:j)}}}
+var x=munch('__utmx');if(x){_gaq.push(['_setCustomVar',5,'AB Test','0939410754:'+x.split(':')[2],1]);}
+
+
+            _gaq.push(['_trackPageview']);
+            _gaq.push(['_trackPageLoadTime']);
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </head>
+    <body id="pg_project" class="user">
+        
+        <div id="busy-spinner"></div>
+        
+<header id="site-header">
+    <div class="wrapper">
+        <a href="/" class="logo">
+            <span>SourceForge</span>
+        </a>
+        
+        <form method="get" action="/search/">
+            <input type="text" id="words" name="q" placeholder="Find Open Source Software">
+        </form>
+        
+        <!--Switch to {language}-->
+        <nav id="nav-site">
+            <a href="/directory/" title="Browse our software.">Browse</a>
+            <a href="/blog/" title="Read the latest news from the SF HQ.">Blog</a>
+            <a href="/support" title="Contact us for help and feedback.">Support</a>
+            <a href="http://jobs.sourceforge.net/">Jobs</a>
+            
+            <a href="https://sourceforge.net/user/registration">Newsletters</a>
+            
+            <a href="http://geek.net/events/" title="Read the latest news from the SF HQ.">Library</a>
+        </nav>
+        <nav id="nav-account">
+            
+            <a href="https://sourceforge.net/user/registration">Register</a>
+            <a href="https://sourceforge.net/account/login.php">Log In</a>
+            
+        </nav>
+        
+    </div>
+</header>
+        
+<header id="page-header">
+    
+<section id="project-header">
+    <div class="ads">
+        <div id="p1_leader" class="ad leaderboard">
+            
+<script type="text/javascript">
+    adspot = ad_prefix + 'p1_leader';
+    if (adid !== "") {
+        adspot += ";comp=" + adid;
+    }
+    if (immersion_adcode === "") {
+        var adSrc = "http://ad.doubleclick.net/adj/ostg.sourceforge/" + adspot + ';pg=' + ad_page + ';psrch=' + ad_search + ';logged_in=0' + demandbase + ';' + ad_topics + dfp_dcopt + 'tile=' + dfp_tile + ';sz=728x90;ord=' + dfp_ord + '?';
+        _gaq.push(['_trackEvent', 'Ads', 'DFPRequest', adSrc.replace(uidsRE, ''), demandbase ? 1 : 0]);
+        document.write(unescape('%3Cscript src="' + adSrc + '" type="text/javascript"%3E%3C/script%3E'));
+        
+        dfp_tile = dfp_tile + 1;
+        dfp_dcopt = ''; 
+    }
+</script>
+        </div>
+        <div id="logo_sponsorship" class="ad hub">
+            
+<script type="text/javascript">
+    adspot = 'cons_pg_project_logo_sponsorship';
+    if (adid !== "") {
+        adspot += ";comp=" + adid;
+    }
+    if (immersion_adcode === "") {
+        var adSrc = "http://ad.doubleclick.net/adj/ostg.sourceforge/" + adspot + ';pg=' + ad_page + ';psrch=' + ad_search + ';logged_in=0' + demandbase + ';' + ad_topics + dfp_dcopt + 'tile=' + dfp_tile + ';sz=200x90;ord=' + dfp_ord + '?';
+        _gaq.push(['_trackEvent', 'Ads', 'DFPRequest', adSrc.replace(uidsRE, ''), demandbase ? 1 : 0]);
+        document.write(unescape('%3Cscript src="' + adSrc + '" type="text/javascript"%3E%3C/script%3E'));
+        
+        dfp_tile = dfp_tile + 1;
+        dfp_dcopt = ''; 
+    }
+</script>
+        </div>
+    </div>
+    <div style="clear:both"></div>
+    <div id="project-icon" class="noneditable">
+        <img alt="Ares Galaxy Icon" src="http://a.fsdn.com/con/icons/ar/aresgalaxy@sf.net/ares copy.png" height="48" width="48"/>
+    </div>
+    <div id="project-title">
+        <h1>
+                Ares Galaxy
+        </h1>
+        <span id="dev-status" class="beta">beta</span>
+        <p id="maintainers">
+        by
+        <a href="/users/aresgalaxy">aresgalaxy</a>, 
+        <a href="/users/lap3k">lap3k</a>
+        </p>
+        
+    </div>
+</section>
+<nav>
+    <div class="firstwave">
+ <ul class="b-hornav">
+  <li id="menu_consume_summary" class="selected">
+   <a href="/projects/aresgalaxy/">
+    <span>
+     <span>
+      Summary
+     </span>
+    </span>
+   </a>
+   <div class="diamond">
+   </div>
+  </li>
+  <li id="menu_consume_files">
+   <a href="/projects/aresgalaxy/files/">
+    <span>
+     <span>
+      Files
+     </span>
+    </span>
+   </a>
+  </li>
+  <li id="menu_consume_reviews">
+   <a href="/projects/aresgalaxy/reviews/">
+    <span>
+     <span>
+      Reviews
+     </span>
+    </span>
+   </a>
+  </li>
+  <li id="menu_project_support">
+   <a href="/projects/aresgalaxy/support">
+    <span>
+     <span>
+      Support
+     </span>
+    </span>
+   </a>
+  </li>
+  <li id="menu_project_develop">
+   <a href="/projects/aresgalaxy/develop">
+    <span>
+     <span>
+      Develop
+     </span>
+    </span>
+   </a>
+   <ul>
+    <li id="menu_project_website">
+     <a href="http://aresgalaxy.sourceforge.net">
+      Web Site
+     </a>
+    </li>
+    <li id="menu_project_screenshots">
+     <a href="/project/screenshots.php?group_id=112366">
+      Screenshots
+     </a>
+    </li>
+    <li id="menu_project_news">
+     <a href="/news/?group_id=112366">
+      News
+     </a>
+    </li>
+    <li id="menu_stats">
+     <a href="/projects/aresgalaxy/stats/traffic">
+      Project Statistics
+     </a>
+    </li>
+    <li id="menu_download_stats_dist">
+     <a href="/downloads/aresgalaxy/stats_timeline">
+      Download Stats
+     </a>
+    </li>
+   </ul>
+  </li>
+  <li id="menu_tracker">
+   <a href="/tracker/?group_id=112366">
+    <span>
+     <span>
+      Tracker
+     </span>
+    </span>
+   </a>
+   <ul>
+    <li id="menu_tracker_662033">
+     <a href="/tracker/?group_id=112366&amp;atid=662033">
+      Bugs
+     </a>
+    </li>
+    <li id="menu_tracker_662036">
+     <a href="/tracker/?group_id=112366&amp;atid=662036">
+      Feature Requests
+     </a>
+    </li>
+    <li id="menu_tracker_662035">
+     <a href="/tracker/?group_id=112366&amp;atid=662035">
+      Patches
+     </a>
+    </li>
+    <li id="menu_tracker_662034">
+     <a href="/tracker/?group_id=112366&amp;atid=662034">
+      Support Requests
+     </a>
+    </li>
+    <li id="menu_tracker_stats" class="tools">
+     <a href="/projects/aresgalaxy/stats/tracker">
+      Statistics for Trackers
+     </a>
+    </li>
+    <li id="menu_tracker_search">
+     <a href="/search/?group_id=112366&amp;type_of_search=artifact">
+      Search Trackers
+     </a>
+    </li>
+   </ul>
+  </li>
+  <li id="menu_mail">
+   <a href="/mail/?group_id=112366">
+    <span>
+     <span>
+      Mailing&nbsp;Lists
+     </span>
+    </span>
+   </a>
+   <ul>
+    <li id="menu_mail_search" class="tools">
+     <a href="/search/?group_id=112366&amp;type_of_search=mlists">
+      Search Mail Lists
+     </a>
+    </li>
+   </ul>
+  </li>
+  <li id="menu_forums">
+   <a href="/projects/aresgalaxy/forums">
+    <span>
+     <span>
+      Forums
+     </span>
+    </span>
+   </a>
+   <ul>
+    <li id="menu_forum_384788">
+     <a href="/projects/aresgalaxy/forums/forum/384788">
+      Help
+     </a>
+    </li>
+    <li id="menu_forum_384787">
+     <a href="/projects/aresgalaxy/forums/forum/384787">
+      Open Discussion
+     </a>
+    </li>
+    <li id="menu_forums_stats" class="tools">
+     <a href="/projects/aresgalaxy/stats/forums">
+      Statistics for Forums
+     </a>
+    </li>
+    <li id="menu_forums_search">
+     <a href="/search/?group_id=112366&amp;type_of_search=forums">
+      Search Forums
+     </a>
+    </li>
+   </ul>
+  </li>
+  <li id="menu_code">
+   <a href="/scm/?type=cvs&amp;group_id=112366">
+    <span>
+     <span>
+      Code
+     </span>
+    </span>
+   </a>
+   <ul>
+    <li id="menu_cvs_about">
+     <a href="/scm/?type=cvs&amp;group_id=112366">
+      CVS
+     </a>
+    </li>
+    <li id="menu_cvs_browse">
+     <a href="http://aresgalaxy.cvs.sourceforge.net/aresgalaxy/">
+      CVS Browse
+     </a>
+    </li>
+    <li id="menu_cvs_stats">
+     <a href="/projects/aresgalaxy/stats/scm?repo=CVSRepository">
+      CVS Statistics
+     </a>
+    </li>
+   </ul>
+  </li>
+ </ul>
+</div>
+</nav>
+
+</header>
+
+        <div id="messages">
+        </div>
+        <div id="page-body">
+
+<section id="main-content">
+    <article id="project-description">
+    <p>Filesharing-Bittorrent p2p client connected to TCP supernode/leaf network and UDP DHT network. Ares features a built-in directshow media player, a powerful library manager, shoutcast radio support and can be used to host p2p Chatrooms.</p>
+</article>
+    <aside id="project-primary">
+        <section class="project-block">
+            <section class="project-info">
+                <header>
+                    <h3>Project Home</h3>
+                </header>
+                <section class="content">
+                        <a href="http://aresgalaxy.sourceforge.net" title="Project Home" class="link-external">aresgalaxy.sf.net</a>
+                </section>
+            </section>
+            <section class="project-info">
+                <header>
+                    <h3>Develop</h3>
+                </header>
+                <section class="content">
+                    <a href="http://sourceforge.net/projects/aresgalaxy/develop">sf.net/projects/aresgalaxy/develop</a>
+                </section>
+            </section>
+            <section class="project-info">
+                <header>
+                    <h3>Support</h3>
+                </header>
+                <section class="content">
+                    <a href="/projects/aresgalaxy/support" title="Get support for Ares Galaxy">sf.net/projects/aresgalaxy/support</a>
+                </section>
+            </section>
+        </section>
+        <section class="project-block">
+            <section class="project-info">
+                <header>
+                    <h3>Recommended By</h3>
+                </header>
+                <section class="content">
+                    <a href="/projects/aresgalaxy/reviews/" title="Browse reviews">117014 users</a>
+                </section>
+            </section>
+            <section class="project-info">
+                <header>
+                    <h3>Last Update</h3>
+                </header>
+                <section class="content">
+                    <p>2011-06-28</p>
+                </section>
+            </section>
+            <section class="project-info">
+                <header>
+                    <h3>License</h3>
+                </header>
+                <section class="content"><a href="/softwaremap/?&amp;fq%5B%5D=trove%3A15">GNU General Public License (GPL)</a></section>
+            </section>
+            
+        </section>
+        <section class="project-block">
+            <section class="project-info">
+                <section class="content">
+                    
+        <!---->
+    <a href="http://sourceforge.net/projects/aresgalaxy/files/aresgalaxy/AresRegular217_10272010/AresRegular217_102710.zip/download?_test=goal" title="Download /aresgalaxy/AresRegular217_10272010/AresRegular217_102710.zip from SourceForge -  - 1.2 MB" class="sfdl">
+        <span>
+            Download<br/>
+            <small title="/aresgalaxy/AresRegular217_10272010/AresRegular217_102710.zip">AresRegular217_…zip</small>
+        </span>
+    </a>
+
+                </section>
+            </section>
+            <section class="project-info">
+                <header>
+                    <h3>Other Versions</h3>
+                </header>
+                <section class="content">
+                    <a href="/projects/aresgalaxy/files/">Browse all files</a>
+                </section>
+            </section>
+            <section id="more-detail" class="project-info">
+                <header>
+                    <h3>More Detail</h3>
+                </header>
+                <section class="content">
+                    <a id="detail-toggle" href="#details">Show</a>
+                </section>
+            </section>
+        </section>
+    </aside>
+    <aside id="project-secondary">
+        <section class="project-block">
+            <section class="project-info">
+                <header>
+                    <h3>Registered</h3>
+                </header>
+                <section class="content">
+                    2004-06-18
+                </section>
+            </section>
+            <section class="project-info">
+                <header>
+                    <h3>Release Date</h3>
+                </header>
+                <section class="content">
+                    <p>2010-10-27</p>
+                </section>
+            </section>
+            <section class="project-info">
+                <header>
+                    <h3>Topic</h3>
+                </header>
+                <section class="content"><a href="/softwaremap/?&amp;fq%5B%5D=trove%3A22">Chat</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A251">File Sharing</a></section>
+            </section>
+            
+            <section class="project-info">
+                <header>
+                    <h3>Operating System</h3>
+                </header>
+                <section class="content"><a href="/softwaremap/?&amp;fq%5B%5D=trove%3A219">32-bit MS Windows (NT/2000/XP)</a></section>
+            </section>
+            
+            <section class="project-info">
+                <header>
+                    <h3>Translations</h3>
+                </header>
+                <section class="content"><a href="/softwaremap/?&amp;fq%5B%5D=trove%3A326">Arabic</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A382">Chinese (Simplified)</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A373">Czech</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A356">Danish</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A330">Dutch</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A275">English</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A357">Finnish</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A276">French</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A279">German</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A337">Italian</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A278">Japanese</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A617">Kirghiz</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A344">Polish</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A345">Portuguese</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A295">Russian</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A379">Slovak</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A277">Spanish</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A348">Swedish</a>, <a href="/softwaremap/?&amp;fq%5B%5D=trove%3A352">Turkish</a></section>
+            </section>
+            
+            <section class="project-info">
+                <header>
+                    <h3>Intended Audience</h3>
+                </header>
+                <section class="content"><a href="/softwaremap/?&amp;fq%5B%5D=trove%3A2">End Users/Desktop</a></section>
+            </section>
+            
+            <section class="project-info">
+                <header>
+                    <h3>User Interface</h3>
+                </header>
+                <section class="content"><a href="/softwaremap/?&amp;fq%5B%5D=trove%3A230">Win32 (MS Windows)</a></section>
+            </section>
+            
+            <section class="project-info">
+                <header>
+                    <h3>Programming Language</h3>
+                </header>
+                <section class="content"><a href="/softwaremap/?&amp;fq%5B%5D=trove%3A265">Delphi/Kylix</a></section>
+            </section>
+            
+        </section>
+    </aside>
+    <aside id="project-screenshots">
+        <div class="screenshot">
+            <a rel="section" href="//sourceforge.net/dbimage.php?id=113773" title="Ares p2p player window">
+                <img src="//sourceforge.net/dbimage.php?id=113773" alt="Ares p2p player window">
+            </a>
+        </div>
+    </aside>
+    <aside class="ads">
+        <div id="fad71" class="ad">
+        
+<script type="text/javascript">
+    adspot = ad_prefix + 'p71_text';
+    if (adid !== "") {
+        adspot += ";comp=" + adid;
+    }
+    if (immersion_adcode === "") {
+        var adSrc = "http://ad.doubleclick.net/adj/ostg.sourceforge/" + adspot + ';pg=' + ad_page + ';psrch=' + ad_search + ';logged_in=0' + demandbase + ';' + ad_topics + dfp_dcopt + 'tile=' + dfp_tile + ';sz=;ord=' + dfp_ord + '?';
+        _gaq.push(['_trackEvent', 'Ads', 'DFPRequest', adSrc.replace(uidsRE, ''), demandbase ? 1 : 0]);
+        document.write(unescape('%3Cscript src="' + adSrc + '" type="text/javascript"%3E%3C/script%3E'));
+        
+        dfp_tile = dfp_tile + 1;
+        dfp_dcopt = ''; 
+    }
+</script>
+        </div>
+        <div id="fad72" class="ad">
+        
+<script type="text/javascript">
+    adspot = ad_prefix + 'p72_text';
+    if (adid !== "") {
+        adspot += ";comp=" + adid;
+    }
+    if (immersion_adcode === "") {
+        var adSrc = "http://ad.doubleclick.net/adj/ostg.sourceforge/" + adspot + ';pg=' + ad_page + ';psrch=' + ad_search + ';logged_in=0' + demandbase + ';' + ad_topics + dfp_dcopt + 'tile=' + dfp_tile + ';sz=;ord=' + dfp_ord + '?';
+        _gaq.push(['_trackEvent', 'Ads', 'DFPRequest', adSrc.replace(uidsRE, ''), demandbase ? 1 : 0]);
+        document.write(unescape('%3Cscript src="' + adSrc + '" type="text/javascript"%3E%3C/script%3E'));
+        
+        dfp_tile = dfp_tile + 1;
+        dfp_dcopt = ''; 
+    }
+</script>
+        </div>
+    </aside>
+</section>
+<section id="sidebar">
+    <section class="ads">
+        <div id="fad83" class="ad medrec">
+            
+<script type="text/javascript">
+    adspot = ad_prefix + 'p83_medrec';
+    if (adid !== "") {
+        adspot += ";comp=" + adid;
+    }
+    if (immersion_adcode === "") {
+        var adSrc = "http://ad.doubleclick.net/adj/ostg.sourceforge/" + adspot + ';pg=' + ad_page + ';psrch=' + ad_search + ';logged_in=0' + demandbase + ';' + ad_topics + dfp_dcopt + 'tile=' + dfp_tile + ';sz=300x250,300x600;ord=' + dfp_ord + '?';
+        _gaq.push(['_trackEvent', 'Ads', 'DFPRequest', adSrc.replace(uidsRE, ''), demandbase ? 1 : 0]);
+        document.write(unescape('%3Cscript src="' + adSrc + '" type="text/javascript"%3E%3C/script%3E'));
+        
+        dfp_tile = dfp_tile + 1;
+        dfp_dcopt = ''; 
+    }
+</script>
+        </div>
+        <div id="fadcpl_medrec" class="ad medrec">
+            
+<script type="text/javascript">
+    adspot = 'cons_cpl_medrec';
+    if (adid !== "") {
+        adspot += ";comp=" + adid;
+    }
+    if (immersion_adcode === "") {
+        var adSrc = "http://ad.doubleclick.net/adj/ostg.sourceforge/" + adspot + ';pg=' + ad_page + ';psrch=' + ad_search + ';logged_in=0' + demandbase + ';' + ad_topics + dfp_dcopt + 'tile=' + dfp_tile + ';sz=300x250;ord=' + dfp_ord + '?';
+        _gaq.push(['_trackEvent', 'Ads', 'DFPRequest', adSrc.replace(uidsRE, ''), demandbase ? 1 : 0]);
+        document.write(unescape('%3Cscript src="' + adSrc + '" type="text/javascript"%3E%3C/script%3E'));
+        
+        dfp_tile = dfp_tile + 1;
+        dfp_dcopt = ''; 
+    }
+</script>
+        </div>
+        <div id="fad85" class="ad medrec">
+            
+<script type="text/javascript">
+    adspot = ad_prefix + 'p85_medrec';
+    if (adid !== "") {
+        adspot += ";comp=" + adid;
+    }
+    if (immersion_adcode === "") {
+        var adSrc = "http://ad.doubleclick.net/adj/ostg.sourceforge/" + adspot + ';pg=' + ad_page + ';psrch=' + ad_search + ';logged_in=0' + demandbase + ';' + ad_topics + dfp_dcopt + 'tile=' + dfp_tile + ';sz=300x250;ord=' + dfp_ord + '?';
+        _gaq.push(['_trackEvent', 'Ads', 'DFPRequest', adSrc.replace(uidsRE, ''), demandbase ? 1 : 0]);
+        document.write(unescape('%3Cscript src="' + adSrc + '" type="text/javascript"%3E%3C/script%3E'));
+        
+        dfp_tile = dfp_tile + 1;
+        dfp_dcopt = ''; 
+    }
+</script>
+        </div>
+    </section>
+    <nav id="project-actions">
+    <ul>
+        <li>
+            <div class="social-media">
+                <!-- Twitter -->
+                <script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-via="sourceforge"></a>
+                <!-- Google +1 -->
+                <script type="text/javascript">
+                    (function() {
+                        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                        po.src = '//apis.google.com/js/plusone.js';
+                        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                    })();
+                </script>
+                <div class="g-plusone" data-size="medium" data-annotation="none"></div>
+                <!-- Facebook -->
+                <script>
+                    (function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) {return;}
+                        js = d.createElement(s); js.id = id;
+                        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));
+                </script>
+                <fb:like send="false" layout="button_count" width="55" show_faces="false"></fb:like>
+            </div>
+        </li>
+        <li>
+            <a href="/projects/aresgalaxy/report_inappropriate">Report inappropriate content</a>
+        </li>
+    </ul>
+</nav>
+</section>
+        </div>
+        
+        <hr id="footer_separator">
+          
+<footer id="site-footer">
+    <nav>
+        <a href="http://twitter.com/sfnet_ops">Status</a>
+        <a href="/apps/trac/sitelegal/wiki/Terms_of_Use">Terms</a>
+        <a href="http://geek.net/privacy-statement">Privacy</a>
+        <a href="http://geek.net/advertise/">Advertise</a>
+        <a href="/about">About</a>
+    </nav>
+    <div id="copyright">
+        &copy; 2011 <a href="http://geek.net" title="Network which provides and promotes Open Source software downloads, development, discussion and news.">Geeknet, Inc.</a>
+    </div>
+</footer>
+            <script src="http://a.fsdn.com/con/js/min/sf.js?1319050933" type="text/javascript"></script>
+        
+        <!-- Begin comScore Tag -->
+        <script type="text/javascript">
+            document.write(unescape("%3Cscript src='" + (document.location.protocol === "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js' %3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            if (window.COMSCORE) {
+                COMSCORE.beacon({
+                    c1: 2,
+                    c2: 6035546,
+                    c3: "",
+                    c4: "",
+                    c5: "",
+                    c6: "",
+                    c15: ""
+                });
+            }
+        </script>
+        <noscript>
+            <img src="http://b.scorecardresearch.com/p?c1=2&amp;c2=6035546&amp;c3=&amp;c4=&amp;c5=&amp;c6=&amp;c15=&amp;cj=1" alt="comScore2" />
+        </noscript>
+        <!-- End comScore Tag -->
+        
+
+<div id="icon-dialog" title="Change the project icon">
+    <form action="/projects/aresgalaxy/update" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_visit_cookie" value="4ea089402d82e30f660017a0"/>
+        <label for="icon">Upload a new icon</label>
+        <div class="field">
+            <input name="icon" id="icon" class="file" type="file"/>
+        </div>
+        <p class="help">Icons must be PNG, GIF, or JPEG and less than 1 MiB in size.  They will be displayed as 48x48 images.</p>
+    </form>
+</div>
+        <!-- KISSinsights page surveys -->
+        <script type="text/javascript">
+            var _kiq = _kiq || [];
+            _kiq.push(['options', { anchor: 'left' }]);
+            
+        </script>
+        <script type="text/javascript" src="//s3.amazonaws.com/ki.js/16994/3eh.js" async></script>
+        <!-- End KISSinsights -->
+    </body>
+</html>

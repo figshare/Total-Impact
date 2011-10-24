@@ -333,32 +333,34 @@ class Models_Reporter {
                 $journal = "<span class='meta-repo'>$sourceData->journal.</span>";
                 $doi = "<span class='meta-doi'> http://dx.doi.org/$sourceData->doi</span>";
                 $url = "http://dx.doi.org/$sourceData->doi";
-        $ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $journal $doi<br/>";
+        		$ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $journal $doi<br/>";
         } elseif ($sourceName=="PubMed" and $biblioSource=="PubMed") {
                 $authors = "<span class='meta-author'>$sourceData->authors</span>";
                 $year = "<span class='meta-year'>($sourceData->year) </span>";
                 $journal = "<span class='meta-repo'>$sourceData->journal.</span>";
                 $url = "http://www.ncbi.nlm.nih.gov/pubmed/$sourceData->pmid";
                 $pmid = "<span class='meta-pmid'>$sourceData->pmid</span>";
-        $ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $journal $pmid<br/>";
+        		$ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $journal $pmid<br/>";
         } elseif ($sourceName=="Mendeley" and $biblioSource=="Mendeley") {
                 $authors = "<span class='meta-author'>$sourceData->authors</span>";
                 $year = "<span class='meta-year'>($sourceData->year) </span>";
                 $journal = "<span class='meta-repo'>$sourceData->journal.</span>";
                 $url = $sourceData->url;
-        $ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $journal<br/>";
+        		$ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $journal<br/>";
         }
         if ($sourceName=="Slideshare") {
-        $ret .= "<a class='meta-doi' href='$id'>$sourceData->title</a>; Uploaded in $sourceData->upload_year<br/>";
+        	$ret .= "<a class='meta-doi' href='$id'>$sourceData->title</a>; Uploaded in $sourceData->upload_year<br/>";
+        } elseif ($sourceName=="GitHub" or $sourceName=="SourceForge") {
+        	$ret .= "<a class='meta-doi' href='$id'>$sourceData->title</a>; Registered in $sourceData->upload_year<br/>";
         } elseif ($sourceName=="FigShare") {
                 $repo = "<span class='meta-repo'>FigShare.</span>";
-        $ret .= "<a class='meta-doi' href='$id'>$sourceData->title</a>, $repo $id<br/>";
+        		$ret .= "<a class='meta-doi' href='$id'>$sourceData->title</a>, $repo $id<br/>";
         } elseif ($sourceName=="Dryad") {
                 $authors = "<span class='meta-author'>$sourceData->authors</span>";
                 $repo = "<span class='meta-repo'>Dryad Data Repository.</span>";
                 $url = "http://dx.doi.org/$sourceData->doi";
                 $doi = "<span class='meta-doi'> http://dx.doi.org/$sourceData->doi</span>";
-        $ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $repo $doi<br/>";
+        		$ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $repo $doi<br/>";
         }
         
         return ($ret) ? "<li class='biblio $sourceName'>" . $ret . "</li>" : "";
