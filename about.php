@@ -4,7 +4,7 @@ require './bootstrap.php';
 
 $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
 $couch = new Couch_Client($config->db->dsn, $config->db->name);
-$collectionId = "hljHeI"; #TODO: substitute with a collection with ID of"EXAMPLE_ALL_PLUGINS"
+$collectionId = "MqAnvI"; #TODO: substitute with a collection with ID of"EXAMPLE_ALL_PLUGINS"
 
 $report = new Models_Reporter($couch, $collectionId);
 $res = $report->fetch();
@@ -103,7 +103,7 @@ Total-Impact data can be:
 
 <p><a href="http://altmetrics.org/manifesto/">The Altmetrics Manifesto</a> is a good, easily-readable introduction to this literature, while the proceedings of the recent <a href="http://altmetrics.org/workshop2011/">altmetrics11</a> workshop goes into more detail. You can check out the shared <a href="http://www.mendeley.com/groups/586171/alt-metrics/papers/">altmetrics library</a> on Mendeley for more even relevant research. Finally, the poster <a href="http://jasonpriem.com/self-archived/two-altmetrics-tools.pdf">Uncovering impacts: CitedIn and total-Impact, two new tools for gathering altmetrics</a>, recently submitted to the 2012 iConference, describes a case study using total-Impact to evaluate a set of research papers funded by NESCent; it has some brief statistical analysis and some visualisations of the results.
 
-<h2>what kind of research artifacts can be tracked?</h2>
+<a name="whichartifacts"><h2>what kind of research artifacts can be tracked?</h2></a>
 
 Total-Impact currently tracks a wide range of research artifacts, including papers, datasets, software, preprints, and slides.  
 
@@ -113,22 +113,21 @@ Total-Impact currently tracks a wide range of research artifacts, including pape
 	<tr><th>artifact type</th><th>host</th><th>supported ID format</th><th>example</th><tr>
 	<tr><td>a published paper</td><td>any journal that issues DOIs</td><td>DOI (simply the DOI alone)</td><td>10.1371/journal.pcbi.1000361</td></tr>	
 	<tr><td>a published paper</td><td>PubMed</td><td>PubMed ID (no prefix)</td><td>17808382</td></tr>	
-	<tr><td>a published paper</td><td>Mendeley</td><td>Mendeley UUID</td><td>10.1371/journal.pcbi.1000361</td></tr>	
-	<tr><td>dataset</td><td>Genbank</td><td>accession number</td><td>10.1371/journal.pcbi.1000361</td></tr>	
-	<tr><td>dataset</td><td>PDB</td><td>accession number</td><td>10.1371/journal.pcbi.1000361</td></tr>	
+	<tr><td>a published paper</td><td>Mendeley</td><td>Mendeley UUID</td><td>ef35f440-957f-11df-96dc-0024e8453de8</td></tr>	
+	<tr><td>dataset</td><td>Genbank</td><td>accession number</td><td>AF313620</td></tr>	
+	<tr><td>dataset</td><td>PDB</td><td>accession number</td><td>2BAK</td></tr>	
 	<tr><td>dataset</td><td>Gene Expression Omnibus</td><td>accession number</td><td>GSE2109</td></tr>	
-	<tr><td>dataset</td><td>ArrayExpress</td><td>accession number</td><td>10.1371/journal.pcbi.1000361</td></tr>	
+	<tr><td>dataset</td><td>ArrayExpress</td><td>accession number</td><td>E-MEXP-88</td></tr>	
 	<tr><td>dataset</td><td>Dryad</td><td>DOI</td><td>10.5061/dryad.1295</td></tr>	
-	<tr><td>dataset</td><td>ICPSR</td><td>DOI</td><td>10.3886/ICPSR03131</td></tr>	
-	<tr><td>dataset</td><td>ORNL DAAC</td><td>DOI</td><td>10.3334/ORNLDAAC/912</td></tr>	
+	<!--tr><td>dataset</td><td>ICPSR</td><td>DOI</td><td>10.3886/ICPSR03131</td></tr-->	
+	<!--tr><td>dataset</td><td>ORNL DAAC</td><td>DOI</td><td>10.3334/ORNLDAAC/912</td></tr-->	
 	<tr><td>software</td><td>GitHub</td><td>URL (starting with http)</td><td>https://github.com/mhahnel/total-Impact</td></tr>	
 	<tr><td>software</td><td>SourceForge</td><td>URL</td><td>http://sourceforge.net/projects/aresgalaxy</td></tr>	
-	<tr><td>generic artifact</td><td>RePEc</td><td>URL</td><td>http://ideas.repec.org/a/ags/ajaeau/22364.html</td></tr>	
-	<tr><td>generic artifact</td><td>UMN Institutional Archive</td><td>URL</td><td>http://conservancy.umn.edu/handle/107490</td></tr>	
-	<tr><td>preprint</td><td>Nature Precedings</td><td>DOI or handle</td><td>10.1038/npre.2008.1700</td></tr>	
-	<tr><td>preprint</td><td>arXiv</td><td>URL</td><td>http://arxiv.org/abs/cond-mat/0012330</td></tr>	
+	<!--tr><td>generic artifact</td><td>RePEc</td><td>URL</td><td>http://ideas.repec.org/a/ags/ajaeau/22364.html</td></tr-->	
+	<!--tr><td>generic artifact</td><td>UMN Institutional Archive</td><td>URL</td><td>http://conservancy.umn.edu/handle/107490</td></tr-->	
+	<!--tr><td>preprint</td><td>arXiv</td><td>URL</td><td>http://arxiv.org/abs/cond-mat/0012330</td></tr-->	
 	<tr><td>slides</td><td>SlideShare</td><td>URL</td><td>ttp://www.slideshare.net/phylogenomics/eisenall-hands</td></tr>	
-	<tr><td>generic url</td><td>A conference paper, website resource, etc.</td><td>URL</td><td>10.1371/journal.pcbi.1000361</td></tr>	
+	<tr><td>generic url</td><td>A conference paper, website resource, etc.</td><td>URL</td><td>http://opensciencesummit.com/program/</td></tr>	
 				
 </table>
 
@@ -162,7 +161,7 @@ echo "$rendered_about_text";
 <li><a href="http://sciencecard.org/">Science Card</a>
 </ul>
 	
-<h2>what are the current limitations of the system?</h2>
+<a name="limitations"><h2>what are the current limitations of the system?</h2></a>
 
 <p>Total-Impact is in early development and has many limitations.  Some of the ones we know about:
 

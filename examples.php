@@ -42,37 +42,36 @@
 
 	        <div id="instr">
 
-Example IDs you can cut-and-paste into the "List your IDs here" box on the main page:
+Example IDs you can cut-and-paste into the "List your IDs here" box on <a href="./">the main page</a>:
 
-<p>A bit of everything
 <pre>
-	sdfsd
-	sdfsdf
-	sdfsdfsdf
+10.1093/molbev/msk025
+10.1534/genetics.109.103010
+10.1371/journal.pbio.0050082
+
+10.5061/dryad.8048
+GSE2603
+GSE2259
+2BAK
+
+https://github.com/mxcl/homebrew
+https://github.com/cboettig/RMendeley
+http://sourceforge.net/projects/filezilla
+
+http://www.slideshare.net/cavlec/even-the-loons-are-licensed
+http://www.slideshare.net/jcbradley/chem-info2011class1
+http://www.slideshare.net/jcbradley/bradley-sla-talk-on-open-melting-point-collections
+
+http://www.youtube.com/watch?v=Fl4L4M8m4d0
+http://www.badscience.net/2011/10/what-if-academics-were-as-dumb-as-quacks-with-statistics/
+http://opensciencesummit.com/program/
+http://researchremix.wordpress.com/2011/05/19/nature-letter/
+
 </pre>
 
-<p>Datasets Galore
-<pre>
-	sdfsd
-	sdfsdf
-	sdfsdfsdf
-</pre>
-
-<p>A bunch of high scorers (tweet us if you find something you think we should add!)
-<pre>
-	sdfsd
-	sdfsdf
-	sdfsdfsdf
-</pre>
-
-<p>One of each:
-<pre>
-	sdfsd
-	sdfsdf
-	sdfsdfsdf
-</pre>
+<p>More cool collections coming soon!
 		
-Do you like reading the manual?  We understand. <a href="about.php#whichartifacts">Here's a brief primer</a> on which IDs are supported and in which specific formats (total-Impact is picky!).  <p>Don't forget you can also assemble ID lists automatically based on Mendeley Profiles and Groups, Grant number associations in PubMed, and more!
+<p>Do you like reading the manual?  <a href="about.php#whichartifacts">Here's a brief primer</a> on which IDs are supported and in which specific formats (total-Impact is picky!).  <p>Don't forget you can also assemble ID lists automatically based on Mendeley Profiles and Groups, Grant number associations in PubMed, and more!
 		
 			</div>
 			<!-- END instr -->

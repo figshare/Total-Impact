@@ -184,19 +184,24 @@ $(document).ready(function(){
                             </div>
                             </fieldset>
 
-                            <div class="something-missing"><p>Something missing on import?<br/> See a list of <a href="./about.php#limitations">current limitations.</a> </p></div>
+							
                             <!-- div class="floatr"><p><form action="./about.php" method="get" target="_blank"><input type="submit" class="FAQ" value="FAQ"></form></div -->
 
                     </div>
 
 
             </div>
+
+
 			
             <!-- END input -->
 
             <!-- START footer -->
 
             <div id="twitterfeed">
+
+					<!--moved down here because link didn't work when in div above for some reason -->
+                    <div class="something-missing"><p>Something missing on import?<br/> See a list of <a href="./about.php#limitations">current limitations.</a> </p></div>
 
                     <h2><a name="recent">recently-shared reports</a></h2>
                     <!-- https://twitter.com/about/resources/widgets/widget_search -->
