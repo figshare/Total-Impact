@@ -93,7 +93,7 @@ class PluginClass(BasePluginClass):
         metrics_response = self.get_metric_values(id)
         if not metrics_response:
             return(None)        
-        response = dict(type="article", show_details_url=self.RESEARCHBLOGGING_URL %id)    
+        response = dict(type="unknown", show_details_url=self.RESEARCHBLOGGING_URL %id)    
         response.update(metrics_response)
         return(response)
 
