@@ -714,7 +714,7 @@ ul.metrics li:hover span.metric-name {
     -moz-transform: rotate(45deg);
     -webkit-transform: rotate(-45deg);
     -ms-filter: 'progid:DXImageTransform.Microsoft.BasicImage(rotation=3)';
-    color: #CCCCCC;
+    color: #aaa;
     display: block;
     font-size: 50%;
     width: 4em;
