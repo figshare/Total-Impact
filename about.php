@@ -150,7 +150,7 @@ echo "$rendered_about_text";
 
 <a name="similar"><h2>where is my other favourite metric?</h2></a>
 
-<p>We only include open metrics here, and only a selection of those.  We welcome contributions of plugins.  Your plugin need not reside on our server: you can host it if we can call it with our REST interface.  Write your own and tell us about it. 
+<p>We only include open metrics here, and so far only a selection of those.  We welcome contributions of plugins.  Your plugin need not reside on our server: you can host it if we can call it with our REST interface.  Write your own and tell us about it. 
 
 <p>You can also check out these similar tools:
 <ul>
@@ -195,7 +195,7 @@ Tell us about bugs! <a href="http://twitter.com/#!/totalImpactdev">@totalImpactd
 <a name="isitopen"><h2>is this data Open?</h2></a>
 
 <p>We’d like to make all of the data displayed by total-Impact available under CC0.  Unfortunately, the terms-of-use of most of the data sources don’t allow that. We're trying to figure out how to handle this.
-<p>An option to restrict the displayed reports to Fully Open metrics — those suitable for commercial use — is coming soon!
+<p>An option to restrict the displayed reports to Fully Open metrics — those suitable for commercial use — is on the To Do list.
 <p>The total-Impact software itself is fully open source under an MIT license.  <a href="https://github.com/mhahnel/total-Impact">GitHub</a>
 	
 <a name="api"><h2>does total-Impact have an api?</h2></a>
@@ -225,7 +225,7 @@ Continued development effort on this skunkworks project was done on personal tim
 <li><b>do you have money?</b>  We need money  :)  We need to fund future development of the system and are actively looking for appropriate opportunities.
 <li><b>do you have ideas?</b>  Maybe enhancements to total-Impact would fit in with a grant you are writing, or maybe you want to make it work extra-well for your institution’s research outputs.  We’re interested: please get in touch (see bottom).
 <li><b>do you have energy?</b>  We need better “see what it does” documentation, better lists of collections, etc.  Make some and tell us, please!
-<li><b>do you have anger that your favourite data source is missing?</b>  After you confirm that it its data isn't data available for open purposes like this, write to them and ask them to open it up.  It just might work.
+<li><b>do you have anger that your favourite data source is missing?</b>  After you confirm that its data isn't available for open purposes like this, write to them and ask them to open it up... it might work.  If the data is open but isn't included here, let us know to help us prioritize.
 <li><b>can you email, blog, post, tweet, or walk down the hall to tell a friend?</b>  See the <a href="#cool">this is so cool</a> section for your vital role....
 </ul>
 
