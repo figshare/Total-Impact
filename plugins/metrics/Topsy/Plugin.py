@@ -38,8 +38,8 @@ class PluginClass(BasePluginClass):
 
     DEBUG = False
 
-    OTTER_MENDELEY_KEY = "1F47A0DFFB184FD88FC0C6F4403D9FCA"
-    OTTER_API_URL = "http://otter.topsy.com/stats.json?url=%s&apikey=" + OTTER_MENDELEY_KEY
+    OTTER_KEY = "1F47A0DFFB184FD88FC0C6F4403D9FCA"
+    OTTER_API_URL = "http://otter.topsy.com/stats.json?url=%s&apikey=" + OTTER_KEY
 
     def __init__(self):
         pass
