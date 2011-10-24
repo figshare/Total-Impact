@@ -190,6 +190,8 @@ echo "$rendered_about_text";
 <li>max of 250 artifacts in a report; artifact list that are too long are truncated and a note is displayed on the report.
 </ul>
 
+Tell us about bugs! <a href="http://twitter.com/#!/totalImpactdev">@totalImpactdev</a> (or via email to total-Impact@googlegroups.com)
+
 <a name="isitopen"><h2>is this data Open?</h2></a>
 
 <p>We’d like to make all of the data displayed by total-Impact available under CC0.  Unfortunately, the terms-of-use of most of the data sources don’t allow that. We're trying to figure out how to handle this.
