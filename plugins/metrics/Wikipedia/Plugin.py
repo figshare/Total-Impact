@@ -39,7 +39,7 @@ class PluginClass(BasePluginClass):
 
     DEBUG = False
 
-    WIKIPEDIA_API_URL = "http://en.wikipedia.org/w/api.php?action=query&list=search&srprop=timestamp&format=xml&srsearch=%s"
+    WIKIPEDIA_API_URL = 'http://en.wikipedia.org/w/api.php?action=query&list=search&srprop=timestamp&format=xml&srsearch="%s"'
 
     def get_page(self, url):
         if not url:
@@ -85,7 +85,7 @@ class PluginClass(BasePluginClass):
     def build_artifact_response(self, artifact_id):
         metrics_response = self.get_metric_values(artifact_id)
         if metrics_response:
-            show_details_url = "http://en.wikipedia.org/wiki/Special:Search?search=" + artifact_id + "&go=Go"
+            show_details_url = 'http://en.wikipedia.org/wiki/Special:Search?search="' + artifact_id + '"&go=Go'
             metrics_response.update({"type":"unknown", "show_details_url":show_details_url})
         return(metrics_response)
                 
