@@ -135,7 +135,7 @@ $(document).ready(function(){
                             <fieldset><legend><span>ids from</span> Mendeley</legend>
                             <p class="prompt">Your Mendeley group URL<a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley to import the references shared within group</em>', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
                             <em class="url">http://www.mendeley.com/group/</em>
-                        <input id="mendeley_group_input" name="groupId" type="text" size="20" value="1389803"/>
+                        <input id="mendeley_group_input" name="groupId" type="text" size="20" value="530031"/>
                             <button id="mendeley_group">Import</button>
                             <div id="mendeley_group_div">
                             </div>
