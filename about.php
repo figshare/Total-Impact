@@ -205,7 +205,7 @@ echo "$rendered_about_text";
 <p>Concept originally hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/Total-Impact/contributors">Contributors</a>.  
 Continued development effort on this skunkworks project was done on personal time, plus some discretionary time while funded through <a href="http://dataone.org">DataONE</a> (Heather Piwowar) and a UNC Royster Fellowship (Jason Priem).
 
-<h2>what have we learned?</h2>
+<h2>what have you learned?</h2>
 
 <ul>
 <li>the multitude of IDs for a given artifact is a bigger problem than we guessed.  Even articles that have DOIs often also have urls, PubMed IDs, PubMed Central IDs, Mendeley IDs, etc.  There is no one place to find all synonyms, yet the various APIs often only work with a specific one or two ID types.  This makes comprehensive impact-gathering time consuming and error-prone.
