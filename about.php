@@ -146,7 +146,7 @@ echo "$rendered_about_text";
 
 <a name="whereisif"><h2>where is the journal impact factor?</h2></a>
 
-<p>We do not include the Journal Impact Factor (or any similar proxy) on purpose.  As has been <a href="https://www.zotero.org/groups/impact_factor_problems/items">repeatedly shown</a>, the Impact Factor is not appropriate for judging the quality of individual research artifacts.  Individual article citations reflect much more about how useful papers actually were.  Better yet are article-level metrics, as initiated by PLoS, in which we examine traces of impact beyond citation.  total-Impact broadens this approach to reflect <b>artifact-level metrics</b>, by inclusion of preprints, datasets, presentation slides, and other research output formats.
+<p>We do not include the Journal Impact Factor (or any similar proxy) on purpose.  As has been <a href="https://www.zotero.org/groups/impact_factor_problems/items">repeatedly shown</a>, the Impact Factor is not appropriate for judging the quality of individual research artifacts.  Individual article citations reflect much more about how useful papers actually were.  Better yet are article-level metrics, as initiated by PLoS, in which we examine traces of impact beyond citation.  Total-Impact broadens this approach to reflect <b>artifact-level metrics</b>, by inclusion of preprints, datasets, presentation slides, and other research output formats.
 
 <a name="similar"><h2>where is my other favourite metric?</h2></a>
 
