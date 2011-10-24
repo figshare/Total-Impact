@@ -17,6 +17,7 @@ ob_implicit_flush(TRUE);
 		<link rel="icon" type="image/png" href="ui/favicon.ico" />
 
 		<script type="text/javascript" src="./ui/jquery/jquery.qtip-1.0.0-rc3.min.js"></script>
+	    <script type="text/javascript" src="ui/jquery/jquery.tooltip.js"></script>		
 		<script type="text/javascript">
 		//Google Analytics code
 		  var _gaq = _gaq || [];
@@ -40,6 +41,7 @@ var ajax_load = "<img src='./ui/img/ajax-loader.gif' alt='loading...' />";
 
 $(document).ready(function(){
     // tooltips
+	$('tooltip').tooltip();
 
 		
   $("button").click(function(){
@@ -119,10 +121,10 @@ $(document).ready(function(){
                     <div id="enter-ids">
                             <form name="id_form">
                             <fieldset><legend>create a collection:</legend>
-                       <p><label for="list">List your IDs here</label><a class="tooltip" onmouseover="tooltip.show('Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a> <a target="_blank" href="examples.php">(cool examples)</a></p>
+                       <p><label for="list" class="tooltip" title="Valid identifiers, one per line. Valid identifiers include DOIs, dataset accession numbers, and URLs for code and slides. See cool examples or About page for more info.">List your IDs here</label></a> <a target="_blank" href="examples.php">(cool examples)</a></p>
                        <textarea rows=15 name="list" id="artifactList"><?php echo $artifactIdsString; ?></textarea>
 
-                       <p id="name-collection"><label for="name">Name this collection</label><a class="tooltip" onmouseover="tooltip.show('You can add a custom name to identify this collection', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
+                       <p id="name-collection"><label for="name">Name this collection</label><a class="tooltip" onmouseover="tooltip.show('You can add a custom name to identify this collection', 200);" onmouseout="tooltip.hide();"></a></p>
                        <input name="name" id="name" value="<?php echo $title; ?>" />
 
                        <input type="submit" id="go-button" name="run" value="get my metrics!" />
@@ -133,21 +135,21 @@ $(document).ready(function(){
                     <div id="enter-mendeley">
                             <!--Want help gathering your IDs? Pull from these sources:-->
                             <fieldset><legend><span>ids from</span> Mendeley</legend>
-                            <p class="prompt">Your Mendeley group URL<a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley to import the references shared within group</em>', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
+                            <p class="prompt tooltip" title="Fill in the URL of your public Mendeley to import the references shared within group">Your Mendeley group URL</p>
                             <em class="url">http://www.mendeley.com/group/</em>
                         <input id="mendeley_group_input" name="groupId" type="text" size="20" value="530031"/>
                             <button id="mendeley_group">Import</button>
                             <div id="mendeley_group_div">
                             </div>
 
-                            <p class="prompt">Your Mendeley profile URL<a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley profile to import the references of your publications', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
+                            <p class="prompt tooltip" title="Fill in the URL of your public Mendeley profile to import the references of your publications">Your Mendeley profile URL</p>
                             <em class="url">http://www.mendeley.com/profiles/</em>
                             <table><tr><td>
                             <input id="mendeley_profile_input" name="profileId" type="text" size="20" value="cameron-neylon"/>
                             </td><td>
                             <br/><button id="mendeley_profile">Import profile pubs</button>
-                            <br/><button id="quick_report_contacts">Pull my contacts</button><a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley profile to get direct links to reports for your contacts', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a>
-                            <br/><button id="quick_report_groups">Pull my groups</button><a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley profile to get direct links to reports for your PUBLIC groups', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a>
+                            <br/><button id="quick_report_contacts tooltip" title="Fill in the URL of your public Mendeley profile to get direct links to reports for your contacts">Pull my contacts</button>
+                            <br/><button id="quick_report_groups tooltip" title="Fill in the URL of your public Mendeley profile to get direct links to reports for your PUBLIC groups">Pull my groups</button>
                             </td></tr></table>
                             <div id="mendeley_profile_div">
                             </div>
@@ -160,7 +162,7 @@ $(document).ready(function(){
 
                     <div id="enter-other">
                             <fieldset><legend><span>ids from</span> Slideshare</legend>
-                            <p class="prompt">Your Slideshare profile URL<a class="tooltip" onmouseover="tooltip.show('Fill in your Slideshare profile to import your public slidedecks', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
+                            <p class="prompt tooltip" title="Fill in your Slideshare profile to import your public slidedecks">Your Slideshare profile URL</p>
                             <em class="url">http://www.slideshare.net/</em>
                         <input id="slideshare_profile_input" name="slideshareName" type="text" size="20" value="cavlec"/>
                             <button id="slideshare_profile">Import</button>
@@ -169,7 +171,7 @@ $(document).ready(function(){
                             </fieldset>
 
                             <fieldset><legend><span>ids from</span> Dryad</legend>
-                            <p class="prompt">Your Dryad author name<a class="tooltip" onmouseover="tooltip.show('Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve your datasets', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
+                            <p class="prompt tooltip" title="Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve your datasets">Your Dryad author name</p>
                         <input id="dryad_profile_input" name="dryadName" type="text" size="20" value="Otto, Sarah P."/>
                             <button id="dryad_profile">Import</button>
                             <div id="dryad_profile_div">
@@ -177,7 +179,7 @@ $(document).ready(function(){
                             </fieldset>
 
                             <fieldset><legend><span>ids from</span> PubMed</legend>
-                            <p class="prompt">Your Grant number<a class="tooltip" onmouseover="tooltip.show('Fill in your Grant number to retrieve publications from PubMed', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
+                            <p class="prompt tooltip" title="Fill in your Grant number to retrieve publications from PubMed">Your Grant number</p>
                         <input id="pubmed_grant_input" name="grantId" type="text" size="20" value="U54-CA121852"/>
                             <button id="pubmed_grant">Import</button>
                             <div id="pubmed_grant_div">
