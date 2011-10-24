@@ -36,7 +36,8 @@
 			$response = array("groups"=>$groups);
 		}
 
-		return($response);
+                return($response);
+                
 	}
 	
 	breadcrumb("finished seed.php");

@@ -79,7 +79,7 @@ $(document).ready(function(){
 	$('ul.metrics li').tooltip();
         $('a#copy-permalink').zclip({
             path:'ui/jquery/ZeroClipboard.swf',
-            copy:"test text",
+            copy:$('#permalink a.copyable').text(),
             afterCopy:function(){
                 $('a#copy-permalink').text('copied.');
             }
@@ -128,7 +128,7 @@ $(document).ready(function(){
                                       data-text="<?php echo "Check out My Total Impact: " . $report->getBestIdentifier() . " at";?>"
                                       data-count="horizontal">Tweet</a>
                                     </span>
-                                    <span id="permalink"><span class="label"> Permalink: </span><a class="copyable", href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"</a><a href="#" id="copy-permalink">copy</a></span>
+                                    <span id="permalink"><span class="label"> Permalink: </span><a class="copyable", href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a><a href="#" id="copy-permalink">copy</a></span>
                                 </div>
                                 </div>
 				
