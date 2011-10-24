@@ -215,7 +215,7 @@ Continued development effort on this skunkworks project was done on personal tim
 <li>API limits like those on PubMed Central (3 request per second) make their data difficult to incorporate in this sort of application
 </ul>
 
-<h2>how can I help?</h2>
+<a name="howhelp"><h2>how can I help?</h2></a>
 
 <ul>
 <li><b>can you write code?</b>  Dive in!  github url: <a href="https://github.com/mhahnel/total-Impact">https://github.com/mhahnel/total-Impact</a>.
