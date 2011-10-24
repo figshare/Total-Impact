@@ -203,8 +203,8 @@ echo "$rendered_about_text";
 
 <h2>who developed total-Impact?</h2>
 
-<p>Concept originally hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/total-Impact">Source and contributors</a>.  
-The majority of the development effort on this skunkworks project was done on personal time, plus some discretionary time while funded through <a href="http://dataone.org">DataONE</a> and a UNC Royster Fellowship.
+<p>Concept originally hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/Total-Impact/contributors">Contributors</a>.  
+Continued development effort on this skunkworks project was done on personal time, plus some discretionary time while funded through <a href="http://dataone.org">DataONE</a> (Heather Piwowar) and a UNC Royster Fellowship (Jason Priem).
 
 <h2>what have we learned?</h2>
 
