@@ -86,10 +86,36 @@ class PluginClass(BasePluginClass):
             response = True;
         return(response)   
         
+    def is_PDB_ID(self, id):
+        if re.search("[A-Za-z0-9]{4}", id):
+            return(True)
+        else:
+            return(False) 
+
+    def is_Genbank_ID(self, id):
+        # to do 
+        return(False) 
+
+    def is_GEO_ID(self, id):
+        if re.search("G[A-Z{2}.\d+", id):
+            return(True)
+        else:
+            return(False) 
+
+    def is_ArrayExpress_ID(self, id):
+        if re.search("E-[A-Za0-9\-]{4}", id):
+            return(True)
+        else:
+            return(False) 
+
     def build_artifact_response(self, artifact_id):
         metrics_response = self.get_metric_values(artifact_id)
         show_details_url = "http://www.plosone.org/search/advancedSearch.action?pageSize=10&journalOpt=all&unformattedQuery=everything%3A" + artifact_id
-        metrics_response.update({"type":"unknown", "show_details_url":show_details_url})
+        metrics_response.update({"show_details_url":show_details_url})
+        if (self.is_PDB_ID(artifact_id) or self.is_Genbank_ID(artifact_id) or self.is_GEO_ID(artifact_id) or self.is_ArrayExpress_ID(artifact_id)):
+            metrics_response.update({"type":"dataset"})
+        else:
+            metrics_response.update({"type":"unknown"})
         return(metrics_response)
                 
     def get_artifacts_metrics(self, query):

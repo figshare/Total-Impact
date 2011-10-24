@@ -125,7 +125,7 @@ $(document).ready(function(){
                                       <a href="https://twitter.com/share" class="twitter-share-button"
                                       data-url="<?php echo "http://total-Impact.org/report.php?id=" . $collectionId?>"
                                       data-via="mytotalImpact"
-                                      data-text="<?php echo "Check out My Total Impact: " . $report->getBestIdentifier() . " at";?>"
+                                      data-text="<?php echo "Check out the total-Impact of " . $report->getBestIdentifier() . ": ";?>"
                                       data-count="horizontal">Tweet</a>
                                     </span>
                                     <span id="permalink"><span class="label"> Permalink: </span><a class="copyable", href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a><a href="#" id="copy-permalink">copy</a></span>

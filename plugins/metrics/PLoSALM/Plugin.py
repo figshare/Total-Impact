@@ -146,7 +146,8 @@ class PluginClass(BasePluginClass):
                 metric_dict_name = source["source"]  
                 if metric_dict_name in self.SOURCE_METRICS_LOOKUP.keys():
                     metric_dict_name = self.SOURCE_METRICS_LOOKUP[metric_dict_name]
-                metrics_dict[metric_dict_name] = source["count"]
+                if (metric_dict_name != "Biod"):    
+                    metrics_dict[metric_dict_name] = source["count"]
 
         return(metrics_dict)
     
