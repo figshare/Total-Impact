@@ -79,7 +79,7 @@ $(document).ready(function(){
 	$('ul.metrics li').tooltip();
         $('a#copy-permalink').zclip({
             path:'ui/jquery/ZeroClipboard.swf',
-            copy:"test text",
+            copy:$('#permalink a.copyable').text(),
             afterCopy:function(){
                 $('a#copy-permalink').text('copied.');
             }
