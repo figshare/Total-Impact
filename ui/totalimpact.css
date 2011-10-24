@@ -181,6 +181,9 @@ div#about{
 #enter-mendeley table input {
     width: 100%;
 }
+#enter-mendeley table button {
+    width: 115px;
+}
 
 #enter-other {
 	float:left;
@@ -285,6 +288,10 @@ td {
 }
 
 /* home page **************************************************************/
+
+sup {
+    display:none; /* hide these for now because they don't work */
+}
 
 p#tagline {
   color: #993333;
