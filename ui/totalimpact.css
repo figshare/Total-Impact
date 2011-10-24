@@ -17,8 +17,9 @@ body a:hover {
 
 #wrapper {
 	margin: 150px auto 0;
-	width: 1150px;
+	width: 1084px;
         min-height: 400px;
+        padding-left:10px;
 }
 body.report #wrapper {
     margin-top: 100px;
