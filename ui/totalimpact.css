@@ -135,8 +135,26 @@ ul#nav li a:hover {
 /* about ************************************/
 
 div#about{
-    margin-top: 50px;
-
+    margin-top: 60px;
+}
+#toc {
+    border: 1px solid #333333;
+    float: right;
+    margin: 0 21px 12px;
+    padding: 16px;
+    text-align: left;
+    -webkit-border-radius: 4px;    /* CSS3 rounded borders for Safari      */              
+    -moz-border-radius: 4px;       /* CSS3 rounded borders for Firefox   */
+}
+                                   
+a.tocBackLink {
+    text-align: right;
+    font-size: 10px;
+    font-weight: normal;
+    margin-left: 10px;
+}
+body#about h2 {
+    margin-top: 40px;
 }
 
 
