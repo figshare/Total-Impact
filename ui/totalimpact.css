@@ -463,6 +463,7 @@ div#footer {
     font-family: 'Lobster Two';
     font-weight: normal;
     font-style: italic;
+    margin-right:0;
 }
 #report h2 span.title {
     font-family: 'helvitica', 'arial', sans-serif;
@@ -683,7 +684,7 @@ ul.metrics {
 }
 ul.metrics li {
     float: left;
-    height: 4em;
+    height: 5em;
 }
 
 ul.metrics a {
@@ -712,12 +713,12 @@ ul.metrics li:hover span.metric-name {
 }
 .metric-name {
     -moz-transform: rotate(45deg);
-    -webkit-transform: rotate(-45deg);
+    -webkit-transform: rotate(45deg);
     -ms-filter: 'progid:DXImageTransform.Microsoft.BasicImage(rotation=3)';
     color: #aaa;
     display: block;
-    font-size: 50%;
-    width: 4em;
+    font-size: 9px;
+    width: 30px;
     margin: 7px auto 0;
 }
 span.meta-doi {
