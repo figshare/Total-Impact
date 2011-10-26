@@ -284,7 +284,7 @@ class Models_Reporter {
 		return($tooltiptext);
 	}
 	
-	private function printArtifactMetrics($artifact, $abouts, $showZeros) {
+	private function printArtifactMetrics($artifact, $abouts, $showZeros, $thousandsSeparator = TRUE) {
 		# First check to see if will render any metrics.  If not, don't show the sourceData.
 		$metrics_array = array();
 
@@ -302,6 +302,7 @@ class Models_Reporter {
 
                                                 #FB::log($tooltiptext);
                                                 $metrics_ret .= "<li title='$tooltiptext'>";
+	                                            if ($thousandsSeparator) { $metricValue = number_format($metricValue);}
                                                 if (isset($sourceData->show_details_url)) {
                                                 $metrics_ret .= "<a target='_blank' href='$sourceData->show_details_url'><span class='metric-value'>$metricValue</span><span class='metric-img-name'>$Img<span class='metric-name'>$prettyMetricName</span></span></a> \t";
                                                 } else {
