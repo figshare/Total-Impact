@@ -16,29 +16,29 @@ if (isset($_REQUEST['mode'])) {
 }
 
 if ($mode == "list") {
+	//@@@TODO Make file format and name configurable
 	$rendered_report_text = $report->render_as_list();
-} elseif ($mode == "status") {
-	$rendered_report_text = $report->render_status();
-	$rendered_about_text = $report->render_about_text();	
+	$filename = "total-impact_".$collectionId."_".date('Y-m-d').".tsv";
+	header('Content-Disposition: attachment; filename="'.$filename.'"');
+	header('Content-Type: text/tab-delimited-values; charset=utf-8');
+	echo $rendered_report_text;
 } else {
-	$mode = "base";
-	$rendered_report_text = $report->render(False);  //don't show zeros
-	$rendered_about_text = $report->render_about_text();	
-}
+	if ($mode == "status") {
+		$rendered_report_text = $report->render_status();
+		$rendered_about_text = $report->render_about_text();	
+	} else {
+		$mode = "base";
+		$rendered_report_text = $report->render(False);  //don't show zeros
+		$rendered_about_text = $report->render_about_text();	
+	}
 
 
-// handle missing IDs more intelligently later
-if (!$res){ header('Location: ../'); }
+	// handle missing IDs more intelligently later
+	if (!$res){ header('Location: ../'); }
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 		 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-            <?php
-				if ($mode=="list") {
-						echo '<head><meta http-equiv="content-type" content="text/plain; charset=utf-8" /></head>';
-						echo "<body>$rendered_report_text</body>";
-				} else {
-			?>
 	<head>
 		
             <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -170,5 +170,5 @@ $(document).ready(function(){
                         </div>
 
 	</body>
-	<?php } ?>
 </html>
+<?php } ?>

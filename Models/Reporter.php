@@ -195,7 +195,7 @@ class Models_Reporter {
         return($ret_string);
     }
 
-    public function render_as_list() {
+    public function render_as_list($d="\t") {
 		
 		$sources = $this->data->sources;
 		$ret_string = '';
@@ -206,7 +206,7 @@ class Models_Reporter {
 				$metrics = '';
 		        foreach ($artifact as $sourceName => $sourceData) {
 			       	foreach ($sourceData as $metricName => $metricValue){
-			           		$metrics .= "$id|$genreName|$sourceName" . "_" . "$metricName|$metricValue<br/>";					
+			           		$metrics .= "$id$d$genreName$d$sourceName$d$metricName$d$metricValue\n";					
 					}
 		        }		
 				$ret_string .= "$metrics";
