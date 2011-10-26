@@ -282,10 +282,11 @@ p.sp {
 /* updating page ********************************************************/
 h2.loading {
     font-family: 'Lobster Two', 'helvetica', 'arial', sans-serif;
-        color: #333;
-        font-size: 50px;
-        margin: 200px auto;
-        width: 800px;
+    color: #333;
+    font-size: 50px;
+    margin: 200px auto;
+    width: 800px;
+    font-style: italic;
 }
 h2.loading span {
     display:block;
