@@ -73,8 +73,9 @@ class PluginClass(BasePluginClass):
         response = {}
         
         try:
+            watchers_url = json_page["repository"]["url"] + "/watchers"
             response.update(dict(watchers=json_page["repository"]["watchers"]))
-            response.update(dict(show_details_url=json_page["repository"]["url"]))
+            response.update(dict(show_details_url=watchers_url))
             response.update(dict(title=json_page["repository"]["name"]))
             response.update(dict(upload_year=json_page["repository"]["created_at"][0:4]))
         except KeyError:
