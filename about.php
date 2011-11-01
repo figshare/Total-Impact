@@ -229,7 +229,7 @@ Continued development effort on this skunkworks project was done on personal tim
 
 <ul>
 <li><b>can you write code?</b>  Dive in!  github url: <a href="https://github.com/mhahnel/total-Impact">https://github.com/mhahnel/total-Impact</a>.
-<li><b>do you have data?</b>  If it is already available in some pubic format, let us know so we can add it.  If it isn’t, either please open it up or contact us to work out some mutually beneficial way we can work together.
+<li><b>do you have data?</b>  If it is already available in some public format, let us know so we can add it.  If it isn’t, either please open it up or contact us to work out some mutually beneficial way we can work together.
 <li><b>do you have money?</b>  We need money  :)  We need to fund future development of the system and are actively looking for appropriate opportunities.
 <li><b>do you have ideas?</b>  Maybe enhancements to total-Impact would fit in with a grant you are writing, or maybe you want to make it work extra-well for your institution’s research outputs.  We’re interested: please get in touch (see bottom).
 <li><b>do you have energy?</b>  We need better “see what it does” documentation, better lists of collections, etc.  Make some and tell us, please!
