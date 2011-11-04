@@ -38,13 +38,41 @@ class Models_Seeder {
 		$bodyProfilePage = $this->getMendeleyProfilePage($profileId);
 		
 		$body = $bodyProfilePage . $bodyJournalPage;
-		$regex_pattern = '/rft_id=info.*%2F(.*)(&|").*span/U';
-		preg_match_all($regex_pattern, $body, $matches);
-		#FB::log($matches);
-		$artifactIds = $matches[1];
-		$artifactIdsUnique = array_unique($artifactIds);
-		$artifactIds = str_replace("%2F", '/', $artifactIdsUnique);
-		return $artifactIds;
+		/* $regex_pattern = '/rft_id=info.*%2F(.*)(&|").*span/U'; */
+		$regex_pattern = '/http:..www.mendeley.com.research.(.*)"/U';
+		preg_match_all($regex_pattern, $body, $matches, PREG_SET_ORDER);
+		/* FB::log($matches); */
+		
+		$id_list = array();
+		foreach ($matches as $match) {
+			$url = $match[0];
+			$url = str_replace('"', '', $url);  /* remove last double quotes */
+
+			$urltitle = $match[1];
+			$titlewords = str_replace("-", '%20', $urltitle);  /* swap dashes for spaces, then encode */
+			$titlewords = str_replace("/", '', $titlewords);  /* remove last slash */
+			
+		    $TOTALIMPACT_MENDELEY_KEY = "3a81767f6212797750ef228c8cb466bc04dca4ba1";
+		    $MENDELEY_LOOKUP_FROM_DOI_URL_PART1 = "http://api.mendeley.com/oapi/documents/search/title%3A";
+			$MENDELEY_LOOKUP_FROM_DOI_URL_PART2 = "/?consumer_key=" . $TOTALIMPACT_MENDELEY_KEY;
+			
+			$mendeleyUrlLookupPage = $MENDELEY_LOOKUP_FROM_DOI_URL_PART1 . $titlewords . $MENDELEY_LOOKUP_FROM_DOI_URL_PART2;
+			$requestLookupPage = new HttpRequest($mendeleyUrlLookupPage, HTTP_METH_GET);
+			$responseLookupPage = $requestLookupPage->send();
+			$bodyLookupPage = $responseLookupPage->getBody();
+			$body = json_decode($bodyLookupPage);
+			
+			foreach ($body->documents as $artifact) {
+				if (isset($artifact->mendeley_url)) {
+
+					if ($artifact->mendeley_url === $url) {
+		    			$id_list[] = $artifact->uuid;
+					}
+				}
+			}					
+		}
+				
+		return $id_list;
 	}
 	
     public function getMendeleyProfileGroupsDisplay($profileId) {
@@ -139,7 +167,7 @@ class Models_Seeder {
 	    
 }
 
-	#$a = new Models_Seeder();
-	#var_dump($a->getMendeleyProfileArtifacts("heather-piwowar"));
+	/* $a = new Models_Seeder(); */
+	/* var_dump($a->getMendeleyProfileArtifacts("alex-garnett")); */
 
 ?>
