@@ -13,6 +13,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import BasePlugin
 from BasePlugin.BasePlugin import BasePluginClass
 from BasePlugin.BasePlugin import TestBasePluginClass
+import passwords
 
 # Permissions: RWX for owner, WX for others.  Set this here so that .pyc are created with these permissions
 os.umask(022) 
@@ -37,10 +38,9 @@ class PluginClass(BasePluginClass):
 
     DEBUG = False
 
-    TOTALIMPACT_MENDELEY_KEY = "3a81767f6212797750ef228c8cb466bc04dca4ba1"
-    MENDELEY_LOOKUP_FROM_DOI_URL = "http://api.mendeley.com/oapi/documents/details/%s?type=doi&consumer_key=" + TOTALIMPACT_MENDELEY_KEY
-    MENDELEY_LOOKUP_FROM_PMID_URL = "http://api.mendeley.com/oapi/documents/details/%s?type=pmid&consumer_key=" + TOTALIMPACT_MENDELEY_KEY
-    MENDELEY_LOOKUP_FROM_UUID_URL = "http://api.mendeley.com/oapi/documents/details/%s?consumer_key=" + TOTALIMPACT_MENDELEY_KEY
+    MENDELEY_LOOKUP_FROM_DOI_URL = "http://api.mendeley.com/oapi/documents/details/%s?type=doi&consumer_key=" + passwords.TOTALIMPACT_MENDELEY_KEY
+    MENDELEY_LOOKUP_FROM_PMID_URL = "http://api.mendeley.com/oapi/documents/details/%s?type=pmid&consumer_key=" + passwords.TOTALIMPACT_MENDELEY_KEY
+    MENDELEY_LOOKUP_FROM_UUID_URL = "http://api.mendeley.com/oapi/documents/details/%s?consumer_key=" + passwords.TOTALIMPACT_MENDELEY_KEY
 
     def __init__(self):
         pass
