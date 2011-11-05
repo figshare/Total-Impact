@@ -59,21 +59,21 @@ class PluginClass(BasePluginClass):
             response = {}
         return(response)
                 
-    ## Crossref API doesn't seem to have limits, though we should check every few months to make sure still true            
     def get_artifacts_metrics(self, query):
         response_dict = dict()
-        error = None
+        error_msg = None
         time_started = time.time()
+        
         for artifact_id in query:
-            if self.artifact_type_recognized(artifact_id):
-                artifact_response = self.build_artifact_response(artifact_id)
+            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["doi"])
+            if (artifact_id):
+                artifact_response = self.build_artifact_response(lookup_id)
                 if artifact_response:
                     response_dict[artifact_id] = artifact_response
             if (time.time() - time_started > self.MAX_ELAPSED_TIME):
-                error = "TIMEOUT"
+                error_msg = "TIMEOUT"
                 break
-        return(response_dict, error)
-    
+        return(response_dict, error_msg)    
     
 class TestPluginClass(TestBasePluginClass):
 

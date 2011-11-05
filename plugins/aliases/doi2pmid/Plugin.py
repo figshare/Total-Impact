@@ -62,8 +62,9 @@ class PluginClass(BasePluginClass):
         error = None
         time_started = time.time()
         for artifact_id in query:
-            if self.artifact_type_recognized(artifact_id):
-                artifact_response = self.build_artifact_response(artifact_id)
+            (artifact_id, lookup_id) = self.get_relevant_id(artifact_id, query[artifact_id], ["doi"])
+            if (artifact_id):
+                artifact_response = self.build_artifact_response(lookup_id)
                 if artifact_response:
                     response_dict[artifact_id] = artifact_response
                 time.sleep(1/3)
