@@ -48,10 +48,15 @@ class PluginClass(BasePluginClass):
     def get_page(self, id):
         if not id:
             return(None)
+
+        # bug right now that truncates at & which causes errors for urls like http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&dopt=Citation&list_uids=15026576
+        if "&" in id:
+            return(None)
         
         #query_url = self.OTTER_API_URL % urllib.quote(id, safe="")
         query_url = self.OTTER_API_URL % id
         #print query_url
+        
         response = self.get_cache_timeout_response(query_url)
         return(response)  
 
