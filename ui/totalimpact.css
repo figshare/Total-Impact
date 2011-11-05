@@ -172,7 +172,7 @@ body#about h2 {
 }
 #enter-ids fieldset {
     border: 3px solid #933;
-    height: 750px;
+    height: 800px;
     margin-bottom: 150px;
     -webkit-border-radius: 7px;    /* CSS3 rounded borders for Safari                    */
     -moz-border-radius: 7px;       /* CSS3 rounded borders for Firefox                   */
