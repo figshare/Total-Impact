@@ -345,7 +345,7 @@ class Models_Reporter {
                 $authors = "<span class='meta-author'>$sourceData->authors</span>";
                 $year = "<span class='meta-year'>($sourceData->year) </span>";
                 $journal = "<span class='meta-repo'>$sourceData->journal.</span>";
-                $url = $sourceData->url;
+                $url = $sourceData->show_details_url;
         		$ret .= "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $journal<br/>";
         }
         if ($sourceName=="Slideshare") {
