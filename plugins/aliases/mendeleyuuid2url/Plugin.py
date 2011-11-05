@@ -13,6 +13,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import BasePlugin
 from BasePlugin.BasePlugin import BasePluginClass
 from BasePlugin.BasePlugin import TestBasePluginClass
+import passwords
 
 # Permissions: RWX for owner, WX for others.  Set this here so that .pyc are created with these permissions
 os.umask(022) 
@@ -36,8 +37,7 @@ class PluginClass(BasePluginClass):
 
     DEBUG = False
 
-    TOTALIMPACT_MENDELEY_KEY = "3a81767f6212797750ef228c8cb466bc04dca4ba1"
-    MENDELEY_LOOKUP_FROM_UUID_URL = "http://api.mendeley.com/oapi/documents/details/%s?consumer_key=" + TOTALIMPACT_MENDELEY_KEY
+    MENDELEY_LOOKUP_FROM_UUID_URL = "http://api.mendeley.com/oapi/documents/details/%s?consumer_key=" + passwords.TOTALIMPACT_MENDELEY_KEY
 
     def __init__(self):
         pass
@@ -65,11 +65,27 @@ class PluginClass(BasePluginClass):
         if (len(content) < 5):
             return(None)
         response = {"uuid":id}
+        
         try:
-            url = json_page["website"]
-            response.update({"url":url})
+            response.update({"url":json_page["website"]})
         except KeyError:
-            return(None)
+            pass
+
+        try:
+            response.update({"pmid":json_page["identifiers"]["pmid"]})
+        except KeyError:
+            pass
+            
+        try:
+            response.update({"pmcid":json_page["identifiers"]["pmc_id"]})
+        except KeyError:
+            pass
+
+        try:
+            response.update({"doi":json_page["identifiers"]["doi"]})
+        except KeyError:
+            pass
+            
         return(response)  
         
     
