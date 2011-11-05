@@ -155,18 +155,22 @@ $(document).ready(function(){
 		    <?php
 			echo "$rendered_about_text";
 			?>
-		<p class="debugging">Debugging: <a target="_blank" href="./report.php?id=<?php echo $collectionId; ?>&mode=status">Status log</a>, <a target="_blank" href="https://cloudant.com/futon/document.html?total-impact%2Fdevelopment/<?php echo $_REQUEST['id']; ?>">DB entry</a>
-		</p>
-
 		</div>
+
 
 		
 		
 		</div>
 		<!-- END wrapper -->
 			<div id="footer">
+					<div class="debugging">
+					<a target="_blank" href="https://cloudant.com/futon/document.html?total-impact%2Fdevelopment/<?php echo $_REQUEST['id']; ?>">DB....</a>   
+					<a target="_blank" href="./report.php?id=<?php echo $collectionId; ?>&mode=status">status log</a>     
+					</div>
                             <p>an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project.</p>
                             <p>source code on <a href="https://github.com/mhahnel/Total-Impact">github</a>
+
+
                         </div>
 
 	</body>

@@ -576,9 +576,10 @@ a.report-button:hover {
 }
 
 
-.debugging {
-	float: right;
-	margin-right: .5em;	
+.debugging a {
+	float: left;
+	text-decoration: none;
+	color: #FFF;
 }
 
 .something-missing {
