@@ -47,13 +47,33 @@ class TestInput(object):
     TEST_INPUT_ALL.update(TEST_INPUT_NOTHING)
     TEST_INPUT_PLOS_DOI = {"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361"}}
     TEST_INPUT_ALL.update(TEST_INPUT_PLOS_DOI)
-    TEST_INPUT_SLIDESHARE_URL = {"http://www.slideshare.net/phylogenomics/eisen":{"url":"http://www.slideshare.net/phylogenomics/eisen"}}
+    TEST_INPUT_SLIDESHARE_URL = {"ttp://www.slideshare.net/phylogenomics/eisenall-hands":{"url":"ttp://www.slideshare.net/phylogenomics/eisenall-hands"}}
     TEST_INPUT_ALL.update(TEST_INPUT_SLIDESHARE_URL)
     TEST_INPUT_GEO = {"GSE2109":{}}
     TEST_INPUT_ALL.update(TEST_INPUT_GEO)
     TEST_INPUT_TWEETED_URL = {"http://ow.ly/73HQN":{}}
     TEST_INPUT_ALL.update(TEST_INPUT_TWEETED_URL)
-        
+    TEST_INPUT_GITHUB_URL = {"https://github.com/mhahnel/total-impact":{}}
+    TEST_INPUT_ALL.update(TEST_INPUT_GITHUB_URL) 
+    TEST_INPUT_SOURCEFORGE_URL = {"http://sourceforge.net/projects/aresgalaxy":{}}
+    TEST_INPUT_ALL.update(TEST_INPUT_SOURCEFORGE_URL) 
+    TEST_INPUT_ICPSR_DOI = {"10.3886/ICPSR03131":{}}
+    TEST_INPUT_ALL.update(TEST_INPUT_ICPSR_DOI) 
+    TEST_INPUT_ARXIV_HANDLE = {"10.3886/ICPSR03131":{}}
+    TEST_INPUT_ALL.update(TEST_INPUT_ARXIV_HANDLE) 
+    TEST_INPUT_NATURE_PRECEDINGS_ID = {"10.3886/ICPSR03131":{}}
+    TEST_INPUT_ALL.update(TEST_INPUT_NATURE_PRECEDINGS_ID) 
+    TEST_INPUT_REPEC_ID = {"10.3886/ICPSR03131":{}}
+    TEST_INPUT_ALL.update(TEST_INPUT_REPEC_ID) 
+    TEST_INPUT_UMN_ID = {"http://conservancy.umn.edu/handle/107490":{}}
+    TEST_INPUT_ALL.update(TEST_INPUT_UMN_ID) 
+    TEST_INPUT_ORNLDAAC_DOI = {"10.3334/ORNLDAAC/912":{}}
+    TEST_INPUT_ALL.update(TEST_INPUT_ORNLDAAC_DOI) 
+    TEST_INPUT_DATACITE_DOI = {"10.3886/ICPSR03131":{}}
+    TEST_INPUT_ALL.update(TEST_INPUT_DATACITE_DOI) 
+    TEST_INPUT_MENDELEY_UUID = {"11f3b2c0-44e8-11e0-babf-0024e8453de6":{}}
+    TEST_INPUT_ALL.update(TEST_INPUT_MENDELEY_UUID) 
+            
 class BasePluginClass(object):
 
     SOURCE_NAME = "Base Plugin"
