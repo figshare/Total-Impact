@@ -1,4 +1,6 @@
-<?php require_once './bootstrap.php'; 
+<?php 
+
+require_once './bootstrap.php'; 
 #require_once 'FirePHPCore/fb.php';
 
 // TRUE = disable all output buffering, 
@@ -143,7 +145,7 @@ $(document).ready(function(){
                             <p class="prompt">Your Mendeley profile URL<a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley profile to import the references of your publications', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
                             <em class="url">http://www.mendeley.com/profiles/</em>
                             <table><tr><td>
-                            <input id="mendeley_profile_input" name="profileId" type="text" size="20" value="cameron-neylon"/>
+                            <input id="mendeley_profile_input" name="profileId" type="text" size="20" value="heather-piwowar"/>
                             </td><td>
                             <br/><button id="mendeley_profile">Import profile pubs</button>
                             <br/><button id="quick_report_contacts">Pull my contacts</button><a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley profile to get direct links to reports for your contacts', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a>
@@ -187,8 +189,9 @@ $(document).ready(function(){
 							
                             <!-- div class="floatr"><p><form action="./about.php" method="get" target="_blank"><input type="submit" class="FAQ" value="FAQ"></form></div -->
 
-                    </div>
 
+
+                    </div>
 
             </div>
 
