@@ -54,8 +54,11 @@ function userErrorHandler($errno, $errmsg, $filename, $linenum, $vars)
     $user_errors = array(E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE);
     
     $err = $_SERVER['REMOTE_ADDR'] . "; ";
-	$filename = pathinfo($_SERVER["SCRIPT_FILENAME"]);
-    $err .= $filename["filename"] . ".php line " . $linenum . ". ";
+	#$pathinfo = $_SERVER["SCRIPT_FILENAME"];
+	#$pathinfo = pathinfo($_SERVER["SCRIPT_FILENAME"]);
+    #$err .= $filename["filename"] . ".php line " . $linenum . ". ";
+	$pathinfo = pathinfo($filename);
+    $err .= $pathinfo["basename"] . " line " . $linenum . ". ";
 
 	
 	if ($errno != 1024) {
