@@ -271,36 +271,38 @@ class Models_Item {
              $response->title = $sourceData->title;
              $response->authors = $sourceData->authors;
              $response->year = $sourceData->year;
-             $response->respository = $sourceData->journal;
+             $response->repository = $sourceData->journal;
              $response->doi = "http://dx.doi.org/$sourceData->doi";
              $response->url = "http://dx.doi.org/$sourceData->doi";
         } elseif ($sourceName=="PubMed" and $biblioSource=="PubMed") {
              $response->title = $sourceData->title;
              $response->authors = $sourceData->authors;
              $response->year = $sourceData->year;
-             $response->respository = $sourceData->journal;
+             $response->repository = $sourceData->journal;
              $response->url = "http://www.ncbi.nlm.nih.gov/pubmed/$sourceData->pmid";
              $response->pmid = $sourceData->pmid;
         } elseif ($sourceName=="Mendeley" and $biblioSource=="Mendeley") {
              $response->title = $sourceData->title;
              $response->authors = $sourceData->authors;
              $response->year = $sourceData->year;
-             $response->respository = $sourceData->journal;
+             $response->repository = $sourceData->journal;
              $response->url = $sourceData->show_details_url;
 		}
         if ($sourceName=="Slideshare") {
              $response->title = $sourceData->title;
+            $response->repository = "Slideshare";
           	$response->upload_year = $sourceData->upload_year;
         } elseif ($sourceName=="GitHub" or $sourceName=="SourceForge") {
              $response->title = $sourceData->title;
+            $response->repository = $sourceName;
         	$response->upload_year = $sourceData->upload_year;
         } elseif ($sourceName=="FigShare") {
              $response->title = $sourceData->title;
-            $response->respository = "FigShare";
+            $response->repository = "FigShare";
         } elseif ($sourceName=="Dryad") {
              $response->title = $sourceData->title;
             $response->authors = $sourceData->authors;
-            $response->respository = "Dryad Data Repository";
+            $response->repository = "Dryad Data Repository";
             $response->url = "http://dx.doi.org/$sourceData->doi";
             $response->doi = "http://dx.doi.org/$sourceData->doi";
         }
