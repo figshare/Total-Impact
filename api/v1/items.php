@@ -57,22 +57,6 @@ class Items {
 	}
 }
 
-class Biblio {
-	public $id;
-	public $title;
-	public $repository;
-	public $url;
-	public $genre;
-
-    function __construct() {
-        $this->id = "unknown";
-        $this->title = "unknown";
-        $this->repostitory = "";
-        $this->url = "";
-        $this->genre = "unknown";
-    }
-
-}
 
 class Status {
 	public $last_updated;
@@ -86,13 +70,5 @@ class Status {
         $this->synonyms_queried = "unknown";
         $this->last_updated = (string)time();
     }
-}
-
-class Metric {
-	public $id;
-	public $meta;
-	public $value;
-	public $last_updated;
-	public $drill_down_url;
 }
 	

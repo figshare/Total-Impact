@@ -8,7 +8,8 @@
  * @author jason
  */
 class Models_Collection {
-
+	static $MAX_NUM_ARTIFACTS = 250;
+	
    /**
     * Splits a string into lines
     *
@@ -42,6 +43,37 @@ class Models_Collection {
 		return $ret;
     }
 
+
+    private function store($doc){
+      	$config = new Zend_Config_Ini(CONFIG_PATH, ENV);
+        $couch = new Couch_Client($config->db->dsn, $config->db->name);
+        $response = $this->robustStoreDoc($doc, 0, $couch);
+        return $response;
+    }
+
+	/* this will eventually replace create */
+    public function build($input, $version) {
+        // build the object
+        $doc = new stdClass();
+        $doc->_id = $this->randStr(6);
+        $doc->id = $doc->_id;
+        $doc->title = ($input->title) ? strip_tags($input->title) : false;
+        $doc->description = $input->description;
+        $doc->created_at = (string)time();
+        $doc->last_updated_at = "";
+        $doc->created_by = $input->created_by;
+        $doc->item_ids = $this->idsFromStr(trim(strip_tags($input->item_ids)));
+        $doc->version = Collections::$VERSION;
+
+        $doc->status = new stdClass(); // also for later
+		
+		if (count($doc->artifact_ids) > Collection::$MAX_NUM_ARTIFACTS) {
+			$doc->artifact_ids = array_slice($doc->artifact_ids, 0, $maxNumArtifacts);
+			$doc->status->user_alert_artifact_ids_truncated = "True";
+		}
+		
+		return($doc);
+    }
 		
     /**
      * Saves a collection to the database based on user input
@@ -210,7 +242,11 @@ class Models_Collection {
     /**
      * Loads the data on the collection specified by $this->id
      */
-    public function fetch($collectionId, $config){
+    public function fetch($collectionId, $config=NULL){
+		if (isnull($config)) {
+      		$config = new Zend_Config_Ini(CONFIG_PATH, ENV);
+		}
+
         $couch = new Couch_Client($config->db->dsn, $config->db->name);
 	
         try {
