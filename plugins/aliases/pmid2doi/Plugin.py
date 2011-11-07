@@ -70,14 +70,16 @@ class PluginClass(BasePluginClass):
             id = docsum.id.text
             author_list = []
             response_dict = {}
+            response_dict.update(pmid=id)
             for item in docsum.findAll("item"):
                 if item.get("name") == "DOI":
                     doi = item.text
                     response_dict.update(doi=doi)
                 if item.get("name") == "pmc":
                     pmcid = item.text
-                    share_details_url = "http://www.ncbi.nlm.nih.gov/pmc/articles/%s/citedby/?tool=pubmed" %pmcid
-                    response_dict.update(pmcid=pmcid, share_details_url=share_details_url)
+                    #share_details_url = "http://www.ncbi.nlm.nih.gov/pmc/articles/%s/citedby/?tool=pubmed" %pmcid
+                    #response_dict.update(pmcid=pmcid, share_details_url=share_details_url)
+                    response_dict.update(pmcid=pmcid)
             response += [(id, response_dict)]
 
         return(response)
