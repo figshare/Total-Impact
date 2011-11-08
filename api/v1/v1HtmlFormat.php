@@ -37,8 +37,8 @@ class V1HtmlFormat implements iFormat
 		$html .= '<div id="report"><ul>';
 		foreach ($data->items as $item) {
 			$html .= "<li class='artifact'>";
-			$html .= "<h4>$item->id</h4>"; 
 			if (isset($item->biblio)) {
+				$html .= "<h4>$item->id</h4>"; 
 				$biblioString = "";
 				foreach ($item->biblio as $biblio) {
 					$title = "<span class='title'>$biblio->title</span>";
@@ -49,7 +49,7 @@ class V1HtmlFormat implements iFormat
 					$biblioString .= "<li class='biblio'>" . "$authors $year <a class='meta-url' target='_blank' href='$url'> $title</a> $repo <br/>" . "</li>";					
 				}
 				$html .= "<ul class='biblio'>" . $biblioString . "</ul>";
-			}
+			} 
 			if (isset($item->metrics)) {
 				$metricString = "";
 				foreach ($item->metrics as $metric) {
