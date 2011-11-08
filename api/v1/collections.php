@@ -35,12 +35,14 @@ class Collections {
 			$doc = $collection->build($request_data_clean, Collections::$VERSION);
 			$collection->store($doc);
 			$doc = $collection->update($id);
-		} elseif ($action=="update") {
+		} elseif ($action=="refresh") {
 			$collection = new Models_Collection();
-			$doc = $collection->update($id);
+			$doc = $collection->refresh($id);
 		}
 		return($doc);
 	}
+	
+	// eventually support PUT and DELETE after we have user accounts
 	
 	// Not tested, needs work
 	private function _validate($input){
