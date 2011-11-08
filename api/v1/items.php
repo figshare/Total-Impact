@@ -31,7 +31,7 @@ class Items {
 			if ($showAllFields or in_array("biblio", $fieldList)) {
 				$itemsClass = new Models_Item();
 				$aliasResponse = $itemsClass->getAliases($id);
-				$biblioResponse = $itemsClass->getBiblio($id, $aliasResponse);
+				$biblioResponse = $itemsClass->getBiblio($id, $aliasResponse, false);
 				$item->biblio = $biblioResponse->$id;
 			}
 			if ($showAllFields or in_array("status", $fieldList)) {

@@ -204,32 +204,42 @@ class Models_Item {
 		
     public function extractMetricsInfo($id, $sources, $d="_") {
 		
-		$response_all = array();
 		$abouts = $this->getSourceAbouts($sources);
 		
         $artifacts = $this->sortByArtifact($sources);
 		$artifact = $artifacts->$id;
+		$metrics_array = array();
+				
         foreach ($artifact as $sourceName => $sourceData) {
 	       	foreach ($sourceData as $metricName => $metricValue){
-		
-		        if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type", "show_details_url"))) {
-					$item = new stdClass();
-					$item->id = "$sourceName$d$metricName";
-					$item->value = $metricValue;
-					$item->last_update = $sources->$sourceName->last_update;
-					$item->drilldown_url = $sources->$sourceName->artifacts->$id->show_details_url;
-					$item->meta = new stdClass();
-					$item->meta->provider = $sourceName;
-					$item->meta->provider_url = $sources->$sourceName->about->url;
-					$item->meta->tooltiptext = $this->getTooltipText($sourceName, $metricName, $abouts);						
-					$item->meta->icon = $this->getIcon($sourceName, $metricName, $abouts);
-					$item->meta->flavour = "";
-					$item->meta->license = "";
-					$item->meta->display_name = $this->getPrettyMetricName($metricName);
-					$response_all[] = $item;
+                if ($showZeros or ($metricValue != 0)) {
+			        if (!in_array($metricName, array("authors", "url", "title", "year", "journal", "doi", "pmid", "upload_year", "type", "show_details_url"))) {
+						$item = new stdClass();
+						$item->id = "$sourceName$d$metricName";
+						$item->value = $metricValue;
+						$item->last_update = $sources->$sourceName->last_update;
+						$item->drilldown_url = $sources->$sourceName->artifacts->$id->show_details_url;
+						$item->meta = new stdClass();
+						$item->meta->provider = $sourceName;
+						$item->meta->provider_url = $sources->$sourceName->about->url;
+						$item->meta->tooltiptext = $this->getTooltipText($sourceName, $metricName, $abouts);						
+						$item->meta->icon = $this->getIcon($sourceName, $metricName, $abouts);
+						$item->meta->flavour = "";
+						$item->meta->license = "";
+						$item->meta->display_name = $this->getPrettyMetricName($metricName);
+						$metrics_array[json_encode($item)] = $item->value;
+					}
 				}
 			}
         }		
+
+		arsort($metrics_array);
+		$response_all = array();
+		foreach ($metrics_array as $key=>$value) {
+			$response_all[] = json_decode($key);
+		}
+		#$response_all = array_keys($metrics_array), 'json_decode');
+
 		#FB::log($response_all);
         return($response_all);
     }
@@ -255,11 +265,11 @@ class Models_Item {
 		return($response);
 	}	
 
-	public function getBiblio($id, $itemsWithAliases) {
+	public function getBiblio($id, $itemsWithAliases, $showZeros=false) {
 		$doc = $this->getMetricsAndBiblio($id, $itemsWithAliases);
 
 		$response = new stdClass();
-		$response->$id = $this->extractBiblioInfo($id, $doc->sources);
+		$response->$id = $this->extractBiblioInfo($id, $doc->sources, $showZeros);
 		return($response);
 	}
 	
@@ -310,7 +320,7 @@ class Models_Item {
         return ($response);
     }
 
-    public function extractBiblioInfo($id, $sources, $showZeros=true) {
+    public function extractBiblioInfo($id, $sources, $showZeros=false) {
 		$abouts = $this->getSourceAbouts($sources);
 
         $artifacts = $this->sortByArtifact($sources);
