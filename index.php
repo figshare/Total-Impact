@@ -118,20 +118,6 @@ $(document).ready(function(){
 
             <!-- START input -->
             <div id="input">
-                    <div id="enter-ids">
-                            <form name="id_form">
-                            <fieldset><legend>create a collection:</legend>
-                       <p><label for="list">List your IDs here</label><a class="tooltip" onmouseover="tooltip.show('Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a> <a target="_blank" href="examples.php">(cool examples)</a></p>
-                       <textarea rows=15 name="list" id="artifactList"><?php echo $artifactIdsString; ?></textarea>
-
-                       <p id="name-collection"><label for="name">Name this collection</label><a class="tooltip" onmouseover="tooltip.show('You can add a custom name to identify this collection', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
-                       <input name="name" id="name" value="<?php echo $title; ?>" />
-
-                       <input type="submit" id="go-button" name="run" value="get my metrics!" />
-                            </fieldset>
-                            </form>
-
-                    </div>
                     <div id="enter-mendeley">
                             <!--Want help gathering your IDs? Pull from these sources:-->
                             <fieldset><legend><span>ids from</span> Mendeley</legend>
@@ -187,11 +173,27 @@ $(document).ready(function(){
                             </fieldset>
 
 							
+                    </div>
+
+                    <div id="enter-ids">
+                            <form name="id_form">
+                            <fieldset><legend>create a collection:</legend>
+                       <p><label for="list">List your IDs here</label><a class="tooltip" onmouseover="tooltip.show('Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a> <a target="_blank" href="examples.php">(cool examples)</a></p>
+                       <textarea rows=15 name="list" id="artifactList"><?php echo $artifactIdsString; ?></textarea>
+
+                       <p id="name-collection"><label for="name">Name this collection</label><a class="tooltip" onmouseover="tooltip.show('You can add a custom name to identify this collection', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
+                       <input name="name" id="name" value="<?php echo $title; ?>" />
+
+                       <input type="submit" id="go-button" name="run" value="get my metrics!" />
+                            </fieldset>
+                            </form>
+
+                    </div>
+
                             <!-- div class="floatr"><p><form action="./about.php" method="get" target="_blank"><input type="submit" class="FAQ" value="FAQ"></form></div -->
 
 
 
-                    </div>
 
             </div>
 

@@ -16,7 +16,7 @@ body a:hover {
 }
 
 #wrapper {
-	margin: 150px auto 0;
+	margin: 100px auto 0;
 	width: 1084px;
         min-height: 400px;
         padding-left:10px;
@@ -165,9 +165,22 @@ body#about h2 {
 	padding-top: 55px;
 }
 
-#enter-ids {
+#enter-mendeley {
 	float:left;
 	width: 42%;
+	margin-right:5%;
+}
+#enter-mendeley table input {
+    width: 100%;
+}
+#enter-mendeley table button {
+    width: 115px;
+}
+
+
+#enter-ids {
+	float:left;
+	width: 24%;
 	margin-right:5%;
 }
 #enter-ids fieldset {
@@ -191,17 +204,7 @@ body#about h2 {
 }
 
 
-#enter-mendeley {
-	float:left;
-	width: 24%;
-	margin-right:5%;
-}
-#enter-mendeley table input {
-    width: 100%;
-}
-#enter-mendeley table button {
-    width: 115px;
-}
+
 
 #enter-other {
 	float:left;
