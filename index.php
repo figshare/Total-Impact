@@ -118,15 +118,10 @@ $(document).ready(function(){
 
             <!-- START input -->
             <div id="input">
-                    <div id="enter-mendeley">
+				<div id="importers">
+					<span class="heading">1. import IDs</span>
                             <!--Want help gathering your IDs? Pull from these sources:-->
-                            <fieldset><legend><span>ids from</span> Mendeley</legend>
-                            <p class="prompt">Your Mendeley group URL<a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley to import the references shared within group</em>', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
-                            <em class="url">http://www.mendeley.com/group/</em>
-                        <input id="mendeley_group_input" name="groupId" type="text" size="20" value="530031"/>
-                            <button id="mendeley_group">Import</button>
-                            <div id="mendeley_group_div">
-                            </div>
+
 
                             <p class="prompt">Your Mendeley profile URL<a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley profile to import the references of your publications', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
                             <em class="url">http://www.mendeley.com/profiles/</em>
@@ -142,11 +137,16 @@ $(document).ready(function(){
                             <div id="quick_report_div">
                             </div>
 
+                            <fieldset><legend><span>ids from</span> Mendeley</legend>
+                            <p class="prompt">Your Mendeley group URL<a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley to import the references shared within group</em>', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
+                            <em class="url">http://www.mendeley.com/group/</em>
+                        <input id="mendeley_group_input" name="groupId" type="text" size="20" value="530031"/>
+                            <button id="mendeley_group">Import</button>
+                            <div id="mendeley_group_div">
+                            </div>
+
                             </fieldset>
 
-                    </div>
-
-                    <div id="enter-other">
                             <fieldset><legend><span>ids from</span> Slideshare</legend>
                             <p class="prompt">Your Slideshare profile URL<a class="tooltip" onmouseover="tooltip.show('Fill in your Slideshare profile to import your public slidedecks', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
                             <em class="url">http://www.slideshare.net/</em>
@@ -172,12 +172,16 @@ $(document).ready(function(){
                             </div>
                             </fieldset>
 
+					<!--moved down here because link didn't work when in div above for some reason -->
+                    <div class="something-missing"><p>Something missing on import?<br/> See a list of <a href="./about.php#limitations">current limitations.</a> </p></div>
+
+
 							
                     </div>
 
-                    <div id="enter-ids">
+                    <div id="enter-collection-meta">
                             <form name="id_form">
-                            <fieldset><legend>create a collection:</legend>
+                            <fieldset><legend>2. create a collection</legend>
                        <p><label for="list">List your IDs here</label><a class="tooltip" onmouseover="tooltip.show('Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a> <a target="_blank" href="examples.php">(cool examples)</a></p>
                        <textarea rows=15 name="list" id="artifactList"><?php echo $artifactIdsString; ?></textarea>
 
@@ -190,10 +194,6 @@ $(document).ready(function(){
 
                     </div>
 
-                            <!-- div class="floatr"><p><form action="./about.php" method="get" target="_blank"><input type="submit" class="FAQ" value="FAQ"></form></div -->
-
-
-
 
             </div>
 
@@ -204,9 +204,6 @@ $(document).ready(function(){
             <!-- START footer -->
 
             <div id="twitterfeed">
-
-					<!--moved down here because link didn't work when in div above for some reason -->
-                    <div class="something-missing"><p>Something missing on import?<br/> See a list of <a href="./about.php#limitations">current limitations.</a> </p></div>
 
                     <h2><a name="recent">recently-shared reports</a></h2>
                     <!-- https://twitter.com/about/resources/widgets/widget_search -->
@@ -220,15 +217,15 @@ $(document).ready(function(){
                               interval: 30000,
                               title: 'Recent public reports: "via @mytotalImpact"',
                               subject: 'Tweet yours to see it here!',
-                              width: "80%",
-                              height: 200,
+                              width: "100%",
+                              height: 600,
                               theme: {
                                 shell: {
-                                  background: '#DDD',
+                                  background: '#EEE',
                                   color: '#000'
                                 },
                                 tweets: {
-                                  background: '#EEE',
+                                  background: '#FFF',
                                   color: '#000',
                                   links: '#933'
                                 }

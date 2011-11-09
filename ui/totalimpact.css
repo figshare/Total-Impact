@@ -18,14 +18,11 @@ body a:hover {
 #wrapper {
 	margin: 100px auto 0;
 	width: 1084px;
-        min-height: 400px;
+        min-height: 400px; 
         padding-left:10px;
 }
 body.report #wrapper {
     margin-top: 100px;
-}
-body.home #wrapper {
-/*    width: 1000px;*/
 }
 body#about #wrapper {
     margin-top: 150px;
@@ -165,25 +162,32 @@ body#about h2 {
 	padding-top: 55px;
 }
 
-#enter-mendeley {
+#importers {
 	float:left;
-	width: 42%;
+	width: 35%;
 	margin-right:5%;
 }
-#enter-mendeley table input {
+#importers table input {
     width: 100%;
 }
-#enter-mendeley table button {
-    width: 115px;
+#importers table button {
+    /* width: 100%;*/
 }
 
+#importers .heading {
+    color: #933;
+    paddding: 0 5px;
+    font-size: 150%;
+    font-weight: bold;
+}
 
-#enter-ids {
+#enter-collection-meta {
 	float:left;
 	width: 24%;
 	margin-right:5%;
 }
-#enter-ids fieldset {
+
+#enter-collection-meta fieldset {
     border: 3px solid #933;
     height: 800px;
     margin-bottom: 150px;
@@ -192,24 +196,27 @@ body#about h2 {
     border-radius: 7px;
     box-shadow: 4px 6px 15px -8px #333;
 }
-#enter-ids textarea {
+#enter-collection-meta textarea {
     height: 540px;
 
 }
-#enter-ids legend {
+#enter-collection-meta legend {
     color: #933;
     paddding: 0 5px;
     font-size: 150%;
     font-weight: bold;
 }
 
-
-
-
-#enter-other {
-	float:left;
+#twitterfeed {
+    float:right;
 	width: 24%;
 }
+
+
+
+
+
+
 
 
 
@@ -356,7 +363,7 @@ p#name-collection {
     margin-top: -3px;
 }
 
-#enter-ids input#go-button {
+#enter-collection-meta input#go-button {
     background-color: #933;
     color: #fff;
     font-size: 36px;
@@ -456,13 +463,6 @@ div#about_metrics {
 	margin-top: 2em;	
 	background-color: #EEE;
 	padding: 1em 2em 3em 2em;
-}
-div#twitterfeed {
-    margin-top: -513px;
-    height:300px;
-    clear:both;
-    float:right;
-    width: 52%;
 }
 
 div#footer {
