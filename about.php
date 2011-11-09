@@ -79,7 +79,7 @@ $rendered_about_text = $report->render_about_text();
 
 Total-Impact data can be:
 <ul>
-<li>highlighted as indications of the *minimum* impact a research artifact has made on the community
+<li>highlighted as indications of the <em>minimum</em> impact a research artifact has made on the community
 <li>explored more deeply to see who is citing, bookmarking, and otherwise using your work
 <li>run to collect usage information for mention in biosketches
 <li>included as a link in CVs
