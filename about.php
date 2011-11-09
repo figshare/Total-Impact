@@ -208,7 +208,35 @@ Tell us about bugs! <a href="http://twitter.com/#!/totalImpactdev">@totalImpactd
 	
 <h2 id="api">does total-Impact have an api?</h2>
 
-<p>yes, kinda.  Our plugins do, and you can query the update.php with a series of GET requests.  Please don’t overload our server, and do add an &email=YOUREMAIL tag on so we contact you if necessary based on your usage patterns.  This is still very new: don’t hesitate to get in touch to figure it out with us.
+<p>yes! We have a <a href="https://docs.google.com/document/d/1My8fdD88a3_6fh9h6p3I2m9BDcMy0ddC5vcGQqbafFc/edit">full roadmap of an api spec</a> and have implemented the main piece. Please don’t use it heavily or in production yet; we haven't implemented good caching.  It is still early days: we welcome your feedback on how to make it useful and easy.
+
+<div>Initial implementation includes:
+<ul>
+	<li>GET /items/ID1,ID2,ID3 or GET /items/ID1,ID2,ID3.html</li>
+<ul>
+	<li>returns html for those IDs, as it would appear on the total-impact website.</li>
+</ul>
+	<li>GET /items/ID1,ID2,ID3.json</li>
+<ul>
+	<li>all metrics info in json format</li>
+</ul>
+	<li>GET /items/ID1,ID2,ID3.xml</li>
+<ul>
+	<li>all metrics info in xml format</li>
+</ul>
+	<li>GET /items/ID1,ID2,ID3.json?fields=biblio,aliases,metrics,debug</li>
+<ul>
+	<li>allows subsetting the metrics info returned</li>
+</ul>
+</ul>
+Examples:  (to try other IDs replace / in IDs with %252F)
+<ul>
+	<li>html: <a href="http://total-impact.org/api/v1/items/18428094,10.1371%252Fjournal.pmed.0020124,http:%252F%252Fopensciencesummit.com%252Fprogram%252F,10.5061%252Fdryad.8048">http://total-impact.org/api/v1/items/18428094,10.1371%252Fjournal.pmed.0020124,http:%252F%252Fopensciencesummit.com%252Fprogram%252F,10.5061%252Fdryad.8048</a></li>
+	<li>html, just metrics (good for easy embedding) <a href="http://total-impact.org/api/v1/items/18428094,10.1371%252Fjournal.pmed.0020124,http:%252F%252Fopensciencesummit.com%252Fprogram%252F,10.5061%252Fdryad.8048?fields=metrics">http://total-impact.org/api/v1/items/18428094,10.1371%252Fjournal.pmed.0020124,http:%252F%252Fopensciencesummit.com%252Fprogram%252F,10.5061%252Fdryad.8048?fields=metrics</a></li>
+	<li>json: <a href="http://total-impact.org/api/v1/items/18428094,10.1371%252Fjournal.pmed.0020124,http:%252F%252Fopensciencesummit.com%252Fprogram%252F,10.5061%252Fdryad.8048.json?fields=metrics">http://total-impact.org/api/v1/items/18428094,10.1371%252Fjournal.pmed.0020124,http:%252F%252Fopensciencesummit.com%252Fprogram%252F,10.5061%252Fdryad.8048.json?fields=metrics</a></li>
+	<li>just biblio (api supports returning just subsets of data elements) <a href="http://total-impact.org/api/v1/items/18428094,10.1371%252Fjournal.pmed.0020124,http:%252F%252Fopensciencesummit.com%252Fprogram%252F,10.5061%252Fdryad.8048.json?fields=biblio">http://total-impact.org/api/v1/items/18428094,10.1371%252Fjournal.pmed.0020124,http:%252F%252Fopensciencesummit.com%252Fprogram%252F,10.5061%252Fdryad.8048.json?fields=biblio</a></li>
+</ul>
+		
 
 <h2 id="who">who developed total-Impact?</h2>
 
