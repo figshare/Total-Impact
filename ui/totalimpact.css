@@ -10,6 +10,7 @@ body {
 
 body a:link {
     text-decoration: none;
+    cursor: pointer;    
 }
 body a:hover {
     text-decoration: underline;
@@ -85,6 +86,7 @@ h1 a {
     top:0;
     left:75px;
    box-shadow: -1px 0 10px -2px #333333;
+    cursor: pointer;       
 }
 h1 a:hover {
     padding-top:13px;
@@ -122,6 +124,7 @@ ul#nav li a {
     -webkit-border-bottom-right-radius: 5px;
     -webkit-border-bottom-left-radius: 5px;
     box-shadow: -2px 1px 5px -1px #333333; 
+    cursor: pointer;           
 }
 
 ul#nav li a:hover {
@@ -262,7 +265,8 @@ h3 {
 }
 
 a {
-	color: #933;	
+	color: #933;
+    cursor: pointer;		
 }
 
 hr {
