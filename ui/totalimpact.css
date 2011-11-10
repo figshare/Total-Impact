@@ -174,11 +174,11 @@ body#about h2 {
     /* width: 100%;*/
 }
 
-#importers .heading {
+.heading {
     color: #933;
-    paddding: 0 5px;
     font-size: 150%;
     font-weight: bold;
+    padding:10px;
 }
 
 #enter-collection-meta {
@@ -188,13 +188,18 @@ body#about h2 {
 }
 
 #enter-collection-meta fieldset {
+    border: 0;
+}
+
+#enter-collection-meta fieldset_DISABLING_RED_BORDER_FOR_NOW {
     border: 3px solid #933;
-    height: 500px;
-    margin-bottom: 150px;
+    
+    /* height: 500px;
+    margin-bottom: 150px; */
     -webkit-border-radius: 7px;    /* CSS3 rounded borders for Safari                    */
     -moz-border-radius: 7px;       /* CSS3 rounded borders for Firefox                   */
     border-radius: 7px;
-    box-shadow: 4px 6px 15px -8px #333;
+    box-shadow: 4px 6px 15px -8px #333; 
 }
 #enter-collection-meta textarea {
     height: 240px;
@@ -202,7 +207,6 @@ body#about h2 {
 }
 #enter-collection-meta legend {
     color: #933;
-    paddding: 0 5px;
     font-size: 150%;
     font-weight: bold;
 }
@@ -365,24 +369,34 @@ button
         margin-top: 2px;
 }
 p#name-collection {
-    float:right;
+    float:left;
     width: 35%;
     margin-top: -3px;
 }
 
-#enter-collection-meta input#go-button {
-    
+#enter-collection-meta .go-button {
     background-color: #933;
     color: #fff;
     font-size: 36px;
     float:right;
     height: 2em;
-    width: 100%;
+    width: 70%;
     font-family: 'Lobster Two', 'Helvetica', arial, sans-serif;
     font-style: italic;
     border:1px solid #333;
 }
 
+.go-button_hover {
+    background-color: #000;
+    color: #fff;
+    font-size: 36px;
+    float:right;
+    height: 2em;
+    width: 70%;
+    font-family: 'Lobster Two', 'Helvetica', arial, sans-serif;
+    font-style: italic;
+    border:1px solid #333;
+}
 
 input.FAQ
 {
@@ -394,7 +408,7 @@ input.FAQ
 	color: #FFF;
 }
 
-button:hover
+button.import-button:hover 
 {
 	background-color: #933;
         border-color:#333;
@@ -410,7 +424,7 @@ fieldset {
 legend {
 	font-size: 1.2em;
 	color: #888;
-	padding:0;
+	padding:10px;
 }
 legend span {
     font-family: 'Lobster Two', helvetica, arial, sans-serif;
