@@ -51,6 +51,9 @@ $(document).ready(function(){
   		$("#"+myId+"_contents").slideToggle();
 	});
 
+	var fulllist = $("textarea.artifactList").val();
+	var numberartifacts = fulllist.split("\n").length - 1;
+   	$("#number-artifacts").html(numberartifacts+"");
 		
   $("button").click(function(){
 	var myId = this.id;
@@ -67,7 +70,7 @@ $(document).ready(function(){
 		var fulllist = $("textarea.artifactList").val();
 		var numberartifacts = fulllist.split("\n").length - 1;
     	$("#"+divId).html(numberartifacts + " IDs.");
-    	$("#number-artifacts").html(numberartifacts+"");
+		$("#artifactListHidden").val($("textarea.artifactList").val());
 	} else {
 	    $("#"+divId).html("Loading...");
 		$.get("./seed.php?type="+myId+"&name="+textVal, function(response,status,xhr){
@@ -83,10 +86,11 @@ $(document).ready(function(){
 		    	$("#"+divId).html("Added " + response["artifactCount"] + " IDs.");
 				var fulllist = $("textarea.artifactList").val();
 				var numberartifacts = fulllist.split("\n").length - 1;
-		    	$("#number-artifacts").html(numberartifacts+"");
+			   	$("#number-artifacts").html(numberartifacts+"");
+				$("#artifactListHidden").val($("textarea.artifactList").val());
 			}
-		}, 
-	"json"); }
+		}, "json"); 
+	}
 	}).error(function(){ alert("error!");}); 
   });
 </script>
@@ -146,15 +150,15 @@ $(document).ready(function(){
                             <!--Want help gathering your IDs? Pull from these sources:-->
 
 
-                            <a class="toggler" id="mendeley_profile_toggler" title="Fill in the URL of your public Mendeley profile to import the references of your publications">Mendeley profiles &raquo;</a><br/>
+                            <a class="toggler" id="mendeley_profile_toggler" title="Fill in the URL of your Mendeley profile to import public publications in your profile">Mendeley profiles &raquo;</a><br/>
 
 							<div class="toggler_contents" id="mendeley_profile_toggler_contents">
 								
 	                            <fieldset><legend><span>ids from</span> Mendeley Profiles</legend>
-	                            <p class="prompt" title="Fill in the URL of your public Mendeley profile to import the references of your publications">Your Mendeley group URL</p>
+	                            <p class="prompt" title="Fill in the URL of your Mendeley profile to import public publications in your profile">Your Mendeley profile URL</p>
 	                            <em class="url">http://www.mendeley.com/profiles/</em>
 	                            <input id="mendeley_profile_input" name="profileId" type="text" size="20" value="heather-piwowar"/>
-	                            <button class="import-button" id="mendeley_profile">Import profile pubs</button>
+	                            <button class="import-button" id="mendeley_profile">Import</button>
 	                            <div id="mendeley_profile_div">
 	                            </div>
                             </div>
@@ -212,7 +216,7 @@ $(document).ready(function(){
 							<div class="toggler_contents" id="manual_toggler_contents">
 	                            <fieldset><legend><span>ids for</span> manual editing</legend>
 		
-		                       <p class="prompt" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">Add and edit identifiers for research objects. <a target="_blank" href="http://total-impact.org/about.php#whichartifacts">All supported IDs types.</a></p>
+		                       <p class="prompt" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">Add and edit identifiers for research objects. <a target="_blank" href="http://total-impact.org/about.php#whichartifacts">Supported IDs types.</a></p>
 
 		                       <textarea rows=15 name="list" id="manual_input" class="artifactList"><?php echo $artifactIdsString; ?></textarea>
 		
@@ -247,11 +251,8 @@ $(document).ready(function(){
 
                        <!--p><label for="list" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">ID that will be imported:</label></p-->
                        <!--textarea rows=15 name="list" id="artifactList"><?php echo $artifactIdsString; ?></textarea-->
-						<!--div id="artifactList" class="artifactList">
-					   			<?php echo $artifactIdsString; ?>
-						</div-->
 						
-                       <input name="name" id="name" type="hidden" value="<?php echo $artifactIdsString; ?>" />
+                       <input name="list" id="artifactListHidden" type="hidden" value="<?php echo $artifactIdsString; ?>" />
 					
 
 

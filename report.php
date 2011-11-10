@@ -111,7 +111,7 @@ $(document).ready(function(){
 		        <div id="report-meta">
                                 <h2>report for <span class="title"><?php echo $report->getBestIdentifier(); ?></span></h2>
                                 <a class="report-button" href="./report.php?id=<?php echo $collectionId; ?>&mode=list">download</a>
-                                <a class="report-button" href="./?add-id=<?php echo $collectionId; ?>">refine</a>
+                                <!--a class="report-button" href="./?add-id=<?php echo $collectionId; ?>">refine</a-->
                                 <a class="report-button" href="./update.php?id=<?php echo $collectionId; ?>">run update</a>
 		        	<span class="badge updated-at">updated <?php echo $report->getUpdatedAt('j M, Y');?></span>
 		        	<span class="badge created-at">created <?php echo $report->getCreatedAt('j M, Y');?></span>
