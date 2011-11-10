@@ -212,7 +212,7 @@ $(document).ready(function(){
 							<div class="toggler_contents" id="manual_toggler_contents">
 	                            <fieldset><legend><span>ids from</span> manual</legend>
 		
-		                       <p class="prompt" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">Add and edit:</p>
+		                       <p class="prompt" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">Add and edit identifiers for research objects. <a target="_blank" href="http://total-impact.org/about.php#whichartifacts">All supported IDs types.</a></p>
 
 		                       <textarea rows=15 name="list" id="manual_input" class="artifactList"><?php echo $artifactIdsString; ?></textarea>
 		
