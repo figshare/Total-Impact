@@ -231,16 +231,17 @@ $(document).ready(function(){
                     </div>
 
                     <div id="enter-collection-meta">
+
 							
                             <form name="id_form">
-                            <fieldset>
 							<h2 class="heading">2. name the collection</h2>
 
+                            <fieldset>
 
                        <p id="name-collection"><label for="name">Name:</label></p>
                        <input name="name" id="name" value="<?php echo $title; ?>" />
 
-					<h2><span class="heading">3. go </span><button name="run" type="submit" id="go-button" class="go-button"
+					<h2><span class="heading" id="go-get-heading">3. go </span><button name="run" type="submit" id="go-button" class="go-button"
                      	onmouseover="this.className='go-button_hover';"
                      	onmouseout="this.className='go-button';">get my metrics</button></h2>
 
@@ -259,22 +260,23 @@ $(document).ready(function(){
                             </fieldset>
                             </form>
 
-<hr>
-<p>Or explore a Quick Report based on 
-                            <a class="toggler" id="mendeley_quick_reports_toggler" title="Fill in the URL of your public Mendeley profile to import the references of your publications">your Mendeley contacts and groups &raquo;</a><br/>
-							<div class="toggler_contents" id="mendeley_quick_reports_toggler_contents">
-	                            <fieldset><legend><span>Quick reports from</span> Mendeley</legend>
-	                            <table><tr><td>
-	                            <em class="url">http://www.mendeley.com/profiles/</em>
-	                            <input id="QR_mendeley_profile_input" name="profileId" type="text" size="20" value="heather-piwowar"/>
-	                            </td><td>
-	                            <br/><button class="import-button" id="quick_report_contacts" title="Fill in the URL of your public Mendeley profile to get direct links to reports for your contacts">Pull my contacts</button>
-	                            <br/><button class="import-button" id="quick_report_groups" title="Fill in the URL of your public Mendeley profile to get direct links to reports for your PUBLIC groups">Pull my groups</button>
-	                            </td></tr></table>
-	                            <div id="quick_report_div">
-	                            </div>
-                            </div>
-
+						<div class="quick-collection">
+							<hr>
+								<p>... or explore a Quick Collection based on 
+								                            <a class="toggler" id="mendeley_quick_reports_toggler" title="Fill in the URL of your public Mendeley profile to import the references of your publications">your Mendeley contacts and public groups &raquo;</a><br/>
+										<div class="toggler_contents" id="mendeley_quick_reports_toggler_contents">
+				                            <fieldset><legend><span>Quick collections from</span> Mendeley</legend>
+				                            <table><tr><td>
+				                            <em class="url">http://www.mendeley.com/profiles/</em>
+				                            <input id="QR_mendeley_profile_input" name="profileId" type="text" size="20" value="heather-piwowar"/>
+				                            </td><td>
+				                            <br/><button class="import-button" id="quick_report_contacts" title="Fill in the URL of your public Mendeley profile to get direct links to reports for your contacts">Pull my contacts</button>
+				                            <br/><button class="import-button" id="quick_report_groups" title="Fill in the URL of your public Mendeley profile to get direct links to reports for your PUBLIC groups">Pull my groups</button>
+				                            </td></tr></table>
+				                            <div id="quick_report_div">
+				                            </div>
+			                            </div>
+						</div>
 
                     </div>
 

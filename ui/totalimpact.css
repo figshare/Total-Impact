@@ -176,9 +176,12 @@ body#about h2 {
 
 .heading {
     color: #933;
-    font-size: 150%;
     font-weight: bold;
-    padding:10px;
+}
+
+#go-get-heading {
+    margin-top: 31px;
+    float:left;
 }
 
 #enter-collection-meta {
@@ -189,6 +192,7 @@ body#about h2 {
 
 #enter-collection-meta fieldset {
     border: 0;
+    padding: 0;
 }
 
 #enter-collection-meta fieldset_DISABLING_RED_BORDER_FOR_NOW {
@@ -209,6 +213,10 @@ body#about h2 {
     color: #933;
     font-size: 150%;
     font-weight: bold;
+}
+
+.quick-collection {
+    margin-top: 40px; 
 }
 
 #twitterfeed {
@@ -370,8 +378,8 @@ button
 }
 p#name-collection {
     float:left;
-    width: 35%;
-    margin-top: -3px;
+    width: 15%;
+    margin-top: -2px;
 }
 
 #enter-collection-meta .go-button {
@@ -380,10 +388,14 @@ p#name-collection {
     font-size: 36px;
     float:right;
     height: 2em;
-    width: 70%;
+    width: 80%;
     font-family: 'Lobster Two', 'Helvetica', arial, sans-serif;
     font-style: italic;
     border:1px solid #333;
+    -webkit-border-radius: 10px;    /* CSS3 rounded borders for Safari                    */
+    -moz-border-radius: 10px;       /* CSS3 rounded borders for Firefox                   */
+    border-radius: 10px;
+    box-shadow: 4px 6px 15px -8px #333;    
 }
 
 .go-button_hover {
@@ -392,10 +404,14 @@ p#name-collection {
     font-size: 36px;
     float:right;
     height: 2em;
-    width: 70%;
+    width: 80%;
     font-family: 'Lobster Two', 'Helvetica', arial, sans-serif;
     font-style: italic;
     border:1px solid #333;
+    -webkit-border-radius: 10px;    /* CSS3 rounded borders for Safari                    */
+    -moz-border-radius: 10px;       /* CSS3 rounded borders for Firefox                   */
+    border-radius: 10px;
+    box-shadow: 4px 6px 15px -8px #333;    
 }
 
 input.FAQ
@@ -413,12 +429,6 @@ button.import-button:hover
 	background-color: #933;
         border-color:#333;
 	color: #FFF;
-}
-
-fieldset {
-    border: 2px dotted #CCC;
-    margin-top:0.5em;
-
 }
 
 legend {
