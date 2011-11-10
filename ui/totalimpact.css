@@ -415,6 +415,17 @@ p#name-collection {
     box-shadow: 4px 6px 15px -8px #333;    
 }
 
+a#clear-artifacts {
+    font-size: 75%;
+    cursor: pointer;
+    color:#999;
+    text-decoration: underline;
+}
+a#clear-artifacts.hover {
+    color: #933;
+}
+
+
 input.FAQ
 {
 	border-top: none;
