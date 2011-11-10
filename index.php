@@ -134,11 +134,13 @@ $(document).ready(function(){
 					
                             <!--Want help gathering your IDs? Pull from these sources:-->
 
-                            <a class="toggler" id="mendeley_toggler" title="Fill in the URL of your public Mendeley profile to import the references of your publications">Mendeley profile &raquo;</a><br/>
-							<div class="toggler_contents" id="mendeley_toggler_contents">
-	                            <em class="url">http://www.mendeley.com/profiles/</em>
+                            <a class="toggler" id="mendeley_profile_toggler" title="Fill in the URL of your public Mendeley profile to import the references of your publications">Mendeley profiles &raquo;</a><br/>
+							<div class="toggler_contents" id="mendeley_profile_toggler_contents">
+								
+								
+	                            <fieldset><legend><span>ids from</span> Mendeley Profiles</legend>
 	                            <table><tr><td>
-	                            <fieldset><legend><span>ids from</span> Mendeley</legend>
+	                            <em class="url">http://www.mendeley.com/profiles/</em>
 	                            <input id="mendeley_profile_input" name="profileId" type="text" size="20" value="heather-piwowar"/>
 	                            </td><td>
 	                            <br/><button id="mendeley_profile">Import profile pubs</button>
@@ -149,7 +151,12 @@ $(document).ready(function(){
 	                            </div>
 	                            <div id="quick_report_div">
 	                            </div>
+                            </div>
 
+                            <a class="toggler" id="mendeley_group_toggler" title="Fill in the URL of your public Mendeley to import the references shared within group">Mendeley groups &raquo;</a><br/>
+							<div class="toggler_contents" id="mendeley_group_toggler_contents">
+
+	                            <fieldset><legend><span>ids from</span> Mendeley Groups</legend>
 	                            <p class="prompt" title="Fill in the URL of your public Mendeley to import the references shared within group">Your Mendeley group URL</p>
 	                            <em class="url">http://www.mendeley.com/group/</em>
 	                        <input id="mendeley_group_input" name="groupId" type="text" size="20" value="530031"/>
@@ -195,11 +202,11 @@ $(document).ready(function(){
 	                            </fieldset>
 							</div>
 
-                            <a class="toggler" id="manual_toggler" title="Add, edit, and delete IDs">Manual tweeks &raquo;</a><br/>
+                            <a class="toggler" id="manual_toggler" title="Add, edit, and delete IDs">Manual additions and edits &raquo;</a><br/>
 							<div class="toggler_contents" id="manual_toggler_contents">
 	                            <fieldset><legend><span>ids from</span> manual</legend>
 		
-		                       <p class="prompt" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">tweek here</p>
+		                       <p class="prompt" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">Add and edit:</p>
 
 		                       <textarea rows=15 name="list" id="manual_input" class="artifactList"><?php echo $artifactIdsString; ?></textarea>
 		
