@@ -164,7 +164,7 @@ body#about h2 {
 
 #importers {
 	float:left;
-	width: 35%;
+	width: 30%;
 	margin-right:5%;
 }
 #importers table input {
@@ -183,13 +183,13 @@ body#about h2 {
 
 #enter-collection-meta {
 	float:left;
-	width: 24%;
+	width: 35%;
 	margin-right:5%;
 }
 
 #enter-collection-meta fieldset {
     border: 3px solid #933;
-    height: 800px;
+    height: 500px;
     margin-bottom: 150px;
     -webkit-border-radius: 7px;    /* CSS3 rounded borders for Safari                    */
     -moz-border-radius: 7px;       /* CSS3 rounded borders for Firefox                   */
@@ -197,7 +197,7 @@ body#about h2 {
     box-shadow: 4px 6px 15px -8px #333;
 }
 #enter-collection-meta textarea {
-    height: 540px;
+    height: 240px;
 
 }
 #enter-collection-meta legend {
@@ -334,14 +334,21 @@ p#tagline {
 
 /* form elements */
 
-textarea#artifactList {
+textarea.artifactList {
 	width: 98%;
-        margin-bottom: 25px;
+    margin-bottom: 25px;
+    font-size: 80%;    
+}
+
+.artifactList {
+	width: 98%;
+    margin-bottom: 25px;
+    font-size: 60%;    
 }
 
 input, textarea {
 	border: 1px solid #CCC;	
-        background-repeat:  repeat-x;
+    background-repeat:  repeat-x;
 	background-color: #fff;
 }
 input {
@@ -364,6 +371,7 @@ p#name-collection {
 }
 
 #enter-collection-meta input#go-button {
+    
     background-color: #933;
     color: #fff;
     font-size: 36px;
