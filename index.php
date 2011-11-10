@@ -132,7 +132,7 @@ $(document).ready(function(){
             <div id="about">
                 <p id="tagline">uncovering the invisible impacts of your research.</p>
                 <div id="instr">
-                    <p class="howto">Enter the identifiers for a collection of artifacts you want to track. We'll provide you a permanent URL to track statistics about this collection. You can peruse <a target="_blank" href="./report.php?id=MqAnvI">a sample</a> and <a href="#recent">recently-shared reports</a>.</p>
+                    <p class="howto">Gather the research objects you want to track. We'll provide you a permanent URL to track statistics about this collection. You can peruse <a target="_blank" href="./report.php?id=MqAnvI">a sample</a> and <a href="#recent">recently-shared reports</a>.</p>
                 </div>
             </div><!-- END about -->
 
