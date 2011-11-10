@@ -143,7 +143,7 @@ $(document).ready(function(){
             <!-- START input -->
             <div id="input">
 				<div id="importers">
-					<h2 class="heading">1. gather research objects</h2>
+					<h2 class="heading">1. collect research objects</h2>
 					
 						<p><a class="toggler" id="manual_toggler"><scan id="number-artifacts">0</scan></a> artifacts currently in the collection.</scan>  <a href="." id="clear-artifacts">clear</a></p>
 					
