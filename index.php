@@ -210,7 +210,7 @@ $(document).ready(function(){
 
                             <a class="toggler" id="manual_toggler" title="Add, edit, and delete IDs">Manual additions and edits &raquo;</a><br/>
 							<div class="toggler_contents" id="manual_toggler_contents">
-	                            <fieldset><legend><span>ids from</span> manual</legend>
+	                            <fieldset><legend><span>ids for</span> manual editing</legend>
 		
 		                       <p class="prompt" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">Add and edit identifiers for research objects. <a target="_blank" href="http://total-impact.org/about.php#whichartifacts">All supported IDs types.</a></p>
 
