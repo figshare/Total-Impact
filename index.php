@@ -225,7 +225,7 @@ $(document).ready(function(){
 
                     <div id="enter-collection-meta">
                             <form name="id_form">
-                            <fieldset><legend>2. create a collection</legend>
+                            <fieldset><legend>2. name the collection and go!</legend>
 
                        <p id="name-collection"><label for="name">Name this collection</label></p>
                        <input name="name" id="name" value="<?php echo $title; ?>" />
