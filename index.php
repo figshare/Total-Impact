@@ -142,7 +142,7 @@ $(document).ready(function(){
             <div id="about">
                 <p id="tagline">Uncover the invisible impact of research</p>
                 <div id="instr">
-                    <p class="howto">Create a collection of research objects you want to track. We'll provide you a report of the total impact of this collection.<br />You can peruse <a target="_blank" href="./report.php?id=MqAnvI">a sample report</a> or check out the most recently shared reports</a>.</p>
+                    <p class="howto">Create a collection of research objects you want to track. We'll provide you a report of the total impact of this collection.<br />You can peruse <a href="./report.php?id=MqAnvI">a sample report</a> or check out the most recently shared reports</a>.</p>
                 </div>
             </div><!-- END about -->
 
@@ -219,7 +219,7 @@ $(document).ready(function(){
 	                            </fieldset>
 							</div>
 
-                            <a class="toggler" id="manual_toggler" title="Add, edit, and delete IDs">▸ Manually edits this collection</a><br/>
+                            <a class="toggler" id="manual_toggler" title="Add, edit, and delete IDs">▸ Manually edit this collection</a><br/>
 							<div class="toggler_contents" id="manual_toggler_contents">
 	                            <fieldset><legend><span>ids for</span> manual editing</legend>
 		
