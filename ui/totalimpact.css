@@ -229,7 +229,8 @@ fieldset {
 }
 
 .largefield {
-	font-size: 180%;
+	font-size: 150%;
+	padding: .2em;
 	width: 70%;
 	color: #666;
 }
