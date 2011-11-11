@@ -151,7 +151,7 @@ $(document).ready(function(){
 				<div id="importers">
 					<h2 class="heading"><span class="largenum">1</span> Add research objects</h2>
 					
-						<p id="artcounter"><a class="toggler" id="manual_toggler"><scan id="number-artifacts">0</scan></a> objects in this collection.</scan></p>
+						<p id="artcounter"><a class="toggler" id="manual_toggler"><scan id="number-artifacts">0</scan></a> objects in this collection</scan></p>
 						<p id="clearlist"><a href="." id="clear-artifacts">clear</a></p>
 					
                             <!--Want help gathering your IDs? Pull from these sources:-->
