@@ -13,7 +13,7 @@ ob_implicit_flush(TRUE);
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title>Total-Impact: Uncover the invisible impact of research</title>
+        <title>total-Impact: Uncover the invisible impact of research</title>
         <link href='http://fonts.googleapis.com/css?family=Lobster+Two:400italic' rel='stylesheet' type='text/css' />
         <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
 		<link rel="icon" type="image/png" href="ui/favicon.ico" />
@@ -252,7 +252,7 @@ $(document).ready(function(){
                        <!--<p id="name-collection"><label for="name">Name:</label></p>-->
                        <input name="name" id="name" class="largefield" title="Add a meaningful title to this collection" value="<?php echo $title; ?>" />
 
-							<h2 class="heading"><span class="largenum">3</span> Generate report</h2>
+							<h2 class="heading"><span class="largenum">3</span> Generate the report</h2>
 					<button name="run" type="submit" id="go-button" class="go-button">get metrics</button>
 
                        <!--p><label for="list" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">ID that will be imported:</label></p-->
@@ -298,7 +298,7 @@ $(document).ready(function(){
 
             <div id="twitterfeed">
 
-                    <h2 class="grey" id="recent">Recent reports</h2>
+                    <!--<h2 class="grey" id="recent">Recent reports</h2>-->
                     <!-- https://twitter.com/about/resources/widgets/widget_search -->
 
                     <script src="http://widgets.twimg.com/j/2/widget.js"></script>

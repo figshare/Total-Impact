@@ -44,7 +44,7 @@ if ($mode == "list") {
             <meta http-equiv="content-type" content="text/html; charset=utf-8" />
             <link href='http://fonts.googleapis.com/css?family=Lobster+Two:400italic' rel='stylesheet' type='text/css' >
 
-	    <title>Total-Impact: <?php echo $report->getBestIdentifier() ?></title>
+	    <title>total-Impact: <?php echo $report->getBestIdentifier() ?></title>
 	    <link rel="stylesheet" type="text/css" href="ui/totalimpact.css" />
             <link rel="icon" type="image/png" href="ui/favicon.ico">
             <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>

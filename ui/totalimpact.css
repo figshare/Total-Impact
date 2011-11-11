@@ -403,6 +403,8 @@ textarea.artifactList {
 	width: 98%;
     margin-bottom: 25px;
     font-size: 80%;    
+	padding: .3em;
+	color: #333;
 }
 
 .artifactList {
@@ -570,9 +572,9 @@ div#about_metrics {
 
 div#footer {
     font-size:100%;    
-	margin-top: 2em;	
-	padding: 1em 2em 3em 2em;
-    border-top:4px dotted #ddd;
+	margin-top: 3em;	
+	padding: 2em 2em 3em 2em;
+    border-top:1px dotted #ddd;
     clear:both; 
     color: #aaa;
 }
@@ -698,11 +700,9 @@ a.report-button:hover {
 
 .something-missing {
 	clear: left;
-	margin-right: .5em;	
 	padding-top: .5em;
-        font-size: 75%;
-        color: #777;
-        text-align:right;
+    font-size: 75%;
+    color: #999;
 }
 
 .created-at {
