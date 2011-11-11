@@ -175,8 +175,7 @@ echo "$rendered_about_text";
 
 <h3>Gathering IDs and quick reports sometimes miss artifacts</h3>
 <ul>
-<li>misses papers in Mendeley profiles when the paper doesn’t have a ID in the “rft_id” attribute of the html source.  
-<li>seeds only first page of the Mendeley profile
+<li>misses papers in Mendeley profiles that aren't returned in a title/author/year search
 <li>Mendeley groups detail page only shows public groups
 <li>seeds only first 100 artifacts from Mendeley groups
 <li>doesn’t handle dois for books properly
