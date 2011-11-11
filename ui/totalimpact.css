@@ -235,11 +235,16 @@ fieldset {
 }
 
 .largenum {
-    font-family: 'Lobster Two';
-	font-size: 200%;
-	vertical-align: -20%;
-	text-shadow: 2px 3px 2px #EEE;
-    font-style: italic;	
+	font-size: 120%;
+	padding: 0 .3em;
+	vertical-align: -10%;
+    border: 3px solid #933;    
+    /* height: 500px;
+    margin-bottom: 150px; */
+    -webkit-border-radius: 7px;    /* CSS3 rounded borders for Safari                    */
+    -moz-border-radius: 7px;       /* CSS3 rounded borders for Firefox                   */
+    border-radius: 7px;
+    box-shadow: 4px 6px 15px -8px #333; 
 }
 
 .lobster {
@@ -432,7 +437,7 @@ p#name-collection {
     height: 1.8em;
     font-family: 'Lobster Two', 'Helvetica', arial, sans-serif;
     font-style: italic;
-    border:1px solid #333;
+    border:1px solid #933;
     -webkit-border-radius: 10px;    /* CSS3 rounded borders for Safari                    */
     -moz-border-radius: 10px;       /* CSS3 rounded borders for Firefox                   */
     border-radius: 10px;
@@ -443,6 +448,7 @@ p#name-collection {
     background-color: #EEE;
 	color: #333;
 	cursor:pointer;    
+    border:1px solid #DDD;
 }
 
 a#clear-artifacts {

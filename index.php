@@ -149,7 +149,7 @@ $(document).ready(function(){
             <!-- START input -->
             <div id="input">
 				<div id="importers">
-					<h2 class="heading lobster"><span class="largenum">1.</span> Fetch research objects</h2>
+					<h2 class="heading"><span class="largenum">1</span> Add research objects</h2>
 					
 						<p><a class="toggler" id="manual_toggler"><scan id="number-artifacts">0</scan></a> objects in the collection.</scan>  <a href="." id="clear-artifacts">clear</a></p>
 					
@@ -244,14 +244,14 @@ $(document).ready(function(){
 
 							
                             <form name="id_form">
-							<h2 class="heading lobster"><span class="largenum">2.</span> Name this collection</h2>
+							<h2 class="heading"><span class="largenum">2</span> Name this collection</h2>
 
                             <fieldset>
 
                        <!--<p id="name-collection"><label for="name">Name:</label></p>-->
                        <input name="name" id="name" class="largefield" value="<?php echo $title; ?>" />
 
-					<button name="run" type="submit" id="go-button" class="go-button">get my metrics</button>
+					<button name="run" type="submit" id="go-button" class="go-button">get metrics</button>
 
                        <!--p><label for="list" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">ID that will be imported:</label></p-->
                        <!--textarea rows=15 name="list" id="artifactList"><?php echo $artifactIdsString; ?></textarea-->
@@ -296,7 +296,7 @@ $(document).ready(function(){
 
             <div id="twitterfeed">
 
-                    <h2 class="lobster grey" id="recent">Recent reports</h2>
+                    <h2 class="grey" id="recent">Recent reports</h2>
                     <!-- https://twitter.com/about/resources/widgets/widget_search -->
 
                     <script src="http://widgets.twimg.com/j/2/widget.js"></script>
