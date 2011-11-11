@@ -19,11 +19,12 @@ class Models_Seeder {
 	}
 
 	
-    public function getMendeleyProfilePage($profileId) {
+    public function getMendeleyProfilePage($profileId, $suffix="") {
 		#if (isset($this->mendeley_profile_cache->$profileId)) {
 		#	$bodyProfilePage = $this->mendeley_profile_cache->$profileId;
 		#} else {
-			$mendeleyUrlProfilePage = "http://www.mendeley.com/profiles/" . $profileId . "/";
+			$mendeleyUrlProfilePage = "http://www.mendeley.com/profiles/" . $profileId . $suffix . "/";
+			
 			$requestProfilePage = new HttpRequest($mendeleyUrlProfilePage, HTTP_METH_GET);
 			$responseProfilePage = $requestProfilePage->send();
 			$bodyProfilePage = $responseProfilePage->getBody();
@@ -32,82 +33,92 @@ class Models_Seeder {
 		return $bodyProfilePage;
 	}
 			
-    public function getMendeleyProfileArtifacts($profileId) {
-		/* also get detailed journal page */
-		/* For now only looks at the first page */
+	public function getAllMendeleyPubPages($profileId) {
+		$bodyPublicationsPage = $this->getMendeleyProfilePage($profileId, "/publications");
 
-		$mendeleyUrlJournalPage = "http://www.mendeley.com/profiles/" . $profileId . "/publications/journal/";
-		
-		#var_dump($mendeleyUrlJournalPage);
-		
-		$requestJournalPage = new HttpRequest($mendeleyUrlJournalPage, HTTP_METH_GET);
-		$responseJournalPage = $requestJournalPage->send();
-		$bodyJournalPage = $responseJournalPage->getBody();
+		$regex_pattern = '|http://www.mendeley.com/profiles/' . $profileId . '/publications/(\w+)/|Ums';
+		preg_match_all($regex_pattern, $bodyPublicationsPage, $subsections, PREG_SET_ORDER);
 
-		$bodyProfilePage = $this->getMendeleyProfilePage($profileId);
-		
-		$body = $bodyProfilePage . $bodyJournalPage;
-		#var_dump($body);
-		
-		$regex_pattern = '/<div class="[publication|document_desc].*<.span>\W*<.div>/Ums';
-		preg_match_all($regex_pattern, $body, $publications, PREG_SET_ORDER);
-		#var_dump($publications);
-
-		$id_list = array();
-		foreach ($publications as $publication) {			
-			$regex_pattern = '/rft_id=info.*%2F(.*)(&|").*span/U';
-			preg_match($regex_pattern, $publication[0], $matches);
-
-			if ($matches) {
-				$id = str_replace('%2F', '/', $matches[1]);
-    			$id_list[] = $id;
-			} else {
-				$regex_pattern = '|http://www.mendeley.com/research/(.*)"|U';
-				preg_match_all($regex_pattern, $publication[0], $matches, PREG_SET_ORDER);
-				/* FB::log($matches); */
-				
-				#var_dump($matches);
-		
-				foreach ($matches as $match) {
-			
-					$url = $match[0];
-					$url = str_replace('"', '', $url);  /* remove last double quotes */
-			
-					$urltitle = $match[1];
-					$titlewords = str_replace("-", '%20', $urltitle);  /* swap dashes for spaces, then encode */
-					$titlewords = str_replace("/", '', $titlewords);  /* remove last slash */
-			
-				    $MENDELEY_LOOKUP_FROM_DOI_URL_PART1 = "http://api.mendeley.com/oapi/documents/search/title%3A";
-					$MENDELEY_LOOKUP_FROM_DOI_URL_PART2 = "/?consumer_key=" . $this->TOTALIMPACT_MENDELEY_KEY;
-			
-					$mendeleyUrlLookupPage = $MENDELEY_LOOKUP_FROM_DOI_URL_PART1 . $titlewords . $MENDELEY_LOOKUP_FROM_DOI_URL_PART2;
-					$requestLookupPage = new HttpRequest($mendeleyUrlLookupPage, HTTP_METH_GET);
-					$requestLookupPage->setOptions(array("timeout"=>10, "useragent"=>"total-Impact"));
-			
-					try {
-		    			$responseLookupPage = $requestLookupPage->send();
-					} catch (HttpException $ex) {
-		    			# echo $ex->getMessage();
-						continue;
-					}
-			
-					$bodyLookupPage = $responseLookupPage->getBody();
-					$bodyLookupJson = json_decode($bodyLookupPage);
-
-					foreach ($bodyLookupJson->documents as $artifact) {
-						if (isset($artifact->mendeley_url)) {
-
-							if ($artifact->mendeley_url === $url) {
-				    			$id_list[] = $artifact->uuid;
-							}
-						}
-					}	
-				}
-			}				
+		$body = $bodyPublicationsPage; // starts off with a default section
+		foreach ($subsections as $subsection) {	
+			$bodySubsectionPublicationsPage = $this->getMendeleyProfilePage($profileId, "/publications/" . $subsection[1]);
+			$body .= $bodySubsectionPublicationsPage;
 		}
-		
-		return array_unique($id_list);
+		return($body);		
 	}
+	
+	public function extractMendeleyBiblio($body) {
+#<span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fmendeley.com%2Fmendeley&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=proceeding&amp;rft.date=2008&amp;rft.pages=4&amp;rft.atitle=Linking+database+submissions+to+primary+citations+with+PubMed+Central&amp;rft.aulast=Piwowar&amp;rft.aufirst=Heather+A&amp;rft.au=Chapman%2C+Wendy+W"></span>
+		$all_artifacts = array();
+		$regex_pattern = '/<span class="Z3988" title="(.*)"><.span>/Ums';
+		preg_match_all($regex_pattern, $body, $hits, PREG_SET_ORDER);
+		foreach ($hits as $hit) {
+			$hit_sections = explode("&amp;", $hit[1]);
+			$biblio = array();
+			foreach ($hit_sections as $section) {
+				$section_parts = explode("=", $section);
+				$biblio[$section_parts[0]] = $section_parts[1];
+			}
+			$all_artifacts[] = $biblio;
+		}
+		return($all_artifacts);
+	}
+
+	public function lookUpMendeleyPaper($biblio) {
+		$MENDELEY_LOOKUP_FROM_DOI_URL_PART1 = "http://api.mendeley.com/oapi/documents/search/title%3A";
+		$MENDELEY_LOOKUP_FROM_DOI_URL_PART2 = "/?consumer_key=" . $this->TOTALIMPACT_MENDELEY_KEY;
+
+		$title = $biblio["rft.atitle"];
+		$title = preg_replace('/%\w\w/', '', $title);
+
+		$mendeleyUrlLookupPage = $MENDELEY_LOOKUP_FROM_DOI_URL_PART1 . $title . "%20year%3A" . $biblio["rft.date"] . "%20authors%3A" . $biblio["rft.aulast"] . $MENDELEY_LOOKUP_FROM_DOI_URL_PART2;
+		#print_r("\n" . $mendeleyUrlLookupPage);
+		$requestLookupPage = new HttpRequest($mendeleyUrlLookupPage, HTTP_METH_GET);
+		$requestLookupPage->setOptions(array("timeout"=>10, "useragent"=>"total-Impact"));
+
+		try {
+   			$responseLookupPage = $requestLookupPage->send();
+			$bodyLookupPage = $responseLookupPage->getBody();
+			$bodyLookupJson = json_decode($bodyLookupPage);
+		} catch (Exception $ex) {
+   			$bodyLookupJson = null;
+		}
+
+		return($bodyLookupJson);		
+	}
+	
+    public function getMendeleyProfileArtifacts($profileId) {
+		$body = $this->getAllMendeleyPubPages($profileId);
+		$biblio_array = $this->extractMendeleyBiblio($body);
+		#print_r($biblio_array);
+		$ids = array();
+		foreach ($biblio_array as $biblio) {
+			$id = "";
+			#print_r($biblio);
+			if (array_key_exists("rft_id", $biblio)) {
+				$regex_pattern = '/info.*?%2F(?P<id>.*)/';
+				preg_match($regex_pattern, $biblio["rft_id"], $matches);
+				if ($matches) {
+					$id = urldecode($matches["id"]);
+					$ids[] = $id;
+				}
+			}
+			if ($id === "") {
+				$lookupResponse = $this->lookUpMendeleyPaper($biblio);
+				if (count($lookupResponse->documents) > 0) {
+					$id = $lookupResponse->documents[0]->uuid;
+					$ids[] = $id;
+					#print_r("\nSUCCESS!\n");
+				} else {
+					#print_r("\n");
+					#print_r($biblio);
+					#print_r(json_encode($lookupResponse) . "\n");
+				}
+			}
+		}
+		return($ids);
+	}
+	
 	
     public function getMendeleyProfileGroupsDisplay($profileId) {
 		$bodyProfilePage = $this->getMendeleyProfilePage($profileId);
@@ -203,10 +214,13 @@ class Models_Seeder {
 	    
 }
 
-	/*
-	$a = new Models_Seeder();
-	var_dump($a->getMendeleyProfileArtifacts("bill-hooker")); 
+	
+	#$a = new Models_Seeder();
+	#var_dump($a->getMendeleyProfileArtifacts("aliaksandr-birukou")); 
+	#var_dump($a->getMendeleyProfileArtifacts("bill-hooker")); 
 	#var_dump($a->getMendeleyProfileArtifacts("iain-hrynaszkiewicz")); 
 	#var_dump($a->getMendeleyProfileArtifacts("heather-piwowar"));
-	*/
+	#var_dump($a->getMendeleyProfileArtifacts("cameron-neylon"));
+	#var_dump($a->getAllMendeleyPubPages("heather-piwowar"));
+	
 ?>

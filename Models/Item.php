@@ -118,17 +118,13 @@ class Models_Item {
 		#FB::log($list_of_all);
 		$flipped = array_flip($list_of_all);
 		#FB::log($flipped);
-		if (array_key_exists("article", $flipped)) {
-			$genre = "article";
-		} else {
-			# set to first as backup plan
-			$genre = reset($list_of_all);
-			# now iter and get the first that isn't "unknown" if there is one
-			foreach ($list_of_all as $candidate) {
-				if ($candidate != "unknown") {
-					$genre = $candidate;
-					break;
-				}
+		# set to first as backup plan
+		$genre = reset($list_of_all);
+		# now iter and get the first that isn't "unknown" if there is one
+		foreach ($list_of_all as $candidate) {
+			if (($candidate != "unknown") and ($candidate != "generic")) {
+				$genre = $candidate;
+				break;
 			}
 		}
 		if (!isset($genre)) {

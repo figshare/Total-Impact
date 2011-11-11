@@ -57,7 +57,7 @@ $(document).ready(function(){
 		
   $("button").click(function(){
 	var myId = this.id;
-	if ((myId.substring(0, 12) == "quick_report")) {
+	if ((myId.substring(0, 12) === "quick_report")) {
 		var textId = "mendeley_profile_input";		
 		var textVal = $('#'+textId).val();
 		var divId = "quick_report_div";
@@ -66,7 +66,7 @@ $(document).ready(function(){
 		var textVal = $('#'+textId).val();
 		var divId = this.id + "_div";
 	}
-	if (myId == "manual") {
+	if (myId === "manual") {
 		var fulllist = $("textarea.artifactList").val();
 		var numberartifacts = fulllist.split("\n").length - 1;
     	$("#"+divId).html(numberartifacts + " IDs.");
@@ -104,6 +104,8 @@ $(document).ready(function(){
                 <li><a href="./about.php">about</a></li>
                 <li><a href="http://twitter.com/#!/totalImpactdev">twitter</a></li>
             </ul>
+
+
                     <?php
                             if (isset($_REQUEST['run'])) {
                                     $query_string = $_SERVER['QUERY_STRING'];
@@ -131,6 +133,9 @@ $(document).ready(function(){
                             }
             ?>
         </div>
+
+
+
 	<!-- START wrapper -->
         <div id="wrapper">
             <div id="about">
@@ -271,7 +276,7 @@ $(document).ready(function(){
 				                            </td><td>
 				                            <br/><button class="import-button" id="quick_report_contacts" title="Fill in the URL of your public Mendeley profile to get direct links to reports for your contacts">Pull my contacts</button>
 				                            <br/><button class="import-button" id="quick_report_groups" title="Fill in the URL of your public Mendeley profile to get direct links to reports for your PUBLIC groups">Pull my groups</button>
-				                            </td></tr></table>
+				                            </td></tr></table></fieldset>
 				                            <div id="quick_report_div">
 				                            </div>
 			                            </div>
@@ -331,9 +336,37 @@ $(document).ready(function(){
             </div>
 
         </div><!-- END wrapper -->
+
+
+
         <div id="footer">
-        <p>an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project.</p>
-        <p>source code on <a href="https://github.com/mhahnel/Total-Impact">github</a>
+
+	<div class="recent-changes">
+	Recent changes <a class="more-recent-changes" target="_blank" href="https://github.com/mhahnel/Total-Impact/blob/master/CHANGES.md">(more)</a>
+<?php
+include_once "library/PHPMarkdownExtra1.2.4/markdown.php";
+$fh = @fopen("CHANGES.md", "r");
+
+$lines = "";
+for ($i = 0; $i < 5; $i++) {
+echo Markdown(fgets($fh));
+#echo fgets($fh); 
+#echo $i;
+}
+#@fclose($fh);
+
+#$my_html = Markdown($lines);
+#echo $my_html;
+?>
+</div>
+
+	<div class="altmetrics">
+	
+        an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project.<br/>
+        source code on <a href="https://github.com/mhahnel/Total-Impact">github</a>
+	</div>
+
+
         </div>
     </body>
 </html>

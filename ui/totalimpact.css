@@ -331,7 +331,7 @@ p.sp {
 
 /* updating page ********************************************************/
 h2.loading {
-    font-family: 'Lobster Two', 'helvetica', 'arial', sans-serif;
+    font-family: 'Lobster Two', Helvetica, Arial, sans-serif;
     color: #333;
     font-size: 50px;
     margin: 200px auto;
@@ -401,8 +401,27 @@ button
 	border: 1px solid #aaa;
 	background-color: #eee;
 	color: #333;
-        margin-top: 2px;
+    margin-top: 2px;
 }
+
+.recent-changes {
+	padding-left: 10px;    
+	padding-bottom: 10px;    
+    font-size: 50%;
+    color:#999;
+    float: left;
+}
+
+.recent-changes a {
+    color: #999;
+}
+
+.recent-changes ul {
+    padding:0;
+    padding-left: 20px;
+    margin:0;
+}
+
 p#name-collection {
     float:left;
     width: 15%;
@@ -520,21 +539,27 @@ legend span {
 }
 
 div#about_metrics {
-	margin-top: 2em;	
-	background-color: #EEE;
-	padding: 1em 2em 3em 2em;
+	float:left;
 }
 
 div#footer {
+    font-size:100%;    
 	margin-top: 2em;	
 	padding: 1em 2em 3em 2em;
-        border-top:4px dotted #ddd;
-        text-align: right;
-        clear:both;
-        color: #aaa;
+    border-top:4px dotted #ddd;
+    clear:both; 
+    color: #aaa;
 }
 
+div.altmetrics {
+    float:right;
+    text-align: right;
+}
 
+div.altmetrics p {
+    padding: 0;
+    margins: 0;
+}
 
 
 /* report meta *************/
