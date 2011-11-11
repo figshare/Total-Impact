@@ -28,6 +28,14 @@
 			$detailList = $seed->getPubMedGrantArtifacts($name);
 			$detailString = implode("\n", $detailList); # \n has to be in DOUBLE quotes not single quotes
 			$response = array("artifactIds"=>$detailString, "artifactCount"=>count($detailList));
+		} elseif ($type==="github_users") {
+			$detailList = $seed->getGithubUsersArtifacts($name);
+			$detailString = implode("\n", $detailList); # \n has to be in DOUBLE quotes not single quotes
+			$response = array("artifactIds"=>$detailString, "artifactCount"=>count($detailList));
+		} elseif ($type==="github_orgs") {
+			$detailList = $seed->getGithubOrgsArtifacts($name);
+			$detailString = implode("\n", $detailList); # \n has to be in DOUBLE quotes not single quotes
+			$response = array("artifactIds"=>$detailString, "artifactCount"=>count($detailList));
 		} elseif ($type==="quick_report_contacts") {
 			$contacts = $seed->getMendeleyProfileContactsDisplay($name);
 			$response = array("contacts"=>$contacts);

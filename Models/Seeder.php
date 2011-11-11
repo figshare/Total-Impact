@@ -211,11 +211,40 @@ class Models_Seeder {
 		$artifactIds = $matches[1];
 		return $artifactIds;
 	}
-	    
+    
+    public function getGithubArtifacts($apiurl, $profileId) {
+		$request = new HttpRequest($apiurl, HTTP_METH_GET);
+		$response = $request->send();
+		$bodyPage = $response->getBody();
+		$body = json_decode($bodyPage);
+
+		$id_list = array();
+		foreach ($body as $repo) {
+			if (isset($repo->name)) {
+	    		$id_list[] = "http://github.com/" . $profileId . "/" . $repo->name;
+			}
+		}
+		
+		return $id_list;
+	}
+
+    public function getGithubUsersArtifacts($profileId) {
+		$apiurl = "https://api.github.com/users/" . $profileId . "/repos";
+		$id_list = $this->getGithubArtifacts($apiurl, $profileId);
+		return $id_list;
+	}
+
+    public function getGithubOrgsArtifacts($profileId) {
+		$apiurl = "https://api.github.com/orgs/" . $profileId . "/repos";
+		$id_list = $this->getGithubArtifacts($apiurl, $profileId);
+		return $id_list;
+	}
+	
 }
 
 	
 	#$a = new Models_Seeder();
+	#var_dump($a->getGithubOrgArtifacts("bioperl")); 
 	#var_dump($a->getMendeleyProfileArtifacts("aliaksandr-birukou")); 
 	#var_dump($a->getMendeleyProfileArtifacts("bill-hooker")); 
 	#var_dump($a->getMendeleyProfileArtifacts("iain-hrynaszkiewicz")); 

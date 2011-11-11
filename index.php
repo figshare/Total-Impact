@@ -219,6 +219,30 @@ $(document).ready(function(){
 	                            </fieldset>
 							</div>
 
+                            <a class="toggler" id="github_users_toggler" title="Fill in a GitHub username to retrieve their public GitHub source code repositories">▸ GitHub users</a><br/>
+							<div class="toggler_contents" id="github_users_toggler_contents">
+	                            <fieldset><legend><span>ids from</span> GitHub Users</legend>
+	                            <p class="prompt" title="Fill in a GitHub username to retrieve their public GitHub source code repository IDs">GitHub username</p>
+	                            <em class="url">https://github.com/</em>	
+	                        <input id="github_users_input" name="username" type="text" size="20" value="egonw"/>
+	                            <button class="import-button" id="github_users">Import</button>
+	                            <div id="github_users_div">
+	                            </div>
+	                            </fieldset>
+							</div>
+
+                            <a class="toggler" id="github_orgs_toggler" title="Fill in a GitHub username to retrieve their public GitHub source code repositories">▸ GitHub organizations</a><br/>
+							<div class="toggler_contents" id="github_orgs_toggler_contents">
+	                            <fieldset><legend><span>ids from</span> GitHub Organizatons</legend>
+	                            <p class="prompt" title="Fill in a GitHub organization name to retrieve their public GitHub source code repository IDs">GitHub organization name</p>
+	                            <em class="url">https://github.com/</em>	
+	                        <input id="github_orgs_input" name="orgname" type="text" size="20" value="bioperl"/>
+	                            <button class="import-button" id="github_orgs">Import</button>
+	                            <div id="github_orgs_div">
+	                            </div>
+	                            </fieldset>
+							</div>
+														
                             <a class="toggler" id="manual_toggler" title="Add, edit, and delete IDs">▸ Manually edit this collection</a><br/>
 							<div class="toggler_contents" id="manual_toggler_contents">
 	                            <fieldset><legend><span>ids for</span> manual editing</legend>
