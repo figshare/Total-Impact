@@ -73,7 +73,7 @@ $(document).ready(function(){
 	   	$("#number-artifacts").html(numberartifacts+"");
 		$("#artifactListHidden").val($("textarea.artifactList").val());
 	} else {
-	    $("#"+divId).html("Loading...");
+	    $("#"+divId).html("<img width='14' src='./ui/img/ajax-loader.gif'> Loading...");
 		$.get("./seed.php?type="+myId+"&name="+textVal, function(response,status,xhr){
 			if (myId=="quick_report_contacts") {
 				$("#"+divId).html("Click to go directly to report:<p/>" + response["contacts"]);
