@@ -13,7 +13,7 @@ ob_implicit_flush(TRUE);
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title>Total-Impact: Uncover the invisible impact of your research</title>
+        <title>Total-Impact: Uncover the invisible impact of research</title>
         <link href='http://fonts.googleapis.com/css?family=Lobster+Two:400italic' rel='stylesheet' type='text/css' />
         <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
 		<link rel="icon" type="image/png" href="ui/favicon.ico" />
@@ -140,7 +140,7 @@ $(document).ready(function(){
 	<!-- START wrapper -->
         <div id="wrapper">
             <div id="about">
-                <p id="tagline">Uncover the invisible impact of your research</p>
+                <p id="tagline">Uncover the invisible impact of research</p>
                 <div id="instr">
                     <p class="howto">Create a collection of research objects you want to track. We'll provide you a report of the total impact of this collection.<br />You can peruse <a target="_blank" href="./report.php?id=MqAnvI">a sample report</a> or check out the most recently shared reports</a>.</p>
                 </div>
@@ -157,12 +157,12 @@ $(document).ready(function(){
                             <!--Want help gathering your IDs? Pull from these sources:-->
 
 							<div style="clear:left"></div>
-                            <a class="toggler" id="mendeley_profile_toggler" title="Fill in the URL of your Mendeley profile to import public publications in your profile">▸ Mendeley profiles</a><br/>
+                            <a class="toggler" id="mendeley_profile_toggler" title="Fill in the URL of a Mendeley profile to import its public publications">▸ Mendeley profiles</a><br/>
 
 							<div class="toggler_contents" id="mendeley_profile_toggler_contents">
 								
 	                            <fieldset><legend><span>ids from</span> Mendeley Profiles</legend>
-	                            <p class="prompt" title="Fill in the URL of your Mendeley profile to import public publications in your profile">Your Mendeley profile URL</p>
+	                            <p class="prompt" title="Fill in the URL of a Mendeley profile to import its public publications">Mendeley profile URL</p>
 	                            <em class="url">http://www.mendeley.com/profiles/</em>
 	                            <input id="mendeley_profile_input" name="profileId" type="text" size="20" value="heather-piwowar"/>
 	                            <button class="import-button" id="mendeley_profile">Import</button>
@@ -170,11 +170,11 @@ $(document).ready(function(){
 	                            </div>
                             </div>
 
-                            <a class="toggler" id="mendeley_group_toggler" title="Fill in the URL of your public Mendeley to import the references shared within group">▸ Mendeley groups</a><br/>
+                            <a class="toggler" id="mendeley_group_toggler" title="Fill in the URL of a public Mendeley to import the references shared within that group">▸ Mendeley groups</a><br/>
 							<div class="toggler_contents" id="mendeley_group_toggler_contents">
 
 	                            <fieldset><legend><span>ids from</span> Mendeley Groups</legend>
-	                            <p class="prompt" title="Fill in the URL of your public Mendeley to import the references shared within group">Your Mendeley group URL</p>
+	                            <p class="prompt" title="Fill in the URL of a public Mendeley group to import the references shared within that group">Mendeley group URL</p>
 	                            <em class="url">http://www.mendeley.com/group/</em>
 	                        <input id="mendeley_group_input" name="groupId" type="text" size="20" value="530031"/>
 	                            <button class="import-button" id="mendeley_group">Import</button>
@@ -185,10 +185,10 @@ $(document).ready(function(){
 
 							</div>
 
-                            <a class="toggler" id="slideshare_toggler" title="Fill in your Slideshare profile to import your public slidedecks">▸ Slideshare</a><br/>
+                            <a class="toggler" id="slideshare_toggler" title="Fill in a Slideshare profile to import its public slidedecks">▸ Slideshare</a><br/>
 							<div class="toggler_contents" id="slideshare_toggler_contents">
 	                            <fieldset><legend><span>ids from</span> Slideshare</legend>
-	                            <p class="prompt" title="Fill in your Slideshare profile to import your public slidedecks">Your Slideshare profile URL</p>
+	                            <p class="prompt" title="Fill in a Slideshare profile to import its public slidedecks">Slideshare profile URL</p>
 	                            <em class="url">http://www.slideshare.net/</em>
 	                        <input id="slideshare_profile_input" name="slideshareName" type="text" size="20" value="cavlec"/>
 	                            <button class="import-button" id="slideshare_profile">Import</button>
@@ -197,10 +197,10 @@ $(document).ready(function(){
 	                            </fieldset>
 							</div>
 
-                            <a class="toggler" id="dryad_toggler" title="Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve your datasets">▸ Dryad</a><br/>
+                            <a class="toggler" id="dryad_toggler" title="Fill in the dc:contributor.author value in Show Full Metadata to retrieve a list of datasets">▸ Dryad</a><br/>
 							<div class="toggler_contents" id="dryad_toggler_contents">
 	                            <fieldset><legend><span>ids from</span> Dryad</legend>
-	                            <p class="prompt" title="Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve your datasets">Your Dryad author name</p>
+	                            <p class="prompt" title="Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve a list of datasets">Dryad author name</p>
 	                        <input id="dryad_profile_input" name="dryadName" type="text" size="20" value="Otto, Sarah P."/>
 	                            <button class="import-button" id="dryad_profile">Import</button>
 	                            <div id="dryad_profile_div">
@@ -208,10 +208,10 @@ $(document).ready(function(){
 	                            </fieldset>
 							</div>
 
-                            <a class="toggler" id="pubmed_toggler" title="Fill in your Grant number to retrieve publications from PubMed">▸ PubMed</a><br/>
+                            <a class="toggler" id="pubmed_toggler" title="Fill in a grant number to retrieve publications from PubMed">▸ PubMed</a><br/>
 							<div class="toggler_contents" id="pubmed_toggler_contents">
 	                            <fieldset><legend><span>ids from</span> PubMed</legend>
-	                            <p class="prompt" title="Fill in your Grant number to retrieve publications from PubMed">Your Grant number</p>
+	                            <p class="prompt" title="Fill in a grant number to retrieve publications from PubMed">Grant number</p>
 	                        <input id="pubmed_grant_input" name="grantId" type="text" size="20" value="U54-CA121852"/>
 	                            <button class="import-button" id="pubmed_grant">Import</button>
 	                            <div id="pubmed_grant_div">
