@@ -38,7 +38,7 @@ body div#tooltip {
     color:#eee;
     opacity: 0.9;
     font-size: 10px;
-    font-family: "helvitica", "arial", sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     width: 200px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -182,6 +182,11 @@ body#about h2 {
     font-weight: bold;
 }
 
+fieldset {
+	border: 1px solid #CCC;
+	margin-bottom: 1em;	
+}
+
 #go-get-heading {
     margin-top: 31px;
     float:left;
@@ -220,7 +225,7 @@ body#about h2 {
 
 .quick-collection {
     margin-top: 40px; 
-    margin-left: 60px; 
+/*    margin-left: 60px; */
 }
 
 #twitterfeed {
@@ -228,12 +233,30 @@ body#about h2 {
 	width: 24%;
 }
 
+.largefield {
+	font-size: 180%;
+	width: 70%;
+	color: #666;
+}
 
+.largenum {
+    font-family: 'Lobster Two';
+	font-size: 200%;
+	vertical-align: -20%;
+	text-shadow: 2px 3px 2px #EEE;
+    font-style: italic;	
+}
 
+.lobster {
+    font-family: 'Lobster Two';
+	text-shadow: 2px 3px 2px #EEE;
+    font-style: italic;	
+	font-size: 180%;
+}
 
-
-
-
+.grey {
+	color: #555;
+}
 
 
 #outputs {
@@ -375,7 +398,6 @@ input {
 
 button
 {
-
 	border: 1px solid #aaa;
 	background-color: #eee;
 	color: #333;
@@ -388,12 +410,12 @@ p#name-collection {
 }
 
 #enter-collection-meta .go-button {
+	margin-top: .5em;
     background-color: #933;
     color: #fff;
     font-size: 36px;
-    float:right;
-    height: 2em;
-    width: 80%;
+	width: 70%;
+    height: 1.8em;
     font-family: 'Lobster Two', 'Helvetica', arial, sans-serif;
     font-style: italic;
     border:1px solid #333;
@@ -403,20 +425,10 @@ p#name-collection {
     box-shadow: 4px 6px 15px -8px #333;    
 }
 
-.go-button_hover {
-    background-color: #000;
-    color: #fff;
-    font-size: 36px;
-    float:right;
-    height: 2em;
-    width: 80%;
-    font-family: 'Lobster Two', 'Helvetica', arial, sans-serif;
-    font-style: italic;
-    border:1px solid #333;
-    -webkit-border-radius: 10px;    /* CSS3 rounded borders for Safari                    */
-    -moz-border-radius: 10px;       /* CSS3 rounded borders for Firefox                   */
-    border-radius: 10px;
-    box-shadow: 4px 6px 15px -8px #333;    
+#enter-collection-meta .go-button:hover {
+    background-color: #EEE;
+	color: #333;
+	cursor:pointer;    
 }
 
 a#clear-artifacts {

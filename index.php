@@ -13,7 +13,7 @@ ob_implicit_flush(TRUE);
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title>total-Impact</title>
+        <title>Total-Impact: Uncover the invisible impact of your research</title>
         <link href='http://fonts.googleapis.com/css?family=Lobster+Two:400italic' rel='stylesheet' type='text/css' />
         <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
 		<link rel="icon" type="image/png" href="ui/favicon.ico" />
@@ -134,18 +134,18 @@ $(document).ready(function(){
 	<!-- START wrapper -->
         <div id="wrapper">
             <div id="about">
-                <p id="tagline">uncovering the invisible impacts of your research.</p>
+                <p id="tagline">Uncover the invisible impact of your research</p>
                 <div id="instr">
-                    <p class="howto">Gather the research objects you want to track. We'll provide you a permanent URL to track statistics about this collection. You can peruse <a target="_blank" href="./report.php?id=MqAnvI">a sample</a> and <a href="#recent">recently-shared reports</a>.</p>
+                    <p class="howto">Create a collection of research objects you want to track. We'll provide you a report of the total impact of this collection.<br />You can peruse <a target="_blank" href="./report.php?id=MqAnvI">a sample report</a> or check out <a href="#recent">recently shared reports</a>.</p>
                 </div>
             </div><!-- END about -->
 
             <!-- START input -->
             <div id="input">
 				<div id="importers">
-					<h2 class="heading">1. collect research objects</h2>
+					<h2 class="heading lobster"><span class="largenum">1.</span> Fetch research objects</h2>
 					
-						<p><a class="toggler" id="manual_toggler"><scan id="number-artifacts">0</scan></a> artifacts currently in the collection.</scan>  <a href="." id="clear-artifacts">clear</a></p>
+						<p><a class="toggler" id="manual_toggler"><scan id="number-artifacts">0</scan></a> objects in the collection.</scan>  <a href="." id="clear-artifacts">clear</a></p>
 					
                             <!--Want help gathering your IDs? Pull from these sources:-->
 
@@ -238,16 +238,14 @@ $(document).ready(function(){
 
 							
                             <form name="id_form">
-							<h2 class="heading">2. name the collection</h2>
+							<h2 class="heading lobster"><span class="largenum">2.</span> Name this collection</h2>
 
                             <fieldset>
 
-                       <p id="name-collection"><label for="name">Name:</label></p>
-                       <input name="name" id="name" value="<?php echo $title; ?>" />
+                       <!--<p id="name-collection"><label for="name">Name:</label></p>-->
+                       <input name="name" id="name" class="largefield" value="<?php echo $title; ?>" />
 
-					<h2><span class="heading" id="go-get-heading">3. go </span><button name="run" type="submit" id="go-button" class="go-button"
-                     	onmouseover="this.className='go-button_hover';"
-                     	onmouseout="this.className='go-button';">get my metrics</button></h2>
+					<button name="run" type="submit" id="go-button" class="go-button">get my metrics</button>
 
                        <!--p><label for="list" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">ID that will be imported:</label></p-->
                        <!--textarea rows=15 name="list" id="artifactList"><?php echo $artifactIdsString; ?></textarea-->
@@ -263,7 +261,7 @@ $(document).ready(function(){
 
 						<div class="quick-collection">
 							<hr>
-								<p>... or explore a Quick Collection based on 
+								<p>&hellip; or fetch a quick collection based on 
 								                            <a class="toggler" id="mendeley_quick_reports_toggler" title="Fill in the URL of your public Mendeley profile to import the references of your publications">your Mendeley contacts and public groups &raquo;</a><br/>
 										<div class="toggler_contents" id="mendeley_quick_reports_toggler_contents">
 				                            <fieldset><legend><span>Quick collections from</span> Mendeley</legend>
@@ -292,7 +290,7 @@ $(document).ready(function(){
 
             <div id="twitterfeed">
 
-                    <h2><a name="recent">recently-shared reports</a></h2>
+                    <h2 class="lobster grey" id="recent">Recent reports</h2>
                     <!-- https://twitter.com/about/resources/widgets/widget_search -->
 
                     <script src="http://widgets.twimg.com/j/2/widget.js"></script>
