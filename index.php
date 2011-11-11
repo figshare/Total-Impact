@@ -307,7 +307,7 @@ $(document).ready(function(){
                               type: 'search',
                               search: 'via @mytotalImpact',
                               interval: 30000,
-                              title: 'Recently shared reports @mytotalImpact',
+                              title: 'Recently shared reports via @mytotalImpact',
                               subject: 'Tweet yours to list it here',
                               width: "100%",
                               height: 300,
