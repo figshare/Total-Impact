@@ -142,7 +142,7 @@ $(document).ready(function(){
             <div id="about">
                 <p id="tagline">Uncover the invisible impact of your research</p>
                 <div id="instr">
-                    <p class="howto">Create a collection of research objects you want to track. We'll provide you a report of the total impact of this collection.<br />You can peruse <a target="_blank" href="./report.php?id=MqAnvI">a sample report</a> or check out <a href="#recent">recently shared reports</a>.</p>
+                    <p class="howto">Create a collection of research objects you want to track. We'll provide you a report of the total impact of this collection.<br />You can peruse <a target="_blank" href="./report.php?id=MqAnvI">a sample report</a> or check out the most recently shared reports</a>.</p>
                 </div>
             </div><!-- END about -->
 
@@ -151,12 +151,12 @@ $(document).ready(function(){
 				<div id="importers">
 					<h2 class="heading"><span class="largenum">1</span> Add research objects</h2>
 					
-						<p><a class="toggler" id="manual_toggler"><scan id="number-artifacts">0</scan></a> objects in the collection.</scan>  <a href="." id="clear-artifacts">clear</a></p>
+						<p><a class="toggler" id="manual_toggler"><scan id="number-artifacts">0</scan></a> objects in this collection.</scan>  <a href="." id="clear-artifacts">clear</a></p>
 					
                             <!--Want help gathering your IDs? Pull from these sources:-->
 
 
-                            <a class="toggler" id="mendeley_profile_toggler" title="Fill in the URL of your Mendeley profile to import public publications in your profile">Mendeley profiles &raquo;</a><br/>
+                            <a class="toggler" id="mendeley_profile_toggler" title="Fill in the URL of your Mendeley profile to import public publications in your profile">▸ Mendeley profiles</a><br/>
 
 							<div class="toggler_contents" id="mendeley_profile_toggler_contents">
 								
@@ -169,7 +169,7 @@ $(document).ready(function(){
 	                            </div>
                             </div>
 
-                            <a class="toggler" id="mendeley_group_toggler" title="Fill in the URL of your public Mendeley to import the references shared within group">Mendeley groups &raquo;</a><br/>
+                            <a class="toggler" id="mendeley_group_toggler" title="Fill in the URL of your public Mendeley to import the references shared within group">▸ Mendeley groups</a><br/>
 							<div class="toggler_contents" id="mendeley_group_toggler_contents">
 
 	                            <fieldset><legend><span>ids from</span> Mendeley Groups</legend>
@@ -184,7 +184,7 @@ $(document).ready(function(){
 
 							</div>
 
-                            <a class="toggler" id="slideshare_toggler" title="Fill in your Slideshare profile to import your public slidedecks">Slideshare &raquo;</a><br/>
+                            <a class="toggler" id="slideshare_toggler" title="Fill in your Slideshare profile to import your public slidedecks">▸ Slideshare</a><br/>
 							<div class="toggler_contents" id="slideshare_toggler_contents">
 	                            <fieldset><legend><span>ids from</span> Slideshare</legend>
 	                            <p class="prompt" title="Fill in your Slideshare profile to import your public slidedecks">Your Slideshare profile URL</p>
@@ -196,7 +196,7 @@ $(document).ready(function(){
 	                            </fieldset>
 							</div>
 
-                            <a class="toggler" id="dryad_toggler" title="Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve your datasets">Dryad &raquo;</a><br/>
+                            <a class="toggler" id="dryad_toggler" title="Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve your datasets">▸ Dryad</a><br/>
 							<div class="toggler_contents" id="dryad_toggler_contents">
 	                            <fieldset><legend><span>ids from</span> Dryad</legend>
 	                            <p class="prompt" title="Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve your datasets">Your Dryad author name</p>
@@ -207,7 +207,7 @@ $(document).ready(function(){
 	                            </fieldset>
 							</div>
 
-                            <a class="toggler" id="pubmed_toggler" title="Fill in your Grant number to retrieve publications from PubMed">PubMed &raquo;</a><br/>
+                            <a class="toggler" id="pubmed_toggler" title="Fill in your Grant number to retrieve publications from PubMed">▸ PubMed</a><br/>
 							<div class="toggler_contents" id="pubmed_toggler_contents">
 	                            <fieldset><legend><span>ids from</span> PubMed</legend>
 	                            <p class="prompt" title="Fill in your Grant number to retrieve publications from PubMed">Your Grant number</p>
@@ -218,7 +218,7 @@ $(document).ready(function(){
 	                            </fieldset>
 							</div>
 
-                            <a class="toggler" id="manual_toggler" title="Add, edit, and delete IDs">Manual additions and edits &raquo;</a><br/>
+                            <a class="toggler" id="manual_toggler" title="Add, edit, and delete IDs">▸ Manually edits this collection</a><br/>
 							<div class="toggler_contents" id="manual_toggler_contents">
 	                            <fieldset><legend><span>ids for</span> manual editing</legend>
 		
@@ -249,7 +249,7 @@ $(document).ready(function(){
                             <fieldset>
 
                        <!--<p id="name-collection"><label for="name">Name:</label></p>-->
-                       <input name="name" id="name" class="largefield" title="Add a meaningful name for this collection" value="<?php echo $title; ?>" />
+                       <input name="name" id="name" class="largefield" title="Add a meaningful title to this collection" value="<?php echo $title; ?>" />
 
 							<h2 class="heading"><span class="largenum">3</span> Generate report</h2>
 					<button name="run" type="submit" id="go-button" class="go-button">get metrics</button>
@@ -307,13 +307,13 @@ $(document).ready(function(){
                               type: 'search',
                               search: 'via @mytotalImpact',
                               interval: 30000,
-                              title: 'Recent public reports: "via @mytotalImpact"',
-                              subject: 'Tweet yours to see it here!',
+                              title: 'Recently shared reports @mytotalImpact',
+                              subject: 'Tweet yours to list it here',
                               width: "100%",
                               height: 300,
                               theme: {
                                 shell: {
-                                  background: '#EEE',
+                                  background: '#FFF',
                                   color: '#000'
                                 },
                                 tweets: {
