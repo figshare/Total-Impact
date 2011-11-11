@@ -439,8 +439,14 @@ button
     float: left;
 }
 
+.recent-changes a:link {
+    color: #999;
+    text-decoration: underline;    
+}
+
 .recent-changes a {
     color: #999;
+    text-decoration: underline;    
 }
 
 .recent-changes ul {
