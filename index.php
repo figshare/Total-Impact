@@ -249,8 +249,9 @@ $(document).ready(function(){
                             <fieldset>
 
                        <!--<p id="name-collection"><label for="name">Name:</label></p>-->
-                       <input name="name" id="name" class="largefield" value="<?php echo $title; ?>" />
+                       <input name="name" id="name" class="largefield" title="Add a meaningful name for this collection" value="<?php echo $title; ?>" />
 
+							<h2 class="heading"><span class="largenum">3</span> Generate report</h2>
 					<button name="run" type="submit" id="go-button" class="go-button">get metrics</button>
 
                        <!--p><label for="list" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">ID that will be imported:</label></p-->
