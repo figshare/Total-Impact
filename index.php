@@ -338,7 +338,6 @@ $(document).ready(function(){
 
             </div>
 
-        </div><!-- END wrapper -->
 
 
 
@@ -371,5 +370,9 @@ echo Markdown(fgets($fh));
 
 
         </div>
+
+        </div><!-- END wrapper -->
+
+
     </body>
 </html>
