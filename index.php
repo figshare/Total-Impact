@@ -155,8 +155,9 @@ $(document).ready(function(){
 						<p id="clearlist"><a href="." id="clear-artifacts">clear</a></p>
 					
                             <!--Want help gathering your IDs? Pull from these sources:-->
-
+							
 							<div style="clear:left"></div>
+							<br/>Collect IDs from:<br/>
                             <a class="toggler" id="mendeley_profile_toggler" title="Fill in the URL of a Mendeley profile to import its public publications">▸ Mendeley profiles</a><br/>
 
 							<div class="toggler_contents" id="mendeley_profile_toggler_contents">
