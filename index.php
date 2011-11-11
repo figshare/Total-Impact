@@ -368,7 +368,7 @@ $(document).ready(function(){
         <div id="footer">
 
 	<div class="recent-changes">
-	Recent changes <a target="_blank" href="https://github.com/mhahnel/Total-Impact/blob/master/CHANGES.md">(more)</a>
+	Recent updates <a target="_blank" href="https://github.com/mhahnel/Total-Impact/blob/master/CHANGES.md">(more)</a>
 <?php
 include_once "library/PHPMarkdownExtra1.2.4/markdown.php";
 $fh = @fopen("CHANGES.md", "r");
