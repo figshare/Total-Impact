@@ -10,22 +10,20 @@ body {
 
 body a:link {
     text-decoration: none;
+    cursor: pointer;    
 }
 body a:hover {
     text-decoration: underline;
 }
 
 #wrapper {
-	margin: 150px auto 0;
+	margin: 100px auto 0;
 	width: 1084px;
-        min-height: 400px;
+        min-height: 400px; 
         padding-left:10px;
 }
 body.report #wrapper {
     margin-top: 100px;
-}
-body.home #wrapper {
-/*    width: 1000px;*/
 }
 body#about #wrapper {
     margin-top: 150px;
@@ -40,7 +38,7 @@ body div#tooltip {
     color:#eee;
     opacity: 0.9;
     font-size: 10px;
-    font-family: "helvitica", "arial", sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     width: 200px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -88,6 +86,7 @@ h1 a {
     top:0;
     left:75px;
    box-shadow: -1px 0 10px -2px #333333;
+    cursor: pointer;       
 }
 h1 a:hover {
     padding-top:13px;
@@ -125,6 +124,7 @@ ul#nav li a {
     -webkit-border-bottom-right-radius: 5px;
     -webkit-border-bottom-left-radius: 5px;
     box-shadow: -2px 1px 5px -1px #333333; 
+    cursor: pointer;           
 }
 
 ul#nav li a:hover {
@@ -165,49 +165,122 @@ body#about h2 {
 	padding-top: 55px;
 }
 
-#enter-ids {
+#importers {
 	float:left;
-	width: 42%;
+	width: 30%;
 	margin-right:5%;
 }
-#enter-ids fieldset {
-    border: 3px solid #933;
-    height: 800px;
-    margin-bottom: 150px;
-    -webkit-border-radius: 7px;    /* CSS3 rounded borders for Safari                    */
-    -moz-border-radius: 7px;       /* CSS3 rounded borders for Firefox                   */
-    border-radius: 7px;
-    box-shadow: 4px 6px 15px -8px #333;
+#importers table input {
+    width: 100%;
 }
-#enter-ids textarea {
-    height: 540px;
+#importers table button {
+    /* width: 100%;*/
+}
 
-}
-#enter-ids legend {
+.heading {
     color: #933;
-    paddding: 0 5px;
-    font-size: 150%;
     font-weight: bold;
 }
 
+fieldset {
+	border: 1px solid #CCC;
+	margin-bottom: 1em;	
+}
 
-#enter-mendeley {
+#go-get-heading {
+    margin-top: 31px;
+    float:left;
+}
+
+#enter-collection-meta {
 	float:left;
-	width: 24%;
+	width: 35%;
 	margin-right:5%;
 }
-#enter-mendeley table input {
-    width: 100%;
-}
-#enter-mendeley table button {
-    width: 115px;
+
+#enter-collection-meta fieldset {
+    border: 0;
+    padding: 0;
 }
 
-#enter-other {
-	float:left;
+#enter-collection-meta fieldset_DISABLING_RED_BORDER_FOR_NOW {
+    border: 3px solid #933;
+    
+    /* height: 500px;
+    margin-bottom: 150px; */
+    -webkit-border-radius: 7px;    /* CSS3 rounded borders for Safari                    */
+    -moz-border-radius: 7px;       /* CSS3 rounded borders for Firefox                   */
+    border-radius: 7px;
+    box-shadow: 4px 6px 15px -8px #333; 
+}
+#enter-collection-meta textarea {
+    height: 240px;
+
+}
+
+.quick-collection {
+    margin-top: 40px; 
+/*    margin-left: 60px; */
+}
+
+#twitterfeed {
+    float:right;
 	width: 24%;
 }
 
+.largefield {
+	font-size: 150%;
+	padding: .2em;
+	width: 70%;
+	color: #666;
+}
+
+#artcounter {
+    background-color: #EEE;
+    color: #666;
+    padding: .6em;
+    -webkit-border-radius: 4px;    /* CSS3 rounded borders for Safari                    */
+    -moz-border-radius: 4px;       /* CSS3 rounded borders for Firefox                   */
+    border-radius: 4px;
+    text-shadow: 1px 1px 0px #FFF;
+    margin-top:0;
+    margin-bottom: 0px
+    margin-right:10px;
+	border: 1px solid #EEE;
+	font-size: 120%;
+	width: 70%;
+	float: left;
+}
+
+#clearlist {
+    padding-left: 10px;
+	float:left;	
+}
+
+
+.largenum {
+	font-size: 120%;
+	padding: 0 .3em;
+	vertical-align: -10%;
+    border: 3px solid #933;    
+    /* height: 500px;
+    margin-bottom: 150px; */
+    -webkit-border-radius: 7px;    /* CSS3 rounded borders for Safari                    */
+    -moz-border-radius: 7px;       /* CSS3 rounded borders for Firefox                   */
+    border-radius: 7px;
+    box-shadow: 4px 6px 15px -8px #333; 
+}
+
+.lobster {
+    font-family: 'Lobster Two';
+	text-shadow: 2px 3px 2px #EEE;
+    font-style: italic;	
+	font-size: 180%;
+}
+
+.grey {
+	color: #555;
+}
 
 
 #outputs {
@@ -239,7 +312,8 @@ h3 {
 }
 
 a {
-	color: #933;	
+	color: #933;
+    cursor: pointer;		
 }
 
 hr {
@@ -255,6 +329,7 @@ em.url {
 }
 
 p.prompt {
+	margin: 0 0 .3em 0;
 	padding: 0em;
 	font-size: 1em;    
 }
@@ -265,7 +340,7 @@ p.howto {
     color: #666;
     padding: .6em;
     font-size: 110%;
-    border: 1px solid #CCC;
+    border: 1px solid #EEE;
     -webkit-border-radius: 4px;    /* CSS3 rounded borders for Safari                    */
     -moz-border-radius: 4px;       /* CSS3 rounded borders for Firefox                   */
     border-radius: 4px;
@@ -281,7 +356,7 @@ p.sp {
 
 /* updating page ********************************************************/
 h2.loading {
-    font-family: 'Lobster Two', 'helvetica', 'arial', sans-serif;
+    font-family: 'Lobster Two', Helvetica, Arial, sans-serif;
     color: #333;
     font-size: 50px;
     margin: 200px auto;
@@ -324,14 +399,23 @@ p#tagline {
 
 /* form elements */
 
-textarea#artifactList {
+textarea.artifactList {
 	width: 98%;
-        margin-bottom: 25px;
+    margin-bottom: 25px;
+    font-size: 80%;    
+	padding: .3em;
+	color: #333;
+}
+
+.artifactList {
+	width: 98%;
+    margin-bottom: 25px;
+    font-size: 60%;    
 }
 
 input, textarea {
 	border: 1px solid #CCC;	
-        background-repeat:  repeat-x;
+    background-repeat:  repeat-x;
 	background-color: #fff;
 }
 input {
@@ -341,28 +425,67 @@ input {
 
 button
 {
-
 	border: 1px solid #aaa;
 	background-color: #eee;
 	color: #333;
-        margin-top: 2px;
-}
-p#name-collection {
-    float:right;
-    width: 35%;
-    margin-top: -3px;
+    margin-top: 2px;
 }
 
-#enter-ids input#go-button {
+.recent-changes {
+	padding-left: 10px;    
+	padding-bottom: 10px;    
+    font-size: 50%;
+    color:#999;
+    float: left;
+}
+
+.recent-changes a {
+    color: #999;
+}
+
+.recent-changes ul {
+    padding:0;
+    padding-left: 20px;
+    margin:0;
+}
+
+p#name-collection {
+    float:left;
+    width: 15%;
+    margin-top: -2px;
+}
+
+#enter-collection-meta .go-button {
+	margin-top: .5em;
     background-color: #933;
     color: #fff;
     font-size: 36px;
-    float:right;
-    height: 2em;
-    width: 100%;
+	width: 70%;
+    height: 1.8em;
     font-family: 'Lobster Two', 'Helvetica', arial, sans-serif;
     font-style: italic;
-    border:1px solid #333;
+    border:1px solid #933;
+    -webkit-border-radius: 10px;    /* CSS3 rounded borders for Safari                    */
+    -moz-border-radius: 10px;       /* CSS3 rounded borders for Firefox                   */
+    border-radius: 10px;
+    box-shadow: 4px 6px 15px -8px #333;    
+}
+
+#enter-collection-meta .go-button:hover {
+    background-color: #EEE;
+	color: #333;
+	cursor:pointer;    
+    border:1px solid #DDD;
+}
+
+a#clear-artifacts {
+    font-size: 75%;
+    cursor: pointer;
+    color:#999;
+    text-decoration: underline;
+}
+a#clear-artifacts.hover {
+    color: #933;
 }
 
 
@@ -376,23 +499,17 @@ input.FAQ
 	color: #FFF;
 }
 
-button:hover
+button.import-button:hover 
 {
 	background-color: #933;
         border-color:#333;
 	color: #FFF;
 }
 
-fieldset {
-    border: 2px dotted #CCC;
-    margin-top:0.5em;
-
-}
-
 legend {
 	font-size: 1.2em;
 	color: #888;
-	padding:0;
+	padding:10px;
 }
 legend span {
     font-family: 'Lobster Two', helvetica, arial, sans-serif;
@@ -450,28 +567,27 @@ legend span {
 }
 
 div#about_metrics {
-	margin-top: 2em;	
-	background-color: #EEE;
-	padding: 1em 2em 3em 2em;
-}
-div#twitterfeed {
-    margin-top: -513px;
-    height:300px;
-    clear:both;
-    float:right;
-    width: 52%;
+	float:left;
 }
 
 div#footer {
-	margin-top: 2em;	
-	padding: 1em 2em 3em 2em;
-        border-top:4px dotted #ddd;
-        text-align: right;
-        clear:both;
-        color: #aaa;
+    font-size:100%;    
+	margin-top: 3em;	
+	padding: 2em 2em 3em 2em;
+    border-top:1px dotted #ddd;
+    clear:both; 
+    color: #aaa;
 }
 
+div.altmetrics {
+    float:right;
+    text-align: right;
+}
 
+div.altmetrics p {
+    padding: 0;
+    margins: 0;
+}
 
 
 /* report meta *************/
@@ -584,11 +700,9 @@ a.report-button:hover {
 
 .something-missing {
 	clear: left;
-	margin-right: .5em;	
 	padding-top: .5em;
-        font-size: 75%;
-        color: #777;
-        text-align:right;
+    font-size: 75%;
+    color: #999;
 }
 
 .created-at {

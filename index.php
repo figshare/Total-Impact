@@ -13,7 +13,7 @@ ob_implicit_flush(TRUE);
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title>total-Impact</title>
+        <title>total-Impact: Uncover the invisible impact of research</title>
         <link href='http://fonts.googleapis.com/css?family=Lobster+Two:400italic' rel='stylesheet' type='text/css' />
         <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
 		<link rel="icon" type="image/png" href="ui/favicon.ico" />
@@ -43,10 +43,21 @@ var ajax_load = "<img src='./ui/img/ajax-loader.gif' alt='loading...' />";
 $(document).ready(function(){
     // tooltips
 
+  $(".toggler_contents").hide();
+  $(".toggler").show();
+
+  $('.toggler').click(function(){
+		var myId = this.id;
+  		$("#"+myId+"_contents").slideToggle();
+	});
+
+	var fulllist = $("textarea.artifactList").val();
+	var numberartifacts = fulllist.split("\n").length - 1;
+   	$("#number-artifacts").html(numberartifacts+"");
 		
   $("button").click(function(){
 	var myId = this.id;
-	if ((myId.substring(0, 12) == "quick_report")) {
+	if ((myId.substring(0, 12) === "quick_report")) {
 		var textId = "mendeley_profile_input";		
 		var textVal = $('#'+textId).val();
 		var divId = "quick_report_div";
@@ -55,18 +66,32 @@ $(document).ready(function(){
 		var textVal = $('#'+textId).val();
 		var divId = this.id + "_div";
 	}
-    $("#"+divId).html("Loading...");
-	$.get("./seed.php?type="+myId+"&name="+textVal, function(response,status,xhr){
-		if (myId=="quick_report_contacts") {
-			$("#"+divId).html("Click to go directly to report:<p/>" + response["contacts"]);
-		} else if (myId=="quick_report_groups") {
-			$("#"+divId).html("Click to go directly to report:<p/>" + response["groups"]);
-		} else {
-			$("#artifactList").val(response["artifactIds"] + "\n" + $("#artifactList").val());
-	    	$("#"+divId).html("Added " + response["artifactCount"] + " IDs.");
-		}
-	}, 
-	"json"); 
+	if (myId === "manual") {
+		var fulllist = $("textarea.artifactList").val();
+		var numberartifacts = fulllist.split("\n").length - 1;
+    	$("#"+divId).html(numberartifacts + " IDs.");
+	   	$("#number-artifacts").html(numberartifacts+"");
+		$("#artifactListHidden").val($("textarea.artifactList").val());
+	} else {
+	    $("#"+divId).html("<img width='14' src='./ui/img/ajax-loader.gif'> Loading...");
+		$.get("./seed.php?type="+myId+"&name="+textVal, function(response,status,xhr){
+			if (myId=="quick_report_contacts") {
+				$("#"+divId).html("Click to go directly to report:<p/>" + response["contacts"]);
+			} else if (myId=="quick_report_groups") {
+				$("#"+divId).html("Click to go directly to report:<p/>" + response["groups"]);
+			} else {
+				/* var value = response["artifactIds"]+""; */
+				/* value = value.replace(/\s+/gmi, "<br/>"); */
+				/* $("div.artifactList").prepend(value + "<br/>"); */
+				$("textarea.artifactList").val(response["artifactIds"] + "\n" + $("textarea.artifactList").val());
+		    	$("#"+divId).html("Added " + response["artifactCount"] + " IDs.");
+				var fulllist = $("textarea.artifactList").val();
+				var numberartifacts = fulllist.split("\n").length - 1;
+			   	$("#number-artifacts").html(numberartifacts+"");
+				$("#artifactListHidden").val($("textarea.artifactList").val());
+			}
+		}, "json"); 
+	}
 	}).error(function(){ alert("error!");}); 
   });
 </script>
@@ -80,6 +105,8 @@ $(document).ready(function(){
                 <li><a href="./about.php">about</a></li>
                 <li><a href="http://twitter.com/#!/totalImpactdev">twitter</a></li>
             </ul>
+
+
                     <?php
                             if (isset($_REQUEST['run'])) {
                                     $query_string = $_SERVER['QUERY_STRING'];
@@ -107,91 +134,159 @@ $(document).ready(function(){
                             }
             ?>
         </div>
+
+
+
 	<!-- START wrapper -->
         <div id="wrapper">
             <div id="about">
-                <p id="tagline">uncovering the invisible impacts of your research.</p>
+                <p id="tagline">Uncover the invisible impact of research</p>
                 <div id="instr">
-                    <p class="howto">Enter the identifiers for a collection of artifacts you want to track. We'll provide you a permanent URL to track statistics about this collection. You can peruse <a target="_blank" href="./report.php?id=MqAnvI">a sample</a> and <a href="#recent">recently-shared reports</a>.</p>
+                    <p class="howto">Create a collection of research objects you want to track. We'll provide you a report of the total impact of this collection.<br />You can peruse <a href="./report.php?id=MqAnvI">a sample report</a> or check out the most recently shared reports</a>.</p>
                 </div>
             </div><!-- END about -->
 
             <!-- START input -->
             <div id="input">
-                    <div id="enter-ids">
+				<div id="importers">
+					<h2 class="heading"><span class="largenum">1</span> Add research objects</h2>
+					
+						<p id="artcounter"><a class="toggler" id="manual_toggler"><scan id="number-artifacts">0</scan></a> objects in this collection.</scan></p>
+						<p id="clearlist"><a href="." id="clear-artifacts">clear</a></p>
+					
+                            <!--Want help gathering your IDs? Pull from these sources:-->
+
+							<div style="clear:left"></div>
+                            <a class="toggler" id="mendeley_profile_toggler" title="Fill in the URL of a Mendeley profile to import its public publications">▸ Mendeley profiles</a><br/>
+
+							<div class="toggler_contents" id="mendeley_profile_toggler_contents">
+								
+	                            <fieldset><legend><span>ids from</span> Mendeley Profiles</legend>
+	                            <p class="prompt" title="Fill in the URL of a Mendeley profile to import its public publications">Mendeley profile URL</p>
+	                            <em class="url">http://www.mendeley.com/profiles/</em>
+	                            <input id="mendeley_profile_input" name="profileId" type="text" size="20" value="heather-piwowar"/>
+	                            <button class="import-button" id="mendeley_profile">Import</button>
+	                            <div id="mendeley_profile_div">
+	                            </div>
+                            </div>
+
+                            <a class="toggler" id="mendeley_group_toggler" title="Fill in the URL of a public Mendeley to import the references shared within that group">▸ Mendeley groups</a><br/>
+							<div class="toggler_contents" id="mendeley_group_toggler_contents">
+
+	                            <fieldset><legend><span>ids from</span> Mendeley Groups</legend>
+	                            <p class="prompt" title="Fill in the URL of a public Mendeley group to import the references shared within that group">Mendeley group URL</p>
+	                            <em class="url">http://www.mendeley.com/group/</em>
+	                        <input id="mendeley_group_input" name="groupId" type="text" size="20" value="530031"/>
+	                            <button class="import-button" id="mendeley_group">Import</button>
+	                            <div id="mendeley_group_div">
+	                            </div>
+
+	                            </fieldset>
+
+							</div>
+
+                            <a class="toggler" id="slideshare_toggler" title="Fill in a Slideshare profile to import its public slidedecks">▸ Slideshare</a><br/>
+							<div class="toggler_contents" id="slideshare_toggler_contents">
+	                            <fieldset><legend><span>ids from</span> Slideshare</legend>
+	                            <p class="prompt" title="Fill in a Slideshare profile to import its public slidedecks">Slideshare profile URL</p>
+	                            <em class="url">http://www.slideshare.net/</em>
+	                        <input id="slideshare_profile_input" name="slideshareName" type="text" size="20" value="cavlec"/>
+	                            <button class="import-button" id="slideshare_profile">Import</button>
+	                            <div id="slideshare_profile_div">
+	                            </div>
+	                            </fieldset>
+							</div>
+
+                            <a class="toggler" id="dryad_toggler" title="Fill in the dc:contributor.author value in Show Full Metadata to retrieve a list of datasets">▸ Dryad</a><br/>
+							<div class="toggler_contents" id="dryad_toggler_contents">
+	                            <fieldset><legend><span>ids from</span> Dryad</legend>
+	                            <p class="prompt" title="Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve a list of datasets">Dryad author name</p>
+	                        <input id="dryad_profile_input" name="dryadName" type="text" size="20" value="Otto, Sarah P."/>
+	                            <button class="import-button" id="dryad_profile">Import</button>
+	                            <div id="dryad_profile_div">
+	                            </div>
+	                            </fieldset>
+							</div>
+
+                            <a class="toggler" id="pubmed_toggler" title="Fill in a grant number to retrieve publications from PubMed">▸ PubMed</a><br/>
+							<div class="toggler_contents" id="pubmed_toggler_contents">
+	                            <fieldset><legend><span>ids from</span> PubMed</legend>
+	                            <p class="prompt" title="Fill in a grant number to retrieve publications from PubMed">Grant number</p>
+	                        <input id="pubmed_grant_input" name="grantId" type="text" size="20" value="U54-CA121852"/>
+	                            <button class="import-button" id="pubmed_grant">Import</button>
+	                            <div id="pubmed_grant_div">
+	                            </div>
+	                            </fieldset>
+							</div>
+
+                            <a class="toggler" id="manual_toggler" title="Add, edit, and delete IDs">▸ Manually edit this collection</a><br/>
+							<div class="toggler_contents" id="manual_toggler_contents">
+	                            <fieldset><legend><span>ids for</span> manual editing</legend>
+		
+		                       <p class="prompt" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">Add and edit identifiers for research objects. <a target="_blank" href="http://total-impact.org/about.php#whichartifacts">Supported IDs types.</a></p>
+
+		                       <textarea rows=15 name="list" id="manual_input" class="artifactList"><?php echo $artifactIdsString; ?></textarea>
+		
+	                            <button class="import-button" id="manual">Update</button>
+	                            <div id="manual_div">
+	                            </div>
+	                            </fieldset>
+							</div>
+
+
+					<!--moved down here because link didn't work when in div above for some reason -->
+                    <div class="something-missing"><p>Something missing on import?<br/> See a list of <a href="./about.php#limitations">current limitations.</a> </p></div>
+
+
+							
+                    </div>
+
+                    <div id="enter-collection-meta">
+
+							
                             <form name="id_form">
-                            <fieldset><legend>create a collection:</legend>
-                       <p><label for="list">List your IDs here</label><a class="tooltip" onmouseover="tooltip.show('Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a> <a target="_blank" href="examples.php">(cool examples)</a></p>
-                       <textarea rows=15 name="list" id="artifactList"><?php echo $artifactIdsString; ?></textarea>
+							<h2 class="heading"><span class="largenum">2</span> Name this collection</h2>
 
-                       <p id="name-collection"><label for="name">Name this collection</label><a class="tooltip" onmouseover="tooltip.show('You can add a custom name to identify this collection', 200);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
-                       <input name="name" id="name" value="<?php echo $title; ?>" />
+                            <fieldset>
 
-                       <input type="submit" id="go-button" name="run" value="get my metrics!" />
+                       <!--<p id="name-collection"><label for="name">Name:</label></p>-->
+                       <input name="name" id="name" class="largefield" title="Add a meaningful title to this collection" value="<?php echo $title; ?>" />
+
+							<h2 class="heading"><span class="largenum">3</span> Generate the report</h2>
+					<button name="run" type="submit" id="go-button" class="go-button">get metrics</button>
+
+                       <!--p><label for="list" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">ID that will be imported:</label></p-->
+                       <!--textarea rows=15 name="list" id="artifactList"><?php echo $artifactIdsString; ?></textarea-->
+						
+                       <input name="list" id="artifactListHidden" type="hidden" value="<?php echo $artifactIdsString; ?>" />
+					
+
+
+
+
                             </fieldset>
                             </form>
 
-                    </div>
-                    <div id="enter-mendeley">
-                            <!--Want help gathering your IDs? Pull from these sources:-->
-                            <fieldset><legend><span>ids from</span> Mendeley</legend>
-                            <p class="prompt">Your Mendeley group URL<a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley to import the references shared within group</em>', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
-                            <em class="url">http://www.mendeley.com/group/</em>
-                        <input id="mendeley_group_input" name="groupId" type="text" size="20" value="530031"/>
-                            <button id="mendeley_group">Import</button>
-                            <div id="mendeley_group_div">
-                            </div>
-
-                            <p class="prompt">Your Mendeley profile URL<a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley profile to import the references of your publications', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
-                            <em class="url">http://www.mendeley.com/profiles/</em>
-                            <table><tr><td>
-                            <input id="mendeley_profile_input" name="profileId" type="text" size="20" value="heather-piwowar"/>
-                            </td><td>
-                            <br/><button id="mendeley_profile">Import profile pubs</button>
-                            <br/><button id="quick_report_contacts">Pull my contacts</button><a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley profile to get direct links to reports for your contacts', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a>
-                            <br/><button id="quick_report_groups">Pull my groups</button><a class="tooltip" onmouseover="tooltip.show('Fill in the URL of your public Mendeley profile to get direct links to reports for your PUBLIC groups', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a>
-                            </td></tr></table>
-                            <div id="mendeley_profile_div">
-                            </div>
-                            <div id="quick_report_div">
-                            </div>
-
-                            </fieldset>
+						<div class="quick-collection">
+							<hr>
+								<p>&hellip; or fetch a quick collection based on 
+								                            <a class="toggler" id="mendeley_quick_reports_toggler" title="Fill in the URL of your public Mendeley profile to import the references of your publications">your Mendeley contacts and public groups &raquo;</a><br/>
+										<div class="toggler_contents" id="mendeley_quick_reports_toggler_contents">
+				                            <fieldset><legend><span>Quick collections from</span> Mendeley</legend>
+				                            <table><tr><td>
+				                            <em class="url">http://www.mendeley.com/profiles/</em>
+				                            <input id="QR_mendeley_profile_input" name="profileId" type="text" size="20" value="heather-piwowar"/>
+				                            </td><td>
+				                            <br/><button class="import-button" id="quick_report_contacts" title="Fill in the URL of your public Mendeley profile to get direct links to reports for your contacts">Pull my contacts</button>
+				                            <br/><button class="import-button" id="quick_report_groups" title="Fill in the URL of your public Mendeley profile to get direct links to reports for your PUBLIC groups">Pull my groups</button>
+				                            </td></tr></table></fieldset>
+				                            <div id="quick_report_div">
+				                            </div>
+			                            </div>
+						</div>
 
                     </div>
 
-                    <div id="enter-other">
-                            <fieldset><legend><span>ids from</span> Slideshare</legend>
-                            <p class="prompt">Your Slideshare profile URL<a class="tooltip" onmouseover="tooltip.show('Fill in your Slideshare profile to import your public slidedecks', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
-                            <em class="url">http://www.slideshare.net/</em>
-                        <input id="slideshare_profile_input" name="slideshareName" type="text" size="20" value="cavlec"/>
-                            <button id="slideshare_profile">Import</button>
-                            <div id="slideshare_profile_div">
-                            </div>
-                            </fieldset>
-
-                            <fieldset><legend><span>ids from</span> Dryad</legend>
-                            <p class="prompt">Your Dryad author name<a class="tooltip" onmouseover="tooltip.show('Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve your datasets', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
-                        <input id="dryad_profile_input" name="dryadName" type="text" size="20" value="Otto, Sarah P."/>
-                            <button id="dryad_profile">Import</button>
-                            <div id="dryad_profile_div">
-                            </div>
-                            </fieldset>
-
-                            <fieldset><legend><span>ids from</span> PubMed</legend>
-                            <p class="prompt">Your Grant number<a class="tooltip" onmouseover="tooltip.show('Fill in your Grant number to retrieve publications from PubMed', 300);" onmouseout="tooltip.hide();"><sup>?</sup></a></p>
-                        <input id="pubmed_grant_input" name="grantId" type="text" size="20" value="U54-CA121852"/>
-                            <button id="pubmed_grant">Import</button>
-                            <div id="pubmed_grant_div">
-                            </div>
-                            </fieldset>
-
-							
-                            <!-- div class="floatr"><p><form action="./about.php" method="get" target="_blank"><input type="submit" class="FAQ" value="FAQ"></form></div -->
-
-
-
-                    </div>
 
             </div>
 
@@ -203,10 +298,7 @@ $(document).ready(function(){
 
             <div id="twitterfeed">
 
-					<!--moved down here because link didn't work when in div above for some reason -->
-                    <div class="something-missing"><p>Something missing on import?<br/> See a list of <a href="./about.php#limitations">current limitations.</a> </p></div>
-
-                    <h2><a name="recent">recently-shared reports</a></h2>
+                    <!--<h2 class="grey" id="recent">Recent reports</h2>-->
                     <!-- https://twitter.com/about/resources/widgets/widget_search -->
 
                     <script src="http://widgets.twimg.com/j/2/widget.js"></script>
@@ -216,17 +308,17 @@ $(document).ready(function(){
                               type: 'search',
                               search: 'via @mytotalImpact',
                               interval: 30000,
-                              title: 'Recent public reports: "via @mytotalImpact"',
-                              subject: 'Tweet yours to see it here!',
-                              width: "80%",
-                              height: 200,
+                              title: 'Recently shared reports via @mytotalImpact',
+                              subject: 'Tweet yours to list it here',
+                              width: "100%",
+                              height: 300,
                               theme: {
                                 shell: {
-                                  background: '#DDD',
+                                  background: '#FFF',
                                   color: '#000'
                                 },
                                 tweets: {
-                                  background: '#EEE',
+                                  background: '#FFF',
                                   color: '#000',
                                   links: '#933'
                                 }
@@ -246,10 +338,41 @@ $(document).ready(function(){
 
             </div>
 
-        </div><!-- END wrapper -->
+
+
+
         <div id="footer">
-        <p>an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project.</p>
-        <p>source code on <a href="https://github.com/mhahnel/Total-Impact">github</a>
+
+	<div class="recent-changes">
+	Recent changes <a class="more-recent-changes" target="_blank" href="https://github.com/mhahnel/Total-Impact/blob/master/CHANGES.md">(more)</a>
+<?php
+include_once "library/PHPMarkdownExtra1.2.4/markdown.php";
+$fh = @fopen("CHANGES.md", "r");
+
+$lines = "";
+for ($i = 0; $i < 5; $i++) {
+echo Markdown(fgets($fh));
+#echo fgets($fh); 
+#echo $i;
+}
+#@fclose($fh);
+
+#$my_html = Markdown($lines);
+#echo $my_html;
+?>
+</div>
+
+	<div class="altmetrics">
+	
+        an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project.<br/>
+        source code on <a href="https://github.com/mhahnel/Total-Impact">github</a>
+	</div>
+
+
         </div>
+
+        </div><!-- END wrapper -->
+
+
     </body>
 </html>

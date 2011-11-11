@@ -118,6 +118,15 @@ class PluginClass(BasePluginClass):
             pass
 
         try:
+            mendeley_artifact_type_mapping = {"journal article":"article"}
+            artifact_type = json_page["type"].lower()
+            if (artifact_type in mendeley_artifact_type_mapping.keys()):
+                artifact_type = mendeley_artifact_type_mapping[artifact_type]
+            response.update(dict(type=artifact_type))
+        except KeyError:
+            pass
+
+        try:
             author_list = json_page["authors"]
             authors = ", ".join([author["surname"] for author in author_list])
             response.update(dict(authors=authors))
@@ -149,7 +158,7 @@ class PluginClass(BasePluginClass):
         metrics_response = self.get_metric_values(id)
         if not metrics_response:
             return(None)        
-        response = dict(type="article")    
+        response = dict()    
         response.update(metrics_response)
         return(response)
     

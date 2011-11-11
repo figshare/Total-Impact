@@ -110,8 +110,8 @@ $(document).ready(function(){
 				<!-- START report-meta -->
 		        <div id="report-meta">
                                 <h2>report for <span class="title"><?php echo $report->getBestIdentifier(); ?></span></h2>
-                                <a class="report-button" href="./report.php?id=<?php echo $collectionId; ?>&mode=list">download</a>
-                                <a class="report-button" href="./?add-id=<?php echo $collectionId; ?>">refine</a>
+                                <a class="report-button" href="./report.php?id=<?php echo $collectionId; ?>&mode=list">download data</a>
+                                <!--a class="report-button" href="./?add-id=<?php echo $collectionId; ?>">refine</a-->
                                 <a class="report-button" href="./update.php?id=<?php echo $collectionId; ?>">run update</a>
 		        	<span class="badge updated-at">updated <?php echo $report->getUpdatedAt('j M, Y');?></span>
 		        	<span class="badge created-at">created <?php echo $report->getCreatedAt('j M, Y');?></span>
@@ -163,12 +163,17 @@ $(document).ready(function(){
 		</div>
 		<!-- END wrapper -->
 			<div id="footer">
-					<div class="debugging">
-					<a target="_blank" href="https://cloudant.com/futon/document.html?total-impact%2Fdevelopment/<?php echo $_REQUEST['id']; ?>">DB....</a>   
-					<a target="_blank" href="./report.php?id=<?php echo $collectionId; ?>&mode=status">status log</a>     
-					</div>
-                            <p>an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project.</p>
-                            <p>source code on <a href="https://github.com/mhahnel/Total-Impact">github</a>
+				<div class="debugging">
+				<a target="_blank" href="https://cloudant.com/futon/document.html?total-impact%2Fdevelopment/<?php echo $_REQUEST['id']; ?>">DB....</a>   
+				<a target="_blank" href="./report.php?id=<?php echo $collectionId; ?>&mode=status">status log</a>     
+				</div>
+
+
+				<div class="altmetrics">
+	
+			        an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project.<br/>
+			        source code on <a href="https://github.com/mhahnel/Total-Impact">github</a>
+				</div>
 
 
                         </div>
