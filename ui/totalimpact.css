@@ -235,6 +235,29 @@ fieldset {
 	color: #666;
 }
 
+#artcounter {
+    background-color: #EEE;
+    color: #666;
+    padding: .6em;
+    -webkit-border-radius: 4px;    /* CSS3 rounded borders for Safari                    */
+    -moz-border-radius: 4px;       /* CSS3 rounded borders for Firefox                   */
+    border-radius: 4px;
+    text-shadow: 1px 1px 0px #FFF;
+    margin-top:0;
+    margin-bottom: 0px
+    margin-right:10px;
+	border: 1px solid #EEE;
+	font-size: 120%;
+	width: 70%;
+	float: left;
+}
+
+#clearlist {
+    padding-left: 10px;
+	float:left;	
+}
+
+
 .largenum {
 	font-size: 120%;
 	padding: 0 .3em;
@@ -316,7 +339,7 @@ p.howto {
     color: #666;
     padding: .6em;
     font-size: 110%;
-    border: 1px solid #CCC;
+    border: 1px solid #EEE;
     -webkit-border-radius: 4px;    /* CSS3 rounded borders for Safari                    */
     -moz-border-radius: 4px;       /* CSS3 rounded borders for Firefox                   */
     border-radius: 4px;

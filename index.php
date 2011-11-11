@@ -151,11 +151,12 @@ $(document).ready(function(){
 				<div id="importers">
 					<h2 class="heading"><span class="largenum">1</span> Add research objects</h2>
 					
-						<p><a class="toggler" id="manual_toggler"><scan id="number-artifacts">0</scan></a> objects in this collection.</scan>  <a href="." id="clear-artifacts">clear</a></p>
+						<p id="artcounter"><a class="toggler" id="manual_toggler"><scan id="number-artifacts">0</scan></a> objects in this collection.</scan></p>
+						<p id="clearlist"><a href="." id="clear-artifacts">clear</a></p>
 					
                             <!--Want help gathering your IDs? Pull from these sources:-->
 
-
+							<div style="clear:left"></div>
                             <a class="toggler" id="mendeley_profile_toggler" title="Fill in the URL of your Mendeley profile to import public publications in your profile">▸ Mendeley profiles</a><br/>
 
 							<div class="toggler_contents" id="mendeley_profile_toggler_contents">
