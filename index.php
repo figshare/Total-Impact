@@ -70,6 +70,7 @@ $(document).ready(function(){
 		var fulllist = $("textarea.artifactList").val();
 		var numberartifacts = fulllist.split("\n").length - 1;
     	$("#"+divId).html(numberartifacts + " IDs.");
+	   	$("#number-artifacts").html(numberartifacts+"");
 		$("#artifactListHidden").val($("textarea.artifactList").val());
 	} else {
 	    $("#"+divId).html("Loading...");
