@@ -222,6 +222,8 @@ class Models_Item {
 						$item->meta->icon = $this->getIcon($sourceName, $metricName, $abouts);
 						$item->meta->flavour = "";
 						$item->meta->license = "";
+						$item->meta->terms_of_use = "";
+						$item->meta->access_restrictions = "";
 						$item->meta->display_name = $this->getPrettyMetricName($metricName);
 						$metrics_array[json_encode($item)] = $item->value;
 					}
