@@ -88,10 +88,7 @@ h1 a {
    box-shadow: -1px 0 10px -2px #333333;
     cursor: pointer;       
 }
-h1 a:hover {
-    padding-top:13px;
-    background-position: 0 3px;
-}
+
 
 ul#nav {
     margin-top: -31px;
@@ -161,10 +158,6 @@ body#about h2 {
 #input{
 }
 
-#footer{
-	padding-top: 55px;
-}
-
 #importers {
 	float:left;
 	width: 30%;
@@ -223,10 +216,7 @@ fieldset {
 /*    margin-left: 60px; */
 }
 
-#twitterfeed {
-    float:right;
-	width: 24%;
-}
+
 
 .largefield {
 	font-size: 150%;
@@ -576,14 +566,29 @@ div#about_metrics {
 	float:left;
 }
 
+
+
+
+
+
+/* footer
+***********************************************************/
+
 div#footer {
     font-size:100%;    
-	margin-top: 3em;	
-	padding: 2em 2em 3em 2em;
+    margin-top: 3em;
+    padding: 2em 2em 3em 2em;
     border-top:1px dotted #ddd;
-    clear:both; 
+    clear:both;
     color: #aaa;
 }
+
+div.footercol {
+    width: 25%;
+    margin-left: 5%;
+    float:left;
+}
+
 
 div.altmetrics {
     float:right;
@@ -592,7 +597,7 @@ div.altmetrics {
 
 div.altmetrics p {
     padding: 0;
-    margins: 0;
+    margin: 0;
 }
 
 

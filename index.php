@@ -321,7 +321,12 @@ $(document).ready(function(){
 
             <!-- START footer -->
 
-            <div id="twitterfeed">
+
+        </div><!-- END wrapper -->
+
+        <div id="footer">
+
+                        <div id="twitterfeed" class="footercol">
 
                     <!--<h2 class="grey" id="recent">Recent reports</h2>-->
                     <!-- https://twitter.com/about/resources/widgets/widget_search -->
@@ -362,14 +367,9 @@ $(document).ready(function(){
                     </script>
 
             </div>
-
-
-
-
-        <div id="footer">
-
-	<div class="recent-changes">
+	<div class="recent-changes footercol">
 	Recent updates <a target="_blank" href="https://github.com/mhahnel/Total-Impact/blob/master/CHANGES.md">(more)</a>
+
 <?php
 include_once "library/PHPMarkdownExtra1.2.4/markdown.php";
 $fh = @fopen("CHANGES.md", "r");
@@ -385,18 +385,16 @@ echo Markdown(fgets($fh));
 #$my_html = Markdown($lines);
 #echo $my_html;
 ?>
-</div>
-
-	<div class="altmetrics">
-	
-        an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project.<br/>
-        source code on <a href="https://github.com/mhahnel/Total-Impact">github</a>
-	</div>
 
 
         </div>
+	<div class="altmetrics footercol">
 
-        </div><!-- END wrapper -->
+        an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project.<br/>
+        source code on <a href="https://github.com/mhahnel/Total-Impact">github</a>
+	</div>
+</div> <!-- end footer -->
+
 
 
     </body>
