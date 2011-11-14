@@ -5,6 +5,7 @@ body {
 	font-family: "Helvetica", sans-serif;       
 	margin: 0;
         border-top:5px solid #555;
+        background: #eee;
 
 }
 
@@ -16,11 +17,9 @@ body a:hover {
     text-decoration: underline;
 }
 
-#wrapper {
-	margin: 100px auto 0;
+div.wrapper {
+	margin: 0 auto;
 	width: 1084px;
-        min-height: 400px; 
-        padding-left:10px;
 }
 body.report #wrapper {
     margin-top: 100px;
