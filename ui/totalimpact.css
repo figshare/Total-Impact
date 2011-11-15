@@ -161,6 +161,7 @@ body#about h2 {
     float:left;
     width:100%;
     box-shadow: 0 2px 5px 0 #999999;
+    min-height: 400px;
 }
 #importers ul {
     clear:both;
@@ -218,9 +219,8 @@ fieldset {
 
 }
 
-.quick-collection {
-    margin-top: 40px; 
-/*    margin-left: 60px; */
+div.quick-collection {
+    margin: 40px 0 0 10px;
 }
 
 
@@ -428,29 +428,6 @@ button
     margin-top: 2px;
 }
 
-.recent-changes {
-	padding-left: 10px;    
-	padding-bottom: 10px;    
-    font-size: 50%;
-    color:#999;
-    float: left;
-}
-
-.recent-changes a:link {
-    color: #999;
-    text-decoration: underline;    
-}
-
-.recent-changes a {
-    color: #999;
-    text-decoration: underline;    
-}
-
-.recent-changes ul {
-    padding:0;
-    padding-left: 20px;
-    margin:0;
-}
 
 p#name-collection {
     float:left;
@@ -465,7 +442,7 @@ div#create-collection input#name {
 }
 
 button.go-button {
-	margin-top: .5em;
+    margin: 10px 0 0 5%;
     background-color: #933;
     color: #fff;
     font-size: 2em;
@@ -594,15 +571,36 @@ div#footer {
 }
 
 div.footercol {
-    width: 25%;
+    width: 30%;
     margin-left: 5%;
     float:left;
 }
 
+div.recent-changes {
+    color:#333;
+    float: left;
+}
+div.recent-changes h4 {
+    margin:10px 0;
+}
+div.recent-changes a {
+    color: #933;
+}
+div.recent-changes ul {
+    padding:0;
+    margin:0;
+    font-size: 12px
+}
+div.recent-changes ul li {
+    list-style-type: none;
+    margin-bottom: .7em;
+}
 
 div.altmetrics {
     float:right;
     text-align: right;
+    margin-top: 10px;
+    width: 25%;
 }
 
 div.altmetrics p {
