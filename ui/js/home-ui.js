@@ -6,19 +6,21 @@ $.ajaxSetup ({
 var ajax_load = "<img src='./ui/img/ajax-loader.gif' alt='loading...' />";
 
 $(document).ready(function(){
-    // tooltips
+  // tooltips
+    $('#importers ul li')
+        .prepend('<span class="pointer">▶</span>')
+        .children("div")
+        .hide();
+    $('#importers ul li').children("a").click(function(){
+        var arrow = $(this).siblings("span").text();
+        arrow = (arrow == "▶") ? "▼" : "▶";
+        $(this).siblings("span").text(arrow);
+        $(this).siblings("div").slideToggle();
+    });
 
-  $(".toggler_contents").hide();
-  $(".toggler").show();
-
-  $('.toggler').click(function(){
-		var myId = this.id;
-  		$("#"+myId+"_contents").slideToggle();
-	});
-
-	var fulllist = $("textarea.artifactList").val();
-	var numberartifacts = fulllist.split("\n").length - 1;
-   	$("#number-artifacts").html(numberartifacts+"");
+    var fulllist = $("textarea.artifactList").val();
+    var numberartifacts = fulllist.split("\n").length - 1;
+    $("#number-artifacts").html(numberartifacts+"");
 
   $("button").click(function(){
 	var myId = this.id;

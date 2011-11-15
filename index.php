@@ -85,7 +85,7 @@ ob_implicit_flush(TRUE);
                     <h2 class="heading"><span class="largenum">1</span>Collect research objects</h2>
                     <ul>
                         <li>
-                            <a class="toggler" id="mendeley_profile_toggler" title="Fill in the URL of a Mendeley profile to import its public publications">▸ Mendeley profiles</a><br/>
+                            <a class="toggler" id="mendeley_profile_toggler" title="Fill in the URL of a Mendeley profile to import its public publications">Mendeley profiles</a><br/>
 
                             <div class="toggler_contents" id="mendeley_profile_toggler_contents">
                                 <fieldset><legend><span>ids from</span> Mendeley Profiles</legend>
@@ -98,7 +98,7 @@ ob_implicit_flush(TRUE);
                             </div>
                         </li>
                         <li>
-                            <a class="toggler" id="mendeley_group_toggler" title="Fill in the URL of a public Mendeley to import the references shared within that group">▸ Mendeley groups</a><br/>
+                            <a class="toggler" id="mendeley_group_toggler" title="Fill in the URL of a public Mendeley to import the references shared within that group">Mendeley groups</a><br/>
                             <div class="toggler_contents" id="mendeley_group_toggler_contents">
                                 <fieldset><legend><span>ids from</span> Mendeley Groups</legend>
                                     <p class="prompt" title="Fill in the URL of a public Mendeley group to import the references shared within that group">Mendeley group URL</p>
@@ -111,7 +111,7 @@ ob_implicit_flush(TRUE);
                             </div>
                         </li>
                         <li>
-                            <a class="toggler" id="slideshare_toggler" title="Fill in a Slideshare profile to import its public slidedecks">▸ Slideshare</a><br/>
+                            <a class="toggler" id="slideshare_toggler" title="Fill in a Slideshare profile to import its public slidedecks">Slideshare</a><br/>
                             <div class="toggler_contents" id="slideshare_toggler_contents">
                                 <fieldset><legend><span>ids from</span> Slideshare</legend>
                                     <p class="prompt" title="Fill in a Slideshare profile to import its public slidedecks">Slideshare profile URL</p>
@@ -124,7 +124,7 @@ ob_implicit_flush(TRUE);
                             </div>
                         </li>
                         <li>
-                            <a class="toggler" id="dryad_toggler" title="Fill in the dc:contributor.author value in Show Full Metadata to retrieve a list of datasets">▸ Dryad</a><br/>
+                            <a class="toggler" id="dryad_toggler" title="Fill in the dc:contributor.author value in Show Full Metadata to retrieve a list of datasets">Dryad</a><br/>
                             <div class="toggler_contents" id="dryad_toggler_contents">
                                 <fieldset><legend><span>ids from</span> Dryad</legend>
                                     <p class="prompt" title="Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve a list of datasets">Dryad author name</p>
@@ -136,7 +136,7 @@ ob_implicit_flush(TRUE);
                             </div>
                         </li>
                         <li>
-                            <a class="toggler" id="pubmed_toggler" title="Fill in a grant number to retrieve publications from PubMed">▸ PubMed</a><br/>
+                            <a class="toggler" id="pubmed_toggler" title="Fill in a grant number to retrieve publications from PubMed">PubMed</a><br/>
                             <div class="toggler_contents" id="pubmed_toggler_contents">
                                 <fieldset><legend><span>ids from</span> PubMed</legend>
                                     <p class="prompt" title="Fill in a grant number to retrieve publications from PubMed">Grant number</p>
@@ -148,7 +148,7 @@ ob_implicit_flush(TRUE);
                             </div>
                         </li>
                         <li>
-                            <a class="toggler" id="github_users_toggler" title="Fill in a GitHub username to retrieve their public GitHub source code repositories">▸ GitHub users</a><br/>
+                            <a class="toggler" id="github_users_toggler" title="Fill in a GitHub username to retrieve their public GitHub source code repositories">GitHub users</a><br/>
                             <div class="toggler_contents" id="github_users_toggler_contents">
                                 <fieldset><legend><span>ids from</span> GitHub Users</legend>
                                     <p class="prompt" title="Fill in a GitHub username to retrieve their public GitHub source code repository IDs">GitHub username</p>
@@ -161,7 +161,7 @@ ob_implicit_flush(TRUE);
                             </div>
                         </li>
                         <li>
-                            <a class="toggler" id="github_orgs_toggler" title="Fill in a GitHub username to retrieve their public GitHub source code repositories">▸ GitHub organizations</a><br/>
+                            <a class="toggler" id="github_orgs_toggler" title="Fill in a GitHub username to retrieve their public GitHub source code repositories">GitHub organizations</a><br/>
                             <div class="toggler_contents" id="github_orgs_toggler_contents">
                                 <fieldset><legend><span>ids from</span> GitHub Organizatons</legend>
                                     <p class="prompt" title="Fill in a GitHub organization name to retrieve their public GitHub source code repository IDs">GitHub organization name</p>
@@ -174,7 +174,7 @@ ob_implicit_flush(TRUE);
                             </div>
                         </li>
                         <li>
-                            <a class="toggler" id="manual_toggler" title="Add, edit, and delete IDs">▸ Manually edit this collection</a><br/>
+                            <a class="toggler" id="manual_toggler" title="Add, edit, and delete IDs">Manually edit this collection</a><br/>
                             <div class="toggler_contents" id="manual_toggler_contents">
                                 <fieldset><legend><span>ids for</span> manual editing</legend>
 

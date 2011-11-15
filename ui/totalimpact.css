@@ -168,10 +168,21 @@ body#about h2 {
 }
 #importers ul li {
     list-style-type: none;
+    margin-top:.1em;
 }
 #importers table input {
     width: 100%;
 }
+#importers li a:hover {
+}
+#importers li span.pointer {
+    font-size: .7em;
+    position:relative;
+    top:-.3em;
+    text-decoration: none;
+    color: #933;
+}
+
 #input div.inputcol {
     width: 32%;
     float:left;
@@ -572,13 +583,19 @@ div#footer {
 
 div.footercol {
     width: 30%;
-    margin-left: 5%;
     float:left;
+    padding-right: 2%;
+    margin-right: 2%;
+    border-right: 1px dotted #ddd;
+    min-height: 330px;
+}
+div#twitterfeed {
 }
 
 div.recent-changes {
     color:#333;
     float: left;
+    margin-left: 2%;
 }
 div.recent-changes h4 {
     margin:10px 0;
@@ -601,6 +618,8 @@ div.altmetrics {
     text-align: right;
     margin-top: 10px;
     width: 25%;
+    padding-right:0;
+    border-right:none;
 }
 
 div.altmetrics p {
