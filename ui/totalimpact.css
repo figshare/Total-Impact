@@ -164,9 +164,6 @@ body#about h2 {
     box-shadow: 0 2px 5px 0 #999999;
     min-height: 400px;
 }
- #input button {
-     margin-top: -1px;
-}
 
 #input span.loading {
     display:block;
@@ -184,7 +181,7 @@ body#about h2 {
     background-repeat:  repeat-x;
     background-color: #fff;
     padding: 3px 0;
-    margin-right:10px;
+    margin-right:7px;
 }
 /* the importers column */
 
@@ -222,7 +219,8 @@ body#about h2 {
 }
 
 #input div.inputcol {
-    width: 32%;
+    width: 28%;
+    padding: 0 2% 50px;
     float:left;
 }
 #importers fieldset {
@@ -239,14 +237,30 @@ body#about h2 {
     display:inline-block;
 }
 
-#importers textarea.artifactList {
+
+#importers p.prompt {
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+    color: #777;
+}
+#importers div.toggler_contents {
+    margin: 0  0 10px 13px;
+}
+#importers #manual-add button {
+    margin: 0;
+    float:right;
+}
+#importers #manual-add textarea {
     width: 98%;
-    margin-bottom: 25px;
     font-size: 80%;
     padding: .3em;
     color: #333;
 }
-
+#importers div.something-missing {
+    clear:both;
+    text-align:right;
+}
 #edit-collection #artcounter {
     background-color: #EEE;
     color: #666;
@@ -259,8 +273,13 @@ body#about h2 {
     margin-bottom: 0px
         margin-right:10px;
     border: 1px solid #EEE;
-    font-size: 110%;
-    width: 70%;
+    font-size: 14px;
+    width: 80%;
+}
+#edit-collection #artcounter span.count {
+    font-weight: bold;
+    font-size:20px;
+    color: #933;
 }
 #edit-collection ul {
     margin-left:0;
@@ -381,11 +400,7 @@ hr {
 
 
 
-p.prompt {
-    margin: 0 0 .3em 0;
-    padding: 0em;
-    font-size: 1em;
-}
+
 
 p.howto {
     width: 98%;
