@@ -85,7 +85,7 @@ ob_implicit_flush(TRUE);
                     <h2 class="heading"><span class="largenum">1</span>Collect research objects</h2>
                     <ul>
                         <li>
-                            <a class="toggler" id="mendeley_profile_toggler" title="Fill in the URL of a Mendeley profile to import its public publications">Mendeley profiles</a><br/>
+                            <a class="toggler" id="mendeley_profile_toggler" >Mendeley profiles</a><br/>
                             <div class="toggler_contents" id="mendeley_profile_toggler_contents">
                                     <p class="prompt">http://www.mendeley.com/profiles/</p>
                                     <input id="mendeley_profile_input" name="profileId" type="text" size="20" value="heather-piwowar"/>
@@ -93,7 +93,7 @@ ob_implicit_flush(TRUE);
                             </div>
                         </li>
                         <li>
-                            <a class="toggler" id="mendeley_group_toggler" title="Fill in the URL of a public Mendeley to import the references shared within that group">Mendeley groups</a><br/>
+                            <a class="toggler" id="mendeley_group_toggler" >Mendeley groups</a><br/>
                             <div class="toggler_contents" id="mendeley_group_toggler_contents">
                                     <p class="prompt">http://www.mendeley.com/group/</p>
                                     <input id="mendeley_group_input" name="groupId" type="text" size="20" value="530031"/>
@@ -101,7 +101,7 @@ ob_implicit_flush(TRUE);
                             </div>
                         </li>
                         <li>
-                            <a class="toggler" id="slideshare_toggler" title="Fill in a Slideshare profile to import its public slidedecks">Slideshare</a><br/>
+                            <a class="toggler" id="slideshare_toggler" >Slideshare</a><br/>
                             <div class="toggler_contents" id="slideshare_toggler_contents">
                                     <p class="prompt">http://www.slideshare.net/</p>
                                     <input id="slideshare_profile_input" name="slideshareName" type="text" size="20" value="cavlec"/>
@@ -109,7 +109,7 @@ ob_implicit_flush(TRUE);
                             </div>
                         </li>
                         <li>
-                            <a class="toggler" id="dryad_toggler" title="Fill in the dc:contributor.author value in Show Full Metadata to retrieve a list of datasets">Dryad</a><br/>
+                            <a class="toggler" id="dryad_toggler" >Dryad</a><br/>
                             <div class="toggler_contents" id="dryad_toggler_contents">
                                     <p class="prompt" title="Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve a list of datasets">Dryad author name</p>
                                     <input id="dryad_profile_input" name="dryadName" type="text" size="20" value="Otto, Sarah P."/>
@@ -117,7 +117,7 @@ ob_implicit_flush(TRUE);
                             </div>
                         </li>
                         <li>
-                            <a class="toggler" id="pubmed_toggler" title="Fill in a grant number to retrieve publications from PubMed">PubMed</a><br/>
+                            <a class="toggler" id="pubmed_toggler" >PubMed</a><br/>
                             <div class="toggler_contents" id="pubmed_toggler_contents">
                                     <p class="prompt" title="Fill in a grant number to retrieve publications from PubMed">Grant number</p>
                                     <input id="pubmed_grant_input" name="grantId" type="text" size="20" value="U54-CA121852"/>
@@ -125,7 +125,7 @@ ob_implicit_flush(TRUE);
                             </div>
                         </li>
                         <li>
-                            <a class="toggler" id="github_users_toggler" title="Fill in a GitHub username to retrieve their public GitHub source code repositories">GitHub users</a><br/>
+                            <a class="toggler" id="github_users_toggler" >GitHub users</a><br/>
                             <div class="toggler_contents" id="github_users_toggler_contents">
                                     <p class="prompt">https://github.com/</p>
                                     <input id="github_users_input" name="username" type="text" size="20" value="egonw"/>
@@ -133,7 +133,7 @@ ob_implicit_flush(TRUE);
                             </div>
                         </li>
                         <li>
-                            <a class="toggler" id="github_orgs_toggler" title="Fill in a GitHub username to retrieve their public GitHub source code repositories">GitHub organizations</a><br/>
+                            <a class="toggler" id="github_orgs_toggler">GitHub organizations</a><br/>
                             <div class="toggler_contents" id="github_orgs_toggler_contents">
                                     <p class="prompt">https://github.com/</p>
                                     <input id="github_orgs_input" name="orgname" type="text" size="20" value="bioperl"/>
@@ -143,7 +143,7 @@ ob_implicit_flush(TRUE);
                         <li>
                             <a class="toggler" id="manual_toggler" title="Add, edit, and delete IDs">Add manually</a><br/>
                             <div class="toggler_contents" id="manual-add">
-                                    <p class="prompt" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">Paste in <a target="_blank" href="http://total-impact.org/about.php#whichartifacts">supported identifiers</a>  for research objects, one per line.</p>
+                                    <p class="prompt"  >Paste in <a target="_blank" href="http://total-impact.org/about.php#whichartifacts">supported identifiers</a>  for research objects, one per line.</p>
                                     <textarea rows=15 name="list" id="manual_input" class="artifactList"><?php echo $artifactIdsString; ?></textarea>
                                     <button class="import-button" id="manual">Add to collection</button>
                             </div>
