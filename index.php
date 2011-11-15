@@ -193,23 +193,17 @@ ob_implicit_flush(TRUE);
                 </div>
                 <div id="edit-collection" class="inputcol">
                     <h2 class="heading"><span class="largenum">2</span>Confirm list</h2>
-                    <p id="artcounter"><a class="toggler" id="manual_toggler"><scan id="number-artifacts">0</scan></a> objects in this collection</scan></p>
-                    <p id="clearlist"><a href="." id="clear-artifacts">clear</a></p>
+                    <p id="artcounter"><a class="toggler" id="manual_toggler"><span id="number-artifacts">0</span></a> objects in this collection <a href="." id="clear-artifacts">clear</a></p>
+                    <p id="clearlist"></p>
                     <ul id="collection-list"></ul>
                 </div>
                 <div id="create-collection" class="inputcol">
                     <h2 class="heading"><span class="largenum">3</span>Create collection</h2>
                     <form name="id_form">
-                        <fieldset>
-                       <!--<p id="name-collection"><label for="name">Name:</label></p>-->
-                            <input name="name" id="name" class="largefield" title="Add a meaningful title to this collection" value="<?php echo $title; ?>" />
-                            <button name="run" type="submit" id="go-button" class="go-button">get metrics</button>
-
-                            <!--p><label for="list" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">ID that will be imported:</label></p-->
-                            <!--textarea rows=15 name="list" id="artifactList"><?php echo $artifactIdsString; ?></textarea-->
-
-                            <input name="list" id="artifactListHidden" type="hidden" value="<?php echo $artifactIdsString; ?>" />
-                        </fieldset>
+                        <p id="name-collection"><label for="name">collection name:</label></p>
+                        <input name="name" id="name" title="Add a meaningful title to this collection" value="<?php echo $title; ?>" />
+                        <button name="run" type="submit" id="go-button" class="go-button">get metrics</button>
+                        <input name="list" id="artifactListHidden" type="hidden" value="<?php echo $artifactIdsString; ?>" />
                     </form>
 
                     <div class="quick-collection">
@@ -253,23 +247,21 @@ ob_implicit_flush(TRUE);
                             type: 'search',
                             search: 'via @mytotalImpact',
                             interval: 30000,
-                            title: 'Recently shared reports via @mytotalImpact',
-                            subject: 'Tweet yours to list it here',
+                            subject: 'Latest tweeted reports:',
                             width: "100%",
-                            height: 300,
                             theme: {
                                 shell: {
-                                    background: '#FFF',
+                                    background: '#eee',
                                     color: '#000'
                                 },
                                 tweets: {
-                                    background: '#FFF',
+                                    background: '#eee',
                                     color: '#000',
                                     links: '#933'
                                 }
                             },
                             features: {
-                                scrollbar: true,
+                                scrollbar: false,
                                 loop: false,
                                 live: true,
                                 hashtags: true,

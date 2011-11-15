@@ -454,31 +454,34 @@ button
 
 p#name-collection {
     float:left;
-    width: 15%;
-    margin-top: -2px;
+    width: 25%;
+    margin:0 2% 0 0;
+    line-height: 1;
+    font-size: 17px;
+    text-align: right;
+}
+div#create-collection input#name {
+    height: 30px;
 }
 
-#enter-collection-meta .go-button {
+button.go-button {
 	margin-top: .5em;
     background-color: #933;
     color: #fff;
-    font-size: 36px;
-	width: 70%;
-    height: 1.8em;
+    font-size: 2em;
+    width: 85%;
     font-family: 'Lobster Two', 'Helvetica', arial, sans-serif;
     font-style: italic;
     border:1px solid #933;
     -webkit-border-radius: 10px;    /* CSS3 rounded borders for Safari                    */
     -moz-border-radius: 10px;       /* CSS3 rounded borders for Firefox                   */
     border-radius: 10px;
-    box-shadow: 4px 6px 15px -8px #333;    
 }
 
-#enter-collection-meta .go-button:hover {
-    background-color: #EEE;
-	color: #333;
-	cursor:pointer;    
-    border:1px solid #DDD;
+button.go-button:hover {
+    background-color: #800000;
+    cursor:pointer;
+    border:1px solid #000;
 }
 
 a#clear-artifacts {
