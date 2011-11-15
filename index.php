@@ -81,152 +81,138 @@ ob_implicit_flush(TRUE);
         <!-- START input -->
         <div id="input">
             <div class="wrapper">
-                <div id="importers">
-                    <h2 class="heading"><span class="largenum">1</span> Add research objects</h2>
+                <div id="importers" class="inputcol">
+                    <h2 class="heading"><span class="largenum">1</span>Collect research objects</h2>
+                    <ul>
+                        <li>
+                            <a class="toggler" id="mendeley_profile_toggler" title="Fill in the URL of a Mendeley profile to import its public publications">▸ Mendeley profiles</a><br/>
 
+                            <div class="toggler_contents" id="mendeley_profile_toggler_contents">
+                                <fieldset><legend><span>ids from</span> Mendeley Profiles</legend>
+                                    <p class="prompt" title="Fill in the URL of a Mendeley profile to import its public publications">Mendeley profile URL</p>
+                                    <em class="url">http://www.mendeley.com/profiles/</em>
+                                    <input id="mendeley_profile_input" name="profileId" type="text" size="20" value="heather-piwowar"/>
+                                    <button class="import-button" id="mendeley_profile">Import</button>
+                                    <div id="mendeley_profile_div">
+                                    </div>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="toggler" id="mendeley_group_toggler" title="Fill in the URL of a public Mendeley to import the references shared within that group">▸ Mendeley groups</a><br/>
+                            <div class="toggler_contents" id="mendeley_group_toggler_contents">
+                                <fieldset><legend><span>ids from</span> Mendeley Groups</legend>
+                                    <p class="prompt" title="Fill in the URL of a public Mendeley group to import the references shared within that group">Mendeley group URL</p>
+                                    <em class="url">http://www.mendeley.com/group/</em>
+                                    <input id="mendeley_group_input" name="groupId" type="text" size="20" value="530031"/>
+                                    <button class="import-button" id="mendeley_group">Import</button>
+                                    <div id="mendeley_group_div">
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="toggler" id="slideshare_toggler" title="Fill in a Slideshare profile to import its public slidedecks">▸ Slideshare</a><br/>
+                            <div class="toggler_contents" id="slideshare_toggler_contents">
+                                <fieldset><legend><span>ids from</span> Slideshare</legend>
+                                    <p class="prompt" title="Fill in a Slideshare profile to import its public slidedecks">Slideshare profile URL</p>
+                                    <em class="url">http://www.slideshare.net/</em>
+                                    <input id="slideshare_profile_input" name="slideshareName" type="text" size="20" value="cavlec"/>
+                                    <button class="import-button" id="slideshare_profile">Import</button>
+                                    <div id="slideshare_profile_div">
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="toggler" id="dryad_toggler" title="Fill in the dc:contributor.author value in Show Full Metadata to retrieve a list of datasets">▸ Dryad</a><br/>
+                            <div class="toggler_contents" id="dryad_toggler_contents">
+                                <fieldset><legend><span>ids from</span> Dryad</legend>
+                                    <p class="prompt" title="Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve a list of datasets">Dryad author name</p>
+                                    <input id="dryad_profile_input" name="dryadName" type="text" size="20" value="Otto, Sarah P."/>
+                                    <button class="import-button" id="dryad_profile">Import</button>
+                                    <div id="dryad_profile_div">
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="toggler" id="pubmed_toggler" title="Fill in a grant number to retrieve publications from PubMed">▸ PubMed</a><br/>
+                            <div class="toggler_contents" id="pubmed_toggler_contents">
+                                <fieldset><legend><span>ids from</span> PubMed</legend>
+                                    <p class="prompt" title="Fill in a grant number to retrieve publications from PubMed">Grant number</p>
+                                    <input id="pubmed_grant_input" name="grantId" type="text" size="20" value="U54-CA121852"/>
+                                    <button class="import-button" id="pubmed_grant">Import</button>
+                                    <div id="pubmed_grant_div">
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="toggler" id="github_users_toggler" title="Fill in a GitHub username to retrieve their public GitHub source code repositories">▸ GitHub users</a><br/>
+                            <div class="toggler_contents" id="github_users_toggler_contents">
+                                <fieldset><legend><span>ids from</span> GitHub Users</legend>
+                                    <p class="prompt" title="Fill in a GitHub username to retrieve their public GitHub source code repository IDs">GitHub username</p>
+                                    <em class="url">https://github.com/</em>
+                                    <input id="github_users_input" name="username" type="text" size="20" value="egonw"/>
+                                    <button class="import-button" id="github_users">Import</button>
+                                    <div id="github_users_div">
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="toggler" id="github_orgs_toggler" title="Fill in a GitHub username to retrieve their public GitHub source code repositories">▸ GitHub organizations</a><br/>
+                            <div class="toggler_contents" id="github_orgs_toggler_contents">
+                                <fieldset><legend><span>ids from</span> GitHub Organizatons</legend>
+                                    <p class="prompt" title="Fill in a GitHub organization name to retrieve their public GitHub source code repository IDs">GitHub organization name</p>
+                                    <em class="url">https://github.com/</em>
+                                    <input id="github_orgs_input" name="orgname" type="text" size="20" value="bioperl"/>
+                                    <button class="import-button" id="github_orgs">Import</button>
+                                    <div id="github_orgs_div">
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="toggler" id="manual_toggler" title="Add, edit, and delete IDs">▸ Manually edit this collection</a><br/>
+                            <div class="toggler_contents" id="manual_toggler_contents">
+                                <fieldset><legend><span>ids for</span> manual editing</legend>
+
+                                    <p class="prompt" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">Add and edit <a target="_blank" href="http://total-impact.org/about.php#whichartifacts">Supported identifiers</a>  for research objects, one per line.</p>
+
+                                    <textarea rows=15 name="list" id="manual_input" class="artifactList"><?php echo $artifactIdsString; ?></textarea>
+
+                                    <button class="import-button" id="manual">Update</button>
+                                    <div id="manual_div">
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="something-missing"><p>Something missing on import?<br/> See a list of <a href="./about.php#limitations">current limitations.</a> </p></div>
+                </div>
+                <div id="edit-collection" class="inputcol">
+                    <h2 class="heading"><span class="largenum">2</span>Confirm list</h2>
                     <p id="artcounter"><a class="toggler" id="manual_toggler"><scan id="number-artifacts">0</scan></a> objects in this collection</scan></p>
                     <p id="clearlist"><a href="." id="clear-artifacts">clear</a></p>
-
-                    <!--Want help gathering your IDs? Pull from these sources:-->
-
-                    <div style="clear:left"></div>
-                    <br/>Collect IDs from:<br/>
-                    <a class="toggler" id="mendeley_profile_toggler" title="Fill in the URL of a Mendeley profile to import its public publications">▸ Mendeley profiles</a><br/>
-
-                    <div class="toggler_contents" id="mendeley_profile_toggler_contents">
-
-                        <fieldset><legend><span>ids from</span> Mendeley Profiles</legend>
-                            <p class="prompt" title="Fill in the URL of a Mendeley profile to import its public publications">Mendeley profile URL</p>
-                            <em class="url">http://www.mendeley.com/profiles/</em>
-                            <input id="mendeley_profile_input" name="profileId" type="text" size="20" value="heather-piwowar"/>
-                            <button class="import-button" id="mendeley_profile">Import</button>
-                            <div id="mendeley_profile_div">
-                            </div>
-                    </div>
-
-                    <a class="toggler" id="mendeley_group_toggler" title="Fill in the URL of a public Mendeley to import the references shared within that group">▸ Mendeley groups</a><br/>
-                    <div class="toggler_contents" id="mendeley_group_toggler_contents">
-
-                        <fieldset><legend><span>ids from</span> Mendeley Groups</legend>
-                            <p class="prompt" title="Fill in the URL of a public Mendeley group to import the references shared within that group">Mendeley group URL</p>
-                            <em class="url">http://www.mendeley.com/group/</em>
-                            <input id="mendeley_group_input" name="groupId" type="text" size="20" value="530031"/>
-                            <button class="import-button" id="mendeley_group">Import</button>
-                            <div id="mendeley_group_div">
-                            </div>
-
-                        </fieldset>
-
-                    </div>
-
-                    <a class="toggler" id="slideshare_toggler" title="Fill in a Slideshare profile to import its public slidedecks">▸ Slideshare</a><br/>
-                    <div class="toggler_contents" id="slideshare_toggler_contents">
-                        <fieldset><legend><span>ids from</span> Slideshare</legend>
-                            <p class="prompt" title="Fill in a Slideshare profile to import its public slidedecks">Slideshare profile URL</p>
-                            <em class="url">http://www.slideshare.net/</em>
-                            <input id="slideshare_profile_input" name="slideshareName" type="text" size="20" value="cavlec"/>
-                            <button class="import-button" id="slideshare_profile">Import</button>
-                            <div id="slideshare_profile_div">
-                            </div>
-                        </fieldset>
-                    </div>
-
-                    <a class="toggler" id="dryad_toggler" title="Fill in the dc:contributor.author value in Show Full Metadata to retrieve a list of datasets">▸ Dryad</a><br/>
-                    <div class="toggler_contents" id="dryad_toggler_contents">
-                        <fieldset><legend><span>ids from</span> Dryad</legend>
-                            <p class="prompt" title="Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve a list of datasets">Dryad author name</p>
-                            <input id="dryad_profile_input" name="dryadName" type="text" size="20" value="Otto, Sarah P."/>
-                            <button class="import-button" id="dryad_profile">Import</button>
-                            <div id="dryad_profile_div">
-                            </div>
-                        </fieldset>
-                    </div>
-
-                    <a class="toggler" id="pubmed_toggler" title="Fill in a grant number to retrieve publications from PubMed">▸ PubMed</a><br/>
-                    <div class="toggler_contents" id="pubmed_toggler_contents">
-                        <fieldset><legend><span>ids from</span> PubMed</legend>
-                            <p class="prompt" title="Fill in a grant number to retrieve publications from PubMed">Grant number</p>
-                            <input id="pubmed_grant_input" name="grantId" type="text" size="20" value="U54-CA121852"/>
-                            <button class="import-button" id="pubmed_grant">Import</button>
-                            <div id="pubmed_grant_div">
-                            </div>
-                        </fieldset>
-                    </div>
-
-                    <a class="toggler" id="github_users_toggler" title="Fill in a GitHub username to retrieve their public GitHub source code repositories">▸ GitHub users</a><br/>
-                    <div class="toggler_contents" id="github_users_toggler_contents">
-                        <fieldset><legend><span>ids from</span> GitHub Users</legend>
-                            <p class="prompt" title="Fill in a GitHub username to retrieve their public GitHub source code repository IDs">GitHub username</p>
-                            <em class="url">https://github.com/</em>	
-                            <input id="github_users_input" name="username" type="text" size="20" value="egonw"/>
-                            <button class="import-button" id="github_users">Import</button>
-                            <div id="github_users_div">
-                            </div>
-                        </fieldset>
-                    </div>
-
-                    <a class="toggler" id="github_orgs_toggler" title="Fill in a GitHub username to retrieve their public GitHub source code repositories">▸ GitHub organizations</a><br/>
-                    <div class="toggler_contents" id="github_orgs_toggler_contents">
-                        <fieldset><legend><span>ids from</span> GitHub Organizatons</legend>
-                            <p class="prompt" title="Fill in a GitHub organization name to retrieve their public GitHub source code repository IDs">GitHub organization name</p>
-                            <em class="url">https://github.com/</em>	
-                            <input id="github_orgs_input" name="orgname" type="text" size="20" value="bioperl"/>
-                            <button class="import-button" id="github_orgs">Import</button>
-                            <div id="github_orgs_div">
-                            </div>
-                        </fieldset>
-                    </div>
-
-                    <a class="toggler" id="manual_toggler" title="Add, edit, and delete IDs">▸ Manually edit this collection</a><br/>
-                    <div class="toggler_contents" id="manual_toggler_contents">
-                        <fieldset><legend><span>ids for</span> manual editing</legend>
-
-                            <p class="prompt" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">Add and edit identifiers for research objects. <a target="_blank" href="http://total-impact.org/about.php#whichartifacts">Supported IDs types.</a></p>
-
-                            <textarea rows=15 name="list" id="manual_input" class="artifactList"><?php echo $artifactIdsString; ?></textarea>
-
-                            <button class="import-button" id="manual">Update</button>
-                            <div id="manual_div">
-                            </div>
-                        </fieldset>
-                    </div>
-
-
-                    <!--moved down here because link didn't work when in div above for some reason -->
-                    <div class="something-missing"><p>Something missing on import?<br/> See a list of <a href="./about.php#limitations">current limitations.</a> </p></div>
-
-
-
+                    <ul id="collection-list"></ul>
                 </div>
-
-                <div id="enter-collection-meta">
-
-
+                <div id="create-collection" class="inputcol">
+                    <h2 class="heading"><span class="largenum">3</span>Create collection</h2>
                     <form name="id_form">
-                        <h2 class="heading"><span class="largenum">2</span> Name this collection</h2>
-
                         <fieldset>
-
                        <!--<p id="name-collection"><label for="name">Name:</label></p>-->
                             <input name="name" id="name" class="largefield" title="Add a meaningful title to this collection" value="<?php echo $title; ?>" />
-
-                            <h2 class="heading"><span class="largenum">3</span> Generate the report</h2>
                             <button name="run" type="submit" id="go-button" class="go-button">get metrics</button>
 
                             <!--p><label for="list" title="Valid identifiers, one per line.  Valid identifiers include DOIs, dataset accession numbers, handles for preprints, and URLs for code and slides.">ID that will be imported:</label></p-->
                             <!--textarea rows=15 name="list" id="artifactList"><?php echo $artifactIdsString; ?></textarea-->
 
                             <input name="list" id="artifactListHidden" type="hidden" value="<?php echo $artifactIdsString; ?>" />
-
-
-
-
-
                         </fieldset>
                     </form>
 
                     <div class="quick-collection">
-                        <hr>
                         <p>&hellip; or fetch a quick collection based on 
                             <a class="toggler" id="mendeley_quick_reports_toggler" title="Fill in the URL of your public Mendeley profile to import the references of your publications">your Mendeley contacts and public groups &raquo;</a><br/>
                         <div class="toggler_contents" id="mendeley_quick_reports_toggler_contents">
