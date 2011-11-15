@@ -179,6 +179,13 @@ body#about h2 {
 
 }
 
+#input input, #input textarea {
+    border: 1px solid #CCC;
+    background-repeat:  repeat-x;
+    background-color: #fff;
+    padding: 3px 0;
+    margin-right:10px;
+}
 /* the importers column */
 
 #importers ul {
@@ -201,6 +208,19 @@ body#about h2 {
     color: #933;
 }
 
+#importers span.loading img {
+    height: 18px;
+}
+#importers span.loading {
+    color: #777;
+    font-size: 12px;
+}
+#importers span.response span.count {
+    font-weight: bold;
+    color: #333;
+    font-size:18px;
+}
+
 #input div.inputcol {
     width: 32%;
     float:left;
@@ -219,9 +239,7 @@ body#about h2 {
     display:inline-block;
 }
 
-
-
-textarea.artifactList {
+#importers textarea.artifactList {
     width: 98%;
     margin-bottom: 25px;
     font-size: 80%;
@@ -229,54 +247,52 @@ textarea.artifactList {
     color: #333;
 }
 
-.artifactList {
-    width: 98%;
-    margin-bottom: 25px;
-    font-size: 60%;
+#edit-collection #artcounter {
+    background-color: #EEE;
+    color: #666;
+    padding: .6em;
+    -webkit-border-radius: 4px;    /* CSS3 rounded borders for Safari                    */
+    -moz-border-radius: 4px;       /* CSS3 rounded borders for Firefox                   */
+    border-radius: 4px;
+    text-shadow: 1px 1px 0px #FFF;
+    margin-top:0;
+    margin-bottom: 0px
+        margin-right:10px;
+    border: 1px solid #EEE;
+    font-size: 110%;
+    width: 70%;
 }
-
-input, textarea {
-    border: 1px solid #CCC;
-    background-repeat:  repeat-x;
-    background-color: #fff;
-    padding: 3px 0;
+#edit-collection ul {
+    margin-left:0;
+    padding-left:0;
 }
-
-.heading {
-    color: #933;
-    font-weight: bold;
+#edit-collection ul li {
+    list-style-type:none;
+    margin-bottom: 3px;
+    font-size: 12px;
+    clear:both;
+    color: #333;
 }
-
-#go-get-heading {
-    margin-top: 31px;
+#edit-collection ul li a {
+    text-indent:-9999px;
+    display:inline-block;
+    width: 12px;
+    height: 12px;
+    background: url(./img/remove-icon.png) 0 0;
+    margin:1px 2px 0 0;
     float:left;
 }
+#edit-collection ul li a:hover {
+    background-position: 0 12px;
+}
 
-#enter-collection-meta {
+#edit-collection ul li span {
+    word-wrap: break-word;
     float:left;
-    width: 35%;
-    margin-right:5%;
+    width: 90%;
 }
 
-#enter-collection-meta fieldset {
-    border: 0;
-    padding: 0;
-}
 
-#enter-collection-meta fieldset_DISABLING_RED_BORDER_FOR_NOW {
-    border: 3px solid #933;
-
-    /* height: 500px;
-    margin-bottom: 150px; */
-    -webkit-border-radius: 7px;    /* CSS3 rounded borders for Safari                    */
-    -moz-border-radius: 7px;       /* CSS3 rounded borders for Firefox                   */
-    border-radius: 7px;
-    box-shadow: 4px 6px 15px -8px #333; 
-}
-#enter-collection-meta textarea {
-    height: 240px;
-
-}
 
 div.quick-collection {
     margin: 40px 0 0 10px;
@@ -291,22 +307,7 @@ div.quick-collection {
     color: #666;
 }
 
-#artcounter {
-    background-color: #EEE;
-    color: #666;
-    padding: .6em;
-    -webkit-border-radius: 4px;    /* CSS3 rounded borders for Safari                    */
-    -moz-border-radius: 4px;       /* CSS3 rounded borders for Firefox                   */
-    border-radius: 4px;
-    text-shadow: 1px 1px 0px #FFF;
-    margin-top:0;
-    margin-bottom: 0px
-        margin-right:10px;
-    border: 1px solid #EEE;
-    font-size: 110%;
-    width: 70%;
-    float: left;
-}
+
 
 #clearlist {
     padding-left: 10px;

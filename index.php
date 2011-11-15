@@ -194,7 +194,6 @@ ob_implicit_flush(TRUE);
                 <div id="edit-collection" class="inputcol">
                     <h2 class="heading"><span class="largenum">2</span>Confirm list</h2>
                     <p id="artcounter"><a class="toggler" id="manual_toggler"><span id="number-artifacts">0</span></a> objects in this collection <a href="." id="clear-artifacts">clear</a></p>
-                    <p id="clearlist"></p>
                     <ul id="collection-list"></ul>
                 </div>
                 <div id="create-collection" class="inputcol">
