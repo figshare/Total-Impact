@@ -2,10 +2,10 @@
 
 
 body {
-	font-family: "Helvetica", sans-serif;       
-	margin: 0;
-        border-top:5px solid #555;
-        background: #eee;
+    font-family: "Helvetica", sans-serif;
+    margin: 0;
+    border-top:5px solid #555;
+    background: #eee;
 
 }
 
@@ -18,15 +18,15 @@ body a:hover {
 }
 
 div.wrapper {
-	margin: 0 auto;
-	width: 1084px;
+    margin: 0 auto;
+    width: 1084px;
 }
 body.report #wrapper {
     margin-top: 100px;
 }
 body#about #wrapper {
     margin-top: 150px;
-        width: 900px;
+    width: 900px;
 }
 body div#tooltip {
     position: absolute;
@@ -84,7 +84,7 @@ h1 a {
     position: absolute;
     top:0;
     left:75px;
-   box-shadow: -1px 0 10px -2px #333333;
+    box-shadow: -1px 0 10px -2px #333333;
     cursor: pointer;       
 }
 
@@ -142,7 +142,7 @@ div#about{
     -webkit-border-radius: 4px;    /* CSS3 rounded borders for Safari      */              
     -moz-border-radius: 4px;       /* CSS3 rounded borders for Firefox   */
 }
-                                   
+
 a.tocBackLink {
     text-align: right;
     font-size: 10px;
@@ -156,6 +156,7 @@ body#about h2 {
 /* input
 *****************************************************************************/
 
+/* general */
 #input {
     background: #fff;
     float:left;
@@ -163,6 +164,23 @@ body#about h2 {
     box-shadow: 0 2px 5px 0 #999999;
     min-height: 400px;
 }
+ #input button {
+     margin-top: -1px;
+}
+
+#input span.loading {
+    display:block;
+}
+#input input {
+    width: 60%;
+    float:left;
+    margin: 0 3px 0 0;
+    padding:2px 0;
+
+}
+
+/* the importers column */
+
 #importers ul {
     clear:both;
 }
@@ -187,16 +205,46 @@ body#about h2 {
     width: 32%;
     float:left;
 }
+#importers fieldset {
+    border: 1px solid #CCC;
+    margin-bottom: 1em;
+    -webkit-border-radius: 4px;    /* CSS3 rounded borders for Safari      */
+    -moz-border-radius: 4px;       /* CSS3 rounded borders for Firefox   */
+}
+#importers em.url {
+    font-style: normal;
+    font-size: 90%;
+    color: #999;
+    width:100%;
+    display:inline-block;
+}
 
+
+
+textarea.artifactList {
+    width: 98%;
+    margin-bottom: 25px;
+    font-size: 80%;
+    padding: .3em;
+    color: #333;
+}
+
+.artifactList {
+    width: 98%;
+    margin-bottom: 25px;
+    font-size: 60%;
+}
+
+input, textarea {
+    border: 1px solid #CCC;
+    background-repeat:  repeat-x;
+    background-color: #fff;
+    padding: 3px 0;
+}
 
 .heading {
     color: #933;
     font-weight: bold;
-}
-
-fieldset {
-	border: 1px solid #CCC;
-	margin-bottom: 1em;	
 }
 
 #go-get-heading {
@@ -205,9 +253,9 @@ fieldset {
 }
 
 #enter-collection-meta {
-	float:left;
-	width: 35%;
-	margin-right:5%;
+    float:left;
+    width: 35%;
+    margin-right:5%;
 }
 
 #enter-collection-meta fieldset {
@@ -217,7 +265,7 @@ fieldset {
 
 #enter-collection-meta fieldset_DISABLING_RED_BORDER_FOR_NOW {
     border: 3px solid #933;
-    
+
     /* height: 500px;
     margin-bottom: 150px; */
     -webkit-border-radius: 7px;    /* CSS3 rounded borders for Safari                    */
@@ -237,10 +285,10 @@ div.quick-collection {
 
 
 .largefield {
-	font-size: 150%;
-	padding: .2em;
-	width: 70%;
-	color: #666;
+    font-size: 150%;
+    padding: .2em;
+    width: 70%;
+    color: #666;
 }
 
 #artcounter {
@@ -253,23 +301,23 @@ div.quick-collection {
     text-shadow: 1px 1px 0px #FFF;
     margin-top:0;
     margin-bottom: 0px
-    margin-right:10px;
-	border: 1px solid #EEE;
-	font-size: 110%;
-	width: 70%;
-	float: left;
+        margin-right:10px;
+    border: 1px solid #EEE;
+    font-size: 110%;
+    width: 70%;
+    float: left;
 }
 
 #clearlist {
     padding-left: 10px;
-	float:left;	
+    float:left;
 }
 
 
 .largenum {
-	font-size: 120%;
-	padding: 0 .3em;
-	vertical-align: -10%;
+    font-size: 120%;
+    padding: 0 .3em;
+    vertical-align: -10%;
     border: 3px solid #933;    
     /* height: 500px;
     margin-bottom: 150px; */
@@ -281,19 +329,19 @@ div.quick-collection {
 
 .lobster {
     font-family: 'Lobster Two';
-	text-shadow: 2px 3px 2px #EEE;
+    text-shadow: 2px 3px 2px #EEE;
     font-style: italic;	
-	font-size: 180%;
+    font-size: 180%;
 }
 
 .grey {
-	color: #555;
+    color: #555;
 }
 
 
 #outputs {
-	font-size: 10pt;
-	float: right;
+    font-size: 10pt;
+    float: right;
 }
 #report h2 {
     text-align:right;
@@ -315,31 +363,27 @@ div.quick-collection {
 
 
 h3 {
-	margin: 0px;
-	margin-top:20px;
+    margin: 0px;
+    margin-top:20px;
 }
 
 a {
-	color: #933;
+    color: #933;
     cursor: pointer;		
 }
 
 hr {
-	border: 0;
-	background-color: #CCC;
-	height: 1px;
+    border: 0;
+    background-color: #CCC;
+    height: 1px;
 }
 
-em.url {
-	font-style: normal;
-	font-size: 90%;
-	color: #999;	
-}
+
 
 p.prompt {
-	margin: 0 0 .3em 0;
-	padding: 0em;
-	font-size: 1em;    
+    margin: 0 0 .3em 0;
+    padding: 0em;
+    font-size: 1em;
 }
 
 p.howto {
@@ -358,8 +402,8 @@ p.howto {
 }
 
 p.sp {
-	margin-top: 2em;	
-	margin-bottom: 0;	
+    margin-top: 2em;
+    margin-bottom: 0;
 }
 
 /* updating page ********************************************************/
@@ -396,47 +440,12 @@ sup {
 }
 
 p#tagline {
-  color: #993333;
+    color: #993333;
     font-family: 'Lobster Two',helvetica,arial,sans-serif;
     font-size: 35px;
     font-style: italic;
     font-weight: normal;
     margin: 0 0 10px;
-}
-
-
-/* form elements */
-
-textarea.artifactList {
-	width: 98%;
-    margin-bottom: 25px;
-    font-size: 80%;    
-	padding: .3em;
-	color: #333;
-}
-
-.artifactList {
-	width: 98%;
-    margin-bottom: 25px;
-    font-size: 60%;    
-}
-
-input, textarea {
-	border: 1px solid #CCC;	
-    background-repeat:  repeat-x;
-	background-color: #fff;
-}
-input {
-    width: 60%;
-}
-
-
-button
-{
-	border: 1px solid #aaa;
-	background-color: #eee;
-	color: #333;
-    margin-top: 2px;
 }
 
 
@@ -485,25 +494,18 @@ a#clear-artifacts.hover {
 
 input.FAQ
 {
-	border-top: none;
-	border-left: none;	
-	border-bottom: 1px solid #EEE;
-	border-right: 1px solid #EEE;
-	background-color: grey;		
-	color: #FFF;
-}
-
-button.import-button:hover 
-{
-	background-color: #933;
-        border-color:#333;
-	color: #FFF;
+    border-top: none;
+    border-left: none;
+    border-bottom: 1px solid #EEE;
+    border-right: 1px solid #EEE;
+    background-color: grey;
+    color: #FFF;
 }
 
 legend {
-	font-size: 1.2em;
-	color: #888;
-	padding:10px;
+    font-size: 1.2em;
+    color: #888;
+    padding:10px;
 }
 legend span {
     font-family: 'Lobster Two', helvetica, arial, sans-serif;
@@ -517,51 +519,51 @@ legend span {
 
 .disabled { 
     color:grey; /* This property is for the text colour */ 
-    }
+}
 
 .entry .id {
-	font-size: 8pt;
-	padding-left: 18px;
-	padding-bottom: 4px;
-	
+    font-size: 8pt;
+    padding-left: 18px;
+    padding-bottom: 4px;
+
 }
 
 .entry .metric_value {
-	font-size: 32pt;
-	float: left;
-	color: #4c4cff;
-	padding-left: 18px;
-	padding-right: 8px;	
-	border-right-style:solid;
+    font-size: 32pt;
+    float: left;
+    color: #4c4cff;
+    padding-left: 18px;
+    padding-right: 8px;
+    border-right-style:solid;
 }
 
 .entry .metric_info {
-	float:left;
-	
+    float:left;
+
 }
 .entry .metric_name {
-	padding-top: 3px;
-	padding-left: 20px;
-	font-size: 12pt;
-	
+    padding-top: 3px;
+    padding-left: 20px;
+    font-size: 12pt;
+
 }
 
 .entry .metric_img {
     padding-top: 8px;
-	padding-left: 20px;
+    padding-left: 20px;
 }
-        
-        
+
+
 .section-title {
     background: lightgrey;
-	clear:both;
+    clear:both;
 }
 
 .section {
 }
 
 div#about_metrics {
-	float:left;
+    float:left;
 }
 
 
@@ -661,7 +663,7 @@ span.badge {
     margin-left: 10px;
 }
 
- a.report-button  {
+a.report-button  {
     margin-right: 5px;
     margin-bottom: 5px;
     background: #EEE;
@@ -698,18 +700,18 @@ a.report-button:hover {
     margin-right: 25px;
 }
 #permalink a.copyable  {
-	margin-top: 3px;
-	margin-right: 5px;
-	margin-bottom: 3px;
+    margin-top: 3px;
+    margin-right: 5px;
+    margin-bottom: 3px;
     padding: 2px 3px;
-	border: 1px solid #CCC;
+    border: 1px solid #CCC;
     -webkit-border-radius: 3px;    /* CSS3 rounded borders for Safari                    */
     -moz-border-radius: 3px;       /* CSS3 rounded borders for Firefox                   */
     border-radius: 3px;	
-	text-shadow: 1px 1px 0px #FFF;	
-	font-size: 90%;
-	text-decoration: none;
-	color: #999;
+    text-shadow: 1px 1px 0px #FFF;
+    font-size: 90%;
+    text-decoration: none;
+    color: #999;
 }
 #permalink a#copy-permalink {
     font-size: 75%;
@@ -721,7 +723,7 @@ a.report-button:hover {
     color: #933;
 }
 #permalink a {
-	text-decoration: none;
+    text-decoration: none;
 }
 #permalink span.label {
     font-family:'Lobster Two';
@@ -731,40 +733,40 @@ a.report-button:hover {
 
 
 .debugging a {
-	float: left;
-	text-decoration: none;
-	color: #FFF;
+    float: left;
+    text-decoration: none;
+    color: #FFF;
 }
 
 .something-missing {
-	clear: left;
-	padding-top: .5em;
+    clear: left;
+    padding-top: .5em;
     font-size: 75%;
     color: #999;
 }
 
 .created-at {
-	float: left;
-	margin-right: .5em;	
+    float: left;
+    margin-right: .5em;
 }
 
 .updated-at {
-	float: left;
-	margin-right: .5em;	
+    float: left;
+    margin-right: .5em;
 }
 
 .permalink {
-	float: left;
-	margin-right: .5em;	
+    float: left;
+    margin-right: .5em;
 }
 
 .artifacts-count {
-	float: left;
-	margin-right: .5em;	
+    float: left;
+    margin-right: .5em;
 }
 
 .tweet-this {
-	float:right;
+    float:right;
 }
 .tweet-this iframe {
     width:97px;
@@ -775,14 +777,14 @@ a.report-button:hover {
     padding-top: 30px;
 }
 input.report {
-	border-top: none;
-	border-left: none;
-	border-bottom: 1px solid #EEE;
-	border-right: 1px solid #EEE;
-	background-color: #933;
-	color: #FFF;
-        margin-top:3px;
-        height:28px;
+    border-top: none;
+    border-left: none;
+    border-bottom: 1px solid #EEE;
+    border-right: 1px solid #EEE;
+    background-color: #933;
+    color: #FFF;
+    margin-top:3px;
+    height:28px;
 }
 
 /** report printout ******************************************************/
@@ -792,37 +794,37 @@ div#metrics {
 }
 
 li.artifact {
-	list-style-type: none;
-	border: 0px solid #CCC;
-	padding: 0.3em;
-	margin-bottom: 1em;
-	clear: left;
+    list-style-type: none;
+    border: 0px solid #CCC;
+    padding: 0.3em;
+    margin-bottom: 1em;
+    clear: left;
 }
 
 li.artifact h4 {
-	font-weight: normal;
-	margin:0;
-	padding-top: 1em;
-	color: #AAA;
-	font-size : 12px;
+    font-weight: normal;
+    margin:0;
+    padding-top: 1em;
+    color: #AAA;
+    font-size : 12px;
 }
 div.genre h3 {
-   	font-family: "Lobster Two";
-        font-style:italic;
-        font-size:30px;
-        color:#555;
-        padding-left:116px;
-        border-bottom: 3px dotted #ddd;
-        font-weight:normal;
-        margin-top:0;
+    font-family: "Lobster Two";
+    font-style:italic;
+    font-size:30px;
+    color:#555;
+    padding-left:116px;
+    border-bottom: 3px dotted #ddd;
+    font-weight:normal;
+    margin-top:0;
 
 }
 
 div.genre {
-   float:left;
-   width:100%;
-   margin-bottom:40px;
-   
+    float:left;
+    width:100%;
+    margin-bottom:40px;
+
 }
 
 
@@ -860,7 +862,7 @@ ul.metrics li {
 }
 
 ul.metrics a {
-        text-align:center;
+    text-align:center;
 }
 
 ul.metrics span.metric-value {
@@ -898,7 +900,7 @@ span.meta-doi {
 }
 
 ul.source-list {
-	padding: 0;	
+    padding: 0;
 }
 
 .metric-image {
@@ -913,7 +915,7 @@ ul.source-list {
 
 
 ul.source-list_NO {
-	padding: 0;	
+    padding: 0;
     clear: left;
 }
 
@@ -925,16 +927,16 @@ ul.source-list_NO {
 }
 
 .metric-name_NO {
-	font-size: 10%;    
+    font-size: 10%;
     rotation: 90deg !important;
-     -moz-transform: rotate(-90deg);  /* FF3.5+ */
-       -o-transform: rotate(-90deg);  /* Opera 10.5 */
-  -webkit-transform: rotate(-90deg);  /* Saf3.1+, Chrome */
-             filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=3);  /* IE6,IE7 */
-         -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)"; /* IE8 */
-         display:block;
-         position:absolute;
-         left: 18px;
-         color: purple;
-         word-wrap: break-word;
+    -moz-transform: rotate(-90deg);  /* FF3.5+ */
+    -o-transform: rotate(-90deg);  /* Opera 10.5 */
+    -webkit-transform: rotate(-90deg);  /* Saf3.1+, Chrome */
+    filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=3);  /* IE6,IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)"; /* IE8 */
+    display:block;
+    position:absolute;
+    left: 18px;
+    color: purple;
+    word-wrap: break-word;
 }
