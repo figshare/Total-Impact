@@ -4,9 +4,11 @@
 body {
     font-family: "Helvetica", sans-serif;
     margin: 0;
-    border-top:5px solid #555;
-    background: #eee;
-
+    border-top:4px solid #933;
+    background-color: #eee;
+    background-image: url(./img/body-bg-grad.jpeg);
+    background-position: 50% -76px;
+    background-repeat: no-repeat;
 }
 
 body a:link {
@@ -157,6 +159,16 @@ body#about h2 {
     width:100%;
     box-shadow: 0 2px 5px 0 #999999;
     min-height: 400px;
+    background: url(./img/grey-bar.png) left -5px repeat-x;
+    background-color:#fff;
+    border-bottom:1px solid #933;
+}
+#input h2 {
+    width:100%;
+    margin:0 0 20px 0;
+    padding: 10px;
+    color:#fff;
+    background:url(./img/right-chevron.png) no-repeat right center;
 }
 
 #input span.loading {
@@ -197,6 +209,7 @@ span.loading {
 
 #importers ul {
     clear:both;
+    margin-bottom:0;
 }
 #importers ul li {
     list-style-type: none;
@@ -253,9 +266,15 @@ span.loading {
     padding: .3em;
     color: #333;
 }
+#importers div.something-missing p {
+    margin:10px 0 0;
+    padding:0;
+    font-size: 12px;
+    color: #999;
+}
 #importers div.something-missing {
     clear:both;
-    text-align:right;
+    margin:0 0 0 53px;
 }
 
 
@@ -325,6 +344,9 @@ a#clear-artifacts:hover {
 /* create-collection column */
 div#create-collection {
     
+}
+#create-collection h2 {
+    background:none;
 }
 div#create-collection input#name {
     font-size: 22px;
@@ -436,15 +458,8 @@ hr {
 
 p.howto {
     width: 98%;
-    background-color: #EEE;
     color: #666;
-    padding: .6em;
     font-size: 110%;
-    border: 1px solid #EEE;
-    -webkit-border-radius: 4px;    /* CSS3 rounded borders for Safari                    */
-    -moz-border-radius: 4px;       /* CSS3 rounded borders for Firefox                   */
-    border-radius: 4px;
-    text-shadow: 1px 1px 0px #FFF;
     margin-top:0;
     margin-bottom: 30px
 }
@@ -566,7 +581,6 @@ div#about_metrics {
 
 div#footer {
     font-size:100%;    
-    margin-top: 3em;
     padding: 2em 2em 3em 2em;
     border-top:1px dotted #ddd;
     clear:both;
@@ -578,7 +592,7 @@ div.footercol {
     float:left;
     padding-right: 2%;
     margin-right: 2%;
-    border-right: 1px dotted #ddd;
+    border-right: 1px dotted #bbb;
     min-height: 330px;
 }
 div#twitterfeed {
@@ -636,12 +650,12 @@ div.altmetrics p {
     font-style: normal;
     font-size:50px;
     color:#933;
-    text-shadow: #ddd 2px 2px 2px;
+    text-shadow: 1px 1px 0px #FFF;
     margin-left: 10px;
 }
 #report-meta {
     left: 0;
-    margin-left: 371px;
+    margin-left: 370px;
     position: relative;
     top: 41px;
 }
@@ -650,22 +664,20 @@ span.badge {
     float:left;
     font-size: 75%;
     padding-top:5px;
-    margin-left: 10px;
 }
 
 a.report-button  {
     margin-right: 5px;
     margin-bottom: 5px;
-    background: #EEE;
+    background: #aaa;
     padding: 2px 3px;
-    border: 1px solid #CCC;
+    border: 1px solid #888;
     -webkit-border-radius: 3px;    /* CSS3 rounded borders for Safari                    */
     -moz-border-radius: 3px;       /* CSS3 rounded borders for Firefox                   */
     border-radius: 3px;
-    text-shadow: 1px 1px 0px #FFF;
     font-size: 90%;
     text-decoration: none;
-    color: #999;
+    color: #fff;
     display: block;
     height:1.3em;
     padding-left:8px;
@@ -702,6 +714,7 @@ a.report-button:hover {
     font-size: 90%;
     text-decoration: none;
     color: #999;
+    background:#fff;
 }
 #permalink a#copy-permalink {
     font-size: 75%;
@@ -728,11 +741,15 @@ a.report-button:hover {
     color: #FFF;
 }
 
-.something-missing {
+p.something-missing {
     clear: left;
-    padding-top: .5em;
+    padding: 0 20px 20px 0;
     font-size: 75%;
     color: #999;
+    background:#fff;
+    text-align: right;
+    margin:0;
+    box-shadow: 0 2px 5px 0 #999999;
 }
 
 .created-at {
@@ -780,15 +797,23 @@ input.report {
 /** report printout ******************************************************/
 
 div#metrics {
-    margin-top:100px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-top: 3px solid #993333;
+    float: left;
+    margin-top: 54px;
+    padding-top: 50px;
+    width: 100%;
+}
+div#metrics div.wrapper {
 }
 
 li.artifact {
-    list-style-type: none;
-    border: 0px solid #CCC;
-    padding: 0.3em;
-    margin-bottom: 1em;
+    border: 0 solid #CCCCCC;
     clear: left;
+    list-style-type: none;
+    margin: 0 auto 1em;
+    padding: 0.3em;
+    width: 1048px;
 }
 
 li.artifact h4 {
@@ -803,8 +828,8 @@ div.genre h3 {
     font-style:italic;
     font-size:30px;
     color:#555;
-    padding-left:116px;
-    border-bottom: 3px dotted #ddd;
+    padding-left:23%; /* crazy hack. I want to give these a width and use auto, but I'm using h3 for my border right now. Will switch to ul */
+    border-bottom:1px solid #555;
     font-weight:normal;
     margin-top:0;
 
@@ -814,9 +839,13 @@ div.genre {
     float:left;
     width:100%;
     margin-bottom:40px;
-
 }
-
+div.genre:first-child {
+    margin-top: -91px;
+}
+div.genre:first-child h3 {
+    border-bottom:none;
+}
 
 div.genre ul {
     padding:0;
@@ -873,7 +902,7 @@ ul.metrics a:hover span.metric-value {
     color:#fff;
 }
 ul.metrics li:hover span.metric-name {
-    color:#933;
+    color:#993;
 }
 .metric-name {
     -moz-transform: rotate(45deg);

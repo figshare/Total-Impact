@@ -43,7 +43,7 @@ include('./header.php');
         <div id="input">
             <div class="wrapper">
                 <div id="importers" class="inputcol">
-                    <h2 class="heading"><span class="largenum">1</span>Collect research objects</h2>
+                    <h2 class="heading">Collect research objects</h2>
                     <ul>
                         <li>
                             <a class="toggler" id="mendeley_profile_toggler" >Mendeley profiles</a><br/>
@@ -113,12 +113,12 @@ include('./header.php');
                     <div class="something-missing"><p>Something missing on import?<br/> See a list of <a href="./about.php#limitations">current limitations.</a> </p></div>
                 </div>
                 <div id="edit-collection" class="inputcol">
-                    <h2 class="heading"><span class="largenum">2</span>Confirm list</h2>
+                    <h2 class="heading">Confirm list</h2>
                     <p id="artcounter"><span class="count">0</span> objects in this collection <a href="#" id="clear-artifacts">clear</a></p>
                     <ul id="collection-list"></ul>
                 </div>
                 <div id="create-collection" class="inputcol">
-                    <h2 class="heading"><span class="largenum">3</span>Create collection</h2>
+                    <h2 class="heading">Create collection</h2>
                     <form name="id_form" id="id-form">
                         <p id="name-collection"><label for="name">collection name:</label></p>
                         <input name="name" id="name" title="Add a meaningful title to this collection" value="<?php echo $title; ?>" />

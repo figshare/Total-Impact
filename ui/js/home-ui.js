@@ -9,7 +9,7 @@ addIdsToEditPane = function(str){
     for (i=0; i<len; i++) {
       returnedIds[i] = "<li><a class='remove' href='#'>remove</a><span class='object-id'>"+returnedIds[i]+"</span></li>";
     }
-    $("ul#collection-list").append(returnedIds.join("\n"));
+    $("ul#collection-list").append($(returnedIds.join("")).hide().fadeIn(1000));
     $("#artcounter span.count").text($("ul#collection-list li").size())
     return true;
 }
@@ -62,7 +62,7 @@ $(document).ready(function(){
         var sourceName = $(this).attr("id");
         var souceQuery = $(this).siblings("input").val();
         if ($thisDiv.attr("id") == "manual-add") {
-            addIdsToEditPane($thisButton.siblings("textarea").val());
+            addIdsToEditPane($thisDiv.find("textarea").val());
         }
         else {
             $(this).replaceWith("<span class='loading'><img src='./ui/img/ajax-loader.gif'> Loading...<span>");
@@ -79,7 +79,7 @@ $(document).ready(function(){
                     $thisDiv.find("span.loading")
                         .empty()
                         .append( 
-                            $("<span class='response'><span class='count'>"+response.artifactCount+"</span> added</span>").hide().fadeIn()
+                            $("<span class='response'><span class='count'>"+response.artifactCount+"</span> added</span>").hide().fadeIn(1000)
                         );
                     addIdsToEditPane(response.artifactIds);
                 }
