@@ -45,8 +45,8 @@ $(document).ready(function(){
     }).parent().next().hide();
 
     // click to remove object IDs in the edit pane
-    $("ul#collection-list li a.remove").live("click", function(){
-        $(this).parent().remove();
+    $("ul#collection-list li").live("click", function(){
+        $(this).slideUp(250, function(){$(this).remove();} );
         $("#artcounter span.count").text($("ul#collection-list li").size())
         return false;
     })
