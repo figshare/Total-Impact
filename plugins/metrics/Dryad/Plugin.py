@@ -37,8 +37,8 @@ class PluginClass(BasePluginClass):
     SOURCE_METRICS = dict(  file_views="combined number of views of the data package and data files",
                             package_views="number of views of the main package page",    
                             total_downloads="combined number of downloads of the data package and data files",
-                            downloads_of_most_popular_file="number of downloads of the most commonly downloaded data package component")    
-
+                            most_downloaded_file="number of downloads of the most commonly downloaded data package component")    
+                            
     DEBUG = False
 
     DRYAD_DOI_URL = "http://dx.doi.org/"
@@ -100,7 +100,7 @@ class PluginClass(BasePluginClass):
                 
         show_details_url = "http://dx.doi.org/" + doi
                 
-        return({"show_details_url":show_details_url, "file_views":file_total_views, "package_views":view_package, "total_downloads":total_downloads, "downloads_of_most_popular_file":max_downloads, "title":title, "year":year, "authors":authors})
+        return({"show_details_url":show_details_url, "file_views":file_total_views, "package_views":view_package, "total_downloads":total_downloads, "most_downloaded_file":max_downloads, "title":title, "year":year, "authors":authors})
     
     
     def get_metric_values(self, doi):
