@@ -169,20 +169,18 @@ body#about h2 {
     display:block;
 }
 #input input {
-    width: 60%;
     float:left;
-    margin: 0 3px 0 0;
+    margin: 2px 7px 0 0;
     padding:2px 0;
-
-}
-
-#input input, #input textarea {
+    -webkit-border-radius: 3px;    /* CSS3 rounded borders for Safari      */
+    -moz-border-radius: 3px;       /* CSS3 rounded borders for Firefox   */
     border: 1px solid #CCC;
-    background-repeat:  repeat-x;
-    background-color: #fff;
-    padding: 3px 0;
-    margin-right:7px;
+    width:60%
 }
+#input button {
+    margin:0;
+}
+
 p.prompt {
     margin: 0;
     padding: 0;
@@ -192,7 +190,13 @@ p.prompt {
 div.toggler_contents {
     margin: 0  0 10px 13px;
 }
-
+span.loading img {
+    height: 18px;
+}
+span.loading {
+    color: #777;
+    font-size: 12px;
+}
 
 
 /* the importers column */
@@ -217,13 +221,7 @@ div.toggler_contents {
     color: #933;
 }
 
-#importers span.loading img {
-    height: 18px;
-}
-#importers span.loading {
-    color: #777;
-    font-size: 12px;
-}
+
 #importers span.response span.count {
     font-weight: bold;
     color: #333;
@@ -344,6 +342,22 @@ div.quick-collection {
 }
 div.quick-collection p {
     margin:0;
+}
+div.quick-collection button {
+    float: left;
+}
+div.quick-collection span.loading {
+    display:block;
+    float:left;
+}
+#input div.quick-collection input {
+    width: 98%;
+    float:none;
+}
+#input div.quick-collection button, #input div.quick-collection span.loading {
+    float:left;
+    width: 50%;
+    margin:6px 0 0 0;
 }
 
 #create-collection p#name-collection {

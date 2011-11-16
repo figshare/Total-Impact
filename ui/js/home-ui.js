@@ -44,7 +44,7 @@ $(document).ready(function(){
         return false;
     });
 
-    // use one-click importers to add objects to the edit pane
+    // use importers to add objects to the edit pane
     $("button.import-button").click(function(){
         var $thisDiv = $(this).parent();
         var sourceName = $(this).attr("id");
@@ -55,13 +55,18 @@ $(document).ready(function(){
         else {
             $(this).replaceWith("<span class='loading'><img src='./ui/img/ajax-loader.gif'> Loading...<span>");
             $.get("./seed.php?type="+sourceName+"&name="+souceQuery, function(response,status,xhr){
-                if ($thisDiv.hasClass("quick-collection")) { // it's a quick collection
+                if ($thisDiv.parent().hasClass("quick-collection")) { // it's a quick collection
+                    displayStr = (typeof response.contacts == "undefined") ? response.groups : response.contacts;
                     $thisDiv.find("span.loading").empty();
+                    $thisDiv.append(
+                        // suggest we reformat api respose; presentation should be client's job
+                        $("<div class='response'>"+displayStr+"</div>").hide().slideDown()
+                    );
                 }
                 else {
                     $thisDiv.find("span.loading")
                         .empty()
-                        .append(
+                        .append( 
                             $("<span class='response'><span class='count'>"+response.artifactCount+"</span> added</span>").hide().fadeIn()
                         );
                     addIdsToEditPane(response.artifactIds);
@@ -70,13 +75,6 @@ $(document).ready(function(){
         }
     });
     
-    // quick reports. 
-    /*I suggest that instead of sending back all kinds of crazy presentational markup,
-    * the api should just give us a list of names and urls; the client can (and should)
-    * take care of presentation.
-    */
-   $("#create-collection button.import-button")
-
     // submitting the object IDs
     $("#id-form").submit(function(){
         var ids = [];

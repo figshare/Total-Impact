@@ -5,6 +5,29 @@ require_once './bootstrap.php';
 // and automatically flush() 
 // immediately after every print or echo 
 ob_implicit_flush(TRUE);
+if (isset($_REQUEST['run'])) {
+    $query_string = $_SERVER['QUERY_STRING'];
+    echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
+    echo "<script>location.href='./update.php?$query_string'</script>";
+} else {
+    $title = "";
+    $artifactIdsString = "";
+    if (isset($_REQUEST['list'])) {
+        $artifactIdsString = $_REQUEST['list'];
+    }
+    if (isset($_REQUEST['name'])) {
+        $title = $_REQUEST['name'];
+    }
+    if (isset($_REQUEST['add-id'])) {
+        $collectionId = $_REQUEST['add-id'];
+        $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
+        $collection = new Models_Collection();
+        $doc = $collection->fetch($collectionId, $config);
+        $title = $doc->title;
+        $artifactIds = $doc->artifact_ids;
+        $artifactIdsString .= implode('&#013;&#010;', $artifactIds);
+    }
+}
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -29,7 +52,6 @@ ob_implicit_flush(TRUE);
         </script>
 
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-        <!--<script type="text/javascript" src="./ui/jquery/jquery.qtip-1.0.0-rc3.min.js"></script>-->
         <script type="text/javascript" src="./ui/js/home-ui.js"></script>
 
     </head>
@@ -41,31 +63,6 @@ ob_implicit_flush(TRUE);
                     <li><a href="./about.php">about</a></li>
                     <li><a href="http://twitter.com/#!/totalImpactdev">twitter</a></li>
                 </ul>
-                <?php
-                if (isset($_REQUEST['run'])) {
-                    $query_string = $_SERVER['QUERY_STRING'];
-                    echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
-                    echo "<script>location.href='./update.php?$query_string'</script>";
-                } else {
-                    $title = "";
-                    $artifactIdsString = "";
-                    if (isset($_REQUEST['list'])) {
-                        $artifactIdsString = $_REQUEST['list'];
-                    }
-                    if (isset($_REQUEST['name'])) {
-                        $title = $_REQUEST['name'];
-                    }
-                    if (isset($_REQUEST['add-id'])) {
-                        $collectionId = $_REQUEST['add-id'];
-                        $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
-                        $collection = new Models_Collection();
-                        $doc = $collection->fetch($collectionId, $config);
-                        $title = $doc->title;
-                        $artifactIds = $doc->artifact_ids;
-                        $artifactIdsString .= implode('&#013;&#010;', $artifactIds);
-                    }
-                }
-                ?>
             </div>
         </div><!-- end header -->
 
@@ -181,78 +178,6 @@ ob_implicit_flush(TRUE);
 
             </div>
         </div><!-- END input -->
-
-
-
-
-        <div id="footer">
-            <div class="wrapper">
-                <div id="twitterfeed" class="footercol">
-
-                    <!--<h2 class="grey" id="recent">Recent reports</h2>-->
-                    <!-- https://twitter.com/about/resources/widgets/widget_search -->
-
-                    <script src="http://widgets.twimg.com/j/2/widget.js"></script>
-                    <script>
-                        new TWTR.Widget({
-                            version: 2,
-                            type: 'search',
-                            search: 'via @mytotalImpact',
-                            interval: 30000,
-                            subject: 'Latest tweeted reports:',
-                            width: "100%",
-                            height: 250,
-                            theme: {
-                                shell: {
-                                    background: '#eee',
-                                    color: '#000'
-                                },
-                                tweets: {
-                                    background: '#eee',
-                                    color: '#000',
-                                    links: '#933'
-                                }
-                            },
-                            features: {
-                                scrollbar: false,
-                                loop: false,
-                                live: true,
-                                hashtags: true,
-                                timestamp: true,
-                                avatars: true,
-                                toptweets: true,
-                                behavior: 'all'
-                            }
-                        }).render().start();
-                    </script>
-                </div>
-                <div class="recent-changes footercol">
-                    <h4>Latest changes on <a href="https://github.com/mhahnel/Total-Impact/blob/master/CHANGES.md">GitHub</a></h4>
-                    <?php
-                    include_once "library/PHPMarkdownExtra1.2.4/markdown.php";
-                    $fh = @fopen("CHANGES.md", "r");
-
-                    $lines = "";
-                    for ($i = 0; $i < 5; $i++) {
-                        echo Markdown(fgets($fh));
-#echo fgets($fh);
-#echo $i;
-                    }
-#@fclose($fh);
-#$my_html = Markdown($lines);
-#echo $my_html;
-                    ?>
-
-
-                </div>
-                <div class="altmetrics footercol">
-
-                    an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project.<br/>
-                </div>
-            </div>
-        </div> <!-- end footer -->
-
-
-
+        <!-- begin footer--><?php include('./footer.php') ?><!--end footer-->
     </body>
 </html>
