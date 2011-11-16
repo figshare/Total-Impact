@@ -29,8 +29,15 @@ if (isset($_REQUEST['run'])) {
     }
 }
 include('./header.php');
-echo "<!-- end header -->";
 ?>
+        <div id="about">
+            <div class="wrapper">
+                <p id="tagline">Uncover the invisible impact of research.</p>
+                <div id="instr">
+                    <p class="howto">Create a collection of research objects you want to track. We'll provide you a report of the total impact of this collection.<br />You can peruse <a href="./report.php?id=MqAnvI">a sample report</a> or check out the most recently shared reports.</p>
+                </div>
+            </div>
+        </div><!-- END about -->
 
         <!-- START input -->
         <div id="input">
