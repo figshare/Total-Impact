@@ -23,6 +23,8 @@
 
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
         <script type="text/javascript" src="./ui/js/home-ui.js"></script>
+        <script type="text/javascript" src="ui/jquery/jquery.tooltip.js"></script>
+        <script type="text/javascript" src="ui/jquery/jquery.zclip.js"></script>
 
     </head>
     <body>

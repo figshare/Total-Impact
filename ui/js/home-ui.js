@@ -15,6 +15,18 @@ addIdsToEditPane = function(str){
 }
 
 $(document).ready(function(){
+    
+    // report page stuff
+    $('ul.metrics li').tooltip();
+    $('a#copy-permalink').zclip({
+        path:'ui/jquery/ZeroClipboard.swf',
+        copy:$('#permalink a.copyable').text(),
+        afterCopy:function(){
+            $('a#copy-permalink').text('copied.');
+        }
+    });
+    $('#about-metrics').hide();
+
     // show/hide stuff
     $('#importers ul li')
         .prepend('<span class="pointer">▶</span>') // hack; these arrows should be entities, but that causes probs when replacing...

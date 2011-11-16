@@ -1,5 +1,5 @@
 <?php
-require './bootstrap.php';
+require_once './bootstrap.php';
 #require_once 'FirePHPCore/fb.php';
 
 $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
@@ -32,80 +32,11 @@ if ($mode == "list") {
 		$rendered_about_text = $report->render_about_text();	
 	}
 
+// handle missing IDs more intelligently later
+if (!$res){ header('Location: ../'); }
 
-	// handle missing IDs more intelligently later
-	if (!$res){ header('Location: ../'); }
-
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-		 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-	<head>
-		
-            <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-            <link href='http://fonts.googleapis.com/css?family=Lobster+Two:400italic' rel='stylesheet' type='text/css' >
-
-	    <title>total-Impact: <?php echo $report->getBestIdentifier() ?></title>
-	    <link rel="stylesheet" type="text/css" href="ui/totalimpact.css" />
-            <link rel="icon" type="image/png" href="ui/favicon.ico">
-            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-	    <script type="text/javascript" src="ui/jquery/jquery.tooltip.js"></script>
-	    <script type="text/javascript" src="ui/jquery/jquery.zclip.js"></script>
-
-
-	
-		<script type="text/javascript">
-		//Google Analytics code
-		  var _gaq = _gaq || [];
-		  _gaq.push(['_setAccount', 'UA-23384030-1']);
-		  _gaq.push(['_trackPageview']);
-	
-		  (function() {
-		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		  })();
-		</script>
-
-
-<script type="text/javascript">
-
-$.ajaxSetup ({  
-    cache: false  
-}); 
-var ajax_load = "<img src='./ui/img/ajax-loader.gif' alt='loading...' />";  
-
-$(document).ready(function(){
-
-	$('ul.metrics li').tooltip();
-        $('a#copy-permalink').zclip({
-            path:'ui/jquery/ZeroClipboard.swf',
-            copy:$('#permalink a.copyable').text(),
-            afterCopy:function(){
-                $('a#copy-permalink').text('copied.');
-            }
-        });
-
-	$('#about-metrics').hide();
-	
-});
-</script>
-
-	</head>
-	<body class="report">
-		<!-- START wrapper -->
-
-		
-			<!-- START header -->
-                <div id="header">
-                    <h1><a href="./index.php">total-impact</a></h1>
-                    <ul id="nav">
-                        <li><a href="./about.php">about</a></li>
-                        <li><a href="http://twitter.com/#!/totalImpactdev">twitter</a></li>
-                    </ul>
-                </div><!-- END header -->
-                <div id="wrapper">
-
-			<!-- START report -->
+include_once('./header.php');
+?>
 		    <div id="report">
 				<!-- START report-meta -->
 		        <div id="report-meta">
@@ -156,27 +87,7 @@ $(document).ready(function(){
 			echo "$rendered_about_text";
 			?>
 		</div>
-
-
-		
-		
-		</div>
-		<!-- END wrapper -->
-			<div id="footer">
-				<div class="debugging">
-				<a target="_blank" href="https://cloudant.com/futon/document.html?total-impact%2Fdevelopment/<?php echo $_REQUEST['id']; ?>">DB....</a>   
-				<a target="_blank" href="./report.php?id=<?php echo $collectionId; ?>&mode=status">status log</a>     
-				</div>
-
-
-				<div class="altmetrics">
-	
-			        an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project.<br/>
-			        source code on <a href="https://github.com/mhahnel/Total-Impact">github</a>
-				</div>
-
-
-                        </div>
+			<?php include_once('./footer.php'); ?>
 
 	</body>
 </html>
