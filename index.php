@@ -11,7 +11,16 @@ if (isset($_REQUEST['run'])) {
     echo "<script>location.href='./update.php?$query_string'</script>";
 } else {
     $title = "my collection";
-    $artifactIdsString = "";
+    $artifactIdsString = "10.1371/journal.pcbi.1000361
+17808382
+ef35f440-957f-11df-96dc-0024e8453de8
+AF313620
+2BAK
+GSE2109
+E-MEXP-88
+10.5061/dryad.1295
+ttp://www.slideshare.net/phylogenomics/eisenall-hands
+http://opensciencesummit.com/program/";
     if (isset($_REQUEST['list'])) {
         $artifactIdsString = $_REQUEST['list'];
     }
@@ -47,12 +56,12 @@ include('./header.php');
                     <h3 class="entry-method">Paste object IDs</h3>
                     <div id="past-ids">
                         <div class="toggler_contents" id="manual-add">
-                                <p class="prompt"  >Add one <a target="_blank" href="http://total-impact.org/about.php#whichartifacts">supported identifier</a> per line:</p>
-                                <textarea rows=15 name="list" id="manual_input" class="artifactList"><?php echo $artifactIdsString; ?></textarea>
+                                <p class="prompt"  >Add one DOI, PubMed ID, URL, or other <a target="_blank" href="http://total-impact.org/about.php#whichartifacts">supported identifier</a> per line:</p>
+                                <textarea rows=15 id="manual_input" class="artifactList"><?php echo $artifactIdsString; ?></textarea>
                                 <button class="import-button" id="manual">Add to collection</button>
                         </div>                        
                     </div>
-                    <p id="or">or</p>
+                    <p id="or">-or-</p>
                     <h3 clas="entry-method">Pull objects IDs from existing collections</h3>
                     <ul>
                         <li>

@@ -206,6 +206,9 @@ span.loading {
 
 
 /* the importers column */
+#importers h3 {
+    color:#333;
+}
 
 #importers ul {
     clear:both;
@@ -277,7 +280,13 @@ span.loading {
     clear:both;
     margin:0 0 0 25px;
 }
-
+#importers p#or {
+    font-family: 'Lobster Two', Helvetica, Arial, sans-serif;
+    color: #933;
+    font-size:30px;
+    margin:0 0 0 30px;
+    clear:both;
+}
 
 
 /* edit-collection column */
