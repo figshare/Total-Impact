@@ -361,13 +361,16 @@ div#create-collection {
 div#create-collection input#name {
     font-size: 22px;
     color: #933;
+    width:100%;
 }
 
 div.quick-collection {
     margin: 40px 0 0 10px;
+    float:left;
 }
 div.quick-collection p {
     margin:0;
+    clear:both;
 }
 div.quick-collection button {
     float: left;
@@ -398,23 +401,24 @@ div.quick-collection span.loading {
 
 
 #create-collection button.go-button {
-    margin: 10px 0 0 5%;
-    background-color: #933;
+    margin: 10px 0 0 0;
+    background:url(./img/grey-bar.png);
     color: #fff;
-    font-size: 2em;
-    width: 85%;
-    font-family: 'Lobster Two', 'Helvetica', arial, sans-serif;
-    font-style: italic;
-    border:1px solid #933;
+    font-size: 17px;
+    width: 100%;
+    font-family: 'Helvetica', arial, sans-serif;
+    border:none;
+    width:50%;
+    font-weight: bold;
     -webkit-border-radius: 10px;    /* CSS3 rounded borders for Safari                    */
     -moz-border-radius: 10px;       /* CSS3 rounded borders for Firefox                   */
     border-radius: 10px;
+    float:right;
 }
 
 #create-collection button.go-button:hover {
-    background-color: #800000;
+    background: #800000;
     cursor:pointer;
-    border:1px solid #000;
 }
 
 

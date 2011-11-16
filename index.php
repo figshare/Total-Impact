@@ -10,7 +10,7 @@ if (isset($_REQUEST['run'])) {
     echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
     echo "<script>location.href='./update.php?$query_string'</script>";
 } else {
-    $title = "";
+    $title = "my collection";
     $artifactIdsString = "";
     if (isset($_REQUEST['list'])) {
         $artifactIdsString = $_REQUEST['list'];
@@ -122,9 +122,9 @@ include('./header.php');
                 <div id="create-collection" class="inputcol">
                     <h2 class="heading">Create collection</h2>
                     <form name="id_form" id="id-form">
-                        <p id="name-collection"><label for="name">collection name:</label></p>
+                        <h3 id="name-collection"><label for="name">Name your collection:</label></h3>
                         <input name="name" id="name" title="Add a meaningful title to this collection" value="<?php echo $title; ?>" />
-                        <button name="run" type="submit" id="go-button" class="go-button">get metrics</button>
+                        <button name="run" type="submit" id="go-button" class="go-button">get my metrics!</button>
                         <input name="list" id="artifacts-list" type="hidden" value="<?php echo $artifactIdsString; ?>" />
                     </form>
 
