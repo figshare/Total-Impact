@@ -209,7 +209,8 @@ span.loading {
 
 #importers ul {
     clear:both;
-    margin-bottom:0;
+    margin: 0 0 0 10px;
+    padding-left:0;
 }
 #importers ul li {
     list-style-type: none;

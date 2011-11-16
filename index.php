@@ -44,6 +44,16 @@ include('./header.php');
             <div class="wrapper">
                 <div id="importers" class="inputcol">
                     <h2 class="heading">Collect research objects</h2>
+                    <h3 class="entry-method">Paste object IDs</h3>
+                    <div id="past-ids">
+                        <div class="toggler_contents" id="manual-add">
+                                <p class="prompt"  >Add one <a target="_blank" href="http://total-impact.org/about.php#whichartifacts">supported identifier</a> per line:</p>
+                                <textarea rows=15 name="list" id="manual_input" class="artifactList"><?php echo $artifactIdsString; ?></textarea>
+                                <button class="import-button" id="manual">Add to collection</button>
+                        </div>                        
+                    </div>
+                    <p id="or">or</p>
+                    <h3 clas="entry-method">Pull objects IDs from existing collections</h3>
                     <ul>
                         <li>
                             <a class="toggler" id="mendeley_profile_toggler" >Mendeley profiles</a><br/>
@@ -70,7 +80,7 @@ include('./header.php');
                             </div>
                         </li>
                         <li>
-                            <a class="toggler" id="dryad_toggler" >Dryad</a><br/>
+                            <a class="toggler" id="dryad_toggler" >Dryad datasets</a><br/>
                             <div class="toggler_contents" id="dryad_toggler_contents">
                                     <p class="prompt" title="Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve a list of datasets">Dryad author name</p>
                                     <input id="dryad_profile_input" name="dryadName" type="text" size="20" value="Otto, Sarah P."/>
@@ -78,7 +88,7 @@ include('./header.php');
                             </div>
                         </li>
                         <li>
-                            <a class="toggler" id="pubmed_toggler" >PubMed</a><br/>
+                            <a class="toggler" id="pubmed_toggler" >PubMed grants</a><br/>
                             <div class="toggler_contents" id="pubmed_toggler_contents">
                                     <p class="prompt" title="Fill in a grant number to retrieve publications from PubMed">Grant number</p>
                                     <input id="pubmed_grant_input" name="grantId" type="text" size="20" value="U54-CA121852"/>
@@ -99,14 +109,6 @@ include('./header.php');
                                     <p class="prompt">https://github.com/</p>
                                     <input id="github_orgs_input" name="orgname" type="text" size="20" value="bioperl"/>
                                     <button class="import-button" id="github_orgs">Import</button>
-                            </div>
-                        </li>
-                        <li>
-                            <a class="toggler" id="manual_toggler" title="Add, edit, and delete IDs">Add manually</a><br/>
-                            <div class="toggler_contents" id="manual-add">
-                                    <p class="prompt"  >Paste in <a target="_blank" href="http://total-impact.org/about.php#whichartifacts">supported identifiers</a>  for research objects, one per line.</p>
-                                    <textarea rows=15 name="list" id="manual_input" class="artifactList"><?php echo $artifactIdsString; ?></textarea>
-                                    <button class="import-button" id="manual">Add to collection</button>
                             </div>
                         </li>
                     </ul>
