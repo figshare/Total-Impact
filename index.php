@@ -158,11 +158,11 @@ ob_implicit_flush(TRUE);
                 </div>
                 <div id="create-collection" class="inputcol">
                     <h2 class="heading"><span class="largenum">3</span>Create collection</h2>
-                    <form name="id_form">
+                    <form name="id_form" id="id-form">
                         <p id="name-collection"><label for="name">collection name:</label></p>
                         <input name="name" id="name" title="Add a meaningful title to this collection" value="<?php echo $title; ?>" />
                         <button name="run" type="submit" id="go-button" class="go-button">get metrics</button>
-                        <input name="list" id="artifactListHidden" type="hidden" value="<?php echo $artifactIdsString; ?>" />
+                        <input name="list" id="artifacts-list" type="hidden" value="<?php echo $artifactIdsString; ?>" />
                     </form>
 
                     <div class="quick-collection">

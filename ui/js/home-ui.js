@@ -44,10 +44,6 @@ $(document).ready(function(){
         return false;
     });
 
-    var fulllist = $("textarea.artifactList").val();
-    var numberartifacts = fulllist.split("\n").length - 1;
-    $("#number-artifacts").html(numberartifacts+"");
-
     // use one-click importers to add objects to the edit pane
     $("#importers button.import-button").click(function(){
         var $thisButton = $(this);
@@ -68,6 +64,19 @@ $(document).ready(function(){
         }
     });
 
-    // use the manual add box to add objects to the edit pane
+    // submitting the object IDs
+    $("#id-form").submit(function(){
+        var ids = [];
+        $("ul#collection-list span.object-id").each(function(){
+           ids.push($(this).text()); 
+        });
+        if (ids.length == 0) {
+            alert("Looks like you haven't added any research objects to the collection yet.")
+            return false;
+        } else {
+            $("form#id-form input#artifacts-list").val(ids.join("\n"));
+            return true;
+        }
+    });
 
 });

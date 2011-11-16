@@ -183,6 +183,10 @@ body#about h2 {
     padding: 3px 0;
     margin-right:7px;
 }
+
+
+
+
 /* the importers column */
 
 #importers ul {
@@ -261,6 +265,10 @@ body#about h2 {
     clear:both;
     text-align:right;
 }
+
+
+
+/* edit-collection column */
 #edit-collection #artcounter {
     background-color: #EEE;
     color: #666;
@@ -275,6 +283,15 @@ body#about h2 {
     border: 1px solid #EEE;
     font-size: 14px;
     width: 80%;
+}
+a#clear-artifacts {
+    font-size: 75%;
+    cursor: pointer;
+    color:#999;
+    text-decoration: underline;
+}
+a#clear-artifacts:hover {
+    color: #933;
 }
 #edit-collection #artcounter span.count {
     font-weight: bold;
@@ -313,56 +330,60 @@ body#about h2 {
 
 
 
+/* create-collection column */
+div#create-collection {
+    
+}
+div#create-collection input#name {
+    font-size: 22px;
+    color: #933;
+}
+
 div.quick-collection {
     margin: 40px 0 0 10px;
 }
 
-
-
-.largefield {
-    font-size: 150%;
-    padding: .2em;
-    width: 70%;
-    color: #666;
-}
-
-
-
-#clearlist {
-    padding-left: 10px;
+#create-collection p#name-collection {
     float:left;
+    width: 25%;
+    margin:0 2% 0 0;
+    line-height: 1;
+    font-size: 17px;
+    text-align: right;
+    color: #777;
 }
 
 
-.largenum {
-    font-size: 120%;
-    padding: 0 .3em;
-    vertical-align: -10%;
-    border: 3px solid #933;    
-    /* height: 500px;
-    margin-bottom: 150px; */
-    -webkit-border-radius: 7px;    /* CSS3 rounded borders for Safari                    */
-    -moz-border-radius: 7px;       /* CSS3 rounded borders for Firefox                   */
-    border-radius: 7px;
-    box-shadow: 4px 6px 15px -8px #333; 
+#create-collection button.go-button {
+    margin: 10px 0 0 5%;
+    background-color: #933;
+    color: #fff;
+    font-size: 2em;
+    width: 85%;
+    font-family: 'Lobster Two', 'Helvetica', arial, sans-serif;
+    font-style: italic;
+    border:1px solid #933;
+    -webkit-border-radius: 10px;    /* CSS3 rounded borders for Safari                    */
+    -moz-border-radius: 10px;       /* CSS3 rounded borders for Firefox                   */
+    border-radius: 10px;
 }
 
-.lobster {
-    font-family: 'Lobster Two';
-    text-shadow: 2px 3px 2px #EEE;
-    font-style: italic;	
-    font-size: 180%;
-}
-
-.grey {
-    color: #555;
+#create-collection button.go-button:hover {
+    background-color: #800000;
+    cursor:pointer;
+    border:1px solid #000;
 }
 
 
-#outputs {
-    font-size: 10pt;
-    float: right;
-}
+
+
+
+
+
+
+
+
+
 #report h2 {
     text-align:right;
     font-family: 'Lobster Two';
@@ -451,10 +472,6 @@ td {
 
 /* home page **************************************************************/
 
-sup {
-    display:none; /* hide these for now because they don't work */
-}
-
 p#tagline {
     color: #993333;
     font-family: 'Lobster Two',helvetica,arial,sans-serif;
@@ -465,47 +482,8 @@ p#tagline {
 }
 
 
-p#name-collection {
-    float:left;
-    width: 25%;
-    margin:0 2% 0 0;
-    line-height: 1;
-    font-size: 17px;
-    text-align: right;
-}
-div#create-collection input#name {
-    height: 30px;
-}
 
-button.go-button {
-    margin: 10px 0 0 5%;
-    background-color: #933;
-    color: #fff;
-    font-size: 2em;
-    width: 85%;
-    font-family: 'Lobster Two', 'Helvetica', arial, sans-serif;
-    font-style: italic;
-    border:1px solid #933;
-    -webkit-border-radius: 10px;    /* CSS3 rounded borders for Safari                    */
-    -moz-border-radius: 10px;       /* CSS3 rounded borders for Firefox                   */
-    border-radius: 10px;
-}
 
-button.go-button:hover {
-    background-color: #800000;
-    cursor:pointer;
-    border:1px solid #000;
-}
-
-a#clear-artifacts {
-    font-size: 75%;
-    cursor: pointer;
-    color:#999;
-    text-decoration: underline;
-}
-a#clear-artifacts.hover {
-    color: #933;
-}
 
 
 input.FAQ
@@ -518,24 +496,9 @@ input.FAQ
     color: #FFF;
 }
 
-legend {
-    font-size: 1.2em;
-    color: #888;
-    padding:10px;
-}
-legend span {
-    font-family: 'Lobster Two', helvetica, arial, sans-serif;
-    font-style:italic;
-    font-size: 80%;
-    color: #bbb;
 
-}
 
 /* custom classes */
-
-.disabled { 
-    color:grey; /* This property is for the text colour */ 
-}
 
 .entry .id {
     font-size: 8pt;
