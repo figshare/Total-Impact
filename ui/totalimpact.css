@@ -21,13 +21,7 @@ div.wrapper {
     margin: 0 auto;
     width: 1084px;
 }
-body.report #wrapper {
-    margin-top: 100px;
-}
-body#about #wrapper {
-    margin-top: 150px;
-    width: 900px;
-}
+
 body div#tooltip {
     position: absolute;
     z-index: 3000;
