@@ -45,24 +45,37 @@ $(document).ready(function(){
     });
 
     // use one-click importers to add objects to the edit pane
-    $("#importers button.import-button").click(function(){
-        var $thisButton = $(this);
+    $("button.import-button").click(function(){
+        var $thisDiv = $(this).parent();
         var sourceName = $(this).attr("id");
         var souceQuery = $(this).siblings("input").val();
-        if ($(this).parent().attr("id") == "manual-add") {
+        if ($thisDiv.attr("id") == "manual-add") {
             addIdsToEditPane($thisButton.siblings("textarea").val());
         }
         else {
-            $(this).hide().parent().append("<span class='loading'><img src='./ui/img/ajax-loader.gif'> Loading...<span>");
+            $(this).replaceWith("<span class='loading'><img src='./ui/img/ajax-loader.gif'> Loading...<span>");
             $.get("./seed.php?type="+sourceName+"&name="+souceQuery, function(response,status,xhr){
-                $thisButton.siblings("span.loading").empty()
-                    .append( 
-                        $("<span class='response'><span class='count'>"+response.artifactCount+"</span> added</span>").hide().fadeIn()
-                    );
+                if ($thisDiv.hasClass("quick-collection")) { // it's a quick collection
+                    $thisDiv.find("span.loading").empty();
+                }
+                else {
+                    $thisDiv.find("span.loading")
+                        .empty()
+                        .append(
+                            $("<span class='response'><span class='count'>"+response.artifactCount+"</span> added</span>").hide().fadeIn()
+                        );
                     addIdsToEditPane(response.artifactIds);
+                }
             }, "json");
         }
     });
+    
+    // quick reports. 
+    /*I suggest that instead of sending back all kinds of crazy presentational markup,
+    * the api should just give us a list of names and urls; the client can (and should)
+    * take care of presentation.
+    */
+   $("#create-collection button.import-button")
 
     // submitting the object IDs
     $("#id-form").submit(function(){

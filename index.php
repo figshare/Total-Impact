@@ -167,18 +167,12 @@ ob_implicit_flush(TRUE);
 
                     <div class="quick-collection">
                         <p>&hellip; or fetch a quick collection based on 
-                            <a class="toggler" id="mendeley_quick_reports_toggler" title="Fill in the URL of your public Mendeley profile to import the references of your publications">your Mendeley contacts and public groups &raquo;</a><br/>
+                        <a class="toggler" id="mendeley_quick_reports_toggler">your Mendeley contacts and public groups &raquo;</a></p>
                         <div class="toggler_contents" id="mendeley_quick_reports_toggler_contents">
-                            <fieldset><legend><span>Quick collections from</span> Mendeley</legend>
-                                <table><tr><td>
-                                            <em class="url">http://www.mendeley.com/profiles/</em>
-                                            <input id="QR_mendeley_profile_input" name="profileId" type="text" size="20" value="heather-piwowar"/>
-                                        </td><td>
-                                            <br/><button class="import-button" id="quick_report_contacts" title="Fill in the URL of your public Mendeley profile to get direct links to reports for your contacts">Pull my contacts</button>
-                                            <br/><button class="import-button" id="quick_report_groups" title="Fill in the URL of your public Mendeley profile to get direct links to reports for your PUBLIC groups">Pull my groups</button>
-                                        </td></tr></table></fieldset>
-                            <div id="quick_report_div">
-                            </div>
+                            <p class="prompt">http://www.mendeley.com/profiles/</p>
+                            <input id="QR_mendeley_profile_input" name="profileId" type="text" size="20" value="heather-piwowar"/>
+                            <button class="import-button" id="quick_report_contacts" title="Fill in the URL of your public Mendeley profile to get direct links to reports for your contacts">Pull my contacts</button>
+                            <button class="import-button" id="quick_report_groups" title="Fill in the URL of your public Mendeley profile to get direct links to reports for your PUBLIC groups">Pull my groups</button>
                         </div>
                     </div>
 

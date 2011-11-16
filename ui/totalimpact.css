@@ -183,7 +183,15 @@ body#about h2 {
     padding: 3px 0;
     margin-right:7px;
 }
-
+p.prompt {
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+    color: #777;
+}
+div.toggler_contents {
+    margin: 0  0 10px 13px;
+}
 
 
 
@@ -242,15 +250,7 @@ body#about h2 {
 }
 
 
-#importers p.prompt {
-    margin: 0;
-    padding: 0;
-    font-size: 13px;
-    color: #777;
-}
-#importers div.toggler_contents {
-    margin: 0  0 10px 13px;
-}
+
 #importers #manual-add button {
     margin: 0;
     float:right;
@@ -341,6 +341,9 @@ div#create-collection input#name {
 
 div.quick-collection {
     margin: 40px 0 0 10px;
+}
+div.quick-collection p {
+    margin:0;
 }
 
 #create-collection p#name-collection {
