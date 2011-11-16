@@ -902,7 +902,7 @@ ul.metrics a:hover span.metric-value {
     color:#fff;
 }
 ul.metrics li:hover span.metric-name {
-    color:#993;
+    color:#933;
 }
 .metric-name {
     -moz-transform: rotate(45deg);
