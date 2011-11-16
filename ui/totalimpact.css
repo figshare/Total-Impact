@@ -275,7 +275,7 @@ span.loading {
 }
 #importers div.something-missing {
     clear:both;
-    margin:0 0 0 53px;
+    margin:0 0 0 25px;
 }
 
 
@@ -289,12 +289,10 @@ span.loading {
     -moz-border-radius: 4px;       /* CSS3 rounded borders for Firefox                   */
     border-radius: 4px;
     text-shadow: 1px 1px 0px #FFF;
-    margin-top:0;
-    margin-bottom: 0px
-        margin-right:10px;
+    margin:45px 0 0 0;
     border: 1px solid #EEE;
     font-size: 14px;
-    width: 80%;
+    width: 90%;
 }
 a#clear-artifacts {
     font-size: 75%;
@@ -307,8 +305,8 @@ a#clear-artifacts:hover {
 }
 #edit-collection #artcounter span.count {
     font-weight: bold;
-    font-size:20px;
-    color: #933;
+    font-size:22px;
+    color: #333;
 }
 #edit-collection ul {
     margin-left:0;

@@ -27,7 +27,7 @@
                                 }
                             },
                             features: {
-                                scrollbar: false,
+                                scrollbar: true,
                                 loop: false,
                                 live: true,
                                 hashtags: true,
