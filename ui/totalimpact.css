@@ -2,10 +2,13 @@
 
 
 body {
-	font-family: "Helvetica", sans-serif;       
-	margin: 0;
-        border-top:5px solid #555;
-
+    font-family: "Helvetica", sans-serif;
+    margin: 0;
+    border-top:4px solid #933;
+    background-color: #eee;
+    background-image: url(./img/body-bg-grad.jpeg);
+    background-position: 50% -76px;
+    background-repeat: no-repeat;
 }
 
 body a:link {
@@ -16,19 +19,11 @@ body a:hover {
     text-decoration: underline;
 }
 
-#wrapper {
-	margin: 100px auto 0;
-	width: 1084px;
-        min-height: 400px; 
-        padding-left:10px;
+div.wrapper {
+    margin: 0 auto;
+    width: 1084px;
 }
-body.report #wrapper {
-    margin-top: 100px;
-}
-body#about #wrapper {
-    margin-top: 150px;
-        width: 900px;
-}
+
 body div#tooltip {
     position: absolute;
     z-index: 3000;
@@ -85,13 +80,10 @@ h1 a {
     position: absolute;
     top:0;
     left:75px;
-   box-shadow: -1px 0 10px -2px #333333;
+    box-shadow: -1px 0 10px -2px #333333;
     cursor: pointer;       
 }
-h1 a:hover {
-    padding-top:13px;
-    background-position: 0 3px;
-}
+
 
 ul#nav {
     margin-top: -31px;
@@ -135,7 +127,7 @@ ul#nav li a:hover {
 /* about ************************************/
 
 div#about{
-    margin-top: 60px;
+    margin-top: 120px;
 }
 #toc {
     border: 1px solid #333333;
@@ -146,7 +138,7 @@ div#about{
     -webkit-border-radius: 4px;    /* CSS3 rounded borders for Safari      */              
     -moz-border-radius: 4px;       /* CSS3 rounded borders for Firefox   */
 }
-                                   
+
 a.tocBackLink {
     text-align: right;
     font-size: 10px;
@@ -157,85 +149,138 @@ body#about h2 {
     margin-top: 40px;
 }
 
+/* input
+*****************************************************************************/
 
-#input{
+/* general */
+#input {
+    background: #fff;
+    float:left;
+    width:100%;
+    box-shadow: 0 2px 5px 0 #999999;
+    min-height: 400px;
+    background: url(./img/grey-bar.png) left -5px repeat-x;
+    background-color:#fff;
+    border-bottom:1px solid #933;
+}
+#input h2 {
+    width:100%;
+    margin:0 0 20px 0;
+    padding: 10px;
+    color:#fff;
+    background:url(./img/right-chevron.png) no-repeat right center;
 }
 
-#footer{
-	padding-top: 55px;
+#input span.loading {
+    display:block;
+}
+#input input {
+    float:left;
+    margin: 2px 7px 0 0;
+    padding:2px 0;
+    -webkit-border-radius: 3px;    /* CSS3 rounded borders for Safari      */
+    -moz-border-radius: 3px;       /* CSS3 rounded borders for Firefox   */
+    border: 1px solid #CCC;
+    width:60%
+}
+#input button {
+    margin:0;
 }
 
-#importers {
-	float:left;
-	width: 30%;
-	margin-right:5%;
+p.prompt {
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+    color: #777;
+}
+div.toggler_contents {
+    margin: 0  0 10px 13px;
+}
+span.loading img {
+    height: 18px;
+}
+span.loading {
+    color: #777;
+    font-size: 12px;
+}
+
+
+/* the importers column */
+
+#importers ul {
+    clear:both;
+    margin-bottom:0;
+}
+#importers ul li {
+    list-style-type: none;
+    margin-top:.1em;
 }
 #importers table input {
     width: 100%;
 }
-#importers table button {
-    /* width: 100%;*/
+#importers li a:hover {
 }
-
-.heading {
+#importers li span.pointer {
+    font-size: .7em;
+    position:relative;
+    top:-.3em;
+    text-decoration: none;
     color: #933;
+}
+
+
+#importers span.response span.count {
     font-weight: bold;
+    color: #333;
+    font-size:18px;
 }
 
-fieldset {
-	border: 1px solid #CCC;
-	margin-bottom: 1em;	
-}
-
-#go-get-heading {
-    margin-top: 31px;
+#input div.inputcol {
+    width: 28%;
+    padding: 0 2% 50px;
     float:left;
 }
-
-#enter-collection-meta {
-	float:left;
-	width: 35%;
-	margin-right:5%;
+#importers fieldset {
+    border: 1px solid #CCC;
+    margin-bottom: 1em;
+    -webkit-border-radius: 4px;    /* CSS3 rounded borders for Safari      */
+    -moz-border-radius: 4px;       /* CSS3 rounded borders for Firefox   */
+}
+#importers em.url {
+    font-style: normal;
+    font-size: 90%;
+    color: #999;
+    width:100%;
+    display:inline-block;
 }
 
-#enter-collection-meta fieldset {
-    border: 0;
-    padding: 0;
-}
 
-#enter-collection-meta fieldset_DISABLING_RED_BORDER_FOR_NOW {
-    border: 3px solid #933;
-    
-    /* height: 500px;
-    margin-bottom: 150px; */
-    -webkit-border-radius: 7px;    /* CSS3 rounded borders for Safari                    */
-    -moz-border-radius: 7px;       /* CSS3 rounded borders for Firefox                   */
-    border-radius: 7px;
-    box-shadow: 4px 6px 15px -8px #333; 
-}
-#enter-collection-meta textarea {
-    height: 240px;
 
-}
-
-.quick-collection {
-    margin-top: 40px; 
-/*    margin-left: 60px; */
-}
-
-#twitterfeed {
+#importers #manual-add button {
+    margin: 0;
     float:right;
-	width: 24%;
+}
+#importers #manual-add textarea {
+    width: 98%;
+    font-size: 80%;
+    padding: .3em;
+    color: #333;
+}
+#importers div.something-missing p {
+    margin:10px 0 0;
+    padding:0;
+    font-size: 12px;
+    color: #999;
+}
+#importers div.something-missing {
+    clear:both;
+    margin:0 0 0 53px;
 }
 
-.largefield {
-	font-size: 150%;
-	padding: .2em;
-	width: 70%;
-	color: #666;
-}
 
-#artcounter {
+
+/* edit-collection column */
+#edit-collection #artcounter {
     background-color: #EEE;
     color: #666;
     padding: .6em;
@@ -245,48 +290,133 @@ fieldset {
     text-shadow: 1px 1px 0px #FFF;
     margin-top:0;
     margin-bottom: 0px
-    margin-right:10px;
-	border: 1px solid #EEE;
-	font-size: 110%;
-	width: 70%;
-	float: left;
+        margin-right:10px;
+    border: 1px solid #EEE;
+    font-size: 14px;
+    width: 80%;
+}
+a#clear-artifacts {
+    font-size: 75%;
+    cursor: pointer;
+    color:#999;
+    text-decoration: underline;
+}
+a#clear-artifacts:hover {
+    color: #933;
+}
+#edit-collection #artcounter span.count {
+    font-weight: bold;
+    font-size:20px;
+    color: #933;
+}
+#edit-collection ul {
+    margin-left:0;
+    padding-left:0;
+}
+#edit-collection ul li {
+    list-style-type:none;
+    margin-bottom: 3px;
+    font-size: 12px;
+    clear:both;
+    color: #333;
+}
+#edit-collection ul li a {
+    text-indent:-9999px;
+    display:inline-block;
+    width: 12px;
+    height: 12px;
+    background: url(./img/remove-icon.png) 0 0;
+    margin:1px 2px 0 0;
+    float:left;
+}
+#edit-collection ul li a:hover {
+    background-position: 0 12px;
 }
 
-#clearlist {
-    padding-left: 10px;
-	float:left;	
+#edit-collection ul li span {
+    word-wrap: break-word;
+    float:left;
+    width: 90%;
 }
 
 
-.largenum {
-	font-size: 120%;
-	padding: 0 .3em;
-	vertical-align: -10%;
-    border: 3px solid #933;    
-    /* height: 500px;
-    margin-bottom: 150px; */
-    -webkit-border-radius: 7px;    /* CSS3 rounded borders for Safari                    */
-    -moz-border-radius: 7px;       /* CSS3 rounded borders for Firefox                   */
-    border-radius: 7px;
-    box-shadow: 4px 6px 15px -8px #333; 
+
+/* create-collection column */
+div#create-collection {
+    
+}
+#create-collection h2 {
+    background:none;
+}
+div#create-collection input#name {
+    font-size: 22px;
+    color: #933;
 }
 
-.lobster {
-    font-family: 'Lobster Two';
-	text-shadow: 2px 3px 2px #EEE;
-    font-style: italic;	
-	font-size: 180%;
+div.quick-collection {
+    margin: 40px 0 0 10px;
+}
+div.quick-collection p {
+    margin:0;
+}
+div.quick-collection button {
+    float: left;
+}
+div.quick-collection span.loading {
+    display:block;
+    float:left;
+}
+#input div.quick-collection input {
+    width: 98%;
+    float:none;
+}
+#input div.quick-collection button, #input div.quick-collection span.loading {
+    float:left;
+    width: 50%;
+    margin:6px 0 0 0;
 }
 
-.grey {
-	color: #555;
+#create-collection p#name-collection {
+    float:left;
+    width: 25%;
+    margin:0 2% 0 0;
+    line-height: 1;
+    font-size: 17px;
+    text-align: right;
+    color: #777;
 }
 
 
-#outputs {
-	font-size: 10pt;
-	float: right;
+#create-collection button.go-button {
+    margin: 10px 0 0 5%;
+    background-color: #933;
+    color: #fff;
+    font-size: 2em;
+    width: 85%;
+    font-family: 'Lobster Two', 'Helvetica', arial, sans-serif;
+    font-style: italic;
+    border:1px solid #933;
+    -webkit-border-radius: 10px;    /* CSS3 rounded borders for Safari                    */
+    -moz-border-radius: 10px;       /* CSS3 rounded borders for Firefox                   */
+    border-radius: 10px;
 }
+
+#create-collection button.go-button:hover {
+    background-color: #800000;
+    cursor:pointer;
+    border:1px solid #000;
+}
+
+
+
+
+
+
+
+
+
+
+
 #report h2 {
     text-align:right;
     font-family: 'Lobster Two';
@@ -307,51 +437,36 @@ fieldset {
 
 
 h3 {
-	margin: 0px;
-	margin-top:20px;
+    margin: 0px;
+    margin-top:20px;
 }
 
 a {
-	color: #933;
+    color: #933;
     cursor: pointer;		
 }
 
 hr {
-	border: 0;
-	background-color: #CCC;
-	height: 1px;
+    border: 0;
+    background-color: #CCC;
+    height: 1px;
 }
 
-em.url {
-	font-style: normal;
-	font-size: 90%;
-	color: #999;	
-}
 
-p.prompt {
-	margin: 0 0 .3em 0;
-	padding: 0em;
-	font-size: 1em;    
-}
+
+
 
 p.howto {
     width: 98%;
-    background-color: #EEE;
     color: #666;
-    padding: .6em;
     font-size: 110%;
-    border: 1px solid #EEE;
-    -webkit-border-radius: 4px;    /* CSS3 rounded borders for Safari                    */
-    -moz-border-radius: 4px;       /* CSS3 rounded borders for Firefox                   */
-    border-radius: 4px;
-    text-shadow: 1px 1px 0px #FFF;
     margin-top:0;
     margin-bottom: 30px
 }
 
 p.sp {
-	margin-top: 2em;	
-	margin-bottom: 0;	
+    margin-top: 2em;
+    margin-bottom: 0;
 }
 
 /* updating page ********************************************************/
@@ -383,12 +498,8 @@ td {
 
 /* home page **************************************************************/
 
-sup {
-    display:none; /* hide these for now because they don't work */
-}
-
 p#tagline {
-  color: #993333;
+    color: #993333;
     font-family: 'Lobster Two',helvetica,arial,sans-serif;
     font-size: 35px;
     font-style: italic;
@@ -397,202 +508,129 @@ p#tagline {
 }
 
 
-/* form elements */
-
-textarea.artifactList {
-	width: 98%;
-    margin-bottom: 25px;
-    font-size: 80%;    
-	padding: .3em;
-	color: #333;
-}
-
-.artifactList {
-	width: 98%;
-    margin-bottom: 25px;
-    font-size: 60%;    
-}
-
-input, textarea {
-	border: 1px solid #CCC;	
-    background-repeat:  repeat-x;
-	background-color: #fff;
-}
-input {
-    width: 60%;
-}
 
 
-button
-{
-	border: 1px solid #aaa;
-	background-color: #eee;
-	color: #333;
-    margin-top: 2px;
-}
-
-.recent-changes {
-	padding-left: 10px;    
-	padding-bottom: 10px;    
-    font-size: 50%;
-    color:#999;
-    float: left;
-}
-
-.recent-changes a:link {
-    color: #999;
-    text-decoration: underline;    
-}
-
-.recent-changes a {
-    color: #999;
-    text-decoration: underline;    
-}
-
-.recent-changes ul {
-    padding:0;
-    padding-left: 20px;
-    margin:0;
-}
-
-p#name-collection {
-    float:left;
-    width: 15%;
-    margin-top: -2px;
-}
-
-#enter-collection-meta .go-button {
-	margin-top: .5em;
-    background-color: #933;
-    color: #fff;
-    font-size: 36px;
-	width: 70%;
-    height: 1.8em;
-    font-family: 'Lobster Two', 'Helvetica', arial, sans-serif;
-    font-style: italic;
-    border:1px solid #933;
-    -webkit-border-radius: 10px;    /* CSS3 rounded borders for Safari                    */
-    -moz-border-radius: 10px;       /* CSS3 rounded borders for Firefox                   */
-    border-radius: 10px;
-    box-shadow: 4px 6px 15px -8px #333;    
-}
-
-#enter-collection-meta .go-button:hover {
-    background-color: #EEE;
-	color: #333;
-	cursor:pointer;    
-    border:1px solid #DDD;
-}
-
-a#clear-artifacts {
-    font-size: 75%;
-    cursor: pointer;
-    color:#999;
-    text-decoration: underline;
-}
-a#clear-artifacts.hover {
-    color: #933;
-}
 
 
 input.FAQ
 {
-	border-top: none;
-	border-left: none;	
-	border-bottom: 1px solid #EEE;
-	border-right: 1px solid #EEE;
-	background-color: grey;		
-	color: #FFF;
+    border-top: none;
+    border-left: none;
+    border-bottom: 1px solid #EEE;
+    border-right: 1px solid #EEE;
+    background-color: grey;
+    color: #FFF;
 }
 
-button.import-button:hover 
-{
-	background-color: #933;
-        border-color:#333;
-	color: #FFF;
-}
 
-legend {
-	font-size: 1.2em;
-	color: #888;
-	padding:10px;
-}
-legend span {
-    font-family: 'Lobster Two', helvetica, arial, sans-serif;
-    font-style:italic;
-    font-size: 80%;
-    color: #bbb;
-
-}
 
 /* custom classes */
 
-.disabled { 
-    color:grey; /* This property is for the text colour */ 
-    }
-
 .entry .id {
-	font-size: 8pt;
-	padding-left: 18px;
-	padding-bottom: 4px;
-	
+    font-size: 8pt;
+    padding-left: 18px;
+    padding-bottom: 4px;
+
 }
 
 .entry .metric_value {
-	font-size: 32pt;
-	float: left;
-	color: #4c4cff;
-	padding-left: 18px;
-	padding-right: 8px;	
-	border-right-style:solid;
+    font-size: 32pt;
+    float: left;
+    color: #4c4cff;
+    padding-left: 18px;
+    padding-right: 8px;
+    border-right-style:solid;
 }
 
 .entry .metric_info {
-	float:left;
-	
+    float:left;
+
 }
 .entry .metric_name {
-	padding-top: 3px;
-	padding-left: 20px;
-	font-size: 12pt;
-	
+    padding-top: 3px;
+    padding-left: 20px;
+    font-size: 12pt;
+
 }
 
 .entry .metric_img {
     padding-top: 8px;
-	padding-left: 20px;
+    padding-left: 20px;
 }
-        
-        
+
+
 .section-title {
     background: lightgrey;
-	clear:both;
+    clear:both;
 }
 
 .section {
 }
 
 div#about_metrics {
-	float:left;
+    float:left;
 }
+
+
+
+
+
+
+/* footer
+***********************************************************/
 
 div#footer {
     font-size:100%;    
-	margin-top: 3em;	
-	padding: 2em 2em 3em 2em;
+    padding: 2em 2em 3em 2em;
     border-top:1px dotted #ddd;
-    clear:both; 
+    clear:both;
     color: #aaa;
+}
+
+div.footercol {
+    width: 30%;
+    float:left;
+    padding-right: 2%;
+    margin-right: 2%;
+    border-right: 1px dotted #bbb;
+    min-height: 330px;
+}
+div#twitterfeed {
+}
+
+div.recent-changes {
+    color:#333;
+    float: left;
+    margin-left: 2%;
+}
+div.recent-changes h4 {
+    margin:10px 0;
+}
+div.recent-changes a {
+    color: #933;
+}
+div.recent-changes ul {
+    padding:0;
+    margin:0;
+    font-size: 12px
+}
+div.recent-changes ul li {
+    list-style-type: none;
+    margin-bottom: .7em;
 }
 
 div.altmetrics {
     float:right;
     text-align: right;
+    margin-top: 10px;
+    width: 25%;
+    padding-right:0;
+    border-right:none;
 }
 
 div.altmetrics p {
     padding: 0;
-    margins: 0;
+    margin: 0;
 }
 
 
@@ -612,12 +650,12 @@ div.altmetrics p {
     font-style: normal;
     font-size:50px;
     color:#933;
-    text-shadow: #ddd 2px 2px 2px;
+    text-shadow: 1px 1px 0px #FFF;
     margin-left: 10px;
 }
 #report-meta {
     left: 0;
-    margin-left: 371px;
+    margin-left: 370px;
     position: relative;
     top: 41px;
 }
@@ -626,22 +664,20 @@ span.badge {
     float:left;
     font-size: 75%;
     padding-top:5px;
-    margin-left: 10px;
 }
 
- a.report-button  {
+a.report-button  {
     margin-right: 5px;
     margin-bottom: 5px;
-    background: #EEE;
+    background: #aaa;
     padding: 2px 3px;
-    border: 1px solid #CCC;
+    border: 1px solid #888;
     -webkit-border-radius: 3px;    /* CSS3 rounded borders for Safari                    */
     -moz-border-radius: 3px;       /* CSS3 rounded borders for Firefox                   */
     border-radius: 3px;
-    text-shadow: 1px 1px 0px #FFF;
     font-size: 90%;
     text-decoration: none;
-    color: #999;
+    color: #fff;
     display: block;
     height:1.3em;
     padding-left:8px;
@@ -666,18 +702,19 @@ a.report-button:hover {
     margin-right: 25px;
 }
 #permalink a.copyable  {
-	margin-top: 3px;
-	margin-right: 5px;
-	margin-bottom: 3px;
+    margin-top: 3px;
+    margin-right: 5px;
+    margin-bottom: 3px;
     padding: 2px 3px;
-	border: 1px solid #CCC;
+    border: 1px solid #CCC;
     -webkit-border-radius: 3px;    /* CSS3 rounded borders for Safari                    */
     -moz-border-radius: 3px;       /* CSS3 rounded borders for Firefox                   */
     border-radius: 3px;	
-	text-shadow: 1px 1px 0px #FFF;	
-	font-size: 90%;
-	text-decoration: none;
-	color: #999;
+    text-shadow: 1px 1px 0px #FFF;
+    font-size: 90%;
+    text-decoration: none;
+    color: #999;
+    background:#fff;
 }
 #permalink a#copy-permalink {
     font-size: 75%;
@@ -689,7 +726,7 @@ a.report-button:hover {
     color: #933;
 }
 #permalink a {
-	text-decoration: none;
+    text-decoration: none;
 }
 #permalink span.label {
     font-family:'Lobster Two';
@@ -699,40 +736,44 @@ a.report-button:hover {
 
 
 .debugging a {
-	float: left;
-	text-decoration: none;
-	color: #FFF;
+    float: left;
+    text-decoration: none;
+    color: #FFF;
 }
 
-.something-missing {
-	clear: left;
-	padding-top: .5em;
+p.something-missing {
+    clear: left;
+    padding: 0 20px 20px 0;
     font-size: 75%;
     color: #999;
+    background:#fff;
+    text-align: right;
+    margin:0;
+    box-shadow: 0 2px 5px 0 #999999;
 }
 
 .created-at {
-	float: left;
-	margin-right: .5em;	
+    float: left;
+    margin-right: .5em;
 }
 
 .updated-at {
-	float: left;
-	margin-right: .5em;	
+    float: left;
+    margin-right: .5em;
 }
 
 .permalink {
-	float: left;
-	margin-right: .5em;	
+    float: left;
+    margin-right: .5em;
 }
 
 .artifacts-count {
-	float: left;
-	margin-right: .5em;	
+    float: left;
+    margin-right: .5em;
 }
 
 .tweet-this {
-	float:right;
+    float:right;
 }
 .tweet-this iframe {
     width:97px;
@@ -743,56 +784,68 @@ a.report-button:hover {
     padding-top: 30px;
 }
 input.report {
-	border-top: none;
-	border-left: none;
-	border-bottom: 1px solid #EEE;
-	border-right: 1px solid #EEE;
-	background-color: #933;
-	color: #FFF;
-        margin-top:3px;
-        height:28px;
+    border-top: none;
+    border-left: none;
+    border-bottom: 1px solid #EEE;
+    border-right: 1px solid #EEE;
+    background-color: #933;
+    color: #FFF;
+    margin-top:3px;
+    height:28px;
 }
 
 /** report printout ******************************************************/
 
 div#metrics {
-    margin-top:100px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-top: 3px solid #993333;
+    float: left;
+    margin-top: 54px;
+    padding-top: 50px;
+    width: 100%;
+}
+div#metrics div.wrapper {
 }
 
 li.artifact {
-	list-style-type: none;
-	border: 0px solid #CCC;
-	padding: 0.3em;
-	margin-bottom: 1em;
-	clear: left;
+    border: 0 solid #CCCCCC;
+    clear: left;
+    list-style-type: none;
+    margin: 0 auto 1em;
+    padding: 0.3em;
+    width: 1048px;
 }
 
 li.artifact h4 {
-	font-weight: normal;
-	margin:0;
-	padding-top: 1em;
-	color: #AAA;
-	font-size : 12px;
+    font-weight: normal;
+    margin:0;
+    padding-top: 1em;
+    color: #AAA;
+    font-size : 12px;
 }
 div.genre h3 {
-   	font-family: "Lobster Two";
-        font-style:italic;
-        font-size:30px;
-        color:#555;
-        padding-left:116px;
-        border-bottom: 3px dotted #ddd;
-        font-weight:normal;
-        margin-top:0;
+    font-family: "Lobster Two";
+    font-style:italic;
+    font-size:30px;
+    color:#555;
+    padding-left:23%; /* crazy hack. I want to give these a width and use auto, but I'm using h3 for my border right now. Will switch to ul */
+    border-bottom:1px solid #555;
+    font-weight:normal;
+    margin-top:0;
 
 }
 
 div.genre {
-   float:left;
-   width:100%;
-   margin-bottom:40px;
-   
+    float:left;
+    width:100%;
+    margin-bottom:40px;
 }
-
+div.genre:first-child {
+    margin-top: -91px;
+}
+div.genre:first-child h3 {
+    border-bottom:none;
+}
 
 div.genre ul {
     padding:0;
@@ -828,7 +881,7 @@ ul.metrics li {
 }
 
 ul.metrics a {
-        text-align:center;
+    text-align:center;
 }
 
 ul.metrics span.metric-value {
@@ -849,7 +902,7 @@ ul.metrics a:hover span.metric-value {
     color:#fff;
 }
 ul.metrics li:hover span.metric-name {
-    color:#933;
+    color:#993;
 }
 .metric-name {
     -moz-transform: rotate(45deg);
@@ -866,7 +919,7 @@ span.meta-doi {
 }
 
 ul.source-list {
-	padding: 0;	
+    padding: 0;
 }
 
 .metric-image {
@@ -881,7 +934,7 @@ ul.source-list {
 
 
 ul.source-list_NO {
-	padding: 0;	
+    padding: 0;
     clear: left;
 }
 
@@ -893,16 +946,16 @@ ul.source-list_NO {
 }
 
 .metric-name_NO {
-	font-size: 10%;    
+    font-size: 10%;
     rotation: 90deg !important;
-     -moz-transform: rotate(-90deg);  /* FF3.5+ */
-       -o-transform: rotate(-90deg);  /* Opera 10.5 */
-  -webkit-transform: rotate(-90deg);  /* Saf3.1+, Chrome */
-             filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=3);  /* IE6,IE7 */
-         -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)"; /* IE8 */
-         display:block;
-         position:absolute;
-         left: 18px;
-         color: purple;
-         word-wrap: break-word;
+    -moz-transform: rotate(-90deg);  /* FF3.5+ */
+    -o-transform: rotate(-90deg);  /* Opera 10.5 */
+    -webkit-transform: rotate(-90deg);  /* Saf3.1+, Chrome */
+    filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=3);  /* IE6,IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)"; /* IE8 */
+    display:block;
+    position:absolute;
+    left: 18px;
+    color: purple;
+    word-wrap: break-word;
 }
