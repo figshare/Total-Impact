@@ -19,7 +19,7 @@ $(document).ready(function(){
     // report page stuff
     $('ul.metrics li').tooltip();
     $('a#copy-permalink').zclip({
-        path:'ui/jquery/ZeroClipboard.swf',
+        path:'ui/js/ZeroClipboard.swf',
         copy:$('#permalink a.copyable').text(),
         afterCopy:function(){
             $('a#copy-permalink').text('copied.');
@@ -100,6 +100,23 @@ $(document).ready(function(){
             $("form#id-form input#artifacts-list").val(ids.join("\n"));
             return true;
         }
+    });
+
+    // remove prepoluated values in form inputs
+    $("textarea").add("input").focus(function(){
+        if (this.defaultValue == this.value) {
+            this.value = "";
+        }
+    }).blur(function(){
+        if ($(this).val() == "") {
+            $(this).val(this.defaultValue);
+        }
+    })
+
+    // dialog for supported IDs
+    $("div#manual-add p.prompt a").click(function(){
+        TINY.box.show({url:'supported-ids.php'})
+        return false;
     });
 
 });

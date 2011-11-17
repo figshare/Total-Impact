@@ -159,7 +159,7 @@ body#about h2 {
     width:100%;
     box-shadow: 0 2px 5px 0 #999999;
     min-height: 400px;
-    background: url(./img/grey-bar.png) left -5px repeat-x;
+    background: url(./img/grey-bar.png) left top repeat-x;
     background-color:#fff;
     border-bottom:1px solid #933;
 }
@@ -169,6 +169,9 @@ body#about h2 {
     padding: 10px;
     color:#fff;
     background:url(./img/right-chevron.png) no-repeat right center;
+}
+#input h3 {
+    margin: 0 0 5px 0;
 }
 
 #input span.loading {
@@ -183,6 +186,11 @@ body#about h2 {
     border: 1px solid #CCC;
     width:60%
 }
+#input textarea {
+    -webkit-border-radius: 3px;    /* CSS3 rounded borders for Safari      */
+    -moz-border-radius: 3px;       /* CSS3 rounded borders for Firefox   */
+    border: 1px solid #CCC;
+}
 #input button {
     margin:0;
 }
@@ -190,11 +198,11 @@ body#about h2 {
 p.prompt {
     margin: 0;
     padding: 0;
-    font-size: 13px;
+    font-size: 14px;
     color: #777;
 }
 div.toggler_contents {
-    margin: 0  0 10px 13px;
+    margin: 0  0 10px 0;
 }
 span.loading img {
     height: 18px;
@@ -212,16 +220,14 @@ span.loading {
 
 #importers ul {
     clear:both;
-    margin: 0 0 0 10px;
+    margin: 0 0 0 0;
     padding-left:0;
 }
 #importers ul li {
     list-style-type: none;
     margin-top:.1em;
 }
-#importers table input {
-    width: 100%;
-}
+
 #importers li a:hover {
 }
 #importers li span.pointer {
@@ -244,12 +250,7 @@ span.loading {
     padding: 0 2% 50px;
     float:left;
 }
-#importers fieldset {
-    border: 1px solid #CCC;
-    margin-bottom: 1em;
-    -webkit-border-radius: 4px;    /* CSS3 rounded borders for Safari      */
-    -moz-border-radius: 4px;       /* CSS3 rounded borders for Firefox   */
-}
+
 #importers em.url {
     font-style: normal;
     font-size: 90%;
@@ -265,7 +266,7 @@ span.loading {
     float:right;
 }
 #importers #manual-add textarea {
-    width: 98%;
+    width: 97%;
     font-size: 80%;
     padding: .3em;
     color: #333;
@@ -278,14 +279,15 @@ span.loading {
 }
 #importers div.something-missing {
     clear:both;
-    margin:0 0 0 25px;
+    margin:0 0 0 12px;
 }
 #importers p#or {
     font-family: 'Lobster Two', Helvetica, Arial, sans-serif;
     color: #933;
     font-size:30px;
-    margin:0 0 0 30px;
+    margin:0 0 15px 30px;
     clear:both;
+    font-style: italic;
 }
 
 
@@ -510,11 +512,19 @@ h2.loading span {
 table {
     border-collapse: collapse;
     padding:2px;
-    border-color: #999;
+    border-color: #ccc;
+    width: 700px;
 }
 td {
-    padding: 2px 4px;
-    border-color: #ccc;
+    padding: 3px 8px;
+    border:1px solid #ccc;
+    border-left:none;
+    border-right:none;
+}
+th {
+    background: #933;
+    color:#fff;
+    border:none;
 }
 
 /* home page **************************************************************/
@@ -980,3 +990,19 @@ ul.source-list_NO {
     color: purple;
     word-wrap: break-word;
 }
+
+/** TinyBox (modal js dialog) styles
+*******************************************************************************/
+.tbox {position:absolute; display:none; padding:14px 17px; z-index:900}
+.tbox h1 {margin:0; font-size: 25px; color: #933;}
+.tinner {padding:15px; -moz-border-radius:5px; border-radius:5px; background:#fff url(./img/ajax-loader.gif) no-repeat 50% 50%; border-right:1px solid #333; border-bottom:1px solid #333}
+.tmask {position:absolute; display:none; top:0px; left:0px; height:100%; width:100%; background:#000; z-index:800}
+.tclose {position:absolute; top:0px; right:0px; width:30px; height:30px; cursor:pointer; background:url(./img/tinybox-close.png) no-repeat}
+.tclose:hover {background-position:0 -30px}
+
+#error {background:#ff6969; color:#fff; text-shadow:1px 1px #cf5454; border-right:1px solid #000; border-bottom:1px solid #000; padding:0}
+#error .tcontent {padding:10px 14px 11px; border:1px solid #ffb8b8; -moz-border-radius:5px; border-radius:5px}
+#success {background:#2ea125; color:#fff; text-shadow:1px 1px #1b6116; border-right:1px solid #000; border-bottom:1px solid #000; padding:10; -moz-border-radius:0; border-radius:0}
+#bluemask {background:#4195aa}
+#frameless {padding:0}
+#frameless .tclose {left:6px}
