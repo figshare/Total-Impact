@@ -218,7 +218,7 @@ class Models_Reporter {
 
     private function printGenre($name, $artifacts, $abouts, $showZeros){
         $ret = '';
-        $ret .= "<div class='genre $name'><h3>$name</h3>";
+        $ret .= "<div class='genre $name'><h3><span>$name</span></h3>"; // hack is for css tab img
         $ret .= "<ul class='artifact-list'>";
         foreach ($artifacts as $id => $artifact){
             $ret .= $this->printArtifact($id, $artifact, $abouts, $showZeros);

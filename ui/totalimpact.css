@@ -825,10 +825,14 @@ div.genre h3 {
     font-size:34px;
     color:#555;
     font-weight:normal;
-    margin:-39px 0 0 100px;
+    margin:-40px 0 0 130px;
     float:left;
-    background:url(./img/genre-tab.png) no-repeat;
-    padding: 5px 63px;
+    background:url(./img/genre-tab-r.png) no-repeat top right;
+    padding: 0 24px 0 0;
+}
+div.genre h3 span {
+    background: url(./img/genre-tab.png) no-repeat top left;
+    padding: 0 0 0 30px;
 }
 
 div.genre {
@@ -845,7 +849,7 @@ div.genre:first-child {
     margin-top: -50px;
 }
 div.genre:first-child h3 {
-    margin-top: -39px;
+    margin-top: -40px;
     border-bottom:none;
 }
 div.genre:last-child {
