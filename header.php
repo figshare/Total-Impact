@@ -32,7 +32,7 @@
     <body>
         <div id="header">
             <div class="wrapper">
-                <h1><a href="./index.php">total-impact</a></h1>
+                <h1><span class="loathsome-hack"></span><a href="./index.php">total-impact</a><span class="loathsome-hack"></span></h1>
                 <ul id="nav">
                     <li><a href="./about.php">about</a></li>
                     <li><a href="http://twitter.com/#!/totalImpactdev">twitter</a></li>

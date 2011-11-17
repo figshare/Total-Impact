@@ -82,18 +82,28 @@ $(document).ready(function(){
                         .append( 
                             $("<span class='response'><span class='count'>"+response.artifactCount+"</span> added</span>")
                             .hide()
+<<<<<<< HEAD
                             .fadeIn(500, function(){
-                                $(this).delay(2000).fadeOut(500, function(){
+                                $(this).delay(1000).fadeOut(1000, function(){
                                     $(this)
                                     .parent()
                                     .siblings("button")
-                                    .fadeIn(500)
+                                    .show()
                                     .siblings("span.loading")
                                     .remove()
 
                                 })
                             })
                         )
+=======
+                            .fadeIn(1000, function(){
+                                $(this).fadeOut(1000,function(){
+                                    $(this).parent().siblings("input").fadeIn(500)
+                                })
+                            })
+                        );
+                    addIdsToEditPane(response.artifactIds);
+>>>>>>> 6942cbf4631e54fa2c687d4ebac94ceb4e5507bf
                 }
             }, "json");
         }
