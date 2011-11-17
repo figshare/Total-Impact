@@ -787,7 +787,7 @@ input.report {
 
 div#metrics {
     background: none repeat scroll 0 0 #FFFFFF;
-    border-top: 3px solid #993333;
+    border-top: 1px solid #ddd;
     float: left;
     margin-top: 54px;
     padding-top: 50px;
@@ -842,8 +842,7 @@ div.genre:first-child {
     margin-top: -50px;
 }
 div.genre:first-child h3 {
-    border:3px solid #933;
-    margin-top: -41px;
+    margin-top: -39px;
     border-bottom:none;
 }
 div.genre:last-child {
