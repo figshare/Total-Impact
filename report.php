@@ -43,17 +43,22 @@ if ($mode == "list") {
         <!-- START report-meta -->    
         <div class="wrapper">    
             <div id="report-meta">    
-                <h2>report for <span class="title"><?php echo $report->getBestIdentifier(); ?></span></h2>
-                <span class="badge artifacts-count"><?php echo $report->getArtifactsCount(); ?> artifacts</span>
-                <span class="badge created-at">created <?php echo $report->getCreatedAt('j M, Y'); ?></span>
-                <span class="badge updated-at">updated <?php echo $report->getUpdatedAt('j M, Y'); ?></span>
-                <a class="report-button" href="./update.php?id=<?php echo $collectionId; ?>">run update</a>
+                <h2><span class="title"><?php echo $report->getBestIdentifier(); ?></span></h2>
+                <div id="report-button">
+                    <a class="report-button" href="./update.php?id=<?php echo $collectionId; ?>">run update</a>
+                    <a class="report-button" href="./report.php?id=<?php echo $collectionId; ?>&mode=list">download data</a>
+                </div>
+                <div id="report-info">
+                    <span class="badge artifacts-count"><span class="num"><?php echo $report->getArtifactsCount(); ?></span> artifacts;</span>
+                    <span class="badge updated-at">updated <span class="date"><?php echo $report->getUpdatedAt('j M, Y'); ?></span></span>
+                </div>
+                <!--<span class="badge created-at">created <?php echo $report->getCreatedAt('j M, Y'); ?></span>-->
                 <!--a class="report-button" href="./?add-id=<?php echo $collectionId; ?>">refine</a-->
-                <a class="report-button" href="./report.php?id=<?php echo $collectionId; ?>&mode=list">download data</a>
     
     
                 <div id="share">    
                     <!-- based on code here: https://dev.twitter.com/docs/tweet-button -->    
+                    <span id="permalink"><span class="label"> Permalink: </span><a class="copyable", href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a><a href="#" id="copy-permalink">copy</a></span>
                     <script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>    
                     <span class="tweet-this">    
                         <a href="https://twitter.com/share" class="twitter-share-button"    
@@ -62,7 +67,6 @@ if ($mode == "list") {
                            data-text="<?php echo "Check out the total-Impact of " . $report->getBestIdentifier() . ": "; ?>"
                            data-count="horizontal">Tweet</a>    
                     </span>    
-                    <span id="permalink"><span class="label"> Permalink: </span><a class="copyable", href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a><a href="#" id="copy-permalink">copy</a></span>
                 </div>    
             </div>    
         </div>    

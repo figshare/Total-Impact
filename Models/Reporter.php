@@ -219,7 +219,7 @@ class Models_Reporter {
     private function printGenre($name, $artifacts, $abouts, $showZeros){
         $ret = '';
         $ret .= "<div class='genre $name'><h3>$name</h3>";
-        $ret .= "<ul>";
+        $ret .= "<ul class='artifact-list'>";
         foreach ($artifacts as $id => $artifact){
             $ret .= $this->printArtifact($id, $artifact, $abouts, $showZeros);
         }

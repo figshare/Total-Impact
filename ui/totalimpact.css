@@ -666,20 +666,23 @@ div.altmetrics p {
     font-size:50px;
     color:#933;
     text-shadow: 1px 1px 0px #FFF;
-    margin-left: 10px;
 }
 #report-meta {
     left: 0;
-    margin-left: 370px;
+    margin-left: 402px;
     position: relative;
     top: 41px;
 }
 
-span.badge {
+div#report-info{
     float:left;
-    font-size: 75%;
-    padding-top:5px;
+    font-size:12px;
+    padding-top: 5px;
 }
+#report-info span.badge {
+    margin-left:5px;
+}
+
 
 a.report-button  {
     margin-right: 5px;
@@ -713,7 +716,7 @@ a.report-button:hover {
 }
 
 #permalink {
-    float:right;
+    float:left;
     margin-right: 25px;
 }
 #permalink a.copyable  {
@@ -726,7 +729,7 @@ a.report-button:hover {
     -moz-border-radius: 3px;       /* CSS3 rounded borders for Firefox                   */
     border-radius: 3px;	
     text-shadow: 1px 1px 0px #FFF;
-    font-size: 90%;
+    font-size: 12px;
     text-decoration: none;
     color: #999;
     background:#fff;
@@ -750,15 +753,9 @@ a.report-button:hover {
 }
 
 
-.debugging a {
-    float: left;
-    text-decoration: none;
-    color: #FFF;
-}
-
 p.something-missing {
     clear: left;
-    padding: 0 20px 20px 0;
+    padding: 50px 20px 20px 0;
     font-size: 75%;
     color: #999;
     background:#fff;
@@ -767,29 +764,6 @@ p.something-missing {
     box-shadow: 0 2px 5px 0 #999999;
 }
 
-.created-at {
-    float: left;
-    margin-right: .5em;
-}
-
-.updated-at {
-    float: left;
-    margin-right: .5em;
-}
-
-.permalink {
-    float: left;
-    margin-right: .5em;
-}
-
-.artifacts-count {
-    float: left;
-    margin-right: .5em;
-}
-
-.tweet-this {
-    float:right;
-}
 .tweet-this iframe {
     width:97px;
 }
@@ -827,14 +801,12 @@ li.artifact {
     clear: left;
     list-style-type: none;
     margin: 0 auto 1em;
-    padding: 0.3em;
     width: 1150px;
 }
 
 li.artifact h4 {
     font-weight: normal;
     margin:0;
-    padding-top: 1em;
     color: #AAA;
     font-size : 12px;
 }
@@ -843,27 +815,48 @@ div.genre h3 {
     font-style:italic;
     font-size:30px;
     color:#555;
-    padding-left:23%; /* crazy hack. I want to give these a width and use auto, but I'm using h3 for my border right now. Will switch to ul */
-    border-bottom:1px solid #555;
     font-weight:normal;
-    margin-top:0;
-
+    margin:-39px 0 0 23%;
+    float:left;
+    background:#fff;
+    padding: 0 15px;
+    border: 1px solid #ccc;
+    border-bottom:none;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-topleft: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-top-left-radius: 5px;
 }
 
 div.genre {
     float:left;
     width:100%;
-    margin-bottom:40px;
+    padding:0 0 30px;
+    background-color:#fff;
+    background-image:url(./img/genre-bg.png);
+    background-repeat: repeat-x;
+    background-position: left bottom;
+    border-bottom: 1px solid #ddd;
 }
 div.genre:first-child {
-    margin-top: -91px;
+    margin-top: -50px;
 }
 div.genre:first-child h3 {
+    border:3px solid #933;
+    margin-top: -41px;
+    border-bottom:none;
+}
+div.genre:last-child {
+    background-image:none;
     border-bottom:none;
 }
 
-div.genre ul {
-    padding:0;
+
+div.genre ul.artifact-list {
+    padding:30px 0 0;
+    width:100%;
+    float:left;
+    margin:0;
 }
 ul.metrics li, ul.biblio li, ul.about li{
     list-style-type:none;
@@ -892,7 +885,7 @@ ul.metrics {
 }
 ul.metrics li {
     float: left;
-    height: 5em;
+    height: 6em;
 }
 
 ul.metrics a {
