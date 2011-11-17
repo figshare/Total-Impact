@@ -40,7 +40,7 @@ include('./header.php');
             <div class="wrapper">
                 <p id="tagline">Uncover the invisible impact of research.</p>
                 <div id="instr">
-                    <p class="howto">Create a collection of research objects you want to track. We'll provide you a report of the total impact of this collection.<br />You can peruse <a href="./report.php?id=MqAnvI">a sample report</a> or check out the most <a id="link-to-recently-shared" href="#">recently shared reports.</a></p>
+                    <p class="howto">Create a collection of research objects you want to track. We'll provide you a report of the total impact of this collection.<br />You can peruse <a href="./report.php?id=MqAnvI">a sample report</a> or check out the most <a id="link-to-recently-shared" href="#twitterfeed">recently shared reports.</a></p>
                 </div>
             </div>
         </div><!-- END about -->

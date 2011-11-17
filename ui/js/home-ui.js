@@ -126,9 +126,8 @@ $(document).ready(function(){
             .css("cssText", "background: transparent !important")
             .parent()
             .css("background", "#933")
-            .animate({background: "#eee"}, 1500)
+            .animate({"background-color": "#eee"}, 1500, "linear")
         return false;
     });
-
 
 });
