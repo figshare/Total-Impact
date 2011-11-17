@@ -121,12 +121,12 @@ include('./header.php');
                     <div class="something-missing"><p>Something missing on import?<br/> See a list of <a href="./about.php#limitations">current limitations.</a> </p></div>
                 </div>
                 <div id="edit-collection" class="inputcol">
-                    <h2 class="heading">Confirm list</h2>
+                    <h2 class="heading">Review collection</h2>
                     <p id="artcounter"><span class="count">0</span> objects in this collection <a href="#" id="clear-artifacts">clear</a></p>
                     <ul id="collection-list"></ul>
                 </div>
                 <div id="create-collection" class="inputcol">
-                    <h2 class="heading">Create collection</h2>
+                    <h2 class="heading">Create report</h2>
                     <form name="id_form" id="id-form">
                         <h3 id="name-collection"><label for="name">Name your collection:</label></h3>
                         <input name="name" id="name" title="Add a meaningful title to this collection" value="<?php echo $title; ?>" />
