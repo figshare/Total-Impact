@@ -65,7 +65,7 @@ $(document).ready(function(){
             addIdsToEditPane($thisDiv.find("textarea").val());
         }
         else {
-            $(this).replaceWith("<span class='loading'><img src='./ui/img/ajax-loader.gif'> Loading...<span>");
+            $(this).hide().after("<span class='loading'><img src='./ui/img/ajax-loader.gif'> Loading...<span>");
             $.get("./seed.php?type="+sourceName+"&name="+souceQuery, function(response,status,xhr){
                 if ($thisDiv.parent().hasClass("quick-collection")) { // it's a quick collection
                     displayStr = (typeof response.contacts == "undefined") ? response.groups : response.contacts;
@@ -76,12 +76,24 @@ $(document).ready(function(){
                     );
                 }
                 else {
+                    addIdsToEditPane(response.artifactIds);
                     $thisDiv.find("span.loading")
                         .empty()
                         .append( 
-                            $("<span class='response'><span class='count'>"+response.artifactCount+"</span> added</span>").hide().fadeIn(1000)
-                        );
-                    addIdsToEditPane(response.artifactIds);
+                            $("<span class='response'><span class='count'>"+response.artifactCount+"</span> added</span>")
+                            .hide()
+                            .fadeIn(500, function(){
+                                $(this).delay(1000).fadeOut(1000, function(){
+                                    $(this)
+                                    .parent()
+                                    .siblings("button")
+                                    .show()
+                                    .siblings("span.loading")
+                                    .remove()
+
+                                })
+                            })
+                        )
                 }
             }, "json");
         }
