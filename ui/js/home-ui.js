@@ -65,7 +65,7 @@ $(document).ready(function(){
             addIdsToEditPane($thisDiv.find("textarea").val());
         }
         else {
-            $(this).replaceWith("<span class='loading'><img src='./ui/img/ajax-loader.gif'> Loading...<span>");
+            $(this).hide().after("<span class='loading'><img src='./ui/img/ajax-loader.gif'> Loading...<span>");
             $.get("./seed.php?type="+sourceName+"&name="+souceQuery, function(response,status,xhr){
                 if ($thisDiv.parent().hasClass("quick-collection")) { // it's a quick collection
                     displayStr = (typeof response.contacts == "undefined") ? response.groups : response.contacts;
@@ -79,7 +79,13 @@ $(document).ready(function(){
                     $thisDiv.find("span.loading")
                         .empty()
                         .append( 
-                            $("<span class='response'><span class='count'>"+response.artifactCount+"</span> added</span>").hide().fadeIn(1000)
+                            $("<span class='response'><span class='count'>"+response.artifactCount+"</span> added</span>")
+                            .hide()
+                            .fadeIn(1000, function(){
+                                $(this).fadeOut(1000,function(){
+                                    $(this).parent().siblings("input").fadeIn(500)
+                                })
+                            })
                         );
                     addIdsToEditPane(response.artifactIds);
                 }

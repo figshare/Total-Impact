@@ -64,31 +64,40 @@ div#tooltip p, div#tooltip div, div#tooltip h3 {
 /* header ************************************/
 
 #header {
-    font-size: 1.5em;
-    color: #BBB;
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
 }
-
+#header div.wrapper {
+    width: 100%;
+}
+h1 {
+    height:85px;
+    margin:0;
+}
 h1 a {
     background-image:url(./img/ti_logo.png);
     background-repeat: no-repeat;
-    background-color:#dadada;
-    height: 52px;
     text-indent: -9999px;
-    width: 253px;
-    padding-top:10px;
-    margin-left:40px;
-    border: 3px solid #933;
-    border-top: 1px solid #999;
-    -moz-border-radius-bottomright: 10px;
-    -moz-border-radius-bottomleft: 10px;
-    -webkit-border-bottom-right-radius: 10px;
-    -webkit-border-bottom-left-radius: 10px;
+    width: 345px;
     display:block;
-    position: absolute;
-    top:0;
-    left:75px;
-    box-shadow: -1px 0 10px -2px #333333;
-    cursor: pointer;       
+    float:left;
+    cursor: pointer;      
+    height:85px;
+
+}
+h1 span.loathsome-hack {
+    background: url(./img/header-top.png) repeat-x;   
+    height:85px;
+    display:block;
+}
+h1 span.loathsome-hack:first-child{
+    float:left;
+    width: 100px;
+}
+h1 span.loathsome-hack:last-child{
+    margin-left: 445px;
 }
 
 
@@ -99,7 +108,7 @@ ul#nav {
     font-family: 'Lobster Two', helvetica, arial, sans-serif;
     font-style: italic;
     position: absolute;
-    top:30px;
+    top:48px;
     right: 90px;
 
 }
@@ -112,12 +121,12 @@ ul#nav li {
 
 }
 ul#nav li a {
-    padding: 5px 10px 0;
+    padding: 0 10px 0;
     background-color: #aaa;
     color: #fff;
     display:block;
     border:1px solid #ddd;
-    border-top:5px solid #888;
+    border-top:3px solid #888;
     -moz-border-radius-bottomright: 5px;
     -moz-border-radius-bottomleft: 5px;
     -webkit-border-bottom-right-radius: 5px;
@@ -128,7 +137,7 @@ ul#nav li a {
 
 ul#nav li a:hover {
     text-decoration: none;
-    padding-top: 8px;
+    padding-top: 3px;
 }
 
 /* about ************************************/
@@ -813,19 +822,13 @@ li.artifact h4 {
 div.genre h3 {
     font-family: "Lobster Two";
     font-style:italic;
-    font-size:30px;
+    font-size:34px;
     color:#555;
     font-weight:normal;
-    margin:-39px 0 0 23%;
+    margin:-39px 0 0 100px;
     float:left;
-    background:#fff;
-    padding: 0 15px;
-    border: 1px solid #ccc;
-    border-bottom:none;
-    -moz-border-radius-topright: 5px;
-    -moz-border-radius-topleft: 5px;
-    -webkit-border-top-right-radius: 5px;
-    -webkit-border-top-left-radius: 5px;
+    background:url(./img/genre-tab.png) no-repeat;
+    padding: 5px 63px;
 }
 
 div.genre {
