@@ -40,7 +40,7 @@ include('./header.php');
             <div class="wrapper">
                 <p id="tagline">Uncover the invisible impact of research.</p>
                 <div id="instr">
-                    <p class="howto">Create a collection of research objects you want to track. We'll provide you a report of the total impact of this collection.<br />You can peruse <a href="./report.php?id=MqAnvI">a sample report</a> or check out the most recently shared reports.</p>
+                    <p class="howto">Create a collection of research objects you want to track. We'll provide you a report of the total impact of this collection.<br />You can peruse <a href="./report.php?id=MqAnvI">a sample report</a> or check out the most <a id="link-to-recently-shared" href="#">recently shared reports.</a></p>
                 </div>
             </div>
         </div><!-- END about -->
@@ -51,13 +51,13 @@ include('./header.php');
                 <div id="importers" class="inputcol">
                     <h2 class="heading">Collect research objects</h2>
                     <h3 class="entry-method">Paste object IDs</h3>
-                    <div id="past-ids">
+                    <fieldset id="paste-ids">
                         <div class="toggler_contents" id="manual-add">
                                 <p class="prompt"  >Add one DOI, PubMed ID, URL, or other <a target="_blank" href="http://total-impact.org/about.php#whichartifacts">supported identifier</a> per line:</p>
                                 <textarea rows="11" cols="40" id="manual_input" class="artifactList" ><?php echo $artifactIdsString; ?></textarea>
                                 <button class="import-button" id="manual">Add to collection</button>
                         </div>                        
-                    </div>
+                    </fieldset>
                     <p id="or">-or-</p>
                     <h3 clas="entry-method">Pull objects IDs from existing collections</h3>
                     <ul>

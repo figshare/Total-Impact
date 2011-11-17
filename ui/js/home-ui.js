@@ -119,4 +119,16 @@ $(document).ready(function(){
         return false;
     });
 
+    // scroll down to recently shared reports
+    $("#link-to-recently-shared").click(function(){
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000)
+            .find("#twitterfeed h4")
+            .css("cssText", "background: transparent !important")
+            .parent()
+            .css("background", "#933")
+            .animate({background: "#eee"}, 1500)
+        return false;
+    });
+
+
 });

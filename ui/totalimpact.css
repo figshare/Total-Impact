@@ -21,9 +21,16 @@ body a:hover {
 
 div.wrapper {
     margin: 0 auto;
-    width: 1084px;
+    width: 1150px;
 }
-
+h3 {
+    margin: 0px;
+    margin-top:20px;
+}
+a {
+    color: #933;
+    cursor: pointer;
+}
 body div#tooltip {
     position: absolute;
     z-index: 3000;
@@ -260,6 +267,11 @@ span.loading {
 }
 
 
+#importers fieldset#paste-ids {
+    padding:0;
+    border:none;
+    margin:0 25px 0 0;
+}
 
 #importers #manual-add button {
     margin: 0;
@@ -285,7 +297,7 @@ span.loading {
     font-family: 'Lobster Two', Helvetica, Arial, sans-serif;
     color: #933;
     font-size:30px;
-    margin:0 0 15px 30px;
+    margin: 0 0 5px 20px;
     clear:both;
     font-style: italic;
 }
@@ -431,15 +443,6 @@ div.quick-collection span.loading {
 }
 
 
-
-
-
-
-
-
-
-
-
 #report h2 {
     text-align:right;
     font-family: 'Lobster Two';
@@ -455,20 +458,6 @@ div.quick-collection span.loading {
     clear:both;
 }
 
-
-/* HTML elements */
-
-
-h3 {
-    margin: 0px;
-    margin-top:20px;
-}
-
-a {
-    color: #933;
-    cursor: pointer;		
-}
-
 hr {
     border: 0;
     background-color: #CCC;
@@ -476,16 +465,6 @@ hr {
 }
 
 
-
-
-
-p.howto {
-    width: 98%;
-    color: #666;
-    font-size: 110%;
-    margin-top:0;
-    margin-bottom: 30px
-}
 
 p.sp {
     margin-top: 2em;
@@ -535,9 +514,14 @@ p#tagline {
     font-size: 35px;
     font-style: italic;
     font-weight: normal;
-    margin: 0 0 10px;
+    margin: 0 0 10px 23px;
 }
-
+p.howto {
+    width: 98%;
+    color: #666;
+    font-size: 110%;
+    margin: 0 0 30px 23px;
+}
 
 
 
@@ -844,7 +828,7 @@ li.artifact {
     list-style-type: none;
     margin: 0 auto 1em;
     padding: 0.3em;
-    width: 1048px;
+    width: 1150px;
 }
 
 li.artifact h4 {
