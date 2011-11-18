@@ -5,35 +5,20 @@ require_once './bootstrap.php';
 // and automatically flush() 
 // immediately after every print or echo 
 ob_implicit_flush(TRUE);
-if (isset($_REQUEST['run'])) {
-    $query_string = $_SERVER['QUERY_STRING'];
-    echo "<h2 class='loading'><img src='./ui/img/ajax-loader.gif'> Getting information now</h2>";
-    echo "<script>location.href='./update.php?$query_string'</script>";
-} else {
-    $title = "my collection";
-    $artifactIdsString = "10.1371/journal.pcbi.1000361
+$title = "my collection";
+$artifactIdsString = "10.1371/journal.pcbi.1000361
 17808382
 2BAK
 GSE2109
 10.5061/dryad.1295
 http://www.carlboettiger.info/research/lab-notebook
 ttp://www.slideshare.net/phylogenomics/eisenall-hands";
-    if (isset($_REQUEST['list'])) {
-        $artifactIdsString = $_REQUEST['list'];
-    }
-    if (isset($_REQUEST['name'])) {
-        $title = $_REQUEST['name'];
-    }
-    if (isset($_REQUEST['add-id'])) {
-        $collectionId = $_REQUEST['add-id'];
-        $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
-        $collection = new Models_Collection();
-        $doc = $collection->fetch($collectionId, $config);
-        $title = $doc->title;
-        $artifactIds = $doc->artifact_ids;
-        $artifactIdsString .= implode('&#013;&#010;', $artifactIds);
-    }
-}
+
+if (isset($_REQUEST['run'])) { // if they submitted the form
+    $query_string = $_SERVER['QUERY_STRING'];
+    echo "<script>location.href='./update.php?$query_string'</script>";
+} 
+
 include('./header.php');
 ?>
 <div id="about">

@@ -133,8 +133,8 @@ $(document).ready(function(){
            ids.push($(this).text()); 
         });
         if (ids.length == 0) {
-            alert("Looks like you haven't added any research objects to the collection yet.")
-            return false;
+//            alert("Looks like you haven't added any research objects to the collection yet.")
+            return true;
         } else {
             $("form#id-form input#artifacts-list").val(ids.join("\n"));
             return true;
