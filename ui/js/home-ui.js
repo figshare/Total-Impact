@@ -4,6 +4,22 @@ $.ajaxSetup ({
 var ajax_load = "<img src='./ui/img/ajax-loader.gif' alt='loading...' />";
 
 addIdsToEditPane = function(str){
+    if ($("#importers").width() > 340){
+        $("#pullers")
+            .animate({
+                "margin-top": 0,
+                left: 0
+            }, 1000)
+            .parent().siblings(" #edit-collection")
+            .animate({
+                width: "340px",
+                "padding-right": "40px"
+            }, 1000)
+            .siblings("#importers")
+            .animate({
+                width: "340px"
+            }, 1000)
+    }
     returnedIds = str.split("\n");
     var len = returnedIds.length
     for (i=0; i<len; i++) {
@@ -61,7 +77,7 @@ $(document).ready(function(){
         var $thisDiv = $(this).parent();
         var sourceName = $(this).attr("id");
         var souceQuery = $(this).siblings("input").val();
-        if ($thisDiv.attr("id") == "manual-add") {
+        if ($thisDiv.find("textarea")[0]) { // there's a sibling textarea
             addIdsToEditPane($thisDiv.find("textarea").val());
         }
         else {

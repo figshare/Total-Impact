@@ -131,8 +131,8 @@ ul#nav li a {
     -moz-border-radius-bottomleft: 5px;
     -webkit-border-bottom-right-radius: 5px;
     -webkit-border-bottom-left-radius: 5px;
-    box-shadow: -2px 1px 5px -1px #333333; 
-    cursor: pointer;           
+    box-shadow: -1px 4px 5px -1px #666666;
+    cursor: pointer;
 }
 
 ul#nav li a:hover {
@@ -179,15 +179,26 @@ body#about h2 {
     background-color:#fff;
     border-bottom:1px solid #933;
 }
+
+#input div.inputcol {
+    width: 340px;
+    padding: 0 40px 50px 0;
+    float:left;
+}
 #input h2 {
     width:100%;
     margin:0 0 20px 0;
     padding: 10px;
     color:#fff;
+    white-space: nowrap;
     background:url(./img/right-chevron.png) no-repeat right center;
+    text-align: center;
 }
 #input h3 {
     margin: 0 0 5px 0;
+    color: #333;
+    font-size: 20px;
+    padding: 0;
 }
 
 #input span.loading {
@@ -230,9 +241,24 @@ div.toggler_contents {
 
 
 /* the importers column */
-#importers h3 {
-    color:#333;
+div#input div#importers {
+    position: relative;
+    width:680px;
 }
+#importers #manual-add {
+    height:275px;
+    position:relative;
+    width: 300px;
+}
+#importers #pullers {
+    position: relative;
+    width: 300px;
+    margin-top:-275px;
+    top: 0;
+    left: 340px;
+    background:#fff;
+}
+
 
 #importers ul {
     clear:both;
@@ -262,12 +288,6 @@ div.toggler_contents {
     font-size:18px;
 }
 
-
-#input div.inputcol {
-    width: 28%;
-    padding: 0 2% 50px;
-    float:left;
-}
 
 #importers em.url {
     font-style: normal;
@@ -314,7 +334,16 @@ div.toggler_contents {
 }
 
 
+
+
+
+
 /* edit-collection column */
+#input #edit-collection {
+    overflow:hidden;
+    width: 0;
+    padding-right: 0;
+}
 #edit-collection #artcounter {
     background-color: #EEE;
     color: #666;
@@ -326,7 +355,7 @@ div.toggler_contents {
     margin:45px 0 0 0;
     border: 1px solid #EEE;
     font-size: 14px;
-    width: 90%;
+    width: 320px;
 }
 a#clear-artifacts {
     font-size: 75%;
@@ -384,11 +413,9 @@ a#clear-artifacts:hover {
 
 
 /* create-collection column */
-div#create-collection {
-    
+div#input div#create-collection {
 }
 #create-collection h2 {
-    background:none;
 }
 div#create-collection input#name {
     font-size: 22px;
