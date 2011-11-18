@@ -28,7 +28,7 @@ addIdsToEditPane = function(str){
         for (i=0; i<len; i++) {
           returnedIds[i] = "<li><a class='remove' href='#'>remove</a><span class='object-id'>"+returnedIds[i]+"</span></li>";
         }
-        $("ul#collection-list").prepend(
+        $("ul#collection-list").append(
             $(returnedIds.join("")).hide().fadeIn(1000)
         );
         $("#artcounter")
