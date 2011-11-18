@@ -1,12 +1,22 @@
 <?php
-
+ob_implicit_flush(TRUE);
+echo "updating your report now...this generally takes a few minutes.";
 require_once './bootstrap.php';
 #require_once 'FirePHPCore/fb.php';
 // TRUE = disable all output buffering, 
 // and automatically flush() 
 // immediately after every print or echo 
-ob_implicit_flush(TRUE);
 
+function sanitize($str, $alphaNumOnly=TRUE){
+    $newStr = "";
+    if ($alphaNumOnly) {
+        $newStr = preg_replace('/[^A-Za-z0-9]/', '', $str);
+    }
+    else {
+        $newStr = strip_tags($str);
+    }
+    return $newStr;
+}
 
 $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
 $collection = new Models_Collection();
@@ -18,18 +28,18 @@ if (isset($_REQUEST['id'])) {
     if (isset($_REQUEST['quickreport'])) {
         $seed = new Models_Seeder();
         if (isset($_REQUEST['mendeleygroup'])) {
-            $artifactIdList = $seed->getMendeleyGroupArtifacts($_REQUEST['mendeleygroup']);
+            $artifactIdList = $seed->getMendeleyGroupArtifacts(sanitize($_REQUEST['mendeleygroup']));
             $artifactIds = implode("\n", $artifactIdList); # \n has to be in DOUBLE quotes not single quotes
         } elseif (isset($_REQUEST['mendeleyprofile'])) {
-            $artifactIdList = $seed->getMendeleyProfileArtifacts($_REQUEST['mendeleyprofile']);
+            $artifactIdList = $seed->getMendeleyProfileArtifacts(sanitize($_REQUEST['mendeleyprofile']));
             $artifactIds = implode("\n", $artifactIdList); # \n has to be in DOUBLE quotes not single quotes
         }
     } else {
-        $artifactIds = $_REQUEST['list'];
+        $artifactIds = sanitize($_REQUEST['list']);
     }
 
     if (isset($_REQUEST['name'])) {
-        $title = $_REQUEST['name'];
+        sanitize($title = $_REQUEST['name']);
     } else {
         $title = "";
     }

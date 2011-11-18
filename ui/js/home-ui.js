@@ -133,10 +133,16 @@ $(document).ready(function(){
            ids.push($(this).text()); 
         });
         if (ids.length == 0) {
-//            alert("Looks like you haven't added any research objects to the collection yet.")
-            return true;
+            alert("Looks like you haven't added any research objects to the collection yet.")
+            return false;
         } else {
-            $("form#id-form input#artifacts-list").val(ids.join("\n"));
+            var idStr = val(ids.join("\n"));
+            $.post(
+                './update.php',
+                {list: idStr, name: $("#name").val()},
+                function(){
+
+                });
             return true;
         }
     });
@@ -173,6 +179,7 @@ $(document).ready(function(){
     if ($("#toc")[0]) {
         $('#toc').tocBuilder({ type: 'headings', startLevel: 2, endLevel: 2, backLinkText: 'back to contents' });
     }
+
 
 
 });
