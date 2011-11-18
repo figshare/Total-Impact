@@ -23,7 +23,7 @@
                                 tweets: {
                                     background: '#eeeeee',
                                     color: '#000',
-                                    links: '#933'
+                                    links: '#b20'
                                 }
                             },
                             features: {

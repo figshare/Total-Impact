@@ -49,7 +49,7 @@ include('./header.php');
 <div id="input">
     <div class="wrapper">
         <div id="importers" class="inputcol">
-            <h2 class="heading">Collect research objects</h2>
+            <h2 class="heading"><span>Collect research objects</span></h2>
             <div id="manual-add">
                 <h3 class="entry-method">Paste object IDs,</h3>
                 <fieldset id="paste-ids">
@@ -124,12 +124,12 @@ include('./header.php');
             </div>
         </div>
         <div id="edit-collection" class="inputcol">
-            <h2 class="heading">Review collection</h2>
+            <h2 class="heading"><span>Review collection</span></h2>
             <p id="artcounter"><span class="count">0</span> objects in this collection <a href="#" id="clear-artifacts">clear</a></p>
             <ul id="collection-list"></ul>
         </div>
         <div id="create-collection" class="inputcol">
-            <h2 class="heading">Create report</h2>
+            <h2 class="heading"><span>Create report</span></h2>
             <form name="id_form" id="id-form">
                 <h3 id="name-collection"><label for="name">Name your collection:</label></h3>
                 <input name="name" id="name" title="Add a meaningful title to this collection" value="<?php echo $title; ?>" />

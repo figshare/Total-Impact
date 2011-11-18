@@ -188,12 +188,15 @@ body#about h2 {
 #input h2 {
     width:100%;
     margin:0 0 20px 0;
-    padding: 10px;
     color:#fff;
     white-space: nowrap;
-    background:url(./img/right-chevron.png) no-repeat right center;
     text-align: center;
 }
+#input h2 span {
+    padding:12px 0;
+    display:block;
+}
+    
 #input h3 {
     margin: 0 0 5px 0;
     color: #333;
@@ -418,7 +421,15 @@ a#clear-artifacts:hover {
 /* create-collection column */
 div#input div#create-collection {
 }
-#create-collection h2 {
+#input #create-collection h2 {
+    background-image: url(./img/right-chevron.png);
+    background-repeat: no-repeat;
+    background-position: top right;
+}
+#input #create-collection h2 span{
+    background-image: url(./img/right-chevron.png);
+    background-repeat: no-repeat;
+    background-position: top left;
 }
 div#create-collection input#name {
     font-size: 22px;
@@ -463,7 +474,6 @@ div.quick-collection span.loading {
 
 
 #create-collection button.go-button {
-    margin: 10px 0 0 0;
     background:#b20;
     color: #fff;
     font-size: 17px;
@@ -476,6 +486,7 @@ div.quick-collection span.loading {
     -moz-border-radius: 10px;       /* CSS3 rounded borders for Firefox                   */
     border-radius: 10px;
     float:right;
+    padding:3px;
 }
 
 #create-collection button.go-button:hover {
