@@ -12,11 +12,11 @@ if (isset($_REQUEST['run'])) {
 } else {
     $title = "my collection";
     $artifactIdsString = "10.1371/journal.pcbi.1000361
-http://opensciencesummit.com/program
 17808382
 2BAK
 GSE2109
 10.5061/dryad.1295
+http://www.carlboettiger.info/research/lab-notebook
 ttp://www.slideshare.net/phylogenomics/eisenall-hands";
     if (isset($_REQUEST['list'])) {
         $artifactIdsString = $_REQUEST['list'];

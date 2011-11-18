@@ -2,10 +2,15 @@
     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
+        <!-- this makes way too many calls to external files right now, in order to
+        facilitate development. These need to be condensed, for performance reasons,
+        in a production build. -->
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>total-Impact: Uncover the invisible impact of research</title>
         <link href='http://fonts.googleapis.com/css?family=Lobster+Two:400italic' rel='stylesheet' type='text/css' />
-        <link rel="stylesheet" type="text/css" href="./ui/totalimpact.css" />
+        <link rel="stylesheet" type="text/css" href="./ui/main.css" />
+        <link rel="stylesheet" type="text/css" href="./ui/homepage.css" />
+        <link rel="stylesheet" type="text/css" href="./ui/report.css" />
         <link rel="icon" type="image/png" href="ui/favicon.ico" />
 
         <script type="text/javascript">
