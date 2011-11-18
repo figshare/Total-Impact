@@ -124,7 +124,7 @@ include('./header.php');
             </div>
         </div>
         <div id="edit-collection" class="inputcol">
-            <h2 class="heading"><span>Review collection</span></h2>
+            <h2 class="heading"><span>...and review your collection.</span></h2>
             <p id="artcounter"><span class="count">0</span> objects in this collection <a href="#" id="clear-artifacts">clear</a></p>
             <ul id="collection-list"></ul>
         </div>

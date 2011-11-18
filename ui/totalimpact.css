@@ -175,7 +175,7 @@ body#about h2 {
     width:100%;
     box-shadow: 0 2px 5px 0 #999999;
     min-height: 400px;
-    background: url(./img/grey-bar.png) left top repeat-x;
+    background: url(./img/homepage-bar.png) left top repeat-x;
     background-color:#fff;
     border-bottom:1px solid #b20;
 }
@@ -349,6 +349,11 @@ div#input div#importers {
 }
 #input #edit-collection h2 {
     font-weight: normal;
+    font-size: 18px;
+    margin: 8px;
+}
+#input #edit-collection h2 span {
+
 }
 #edit-collection #artcounter {
     background-color: #EEE;
