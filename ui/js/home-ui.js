@@ -18,16 +18,24 @@ addIdsToEditPane = function(str){
             .siblings("#importers")
             .animate({
                 width: "340px"
-            }, 1000)
+            }, 1000, function(){
+                return addIdsToEditPane(str);
+            })
     }
-    returnedIds = str.split("\n");
-    var len = returnedIds.length
-    for (i=0; i<len; i++) {
-      returnedIds[i] = "<li><a class='remove' href='#'>remove</a><span class='object-id'>"+returnedIds[i]+"</span></li>";
+    else {
+        returnedIds = str.split("\n");
+        var len = returnedIds.length
+        for (i=0; i<len; i++) {
+          returnedIds[i] = "<li><a class='remove' href='#'>remove</a><span class='object-id'>"+returnedIds[i]+"</span></li>";
+        }
+        $("ul#collection-list").append($(returnedIds.join("")).hide().fadeIn(1000));
+        $("#artcounter span.count")
+            .text($("ul#collection-list li").size())
+            .css("color", "#933")
+            .animate({"color": "#333"}, 1000)
+        return true;
     }
-    $("ul#collection-list").append($(returnedIds.join("")).hide().fadeIn(1000));
-    $("#artcounter span.count").text($("ul#collection-list li").size())
-    return true;
+
 }
 
 $(document).ready(function(){

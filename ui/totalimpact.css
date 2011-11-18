@@ -4,7 +4,7 @@
 body {
     font-family: "Helvetica", sans-serif;
     margin: 0;
-    border-top:4px solid #933;
+    border-top:4px solid #b20;
     background-color: #eee;
     background-image: url(./img/body-bg-grad.jpeg);
     background-position: 50% -76px;
@@ -28,7 +28,7 @@ h3 {
     margin-top:20px;
 }
 a {
-    color: #933;
+    color: #b20;
     cursor: pointer;
 }
 body div#tooltip {
@@ -177,7 +177,7 @@ body#about h2 {
     min-height: 400px;
     background: url(./img/grey-bar.png) left top repeat-x;
     background-color:#fff;
-    border-bottom:1px solid #933;
+    border-bottom:1px solid #b20;
 }
 
 #input div.inputcol {
@@ -278,7 +278,7 @@ div#input div#importers {
     position:relative;
     top:-.3em;
     text-decoration: none;
-    color: #933;
+    color: #b20;
 }
 
 
@@ -326,7 +326,7 @@ div#input div#importers {
 }
 #importers p#or {
     font-family: 'Lobster Two', Helvetica, Arial, sans-serif;
-    color: #933;
+    color: #b20;
     font-size:30px;
     margin: 0 0 5px 20px;
     clear:both;
@@ -343,6 +343,9 @@ div#input div#importers {
     overflow:hidden;
     width: 0;
     padding-right: 0;
+}
+#input #edit-collection h2 {
+    font-weight: normal;
 }
 #edit-collection #artcounter {
     background-color: #EEE;
@@ -364,7 +367,7 @@ a#clear-artifacts {
     text-decoration: underline;
 }
 a#clear-artifacts:hover {
-    color: #933;
+    color: #b20;
 }
 #edit-collection #artcounter span.count {
     font-weight: bold;
@@ -394,7 +397,7 @@ a#clear-artifacts:hover {
 }
 #edit-collection ul li:hover span {
     text-decoration: line-through;
-    color:#933;
+    color:#b20;
     cursor: pointer;
 }
 #edit-collection ul li:hover a {
@@ -419,7 +422,7 @@ div#input div#create-collection {
 }
 div#create-collection input#name {
     font-size: 22px;
-    color: #933;
+    color: #b20;
     width:100%;
 }
 
@@ -461,7 +464,7 @@ div.quick-collection span.loading {
 
 #create-collection button.go-button {
     margin: 10px 0 0 0;
-    background:url(./img/grey-bar.png);
+    background:#b20;
     color: #fff;
     font-size: 17px;
     width: 100%;
@@ -539,7 +542,7 @@ td {
     border-right:none;
 }
 th {
-    background: #933;
+    background: #b20;
     color:#fff;
     border:none;
 }
@@ -547,7 +550,7 @@ th {
 /* home page **************************************************************/
 
 p#tagline {
-    color: #993333;
+    color: #b20;
     font-family: 'Lobster Two',helvetica,arial,sans-serif;
     font-size: 35px;
     font-style: italic;
@@ -660,7 +663,7 @@ div.recent-changes h4 {
     margin:10px 0;
 }
 div.recent-changes a {
-    color: #933;
+    color: #b20;
 }
 div.recent-changes ul {
     padding:0;
@@ -702,7 +705,7 @@ div.altmetrics p {
     font-weight: bold;
     font-style: normal;
     font-size:50px;
-    color:#933;
+    color:#b20;
     text-shadow: 1px 1px 0px #FFF;
 }
 #report-meta {
@@ -741,7 +744,7 @@ a.report-button  {
     float:left;
 }
 a.report-button:hover {
-    background: #933;
+    background: #b20;
     color:#fff;
     text-shadow:none;
     text-decoration:none;
@@ -779,7 +782,7 @@ a.report-button:hover {
     text-decoration: underline;
 }
 #permalink a#copy-permalink.hover {
-    color: #933;
+    color: #b20;
 }
 #permalink a {
     text-decoration: none;
@@ -815,7 +818,7 @@ input.report {
     border-left: none;
     border-bottom: 1px solid #EEE;
     border-right: 1px solid #EEE;
-    background-color: #933;
+    background-color: #b20;
     color: #FFF;
     margin-top:3px;
     height:28px;
@@ -941,11 +944,11 @@ ul.metrics a:hover {
     text-decoration: none;
 }
 ul.metrics a:hover span.metric-value {
-    background: #933;
+    background: #b20;
     color:#fff;
 }
 ul.metrics li:hover span.metric-name {
-    color:#933;
+    color:#b20;
 }
 .metric-name {
     -moz-transform: rotate(45deg);
@@ -1006,7 +1009,7 @@ ul.source-list_NO {
 /** TinyBox (modal js dialog) styles
 *******************************************************************************/
 .tbox {position:absolute; display:none; padding:14px 17px; z-index:900}
-.tbox h1 {margin:0; font-size: 25px; color: #933;}
+.tbox h1 {margin:0; font-size: 25px; color: #b20;}
 .tinner {padding:15px; -moz-border-radius:5px; border-radius:5px; background:#fff url(./img/ajax-loader.gif) no-repeat 50% 50%; border-right:1px solid #333; border-bottom:1px solid #333}
 .tmask {position:absolute; display:none; top:0px; left:0px; height:100%; width:100%; background:#000; z-index:800}
 .tclose {position:absolute; top:0px; right:0px; width:30px; height:30px; cursor:pointer; background:url(./img/tinybox-close.png) no-repeat}
