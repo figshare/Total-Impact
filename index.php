@@ -12,8 +12,8 @@ if (isset($_REQUEST['run'])) {
 } else {
     $title = "my collection";
     $artifactIdsString = "10.1371/journal.pcbi.1000361
+http://opensciencesummit.com/program
 17808382
-ef35f440-957f-11df-96dc-0024e8453de8
 2BAK
 GSE2109
 10.5061/dryad.1295
@@ -80,7 +80,7 @@ include('./header.php');
                         </div>
                     </li>
                     <li>
-                        <a class="toggler" id="slideshare_toggler" >Slideshare</a><br/>
+                        <a class="toggler" id="slideshare_toggler" >Slideshare accounts</a><br/>
                         <div class="toggler_contents" id="slideshare_toggler_contents">
                             <p class="prompt">http://www.slideshare.net/</p>
                             <input id="slideshare_profile_input" name="slideshareName" type="text" size="20" value="cavlec"/>
@@ -88,7 +88,7 @@ include('./header.php');
                         </div>
                     </li>
                     <li>
-                        <a class="toggler" id="dryad_toggler" >Dryad datasets</a><br/>
+                        <a class="toggler" id="dryad_toggler" >Dryad dataset authors</a><br/>
                         <div class="toggler_contents" id="dryad_toggler_contents">
                             <p class="prompt" title="Fill in the dc:contributor.author value in <em>Show Full Metadata</em> to retrieve a list of datasets">Dryad author name</p>
                             <input id="dryad_profile_input" name="dryadName" type="text" size="20" value="Otto, Sarah P."/>

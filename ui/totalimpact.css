@@ -937,7 +937,7 @@ ul.biblio span.meta-repo {
 ul.metrics {
     margin-left: 365px;
 }
-ul.metrics li {
+ul.metrics li, ul.metrics span.missing {
     float: left;
     height: 6em;
 }

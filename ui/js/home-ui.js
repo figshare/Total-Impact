@@ -166,4 +166,8 @@ $(document).ready(function(){
         return false;
     });
 
+    // table of contents
+    $('#toc').tocBuilder({ type: 'headings', startLevel: 2, endLevel: 2, backLinkText: 'back to contents' });
+
+
 });
