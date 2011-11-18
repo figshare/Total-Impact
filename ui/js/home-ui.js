@@ -28,11 +28,14 @@ addIdsToEditPane = function(str){
         for (i=0; i<len; i++) {
           returnedIds[i] = "<li><a class='remove' href='#'>remove</a><span class='object-id'>"+returnedIds[i]+"</span></li>";
         }
-        $("ul#collection-list").append($(returnedIds.join("")).hide().fadeIn(1000));
-        $("#artcounter span.count")
+        $("ul#collection-list").prepend(
+            $(returnedIds.join("")).hide().fadeIn(1000)
+        );
+        $("#artcounter")
+//            .css("background-color", "#b20")
+//            .animate({"background-color": "#eeeeee"}, 1000)
+            .find("span.count")
             .text($("ul#collection-list li").size())
-            .css("color", "#933")
-            .animate({"color": "#333"}, 1000)
         return true;
     }
 
