@@ -147,12 +147,12 @@ $(document).ready(function(){
                 close: false,
                 removeable: false
             });
-            /*$.post(
+            $.post(
                 './update.php',
                 {list: ids.join("\n"), name: "foo"},
                 function(data){
                     location.href="./report.php?id=" +data;
-                });*/
+                });
             return false;
         }
     });
