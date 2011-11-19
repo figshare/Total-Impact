@@ -46,7 +46,7 @@ if ($mode == "list") {
                 <h2><span class="title"><?php echo $report->getBestIdentifier(); ?></span></h2>
                 <div id="report-button">
                     <a class="report-button" id="update-report-button" name="<?php echo $collectionId; ?>" href="#">run update</a>
-                    <a class="report-button" href="./report.php?id=<?php echo $collectionId; ?>&mode=list">download data</a>
+                    <a class="report-button" href="/csv/<?php echo $collectionId; ?>">download data</a>
                 </div>
                 <div id="report-info">
                     <span class="badge artifacts-count"><span class="num"><?php echo $report->getArtifactsCount(); ?></span> artifacts;</span>
@@ -62,7 +62,7 @@ if ($mode == "list") {
                     <script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>    
                     <span class="tweet-this">    
                         <a href="https://twitter.com/share" class="twitter-share-button"    
-                           data-url="<?php echo "http://total-Impact.org/report.php?id=" . $collectionId ?>"
+                           data-url="<?php echo "http://total-impact.org/report.php?id=" . $collectionId ?>"
                            data-via="mytotalImpact"    
                            data-text="<?php echo "Check out the total-Impact of " . $report->getBestIdentifier() . ": "; ?>"
                            data-count="horizontal">Tweet</a>    
