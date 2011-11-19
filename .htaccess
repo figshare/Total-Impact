@@ -1,3 +1,9 @@
 RewriteEngine on
-RewriteRule ^report/([0-9a-zA-Z]+)$ /report.php?id=$1
+
+RewriteRule ^report/ui/(.*)$ /ui/$1 [L]
+RedirectMatch 301 ^(.*)report/about.php$ /about.php
+
+RewriteRule ^report/([0-9a-zA-Z]+)$ /report.php?id=$1 [L]
+RewriteRule ^report/([0-9a-zA-Z]+)/list$ /report.php?id=$1&mode=list [L]
 RewriteRule ^report/*$ / [r=301,nc]
+
