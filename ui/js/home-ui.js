@@ -144,7 +144,8 @@ $(document).ready(function(){
             TINY.box.show({
                 html:$("<div>").append($waitMsg).html(),
                 animate: false,
-                close: false
+                close: false,
+                removeable: false
             });
             /*$.post(
                 './update.php',
