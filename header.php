@@ -11,7 +11,7 @@
         <link rel="stylesheet" type="text/css" href="./ui/main.css" />
         <link rel="stylesheet" type="text/css" href="./ui/homepage.css" />
         <link rel="stylesheet" type="text/css" href="./ui/report.css" />
-        <link rel="icon" type="image/ico" href="http://total-impact.org.local/report/ui/favicon.ico" />
+        <link rel="icon" type="image/ico" href="./ui/favicon.ico" />
 
         <script type="text/javascript">
             //Google Analytics code
