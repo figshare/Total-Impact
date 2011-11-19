@@ -1,7 +1,7 @@
 RewriteEngine on
 
-RewriteRule ^ui - [L]
-RewriteRule ^(.*)/ui/(.*)$ /ui/$2 [L]
-RewriteRule ^report/([0-9a-zA-Z]+)$ /report.php?id=$1 [L]
-RewriteRule ^report/([0-9a-zA-Z]+)/list$ /report.php?id=$1&mode=list [L]
-RewriteRule ^report/*$ / [r=301,nc]
+#RewriteRule ^ui - [L]
+RewriteRule ^(.*)/ui/(.*)$ ui/$2 [L]
+RewriteRule ^collection/([0-9a-zA-Z]+)$ report.php?id=$1  [L]
+RewriteRule ^csv/([0-9a-zA-Z]+)$ report.php?id=$1&mode=list  [L]
+RewriteRule ^(.*) - [L]
