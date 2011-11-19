@@ -6,10 +6,10 @@ require_once './bootstrap.php';
 // and automatically flush() 
 // immediately after every print or echo 
 
-function sanitize($str, $alphaNumOnly=TRUE){
+function sanitize($str, $alphaNumDashOnly=TRUE){
     $newStr = "";
-    if ($alphaNumOnly) {
-        $newStr = preg_replace('/[^A-Za-z0-9]/', '', $str);
+    if ($alphaNumDashOnly) {
+        $newStr = preg_replace('/[^A-Za-z0-9\-]/', '', $str);
     }
     else {
         $newStr = strip_tags($str);

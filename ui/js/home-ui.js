@@ -213,4 +213,17 @@ $(document).ready(function(){
         return false;
     })
 
+    // mendeley quick-collections
+    $("div.quick-collection div.response a").live("click", function(){
+        showWaitBox();
+        $.get(
+            './update.php',
+            this.href.replace(/[^?]+\?/, ""),
+            function(data){
+                location.href="./report.php?id=" +data;
+            });
+        return false;
+
+    });
+
 });
