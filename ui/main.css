@@ -163,18 +163,31 @@ ul#nav li a:hover {
 *****************************************************************************
 *****************************************************************************
 *****************************************************************************/
-h2.loading {
-    font-family: 'Lobster Two', Helvetica, Arial, sans-serif;
-    color: #333;
-    font-size: 50px;
-    margin: 200px auto;
-    width: 800px;
-    font-style: italic;
+div.loading {
+    width: 600px;
+    height: 150px;
+    color: #fff;
+    background: #b20000
 }
-h2.loading span {
-    display:block;
+div.loading h2 {
+    font-family: 'Lobster Two', Helvetica, Arial, sans-serif;
+    color: #fff;
+    font-style: italic;
+    font-size: 50px;
+    text-align:center;
+    margin: 0;
+    font-weight:normal;
+    padding: 20px 0 0;
+}
+div.loading p {
     font-size: 15px;
+    font-weight: bold;
     font-family: "Helvetica Neue", "helvetica", 'arial', sans-serif;
+    text-align: center;
+}
+div.loading img {
+    margin: 0 10px -5px 0;
+    height: 45px;
 }
 
 

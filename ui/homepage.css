@@ -225,6 +225,7 @@ div#input div#importers {
     font-weight: normal;
     font-size: 18px;
     margin: 8px;
+    text-align: left;
 }
 #input #edit-collection h2 span {
 

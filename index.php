@@ -14,11 +14,6 @@ GSE2109
 http://www.carlboettiger.info/research/lab-notebook
 ttp://www.slideshare.net/phylogenomics/eisenall-hands";
 
-if (isset($_REQUEST['run'])) { // if they submitted the form
-    $query_string = $_SERVER['QUERY_STRING'];
-    echo "<script>location.href='./update.php?$query_string'</script>";
-} 
-
 include('./header.php');
 ?>
 <div id="about">
@@ -109,13 +104,13 @@ include('./header.php');
             </div>
         </div>
         <div id="edit-collection" class="inputcol">
-            <h2 class="heading"><span>...and review your collection.</span></h2>
+            <h2 class="heading"><span>...and review your collection:</span></h2>
             <p id="artcounter"><span class="count">0</span> objects in this collection <a href="#" id="clear-artifacts">clear</a></p>
             <ul id="collection-list"></ul>
         </div>
         <div id="create-collection" class="inputcol">
             <h2 class="heading"><span>Create report</span></h2>
-            <form name="id_form" id="id-form">
+            <form name="id_form" action="./update.php" id="id-form">
                 <h3 id="name-collection"><label for="name">Name your collection:</label></h3>
                 <input name="name" id="name" title="Add a meaningful title to this collection" value="<?php echo $title; ?>" />
                 <button name="run" type="submit" id="go-button" class="go-button">get my metrics!</button>

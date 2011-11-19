@@ -136,14 +136,23 @@ $(document).ready(function(){
             alert("Looks like you haven't added any research objects to the collection yet.")
             return false;
         } else {
-            var idStr = val(ids.join("\n"));
-            $.post(
-                './update.php',
-                {list: idStr, name: $("#name").val()},
-                function(){
+            var $waitMsg = $("<div class='loading'></div")
+                .append("<h2><img src='ui/img/ajax-loader-rev.gif' />Creating your report now.</h2>")
+                .append("<p>(Hang in there; it usually takes a few minutes...)</p>")
 
-                });
-            return true;
+
+            TINY.box.show({
+                html:$("<div>").append($waitMsg).html(),
+                animate: false,
+                close: false
+            });
+            /*$.post(
+                './update.php',
+                {list: ids.join("\n"), name: "foo"},
+                function(data){
+                    location.href="./report.php?id=" +data;
+                });*/
+            return false;
         }
     });
 

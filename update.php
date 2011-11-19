@@ -1,6 +1,5 @@
 <?php
 ob_implicit_flush(TRUE);
-echo "updating your report now...this generally takes a few minutes.";
 require_once './bootstrap.php';
 #require_once 'FirePHPCore/fb.php';
 // TRUE = disable all output buffering, 
@@ -52,5 +51,6 @@ error_log("now update");
 // get the updates
 $collection->update($collectionId, $config);
 // redirect to the report page for this plugin
-echo "<script>location.href='./report.php?id=$collectionId'</script>";
+header("HTTP/1.1 200 OK");
+echo $collectionId;
 ?>
