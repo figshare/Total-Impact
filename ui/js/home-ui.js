@@ -125,37 +125,8 @@ $(document).ready(function(){
             }, "json");
         }
     });
-    
-    // submitting the object IDs
-    $("#id-form").submit(function(){
-        var ids = [];
-        $("ul#collection-list span.object-id").each(function(){
-           ids.push($(this).text()); 
-        });
-        if (ids.length == 0) {
-            alert("Looks like you haven't added any research objects to the collection yet.")
-            return false;
-        } else {
-            var $waitMsg = $("<div class='loading'></div")
-                .append("<h2><img src='ui/img/ajax-loader-rev.gif' />Creating your report now.</h2>")
-                .append("<p>(Hang in there; it usually takes a few minutes...)</p>")
 
 
-            TINY.box.show({
-                html:$("<div>").append($waitMsg).html(),
-                animate: false,
-                close: false,
-                removeable: false
-            });
-            $.post(
-                './update.php',
-                {list: ids.join("\n"), name: "foo"},
-                function(data){
-                    location.href="./report.php?id=" +data;
-                });
-            return false;
-        }
-    });
 
     // remove prepoluated values in form inputs
     $("textarea").add("input").focus(function(){
@@ -176,7 +147,7 @@ $(document).ready(function(){
 
     // scroll down to recently shared reports
     $("#link-to-recently-shared").click(function(){
-        $("html, body").animate({ scrollTop: $(document).height() }, 1000)
+        $("html, body").animate({scrollTop: $(document).height()}, 1000)
             .find("#twitterfeed h4")
             .css("cssText", "background: transparent !important")
             .parent()
@@ -187,9 +158,59 @@ $(document).ready(function(){
 
     // table of contents
     if ($("#toc")[0]) {
-        $('#toc').tocBuilder({ type: 'headings', startLevel: 2, endLevel: 2, backLinkText: 'back to contents' });
+        $('#toc').tocBuilder({type: 'headings', startLevel: 2, endLevel: 2, backLinkText: 'back to contents'});
     }
 
 
+
+/* creating and updating reports
+ * *****************************************************************************/
+    showWaitBox = function(verb){
+        verb = (typeof verb == "undefined") ? "Updating" : verb
+        var $waitMsg = $("<div class='loading'></div")
+            .append("<h2><img src='ui/img/ajax-loader-rev.gif' />"+verb+" your report now.</h2>")
+            .append("<p>(Hang in there; it usually takes a few minutes...)</p>")
+
+        TINY.box.show({
+            html:$("<div>").append($waitMsg).html(),
+            animate: false,
+            close: false,
+            removeable: false
+        });
+    }
+
+    // creating a report by submitting the object IDs from the homepage
+    $("#id-form").submit(function(){
+        var ids = [];
+        $("ul#collection-list span.object-id").each(function(){
+           ids.push($(this).text());
+        });
+        if (ids.length == 0) {
+            alert("Looks like you haven't added any research objects to the collection yet.")
+            return false;
+        } else {
+            showWaitBox("Creating");
+            console.log(JSON.stringify(ids))
+            $.post(
+                './update.php',
+                {list: JSON.stringify(ids), name: $("#name").val()},
+                function(data){
+                    location.href="./report.php?id=" +data;
+                });
+            return false;
+        }
+    });
+
+    // updating the collection from the report page
+    $("#update-report-button").click(function(){
+        showWaitBox();
+        $.post(
+            './update.php',
+            {id: this.name},
+            function(data){
+                window.location.reload(false);
+            });
+        return false;
+    })
 
 });

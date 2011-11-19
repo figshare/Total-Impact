@@ -34,7 +34,11 @@ if (isset($_REQUEST['id'])) {
             $artifactIds = implode("\n", $artifactIdList); # \n has to be in DOUBLE quotes not single quotes
         }
     } else {
-        $artifactIds = sanitize($_REQUEST['list']);
+        /**
+         * @todo: Models_Collection should accept a proper array, not this string nonsense.
+         * (It's a legacy from the hackday)
+         */
+        $artifactIds = implode("\n", json_decode(sanitize($_REQUEST['list'], false)));
     }
 
     if (isset($_REQUEST['name'])) {

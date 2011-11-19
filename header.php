@@ -27,6 +27,7 @@
         </script>
 
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+        <script type="text/javascript" src="./ui/js/json2.min.js"></script>
         <script type="text/javascript" src="./ui/js/tinybox.js"></script>
         <script type="text/javascript" src="./ui/js/jquery.headerlinks.js"></script>
         <script type="text/javascript" src="ui/js/jquery.tooltip.js"></script>

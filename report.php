@@ -45,7 +45,7 @@ if ($mode == "list") {
             <div id="report-meta">    
                 <h2><span class="title"><?php echo $report->getBestIdentifier(); ?></span></h2>
                 <div id="report-button">
-                    <a class="report-button" href="./update.php?id=<?php echo $collectionId; ?>">run update</a>
+                    <a class="report-button" id="update-report-button" name="<?php echo $collectionId; ?>" href="#">run update</a>
                     <a class="report-button" href="./report.php?id=<?php echo $collectionId; ?>&mode=list">download data</a>
                 </div>
                 <div id="report-info">
