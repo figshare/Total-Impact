@@ -23,7 +23,7 @@
                 <!--tr><td>generic artifact</td><td>RePEc</td><td>URL</td><td>http://ideas.repec.org/a/ags/ajaeau/22364.html</td></tr-->
                 <!--tr><td>generic artifact</td><td>UMN Institutional Archive</td><td>URL</td><td>http://conservancy.umn.edu/handle/107490</td></tr-->
                 <!--tr><td>preprint</td><td>arXiv</td><td>URL</td><td>http://arxiv.org/abs/cond-mat/0012330</td></tr-->
-                <tr><td>slides</td><td>SlideShare</td><td>URL</td><td>ttp://www.slideshare.net/phylogenomics/eisenall-hands</td></tr>
+                <tr><td>slides</td><td>SlideShare</td><td>URL</td><td>http://www.slideshare.net/phylogenomics/eisenall-hands</td></tr>
                 <tr><td>generic</td><td>A conference paper, website resource, etc.</td><td>URL</td><td>http://opensciencesummit.com/program/</td></tr>
 
         </table>

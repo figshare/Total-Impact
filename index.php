@@ -7,12 +7,12 @@ require_once './bootstrap.php';
 ob_implicit_flush(TRUE);
 $title = "my collection";
 $artifactIdsString = "10.1371/journal.pcbi.1000361
-17808382
+20334632
 2BAK
 GSE2109
 10.5061/dryad.1295
 http://www.carlboettiger.info/research/lab-notebook
-ttp://www.slideshare.net/phylogenomics/eisenall-hands";
+http://www.slideshare.net/phylogenomics/eisenall-hands";
 
 include('./header.php');
 ?>
