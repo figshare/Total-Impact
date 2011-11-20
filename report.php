@@ -58,7 +58,7 @@ if ($mode == "list") {
     
                 <div id="share">    
                     <!-- based on code here: https://dev.twitter.com/docs/tweet-button -->    
-                    <span id="permalink"><span class="label"> Permalink: </span><a class="copyable", href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $collectionId; ?></a><a href="#" id="copy-permalink">copy</a></span>
+                    <span id="permalink"><span class="label"> Permalink: </span><a class="copyable", href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . "/collection/" . $collectionId; ?>"><?php echo "http://" . $_SERVER['HTTP_HOST'] . "/collection/" . $collectionId; ?></a><a href="#" id="copy-permalink">copy</a></span>
                     <script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>    
                     <span class="tweet-this">    
                         <a href="https://twitter.com/share" class="twitter-share-button"    
