@@ -20,7 +20,7 @@ include('./header.php');
     <div class="wrapper">
         <p id="tagline">Uncover the invisible impact of research.</p>
         <div id="instr">
-            <p class="howto">Create a collection of research objects you want to track. We'll provide you a report of the total impact of this collection.<br />You can peruse <a href="./report.php?id=MqAnvI">a sample report</a> or check out the most <a id="link-to-recently-shared" href="#twitterfeed">recently shared reports.</a></p>
+            <p class="howto">Create a collection of research objects you want to track. We'll provide you a report of the total impact of this collection.<br />You can peruse <a href="./collection/MqAnvI">a sample report</a> or check out the most <a id="link-to-recently-shared" href="#twitterfeed">recently shared reports.</a></p>
         </div>
     </div>
 </div><!-- END about -->
@@ -34,7 +34,7 @@ include('./header.php');
                 <h3 class="entry-method">Paste object IDs,</h3>
                 <fieldset id="paste-ids">
                     <div class="toggler_contents">
-                        <p class="prompt"  >Add one DOI, PubMed ID, URL, or other <a target="_blank" href="http://total-impact.org/about.php#whichartifacts">supported identifier</a> per line:</p>
+                        <p class="prompt"  >Add one DOI, PubMed ID, URL, or other <a target="_blank" href="./about/#whichartifacts">supported identifier</a> per line:</p>
                         <textarea rows="11" cols="40" id="manual_input" class="artifactList" ><?php echo $artifactIdsString; ?></textarea>
                         <button class="import-button" id="manual">Add to collection</button>
                     </div>
@@ -100,7 +100,7 @@ include('./header.php');
                         </div>
                     </li>
                 </ul>
-                <div class="something-missing"><p>Something missing on import?<br/> See a list of <a href="./about.php#limitations">current limitations.</a> </p></div>
+                <div class="something-missing"><p>Something missing on import?<br/> See a list of <a href="./about/#limitations">current limitations.</a> </p></div>
             </div>
         </div>
         <div id="edit-collection" class="inputcol">
@@ -110,7 +110,7 @@ include('./header.php');
         </div>
         <div id="create-collection" class="inputcol">
             <h2 class="heading"><span>Create report</span></h2>
-            <form name="id_form" action="./update.php" id="id-form">
+            <form name="id_form" action="./fetch/" id="id-form">
                 <h3 id="name-collection"><label for="name">Name your collection:</label></h3>
                 <input name="name" id="name" title="Add a meaningful title to this collection" value="<?php echo $title; ?>" />
                 <button name="run" type="submit" id="go-button" class="go-button">get my metrics!</button>

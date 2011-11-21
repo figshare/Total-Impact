@@ -1,4 +1,4 @@
-* Nov 19, 2011: UI v2: new look, js UX, and ajax collection create/update
+* Nov 19, 2011: UI v2: new look, js UX, and ajax collection create/update; new URL scheme 
 * Nov 16, 2011: Moves toward v2 of UI, esp. homepage
 * Nov 11, 2011: Added GitHub ID importing
 * Nov 10, 2011: More complete importing of papers from Mendeley profiles
