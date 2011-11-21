@@ -190,12 +190,11 @@ $(document).ready(function(){
             return false;
         } else {
             showWaitBox("Creating");
-            console.log(JSON.stringify(ids))
             $.post(
                 './update.php',
                 {list: JSON.stringify(ids), name: $("#name").val()},
                 function(data){
-                    location.href="./report.php?id=" +data;
+                    location.href="./collection/" +data;
                 });
             return false;
         }
@@ -220,7 +219,7 @@ $(document).ready(function(){
             './update.php',
             this.href.replace(/[^?]+\?/, ""),
             function(data){
-                location.href="./report.php?id=" +data;
+                location.href="./collection/" +data;
             });
         return false;
 

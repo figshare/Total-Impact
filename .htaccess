@@ -1,7 +1,15 @@
 RewriteEngine on
 
 RewriteRule ^(.*)/ui/(.*)$ ui/$2 [L]
+RewriteRule ^(.*)/ui/(.*)$ ui/$2 [L]
 RewriteRule ^fetch update.php [L]
+RewriteRule ^(.*)/update.php update.php [L]
+
 RewriteRule ^collection/([0-9a-zA-Z]+)$ report.php?id=$1  [L]
 RewriteRule ^csv/([0-9a-zA-Z]+)$ report.php?id=$1&mode=list  [L]
+RewriteRule ^(.*)about(/*)$ about.php [L]
 RewriteRule ^(.*) - [L]
+
+
+
+
