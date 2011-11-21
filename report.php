@@ -62,7 +62,7 @@ if ($mode == "list") {
                     <script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>    
                     <span class="tweet-this">    
                         <a href="https://twitter.com/share" class="twitter-share-button"    
-                           data-url="<?php echo "http://total-impact.org/report.php?id=" . $collectionId ?>"
+                           data-url="<?php echo "http://total-impact.org/collection/" . $collectionId ?>"
                            data-via="mytotalImpact"    
                            data-text="<?php echo "Check out the total-Impact of " . $report->getBestIdentifier() . ": "; ?>"
                            data-count="horizontal">Tweet</a>    
