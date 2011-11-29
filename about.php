@@ -10,6 +10,7 @@ $report = new Models_Reporter($couch, $collectionId);
 $res = $report->fetch();
 
 $rendered_about_text = $report->render_about_text();
+define('PAGE_SUBTITLE', "about");
 include('./header.php');
 ?><div id="faq"><div class="wrapper">
         <div id="toc"></div>

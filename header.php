@@ -1,4 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+<?php
+    function getPageTitle(){
+        if ( !defined(PAGE_SUBTITLE) ){
+            define('PAGE_SUBTITLE', 'uncover the invisible impact of reseach');
+        }
+        return "total-impact: " . PAGE_SUBTITLE;
+
+    }
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
@@ -6,7 +14,7 @@
         facilitate development. These need to be condensed, for performance reasons,
         in a production build. -->
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title>total-Impact: Uncover the invisible impact of research</title>
+        <title><?php echo getPageTitle(); ?></title>
         <link href='http://fonts.googleapis.com/css?family=Lobster+Two:400italic' rel='stylesheet' type='text/css' />
         <link rel="stylesheet" type="text/css" href="./ui/main.css" />
         <link rel="stylesheet" type="text/css" href="./ui/homepage.css" />

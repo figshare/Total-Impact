@@ -37,6 +37,7 @@ if ($mode == "list") {
         header('Location: ../');
     }
 
+    define("PAGE_SUBTITLE", $report->getBestIdentifier());
     include_once('./header.php');
 ?>
     <div id="report">    
