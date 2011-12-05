@@ -85,7 +85,7 @@ if ($mode == "list") {
     </div><!-- END report -->
 
 <!-- START footer -->
-<p class="something-missing">More detail on <a target="_blank" href="./about.php#whichmetrics">available metrics</a>.  Missing some artifacts or metrics? See <a target="_blank" href="./about.php#limitations">current limitations.</a>  </p>
+<p class="something-missing">More detail on <a href="./about/#whichmetrics">available metrics</a>.  Missing some artifacts or metrics? See <a href="./about/#limitations">current limitations.</a>  </p>
 
 <div id="about-metrics" class="about-metrics">
     <h3>Metrics are computed based on the following data sources:</h3>
