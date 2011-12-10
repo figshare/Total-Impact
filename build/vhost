@@ -1,0 +1,14 @@
+<VirtualHost *:80>
+    DocumentRoot /home/ti/total-impact/
+    <Directory /home/ti/total-impact>
+        Options Indexes FollowSymLinks Includes ExecCGI
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+	AddHandler cgi-script cgi pl
+    </Directory>
+    SetEnv APPLICATION_ENV production
+    RewriteEngine On
+    RewriteOptions Inherit
+</VirtualHost>
+
