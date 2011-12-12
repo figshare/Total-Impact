@@ -31,7 +31,7 @@
 # DAMAGE.
 
 
-# From Jason: I've modified this library
+# From Jason: I've modified several functions here.
 
 
 ###########################################################
@@ -119,13 +119,7 @@ function apache_tune {
 	MAXCLIENTS=${MAXCLIENTS/.*} # cast to an integer
 	sed -i -e "s/\(^[ \t]*MaxClients[ \t]*\)[0-9]*/\1$MAXCLIENTS/" /etc/apache2/apache2.conf
 
-	touch /tmp/restart-apache2
-}
-
-function apache_new_default_vhost {
-        rm /etc/apache2/sites-available/default
-        cp ./default /etc/apache2/sites-available/
-	touch /tmp/restart-apache2
+	apache2ctl graceful
 }
 
 function apache_virtualhost {
@@ -154,7 +148,7 @@ function apache_virtualhost {
 
 	a2ensite $1
 
-	touch /tmp/restart-apache2
+	apache2ctl graceful
 }
 
 function apache_virtualhost_from_rdns {
@@ -175,122 +169,6 @@ function apache_virtualhost_get_docroot {
 	fi
 }
 
-###########################################################
-# mysql-server
-###########################################################
-
-function mysql_install {
-	# $1 - the mysql root password
-
-	if [ ! -n "$1" ]; then
-		echo "mysql_install() requires the root pass as its first argument"
-		return 1;
-	fi
-
-	echo "mysql-server-5.1 mysql-server/root_password password $1" | debconf-set-selections
-	echo "mysql-server-5.1 mysql-server/root_password_again password $1" | debconf-set-selections
-	apt-get -y install mysql-server mysql-client
-
-	echo "Sleeping while MySQL starts up for the first time..."
-	sleep 5
-}
-
-function mysql_tune {
-	# Tunes MySQL's memory usage to utilize the percentage of memory you specify, defaulting to 40%
-
-	# $1 - the percent of system memory to allocate towards MySQL
-
-	if [ ! -n "$1" ];
-		then PERCENT=40
-		else PERCENT="$1"
-	fi
-
-	sed -i -e 's/^#skip-innodb/skip-innodb/' /etc/mysql/my.cnf # disable innodb - saves about 100M
-
-	MEM=$(awk '/MemTotal/ {print int($2/1024)}' /proc/meminfo) # how much memory in MB this system has
-	MYMEM=$((MEM*PERCENT/100)) # how much memory we'd like to tune mysql with
-	MYMEMCHUNKS=$((MYMEM/4)) # how many 4MB chunks we have to play with
-
-	# mysql config options we want to set to the percentages in the second list, respectively
-	OPTLIST=(key_buffer sort_buffer_size read_buffer_size read_rnd_buffer_size myisam_sort_buffer_size query_cache_size)
-	DISTLIST=(75 1 1 1 5 15)
-
-	for opt in ${OPTLIST[@]}; do
-		sed -i -e "/\[mysqld\]/,/\[.*\]/s/^$opt/#$opt/" /etc/mysql/my.cnf
-	done
-
-	for i in ${!OPTLIST[*]}; do
-		val=$(echo | awk "{print int((${DISTLIST[$i]} * $MYMEMCHUNKS/100))*4}")
-		if [ $val -lt 4 ]
-			then val=4
-		fi
-		config="${config}\n${OPTLIST[$i]} = ${val}M"
-	done
-
-	sed -i -e "s/\(\[mysqld\]\)/\1\n$config\n/" /etc/mysql/my.cnf
-
-	touch /tmp/restart-mysql
-}
-
-function mysql_create_database {
-	# $1 - the mysql root password
-	# $2 - the db name to create
-
-	if [ ! -n "$1" ]; then
-		echo "mysql_create_database() requires the root pass as its first argument"
-		return 1;
-	fi
-	if [ ! -n "$2" ]; then
-		echo "mysql_create_database() requires the name of the database as the second argument"
-		return 1;
-	fi
-
-	echo "CREATE DATABASE $2;" | mysql -u root -p$1
-}
-
-function mysql_create_user {
-	# $1 - the mysql root password
-	# $2 - the user to create
-	# $3 - their password
-
-	if [ ! -n "$1" ]; then
-		echo "mysql_create_user() requires the root pass as its first argument"
-		return 1;
-	fi
-	if [ ! -n "$2" ]; then
-		echo "mysql_create_user() requires username as the second argument"
-		return 1;
-	fi
-	if [ ! -n "$3" ]; then
-		echo "mysql_create_user() requires a password as the third argument"
-		return 1;
-	fi
-
-	echo "CREATE USER '$2'@'localhost' IDENTIFIED BY '$3';" | mysql -u root -p$1
-}
-
-function mysql_grant_user {
-	# $1 - the mysql root password
-	# $2 - the user to bestow privileges
-	# $3 - the database
-
-	if [ ! -n "$1" ]; then
-		echo "mysql_create_user() requires the root pass as its first argument"
-		return 1;
-	fi
-	if [ ! -n "$2" ]; then
-		echo "mysql_create_user() requires username as the second argument"
-		return 1;
-	fi
-	if [ ! -n "$3" ]; then
-		echo "mysql_create_user() requires a database as the third argument"
-		return 1;
-	fi
-
-	echo "GRANT ALL PRIVILEGES ON $3.* TO '$2'@'localhost';" | mysql -u root -p$1
-	echo "FLUSH PRIVILEGES;" | mysql -u root -p$1
-
-}
 
 ###########################################################
 # PHP functions
@@ -298,67 +176,25 @@ function mysql_grant_user {
 
 function php_install_with_apache {
 	aptitude -y install php5 php5-mysql libapache2-mod-php5
-	touch /tmp/restart-apache2
+	apache2ctl graceful
 }
 
 function php_tune {
 	# Tunes PHP to utilize up to 32M per process
 
 	sed -i'-orig' 's/memory_limit = [0-9]\+M/memory_limit = 32M/' /etc/php5/apache2/php.ini
-	touch /tmp/restart-apache2
+	apache2ctl graceful
 }
 
-###########################################################
-# Wordpress functions
-###########################################################
-
-function wordpress_install {
-	# installs the latest wordpress tarball from wordpress.org
-
-	# $1 - required - The existing virtualhost to install into
-
-	if [ ! -n "$1" ]; then
-		echo "wordpress_install() requires the vitualhost as its first argument"
-		return 1;
-	fi
-
-	if [ ! -e /usr/bin/wget ]; then
-		aptitude -y install wget
-	fi
-
-	VPATH=$(apache_virtualhost_get_docroot $1)
-
-	if [ ! -n "$VPATH" ]; then
-		echo "Could not determine DocumentRoot for $1"
-		return 1;
-	fi
-
-	# download, extract, chown, and get our config file started
-	cd $VPATH
-	wget http://wordpress.org/latest.tar.gz
-	tar xfz latest.tar.gz
-	chown -R www-data: wordpress/
-	cd $VPATH/wordpress
-	cp wp-config-sample.php wp-config.php
-	chown www-data wp-config.php
-	chmod 640 wp-config.php
-
-	# database configuration
-	WPPASS=$(randomString 20)
-	mysql_create_database "$DB_PASSWORD" wordpress
-	mysql_create_user "$DB_PASSWORD" wordpress "$WPPASS"
-	mysql_grant_user "$DB_PASSWORD" wordpress wordpress
-
-	# configuration file updates
-	for i in {1..4}
-		do sed -i "0,/put your unique phrase here/s/put your unique phrase here/$(randomString 50)/" wp-config.php
-	done
-
-	sed -i 's/database_name_here/wordpress/' wp-config.php
-	sed -i 's/username_here/wordpress/' wp-config.php
-	sed -i "s/password_here/$WPPASS/" wp-config.php
-
-	# http://downloads.wordpress.org/plugin/wp-super-cache.0.9.8.zip
+function php_install_pecl_http {
+    apt-get install php5-dev --assume-yes
+    apt-get install libcurl4-gnutls-dev --assume-yes
+    apt-get install php-pear  --assume-yes
+    printf "\n" | pecl install pecl_http # accept default at all prompts
+    cp /usr/lib/php5/20090626+lfs/http.so /usr/lib/apache2/modules/
+    touch /etc/php5/conf.d/http.ini
+    echo "extension=http.so" > /etc/php5/conf.d/http.ini
+    apache2ctl graceful
 }
 
 ###########################################################
