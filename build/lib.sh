@@ -90,7 +90,7 @@ function apache_install {
 	# installs the system default apache2 MPM
 	aptitude -y install apache2
 
-	a2dissite default # disable the interfering default virtualhost
+	# a2dissite default # disable the interfering default virtualhost
 
 	# clean up, or add the NameVirtualHost line to ports.conf
 	sed -i -e 's/^NameVirtualHost \*$/NameVirtualHost *:80/' /etc/apache2/ports.conf
@@ -99,6 +99,7 @@ function apache_install {
 		cat /etc/apache2/ports.conf >> /etc/apache2/ports.conf.tmp
 		mv -f /etc/apache2/ports.conf.tmp /etc/apache2/ports.conf
 	fi
+        a2enmod rewrite
 }
 
 function apache_tune {
@@ -118,6 +119,12 @@ function apache_tune {
 	MAXCLIENTS=${MAXCLIENTS/.*} # cast to an integer
 	sed -i -e "s/\(^[ \t]*MaxClients[ \t]*\)[0-9]*/\1$MAXCLIENTS/" /etc/apache2/apache2.conf
 
+	touch /tmp/restart-apache2
+}
+
+function apache_new_default_vhost {
+        rm /etc/apache2/sites-available/default
+        cp ./default /etc/apache2/sites-available/
 	touch /tmp/restart-apache2
 }
 

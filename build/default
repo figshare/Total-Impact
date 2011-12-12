@@ -1,6 +1,6 @@
 <VirtualHost *:80>
-    DocumentRoot /home/ti/total-impact/
-    <Directory /home/ti/total-impact>
+    DocumentRoot /home/ti/Total-Impact/
+    <Directory /home/ti/Total-Impact>
         Options Indexes FollowSymLinks Includes ExecCGI
         AllowOverride All
         Order allow,deny
