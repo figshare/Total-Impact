@@ -1,5 +1,6 @@
 #! /bin/bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 source ${DIR}/lib.sh
 if [ $# -lt 1 ]; then
     echo "You must supply a password for the ti user account."
@@ -33,5 +34,9 @@ cp ${DIR}/default /etc/apache2/sites-available/
 apache_install
 apache_tune 40
 
-# install pecl/http
-php_install_pecl_http
+# install curl and pecl/http
+php_install_libs
+
+#install python libs
+apt-get install python-setuptools --assume-yes
+easy_install simplejson BeautifulSoup nose

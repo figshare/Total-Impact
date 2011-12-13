@@ -186,11 +186,12 @@ function php_tune {
 	apache2ctl graceful
 }
 
-function php_install_pecl_http {
+function php_install_libs {
+    apt-get install php5-curl --assume-yes
     apt-get install php5-dev --assume-yes
     apt-get install libcurl4-gnutls-dev --assume-yes
     apt-get install php-pear  --assume-yes
-    printf "\n" | pecl install pecl_http # accept default at all prompts
+    printf "\n" | pecl install pecl_http # accept default at all promptsphp
     cp /usr/lib/php5/20090626+lfs/http.so /usr/lib/apache2/modules/
     touch /etc/php5/conf.d/http.ini
     echo "extension=http.so" > /etc/php5/conf.d/http.ini
