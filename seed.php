@@ -1,9 +1,8 @@
 <?php require_once './bootstrap.php'; 
 
-	function runseed($name, $type) {
+	function runseed($name, $type, Models_Seeder $seed) {
 		breadcrumb("in seed with " . $name . " " . $type);
-	
-		$seed = new Models_Seeder();
+
 		$artifactIds = array();
 		$groups = "";
 		$contacts = "";
@@ -46,9 +45,11 @@
 
         return($response);
 	}
-	
 	breadcrumb("finished seed.php");
-	echo json_encode(runseed(trim($_REQUEST['name']), trim($_REQUEST['type'])));
+        $name = trim($_REQUEST['name']);
+        $type = trim($_REQUEST['type']);
+        $seed = new Models_Seeder( new Zend_Config_Ini(CREDS_PATH) );
+	echo json_encode(runseed($name, $type, $seed));
 	
 ?>
 

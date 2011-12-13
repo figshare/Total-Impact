@@ -10,12 +10,10 @@
 class Models_Seeder {
 	#private $mendeley_profile_cache;
 
-	private $TOTALIMPACT_MENDELEY_KEY;
+        private $creds;
 	
-    function __construct() {
-		$password_ini_array = parse_ini_file("passwords.ini");
-		$this->TOTALIMPACT_MENDELEY_KEY = $password_ini_array['TOTALIMPACT_MENDELEY_KEY'];
-    #    $this->mendeley_profile_cache = new stdClass();
+    function __construct(Zend_Config_Ini $creds) {
+                $this->creds = $creds;
 	}
 
 	
@@ -66,7 +64,7 @@ class Models_Seeder {
 
 	public function lookUpMendeleyPaper($biblio) {
 		$MENDELEY_LOOKUP_FROM_DOI_URL_PART1 = "http://api.mendeley.com/oapi/documents/search/title%3A";
-		$MENDELEY_LOOKUP_FROM_DOI_URL_PART2 = "/?consumer_key=" . $this->TOTALIMPACT_MENDELEY_KEY;
+		$MENDELEY_LOOKUP_FROM_DOI_URL_PART2 = "/?consumer_key=" . $this->creds->mendeley->key;
 
 		$title = $biblio["rft.atitle"];
 		$title = preg_replace('/%\w\w/', '', $title);
@@ -151,7 +149,7 @@ class Models_Seeder {
     public function getMendeleyGroupArtifacts($groupId) {
 	
 	    $MENDELEY_LOOKUP_FROM_DOI_URL_PART1 = "http://api.mendeley.com/oapi/documents/groups/";
-		$MENDELEY_LOOKUP_FROM_DOI_URL_PART2 = "/docs/?details=true&items=100&consumer_key=" . $this->TOTALIMPACT_MENDELEY_KEY;
+		$MENDELEY_LOOKUP_FROM_DOI_URL_PART2 = "/docs/?details=true&items=100&consumer_key=" . $this->creds->mendeley->key;
 		$mendeleyUrlGroupPage = $MENDELEY_LOOKUP_FROM_DOI_URL_PART1 . $groupId . $MENDELEY_LOOKUP_FROM_DOI_URL_PART2;
 		$requestGroupPage = new HttpRequest($mendeleyUrlGroupPage, HTTP_METH_GET);
 		$responseGroupPage = $requestGroupPage->send();

@@ -4,6 +4,7 @@
 // define constants
 defined('APP_PATH') || define('APP_PATH', realpath(dirname(__FILE__) ));
 defined('CONFIG_PATH') || define('CONFIG_PATH', APP_PATH . '/config/app.ini');
+defined('CREDS_PATH') || define('CREDS_PATH', APP_PATH . '/config/creds.ini');
 if (defined('ENV')){
     // do nothing
 }
