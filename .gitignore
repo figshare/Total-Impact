@@ -3,3 +3,4 @@
 .cache
 .cache/*
 hap-*.*
+creds.ini
