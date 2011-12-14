@@ -172,15 +172,19 @@ class BasePluginClass(object):
         json_response = simplejson.dumps(response)
         return(json_response)
 
-    def get_cache_timeout_response(self, 
-                                    url, 
-                                    http_timeout_in_seconds = 20, 
-                                    max_cache_age_seconds = (1) * (24 * 60 * 60), # (number of days) * (number of seconds in a day), 
+    # I've temp disabled caching because it was causing permissions errors.
+    # I'd like to implement this with memcached, instead, which will have much
+    # better performance and be simpler.
+    def get_cache_timeout_response(self,
+                                    url,
+                                    http_timeout_in_seconds = 20,
+                                    max_cache_age_seconds = (1) * (24 * 60 * 60), # (number of days) * (number of seconds in a day),
                                     header_addons = {}):
-        http_cached = httplib2.Http(self.CACHE_DIR, timeout=http_timeout_in_seconds)
         header_dict = {'cache-control':'max-age='+str(max_cache_age_seconds)}
         header_dict.update(header_addons)
-                
+        '''
+        http_cached = httplib2.Http(self.CACHE_DIR, timeout=http_timeout_in_seconds)
+
         cache_read = http_cached.cache.get(url)
         if (cache_read):
             (response, content) = cache_read.split("\r\n\r\n", 1)
@@ -195,17 +199,19 @@ class BasePluginClass(object):
                 self.status["count_cache_miss_details"] = str(self.status["count_cache_miss_details"]) + "; " + url
                 self.status["count_cache_miss_response"] = str(response)
                 self.status["count_api_requests"] += 1
-                
-            if False:    
+
+            if False:
                 self.status["count_request_exception"] = "EXCEPTION!"
                 self.status["count_uncached_call"] += 1
                 self.status["count_api_requests"] += 1
                 #(response, content) = http_cached.request(url, headers=header_dict.update({'cache-control':'no-cache'}))
-                req = urllib2.Request(url, headers=header_dict)
-                uh = urllib2.urlopen(req)
-                content = uh.read()
-                response = uh.info()
-        
+
+                '''
+        req = urllib2.Request(url, headers=header_dict)
+        uh = urllib2.urlopen(req)
+        content = uh.read()
+        response = uh.info()
+
         return(response, content)
 
     # each plugin needs to write a get_page and extract_stats    
