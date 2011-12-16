@@ -13,7 +13,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import BasePlugin
 from BasePlugin.BasePlugin import BasePluginClass
 from BasePlugin.BasePlugin import TestBasePluginClass
-import passwords
+import ConfigParser
 
 # Permissions: RWX for owner, WX for others.  Set this here so that .pyc are created with these permissions
 os.umask(022) 
@@ -35,15 +35,19 @@ class PluginClass(BasePluginClass):
     SOURCE_ICON = "http://www.mendeley.com/favicon.ico" #rgb(159,0,34)
     SOURCE_METRICS = dict(  readers="the number of readers of the article",
                             groups="the number of groups of the article")
+    MENDELEY_LOOKUP_FROM_DOI_URL = ''
+    MENDELEY_LOOKUP_FROM_PMID_URL = ''
+    MENDELEY_LOOKUP_FROM_UUID_URL = ''
+    DEBUG = True
 
-    DEBUG = False
-
-    MENDELEY_LOOKUP_FROM_DOI_URL = "http://api.mendeley.com/oapi/documents/details/%s?type=doi&consumer_key=" + passwords.TOTALIMPACT_MENDELEY_KEY
-    MENDELEY_LOOKUP_FROM_PMID_URL = "http://api.mendeley.com/oapi/documents/details/%s?type=pmid&consumer_key=" + passwords.TOTALIMPACT_MENDELEY_KEY
-    MENDELEY_LOOKUP_FROM_UUID_URL = "http://api.mendeley.com/oapi/documents/details/%s?consumer_key=" + passwords.TOTALIMPACT_MENDELEY_KEY
 
     def __init__(self):
-        pass
+        config = ConfigParser.ConfigParser()
+        config.readfp(open('../../../config/creds.ini'))
+        key = config.get('apis', 'Mendeley_key')
+        self.MENDELEY_LOOKUP_FROM_DOI_URL = "http://api.mendeley.com/oapi/documents/details/%s?type=doi&consumer_key=" + key
+        self.MENDELEY_LOOKUP_FROM_PMID_URL = "http://api.mendeley.com/oapi/documents/details/%s?type=pmid&consumer_key=" + key
+        self.MENDELEY_LOOKUP_FROM_UUID_URL = "http://api.mendeley.com/oapi/documents/details/%s?consumer_key=" + key
 
     # each plugin needs to write one of these    
     def get_page(self, id):
@@ -184,7 +188,7 @@ class PluginClass(BasePluginClass):
 class TestPluginClass(TestBasePluginClass):
 
     def setup(self):
-        self.plugin = MendeleyPluginClass()
+        self.plugin = PluginClass()
         self.test_parse_input = self.testinput.TEST_INPUT_DOI
     
     ## this changes for every plugin        

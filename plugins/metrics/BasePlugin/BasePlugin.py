@@ -182,7 +182,6 @@ class BasePluginClass(object):
                                     header_addons = {}):
         header_dict = {'cache-control':'max-age='+str(max_cache_age_seconds)}
         header_dict.update(header_addons)
-        '''
         http_cached = httplib2.Http(self.CACHE_DIR, timeout=http_timeout_in_seconds)
 
         cache_read = http_cached.cache.get(url)
@@ -191,7 +190,7 @@ class BasePluginClass(object):
         else:
             (response, content) = http_cached.request(url, headers=header_dict)
             response['cache-control'] = "max-age=" + str(max_cache_age_seconds)
-            httplib2._updateCache(header_dict, response, content, http_cached.cache, url)
+            ## httplib2._updateCache(header_dict, response, content, http_cached.cache, url)
             if response.fromcache:
                 self.status["count_got_response_from_cache"] += 1
             else:
@@ -206,7 +205,6 @@ class BasePluginClass(object):
                 self.status["count_api_requests"] += 1
                 #(response, content) = http_cached.request(url, headers=header_dict.update({'cache-control':'no-cache'}))
 
-                '''
         req = urllib2.Request(url, headers=header_dict)
         uh = urllib2.urlopen(req)
         content = uh.read()

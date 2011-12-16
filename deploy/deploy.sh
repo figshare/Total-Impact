@@ -1,6 +1,5 @@
 #! /bin/bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
 source ${DIR}/lib.sh
 if [ $# -lt 1 ]; then
     echo "You must supply a password for the ti user account."
