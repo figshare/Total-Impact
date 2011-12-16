@@ -47,7 +47,7 @@ class TestInput(object):
     TEST_INPUT_ALL.update(TEST_INPUT_NOTHING)
     TEST_INPUT_PLOS_DOI = {"10.1371/journal.pcbi.1000361":{"doi":"10.1371/journal.pcbi.1000361"}}
     TEST_INPUT_ALL.update(TEST_INPUT_PLOS_DOI)
-    TEST_INPUT_SLIDESHARE_URL = {"ttp://www.slideshare.net/phylogenomics/eisenall-hands":{"url":"ttp://www.slideshare.net/phylogenomics/eisenall-hands"}}
+    TEST_INPUT_SLIDESHARE_URL = {"http://www.slideshare.net/phylogenomics/eisenall-hands":{"url":"http://www.slideshare.net/phylogenomics/eisenall-hands"}}
     TEST_INPUT_ALL.update(TEST_INPUT_SLIDESHARE_URL)
     TEST_INPUT_GEO = {"GSE2109":{}}
     TEST_INPUT_ALL.update(TEST_INPUT_GEO)
@@ -180,16 +180,15 @@ class BasePluginClass(object):
                                     http_timeout_in_seconds = 20,
                                     max_cache_age_seconds = (1) * (24 * 60 * 60), # (number of days) * (number of seconds in a day),
                                     header_addons = {}):
-        header_dict = {'cache-control':'max-age='+str(max_cache_age_seconds)}
-        header_dict.update(header_addons)
-        http_cached = httplib2.Http(self.CACHE_DIR, timeout=http_timeout_in_seconds)
+        http = httplib2.Http(timeout=http_timeout_in_seconds)
+        (response, content) = http.request(url)
 
+        '''
         cache_read = http_cached.cache.get(url)
         if (cache_read):
             (response, content) = cache_read.split("\r\n\r\n", 1)
         else:
-            (response, content) = http_cached.request(url, headers=header_dict)
-            response['cache-control'] = "max-age=" + str(max_cache_age_seconds)
+            ## response['cache-control'] = "max-age=" + str(max_cache_age_seconds)
             ## httplib2._updateCache(header_dict, response, content, http_cached.cache, url)
             if response.fromcache:
                 self.status["count_got_response_from_cache"] += 1
@@ -204,12 +203,12 @@ class BasePluginClass(object):
                 self.status["count_uncached_call"] += 1
                 self.status["count_api_requests"] += 1
                 #(response, content) = http_cached.request(url, headers=header_dict.update({'cache-control':'no-cache'}))
-
-        req = urllib2.Request(url, headers=header_dict)
-        uh = urllib2.urlopen(req)
-        content = uh.read()
-        response = uh.info()
-
+                req = urllib2.Request(url, headers=header_dict)
+                uh = urllib2.urlopen(req)
+                content = uh.read()
+                response = uh.info()
+        '''
+        
         return(response, content)
 
     # each plugin needs to write a get_page and extract_stats    

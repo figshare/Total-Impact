@@ -8,12 +8,12 @@ import nose
 from nose.tools import assert_equals
 import sys
 import os
+import ConfigParser
 # This hack is to add current path when running script from command line
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import BasePlugin
 from BasePlugin.BasePlugin import BasePluginClass
 from BasePlugin.BasePlugin import TestBasePluginClass
-import ConfigParser
 
 # Permissions: RWX for owner, WX for others.  Set this here so that .pyc are created with these permissions
 os.umask(022) 

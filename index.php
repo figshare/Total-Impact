@@ -1,5 +1,6 @@
 <?php
 require_once './bootstrap.php';
+//echo "hi!";
 #require_once 'FirePHPCore/fb.php';
 // TRUE = disable all output buffering, 
 // and automatically flush() 

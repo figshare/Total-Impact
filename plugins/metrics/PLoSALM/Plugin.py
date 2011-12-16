@@ -11,6 +11,7 @@ import nose
 from nose.tools import assert_equals
 import sys
 import os
+import ConfigParser
 # This hack is to add current path when running script from command line
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import BasePlugin
@@ -108,15 +109,21 @@ class PluginClass(BasePluginClass):
 
 
     DEBUG = False
-
-    PLOS_API_KEY = "n0ixcSmyvDdRNsq"
-    PLOS_ALM_POOLED_API_URL = "http://alm.plos.org/articles/info:doi/%s.xml?history=1&api_key=" + PLOS_API_KEY
-    PLOS_ALM_PLOS_USAGE_API_URL = "http://alm.plos.org/articles/info:doi/%s.xml?source=counter&citations=1&api_key=" + PLOS_API_KEY
-    PLOS_ALM_PMC_USAGE_API_URL = "http://alm.plos.org/articles/info:doi/%s.xml?source=pmc&citations=1&history=1&api_key=" + PLOS_API_KEY
+    PLOS_ALM_POOLED_API_URL = ""
+    PLOS_ALM_PLOS_USAGE_API_URL = ""
+    PLOS_ALM_PMC_USAGE_API_URL = ""
     PLOS_DOI_PATTERN = re.compile(r"10.1371/journal.p", re.DOTALL | re.IGNORECASE)
 
     PLOS_HOSTNAME_LOOKUP = dict(pone="plosone", pbio="plosbiology", pmed="plosmedicine", pcbi="ploscompbiol", pgen="plosgenetics", ppat="plospathogens", pntd="plosntds")
-    
+
+    def __init__(self):
+        config = ConfigParser.ConfigParser()
+        config.readfp(open('../../../config/creds.ini'))
+        key = config.get('apis', 'PLoS_key')
+        self.PLOS_ALM_POOLED_API_URL = "http://alm.plos.org/articles/info:doi/%s.xml?history=1&api_key=" + key
+        self.PLOS_ALM_PLOS_USAGE_API_URL = "http://alm.plos.org/articles/info:doi/%s.xml?source=counter&citations=1&api_key=" + key
+        self.PLOS_ALM_PMC_USAGE_API_URL = "http://alm.plos.org/articles/info:doi/%s.xml?source=pmc&citations=1&history=1&api_key=" + key
+
     def get_page(self, url):
         if not url:
             return(None)

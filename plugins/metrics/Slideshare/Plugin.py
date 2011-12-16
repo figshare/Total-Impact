@@ -11,6 +11,7 @@ import nose
 from nose.tools import assert_equals
 import sys
 import os
+import ConfigParser
 # This hack is to add current path when running script from command line
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import BasePlugin
@@ -43,19 +44,25 @@ class PluginClass(BasePluginClass):
 
     DEBUG = False
 
-    TOTALIMPACT_SLIDESHARE_KEY = "nyHCUoNM"
-    TOTALIMPACT_SLIDESHARE_SECRET = "z7sRiGCG"
-    SLIDESHARE_API_URL = "http://www.slideshare.net/api/2/get_slideshow?api_key=nyHCUoNM&detailed=1&ts=%s&hash=%s&slideshow_url=%s"
+    SLIDESHARE_KEY = ""
+    SLIDESHARE_SECRET = ""
+    SLIDESHARE_API_URL = ""
     SLIDESHARE_URL_PATTERN = re.compile("http://www.slideshare.net/.+")
 
+    def __init__(self):
+        config = ConfigParser.ConfigParser()
+        config.readfp(open('../../../config/creds.ini'))
+        self.SLIDESHARE_SECRET =  config.get('apis', 'Slideshare_secret')
+        url_str = "http://www.slideshare.net/api/2/get_slideshow?api_key=%s&detailed=1&ts=%s&hash=%s&slideshow_url=%s"
+        self.SLIDESHARE_API_URL = url_str % (config.get('apis', 'Slideshare_key'), '%s', '%s', '%s')
+        
     # each plugin needs to write one of these    
     def get_page(self, id):
         if not id:
             return(None)
         ts = time.time()
-        hash_combo = hashlib.sha1(self.TOTALIMPACT_SLIDESHARE_SECRET + str(ts)).hexdigest()
+        hash_combo = hashlib.sha1(self.SLIDESHARE_SECRET + str(ts)).hexdigest()
         query_url = self.SLIDESHARE_API_URL %(ts, hash_combo, id)
-        #print url
         try:
             response = self.get_cache_timeout_response(query_url)
         except:

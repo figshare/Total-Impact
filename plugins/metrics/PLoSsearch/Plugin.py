@@ -11,6 +11,7 @@ import nose
 from nose.tools import assert_equals
 import sys
 import os
+import ConfigParser
 # This hack is to add current path when running script from command line
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import BasePlugin
@@ -36,11 +37,14 @@ class PluginClass(BasePluginClass):
     SOURCE_URL = "http://www.plos.org/"
     SOURCE_ICON = "http://a0.twimg.com/profile_images/67542107/Globe_normal.jpg"
     SOURCE_METRICS = dict(mentions="the number of mentions in PLoS article full text")
-
+    PLOS_SEARCH_API_URL = ''
     DEBUG = False
 
-    PLOS_API_KEY = "n0ixcSmyvDdRNsq"
-    PLOS_SEARCH_API_URL = 'http://api.plos.org/search?q="%s"&api_key=' + PLOS_API_KEY
+    def __init__(self):
+        config = ConfigParser.ConfigParser()
+        config.readfp(open('../../../config/creds.ini'))
+        key = config.get('apis', 'PLoS_key')
+        self.PLOS_SEARCH_API_URL = 'http://api.plos.org/search?q="%s"&api_key=' + key
 
     def get_page(self, id):
         if not id:
