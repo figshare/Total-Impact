@@ -8,6 +8,7 @@ from nose.tools import assert_equals
 import sys
 import os
 import time
+import ConfigParser
 
 # This hack is to add current path when running script from command line
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

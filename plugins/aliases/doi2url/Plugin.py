@@ -10,6 +10,7 @@ import nose
 from nose.tools import assert_equals
 import sys
 import os
+import ConfigParser
 # This hack is to add current path when running script from command line
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import BasePlugin
@@ -37,9 +38,16 @@ class PluginClass(BasePluginClass):
     SOURCE_METRICS = {}
 
     DEBUG = False
+    CROSSREF_API_PATTERN = ""
 
-    CROSSREF_API_PATTERN = "http://doi.crossref.org/servlet/query?pid=mytotalimpact@gmail.com&qdata=%s&format=unixref"
-    
+    def __init__(self):
+        config = ConfigParser.ConfigParser()
+        config.readfp(open('../../../config/creds.ini'))
+        email = config.get('id', 'email')
+        email = 'mytotalimpact@gmail.com' # legacy email address...should be changed at some point
+        self.CROSSREF_API_PATTERN = "http://doi.crossref.org/servlet/query?pid=%s&qdata=%s&format=unixref" % (email, '%s')
+
+
     def get_page(self, doi_list):
         ## see http://www.crossref.org/help/Content/05_Interfacing_with_the_CrossRef_system/Using_HTTP.htm
         if not doi_list:

@@ -11,6 +11,7 @@ import nose
 from nose.tools import assert_equals
 import sys
 import os
+import ConfigParser
 
 # This hack is to add current path when running script from command line
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -37,11 +38,18 @@ class PluginClass(BasePluginClass):
     SOURCE_URL = "http://www.ncbi.nlm.nih.gov/pubmed/"
     SOURCE_ICON = "http://www.ncbi.nlm.nih.gov/favicon.ico"
     SOURCE_METRICS = {}
+    TOOL_NAME = ""
+    TOOL_EMAIL = ""
 
     DEBUG = False
 
     PUBMED_ESUMMARY_API_URL = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=%s&retmode=xml&tool=%s&email=%s"
 
+    def __init__(self):
+        config = ConfigParser.ConfigParser()
+        config.readfp(open('../../../config/creds.ini'))
+        self.TOOL_NAME = config.get('id', 'name')
+        self.TOOL_EMAIL = config.get('id', 'email')
 
     def get_page(self, url):
         if not url:

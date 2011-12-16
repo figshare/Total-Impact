@@ -8,6 +8,7 @@ import nose
 from nose.tools import assert_equals
 import sys
 import os
+import ConfigParser
 # This hack is to add current path when running script from command line
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import BasePlugin
@@ -37,10 +38,13 @@ class PluginClass(BasePluginClass):
 
     DEBUG = False
 
-    MENDELEY_LOOKUP_FROM_UUID_URL = "http://api.mendeley.com/oapi/documents/details/%s?consumer_key=" + passwords.TOTALIMPACT_MENDELEY_KEY
+    MENDELEY_LOOKUP_FROM_UUID_URL = ""
 
     def __init__(self):
-        pass
+        config = ConfigParser.ConfigParser()
+        config.readfp(open('../../../config/creds.ini'))
+        key = config.get('apis', 'Mendeley_key')
+        self.MENDELEY_LOOKUP_FROM_UUID_URL = "http://api.mendeley.com/oapi/documents/details/%s?consumer_key=" + key
 
     # each plugin needs to write one of these    
     def get_page(self, id):
