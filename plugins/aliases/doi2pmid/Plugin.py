@@ -31,9 +31,15 @@ class PluginClass(BasePluginClass):
     SOURCE_NAME = "doi2pmid"
     SOURCE_DESCRIPTION = "Looks up alias for entered ID"
     DEBUG = False
-    
+    EMAIL = ''
+
+    def __init__(self):
+        config = ConfigParser.ConfigParser()
+        config.readfp(open('../../../config/creds.ini'))
+        self.EMAIL = config.get('id', 'email')
+
     def get_pmid_from_doi(self, doi):
-        url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?term=%s&email=%s" % (doi, self.TOOL_EMAIL)
+        url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?term=%s&email=%s" % (doi, self.EMAIL)
         (response, xml) = self.get_cache_timeout_response(url)
         soup = BeautifulStoneSoup(xml)
         #print soup.prettify()

@@ -8,6 +8,7 @@ import nose
 from nose.tools import assert_equals
 import sys
 import os
+import ConfigParser
 # This hack is to add current path when running script from command line
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import BasePlugin
@@ -35,14 +36,16 @@ class PluginClass(BasePluginClass):
     SOURCE_ICON = "http://twitter.com/phoenix/favicon.ico" 
     SOURCE_METRICS = dict(  tweets="the number of tweets of the artifact",
                             influential_tweets="the number of tweets of the artifact by influential tweeters")
-
+    TOPSY_API_URL = ""
     DEBUG = False
 
-    OTTER_KEY = "1F47A0DFFB184FD88FC0C6F4403D9FCA"
-    OTTER_API_URL = "http://otter.topsy.com/stats.json?url=%s&apikey=" + OTTER_KEY
 
     def __init__(self):
-        pass
+        config = ConfigParser.ConfigParser()
+        config.readfp(open('../../../config/creds.ini'))
+        key = config.get('apis', 'Topsy_key')
+        self.TOPSY_API_URL = "http://otter.topsy.com/stats.json?url=%s&apikey=" + key
+
 
     # each plugin needs to write one of these    
     def get_page(self, id):
@@ -53,8 +56,8 @@ class PluginClass(BasePluginClass):
         if "&" in id:
             return(None)
         
-        #query_url = self.OTTER_API_URL % urllib.quote(id, safe="")
-        query_url = self.OTTER_API_URL % id
+        #query_url = self.TOPSY_API_URL % urllib.quote(id, safe="")
+        query_url = self.TOPSY_API_URL % id
         #print query_url
         
         response = self.get_cache_timeout_response(query_url)

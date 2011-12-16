@@ -92,8 +92,6 @@ class BasePluginClass(object):
     # PMIDs are 1 to 8 digit numbers, as per http://www.nlm.nih.gov/bsd/mms/medlineelements.html#pmid    
     PMID_PATTERN = re.compile(r"^\d{1,8}$", re.DOTALL)
 
-    TOOL_NAME = "total-impact.org"
-    TOOL_EMAIL = "total-impact@googlegroups.com"
     MAX_ELAPSED_TIME = 120 # seconds, part of plugin API specification
     
     CACHE_DIR = "../../.cache"  #so that all plugins, alias and metrics, running on this server can share cache
