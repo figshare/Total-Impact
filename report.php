@@ -3,7 +3,8 @@ require_once './bootstrap.php';
 #require_once 'FirePHPCore/fb.php';
 
 $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
-$couch = new Couch_Client($config->db->dsn, $config->db->name);
+$dbCreds = new Zend_Config_Ini(CREDS_PATH, 'db');
+$couch = new Couch_Client($dbCreds->dsn, $dbCreds->name);
 $collectionId = $_REQUEST['id'];
 
 $report = new Models_Reporter($couch, $collectionId);

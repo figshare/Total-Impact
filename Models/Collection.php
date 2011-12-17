@@ -9,8 +9,13 @@
  */
 class Models_Collection {
 	static $MAX_NUM_ARTIFACTS = 250;
-	
-   /**
+        private $couch;
+
+        function __construct(Couch_Client $couch) {
+            $this->couch = $couch;
+        }
+
+        /**
     * Splits a string into lines
     *
     * @param String $str
@@ -41,14 +46,6 @@ class Models_Collection {
 			$ret .= $chars[$index];
 		}
 		return $ret;
-    }
-
-
-    private function store($doc){
-      	$config = new Zend_Config_Ini(CONFIG_PATH, ENV);
-        $couch = new Couch_Client($config->db->dsn, $config->db->name);
-        $response = $this->robustStoreDoc($doc, 0, $couch);
-        return $response;
     }
 
 	/* this will eventually replace create */
@@ -82,7 +79,7 @@ class Models_Collection {
      * @param string $idsStr A list of artifact IDs, delimited by linebreaks\
      * @return StdClass A CouchDB response object
      */
-    public function create($title, $idsStr, $config) {
+    public function create($title, $idsStr) {
 		$maxNumArtifacts = 250;
 		
         // sanitize inputs
@@ -108,8 +105,7 @@ class Models_Collection {
 		}
 
         // put it in couchdb
-        $couch = new Couch_Client($config->db->dsn, $config->db->name);
-        $response = $this->robustStoreDoc($doc, 0, $couch);
+        $response = $this->robustStoreDoc($doc);
         return $response;
     }
 
@@ -120,17 +116,17 @@ class Models_Collection {
      *    the doc was changed after we downloaded it).
      *
      */
-    private function robustStoreDoc($doc, $tries, $couch){
+    private function robustStoreDoc($doc, $tries=0){
         $maxTries = 5;
         try {
-            $response = $couch->storeDoc($doc);
+            $response = $this->couch->storeDoc($doc);
         }
         catch (Exception $e){
             if ($tries > $maxTries) {
                 throw $e;
             }
             sleep(0.);
-            return $this->robustStoreDoc($doc, $tries+1, $couch);
+            return $this->robustStoreDoc($doc, $tries+1);
         }
 
         return $response;
@@ -181,21 +177,19 @@ class Models_Collection {
 	/**
 	* Updates the collection by calling plugins and storing the $doc again
 	**/
-	public function callPluginsAndStoreDoc($collectionId, $config, $pluginList, $pluginQueryData, $pluginType) {
+	public function callPluginsAndStoreDoc($collectionId, $pluginList, $pluginQueryData, $pluginType) {
 		#breadcrumb("*******in update", 0);
-		$couch = new Couch_Client($config->db->dsn, $config->db->name);
 		
 		/* load the doc fresh from the DB to prevent conflicts */
-		$doc = $couch->getDoc($collectionId);
+		$doc = $this->couch->getDoc($collectionId);
 
 		$doc = $this->queryPlugins($doc, $pluginQueryData, $pluginList, $pluginType); 
-		$response = $this->robustStoreDoc($doc, 0, $couch);
+		$response = $this->robustStoreDoc($doc);
 		return($doc);
 	}
 
-	public function getArtifactsIds($collectionId, $config) {
-		$couch = new Couch_Client($config->db->dsn, $config->db->name);
-		$doc = $couch->getDoc($collectionId);
+	public function getArtifactsIds($collectionId) {
+		$doc = $this->couch->getDoc($collectionId);
 		$pluginQueryData = new stdClass();
 		if (isset($doc->artifact_ids)) {
 			foreach ($doc->artifact_ids as $index => $id) {
@@ -220,14 +214,14 @@ class Models_Collection {
 	/**
 	* Updates the collection by calling plugins and storing the $doc again
 	**/
-	public function update($collectionId, $config) {
+	public function update($collectionId, Zend_Config_Ini $config) {
 		#get initial list
-		$pluginQueryData = $this->getArtifactsIds($collectionId, $config);
+		$pluginQueryData = $this->getArtifactsIds($collectionId);
 		
 		# call alias plugins sequentially
 		$pluginUrls = $config->plugins->alias;
 		foreach ($pluginUrls as $sourceName=>$pluginUrl) {
-			$doc = $this->callPluginsAndStoreDoc($collectionId, $config, array($pluginUrl), $pluginQueryData, "aliases");
+			$doc = $this->callPluginsAndStoreDoc($collectionId, array($pluginUrl), $pluginQueryData, "aliases");
 			$pluginQueryData = $this->consolidateAliases($pluginQueryData, $doc);		
 		}
 			
@@ -235,22 +229,20 @@ class Models_Collection {
 		#FB::log($doc);
 		
 		# call metrics plugins in parallel
-        $doc->last_updated_at = (string)time();		
-		$doc = $this->callPluginsAndStoreDoc($collectionId, $config, $config->plugins->source, $pluginQueryData, "sources");
+                $doc->last_updated_at = (string)time();
+		$doc = $this->callPluginsAndStoreDoc($collectionId, $config->plugins->source, $pluginQueryData, "sources");
 	}
 
     /**
      * Loads the data on the collection specified by $this->id
      */
-    public function fetch($collectionId, $config=NULL){
+    public function fetch($collectionId,  $config=NULL){
 		if (isnull($config)) {
       		$config = new Zend_Config_Ini(CONFIG_PATH, ENV);
 		}
 
-        $couch = new Couch_Client($config->db->dsn, $config->db->name);
-	
         try {
-            $doc = $couch->getDocRaw($collectionId);
+            $doc = $this->couch->getDocRaw($collectionId);
         }
         catch (Exception $e) {
             // throw $e;

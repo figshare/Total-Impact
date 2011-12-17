@@ -4,7 +4,7 @@ require_once './bootstrap.php';
 #require_once 'FirePHPCore/fb.php';
 // TRUE = disable all output buffering, 
 // and automatically flush() 
-// immediately after every print or echo 
+// immediately after every print or echo
 
 function sanitize($str, $alphaNumDashOnly=TRUE){
     $newStr = "";
@@ -17,8 +17,9 @@ function sanitize($str, $alphaNumDashOnly=TRUE){
     return $newStr;
 }
 
+$dbCreds = new Zend_Config_Ini(CREDS_PATH, 'db');
 $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
-$collection = new Models_Collection();
+$collection = new Models_Collection(new Couch_Client($dbCreds->dsn, $dbCreds->name));
 
 
 if (isset($_REQUEST['id'])) {
@@ -48,13 +49,13 @@ if (isset($_REQUEST['id'])) {
     }
 
     // save the new collection
-    $storedDoc = $collection->create($title, $artifactIds, $config);
+    $storedDoc = $collection->create($title, $artifactIds);
     $collectionId = $storedDoc->id;
 }
 error_log("now update");
 // get the updates
 $collection->update($collectionId, $config);
-// redirect to the report page for this plugin
-header("HTTP/1.1 200 OK");
 echo $collectionId;
+
+header("HTTP/1.1 200 OK");
 ?>

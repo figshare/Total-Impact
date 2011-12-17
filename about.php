@@ -3,7 +3,8 @@ require './bootstrap.php';
 #require_once 'FirePHPCore/fb.php';
 
 $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
-$couch = new Couch_Client($config->db->dsn, $config->db->name);
+$dbCreds = new Zend_Config_Ini(CREDS_PATH, 'db');
+$couch = new Couch_Client($dbCreds->dsn, $dbCreds->name);
 $collectionId = "MqAnvI"; #TODO: substitute with a collection with ID of"EXAMPLE_ALL_PLUGINS"
 
 $report = new Models_Reporter($couch, $collectionId);
