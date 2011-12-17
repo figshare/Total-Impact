@@ -1,23 +1,20 @@
 #! /bin/bash
 
 # Sets up a running total-impact from a bare Ubuntu 10.04 Server install.
-# Takes one argument: the password of the "ti" user that'll be created to host the files.
-# You'll also need to supply, when prompted, the passphrase to unlock db and api credentials.
+# You'll need to supply, when prompted, 
+#   1. the password of the "ti" user that'll be created to host the files.
+#   2. the passphrase to unlock db and api credentials.
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source ${DIR}/lib.sh
-if [ $# -lt 1 ]; then
-    echo "You must supply a password for the ti user account."
-    exit 2
-fi
-PW=$1
+
 
 apt-get update
 apt-get upgrade
 
 # create new user ti
-useradd -d /home/ti -m -p $(openssl passwd -crypt $PW) ti
-chsh -s /bin/bash ti # use bash shell
+useradd -d /home/ti -m ti
+chsh -s /bin/bash ti # use bash shell for ti
 
 #download the total-impact application code
 apt-get install git-core --assume-yes
@@ -41,11 +38,15 @@ apache_tune 40
 # install curl and pecl/http
 php_install_libs
 
+# install and start memcached
+apt-get install memcached --assume-yes
+memcached -u ti -d -m 24 -l 127.0.0.1 -p 11211 # 24M for now, increase if needed
+
 #install python libs
 apt-get install python-setuptools --assume-yes
-easy_install simplejson BeautifulSoup nose
+easy_install simplejson BeautifulSoup nose python-memcache
 
 # unpack passwords
 cd /home/ti/Total-Impact/config
 ./build-config.sh
-chmod a+w creds.ini
+chmod a+w creds

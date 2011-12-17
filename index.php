@@ -118,15 +118,7 @@ include('./header.php');
                 <input name="list" id="artifacts-list" type="hidden" value="<?php echo $artifactIdsString; ?>" />
             </form>
 
-            <div class="quick-collection">
-                <p>&hellip; or fetch a quick collection based on
-                    <a class="toggler" id="mendeley_quick_reports_toggler">your Mendeley contacts and public groups &raquo;</a></p>
-                <div class="toggler_contents" id="mendeley_quick_reports_toggler_contents">
-                    <p class="prompt">http://www.mendeley.com/profiles/</p>
-                    <input id="QR_mendeley_profile_input" name="profileId" type="text" size="20" value="heather-piwowar"/>
-                    <button class="import-button" id="quick_report_contacts" title="Fill in the URL of your public Mendeley profile to get direct links to reports for your contacts">Pull my contacts</button>
-                    <button class="import-button" id="quick_report_groups" title="Fill in the URL of your public Mendeley profile to get direct links to reports for your PUBLIC groups">Pull my groups</button>
-                </div>
+
             </div>
 
         </div>

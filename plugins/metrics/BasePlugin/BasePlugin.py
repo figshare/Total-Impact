@@ -7,6 +7,8 @@ import urllib2
 import nose
 from nose.tools import assert_equals
 import os
+import hashlib
+import memcache
 import collections
 from collections import defaultdict
 
@@ -170,26 +172,35 @@ class BasePluginClass(object):
         json_response = simplejson.dumps(response)
         return(json_response)
 
-    # I've temp disabled caching because it was causing permissions errors.
-    # I'd like to implement this with memcached, instead, which will have much
-    # better performance and be simpler.
+
     def get_cache_timeout_response(self,
                                     url,
                                     http_timeout_in_seconds = 20,
                                     max_cache_age_seconds = (1) * (24 * 60 * 60), # (number of days) * (number of seconds in a day),
                                     header_addons = {}):
-        http = httplib2.Http(timeout=http_timeout_in_seconds)
-        (response, content) = http.request(url)
 
+        key = hashlib.md5(url).hexdigest()
+        mc = memcache.Client(['127.0.0.1:11211'])
+        response = mc.get(key)
+        if response:
+            self.status["count_got_response_from_cache"] += 1
+        else:
+            http = httplib2.Http(timeout=http_timeout_in_seconds)
+            response = http.request(url)
+            mc.set(key, response, max_cache_age_seconds)
+            self.status["count_api_requests"] += 1
+
+        # This is the old, file-based caching system.
+        # I left some stuff out; Heather, feel free to move up.
         '''
         cache_read = http_cached.cache.get(url)
+                self.status["count_got_response_from_cache"] += 1
         if (cache_read):
             (response, content) = cache_read.split("\r\n\r\n", 1)
         else:
             ## response['cache-control'] = "max-age=" + str(max_cache_age_seconds)
             ## httplib2._updateCache(header_dict, response, content, http_cached.cache, url)
             if response.fromcache:
-                self.status["count_got_response_from_cache"] += 1
             else:
                 self.status["count_missed_cache"] += 1
                 self.status["count_cache_miss_details"] = str(self.status["count_cache_miss_details"]) + "; " + url
@@ -206,8 +217,8 @@ class BasePluginClass(object):
                 content = uh.read()
                 response = uh.info()
         '''
-        
-        return(response, content)
+
+        return(response)
 
     # each plugin needs to write a get_page and extract_stats    
     def get_metric_values(self, doi):
