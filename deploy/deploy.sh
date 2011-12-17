@@ -10,7 +10,7 @@ source ${DIR}/lib.sh
 
 
 apt-get update
-apt-get upgrade
+apt-get upgrade --assume-yes
 
 # create new user ti
 useradd -d /home/ti -m ti
