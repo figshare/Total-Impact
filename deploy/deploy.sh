@@ -44,9 +44,10 @@ memcached -u ti -d -m 24 -l 127.0.0.1 -p 11211 # 24M for now, increase if needed
 
 #install python libs
 apt-get install python-setuptools --assume-yes
-easy_install simplejson BeautifulSoup nose python-memcache
+easy_install simplejson BeautifulSoup nose
+apt-get install python-memcache
 
 # unpack passwords
 cd /home/ti/Total-Impact/config
 ./build-config.sh
-chmod a+w creds
+chmod a+w creds.ini
