@@ -15,6 +15,7 @@ apt-get upgrade --assume-yes
 # create new user ti
 useradd -d /home/ti -m ti
 chsh -s /bin/bash ti # use bash shell for ti
+passwd ti
 
 #download the total-impact application code
 apt-get install git-core --assume-yes
