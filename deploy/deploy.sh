@@ -34,7 +34,7 @@ php_tune
 # this can be safely ignored (http://wiki.apache.org/httpd/CouldNotDetermineServerName)
 cp ${DIR}/default /etc/apache2/sites-available/
 apache_install
-apache_tune 40
+apache_tune 70
 
 # install curl and pecl/http
 php_install_libs
