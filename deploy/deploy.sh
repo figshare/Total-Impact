@@ -48,7 +48,12 @@ apt-get install python-setuptools --assume-yes
 easy_install simplejson BeautifulSoup nose httplib2
 apt-get install python-memcache
 
+# install Zend Framework
+apt-get install zend-framework
+# @TODO add ":/usr/share/php/libzend-framework-php" to ";include_path = ".:/usr/share/php"
+
 # unpack passwords
-cd /home/ti/Total-Impact/config
+cd /home/ti/Total-Impact/application/config
 ./build-config.sh
 chmod a+w creds.ini
+
