@@ -11,6 +11,7 @@ defined('APPLICATION_ENV')
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library'),
+    realpath(APPLICATION_PATH),
     get_include_path(),
 )));
 

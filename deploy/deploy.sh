@@ -1,4 +1,6 @@
 #! /bin/bash
+# @TODO allow argument for if you're setting up production or dev Apache environment 
+#  (to know whether to turn on error messages).
 
 # Sets up a running total-impact from a bare Ubuntu 10.04 Server install.
 # You'll need to supply, when prompted, 
