@@ -3,6 +3,15 @@ $.ajaxSetup ({
 });
 var ajax_load = "<img src='./ui/img/ajax-loader.gif' alt='loading...' />";
 
+parseImporterArgs = function(argStr){
+    var args = argStr.split('-');
+    var urlArgs = "id=" + args[0];
+    if (args.length > 1) {
+        urlArgs = urlArgs + "&type=" + args[1];
+    }
+    return urlArgs
+}
+
 addIdsToEditPane = function(returnedIds){
     if ($("#importers").width() > 340){
         $("#pullers")
@@ -82,17 +91,21 @@ $(document).ready(function(){
         return false;
     });
 
+
     // use importers to add objects to the edit pane
     $("button.import-button").click(function(){
         var $thisDiv = $(this).parent();
-        var sourceName = $(this).attr("id");
-        var souceQuery = $(this).siblings("input").val();
+        var idStrParts = $(this).attr("id").split('-');
+        var providerName = idStrParts[0];
+        var providerTypeQuery = (idStrParts.length > 1) ? "&type=" + idStrParts[1] : ''
+        var providerIdQuery = "?id=" + $(this).siblings("input").val();
+
         if ($thisDiv.find("textarea")[0]) { // there's a sibling textarea
             addIdsToEditPane($thisDiv.find("textarea").val());
         }
         else {
             $(this).hide().after("<span class='loading'><img src='./ui/img/ajax-loader.gif'> Loading...<span>");
-            $.get("./providers/"+sourceName+"/links?q="+souceQuery, function(response,status,xhr){
+            $.get("./providers/"+providerName+"/links"+providerIdQuery+providerTypeQuery, function(response,status,xhr){
                 addIdsToEditPane(response);
                 $thisDiv.find("span.loading")
                     .empty()

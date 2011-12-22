@@ -25,6 +25,7 @@ class ProvidersController extends Zend_Controller_Action {
 
     public function preDispatch() {
         // if the action is a plugin, redirect to the links action
+        // should do this by remapping the path tin the router instead...
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/config/application.ini', 'production');
         $pluginNames = array();
         foreach ($config->plugins->source->toArray() as $pluginName => $url) {
@@ -44,26 +45,26 @@ class ProvidersController extends Zend_Controller_Action {
     /**
      * Gets a list of identifiers associated with a particular query to a particular provider.
      *
-     * URL: /providers/:provider/links?q=(query)
-     * example: /providers/Dryad/links?q=Otto%2C%20Sarah%20P.
+     * URL: /providers/:provider/links?id=(query)&type=[type]
+     * example: /providers/Dryad/links?id=Otto%2C%20Sarah%20P.
      */
     public function linksAction() {
     
-        $q = urldecode($this->_request->getParam("q"));
+        $id = urldecode($this->_request->getParam("id"));
         $pluginName = $this->_request->getParam("pluginName");
+        $type = $this->_request->getParam("type");
         $client = new Zend_Http_Client();
-        $dryad = new Models_Dryad();
 
-        $pluginClassName = "Models_" . $pluginName;
+        $pluginClassName = "Models_Provider_" . $pluginName . ucfirst($type);
         $plugin = new $pluginClassName();
         $creds = new Zend_Config_Ini(APPLICATION_PATH . '/config/creds.ini');
 
-        if ($q) {
-            $data = $plugin->fetchLinks($q, $client, $creds);
+        if ($id) {
+            $data = $plugin->fetchLinks($id, $client, $creds);
         }
         else {
             $this->getResponse()->setHttpresponseCode(404)
-                    ->appendBody("This action requires a value for the 'q' argument.\n");
+                    ->appendBody("This action requires a value for the 'id' argument.\n");
             $this->_helper->ViewRenderer->setNoRender(true);
             $this->_helper->layout()->disableLayout();
             return false;

@@ -1,15 +1,16 @@
 <?php
 
-class Models_PubMed extends Models_Provider {
+class Models_Provider_PubMed extends Models_Provider_Provider {
 
     private $grantEsearchUrl = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmax=100&tool=[NAME]&email=[EMAIL]&term=[ID]";
 
     /**
-     * Retrieves an array of pubmed IDs associated with a given grant number
+     * Gets PubMed IDs for articles associate with a given grant#
      *
      * @param string $grantId
      * @param Zend_Http_Client $http
-     * @return array of articles associated with $grantId
+     * @param Zend_Config_Ini $creds
+     * @return array PubMed ids of articles
      */
     public function fetchLinks($grantId, Zend_Http_Client $http, Zend_Config_Ini $creds) {
         $grantId = urlencode(strtolower($grantId));
