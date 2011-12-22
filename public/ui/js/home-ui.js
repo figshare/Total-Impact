@@ -3,7 +3,7 @@ $.ajaxSetup ({
 });
 var ajax_load = "<img src='./ui/img/ajax-loader.gif' alt='loading...' />";
 
-addIdsToEditPane = function(str){
+addIdsToEditPane = function(returnedIds){
     if ($("#importers").width() > 340){
         $("#pullers")
             .animate({
@@ -19,11 +19,10 @@ addIdsToEditPane = function(str){
             .animate({
                 width: "340px"
             }, 1000, function(){
-                return addIdsToEditPane(str);
+                return addIdsToEditPane(returnedIds);
             })
     }
     else {
-        returnedIds = str.split("\n");
         var len = returnedIds.length
         for (i=0; i<len; i++) {
           returnedIds[i] = "<li><a class='remove' href='#'>remove</a><span class='object-id'>"+returnedIds[i]+"</span></li>";
@@ -93,35 +92,25 @@ $(document).ready(function(){
         }
         else {
             $(this).hide().after("<span class='loading'><img src='./ui/img/ajax-loader.gif'> Loading...<span>");
-            $.get("./seed.php?type="+sourceName+"&name="+souceQuery, function(response,status,xhr){
-                if ($thisDiv.parent().hasClass("quick-collection")) { // it's a quick collection
-                    displayStr = (typeof response.contacts == "undefined") ? response.groups : response.contacts;
-                    $thisDiv.find("span.loading").empty();
-                    $thisDiv.append(
-                        // suggest we reformat api respose; presentation should be client's job
-                        $("<div class='response'>"+displayStr+"</div>").hide().slideDown()
-                    );
-                }
-                else {
-                    addIdsToEditPane(response.artifactIds);
-                    $thisDiv.find("span.loading")
-                        .empty()
-                        .append( 
-                            $("<span class='response'><span class='count'>"+response.artifactCount+"</span> added</span>")
-                            .hide()
-                            .fadeIn(500, function(){
-                                $(this).delay(2000).fadeOut(500, function(){
-                                    $(this)
-                                    .parent()
-                                    .siblings("button")
-                                    .fadeIn(500)
-                                    .siblings("span.loading")
-                                    .remove()
+            $.get("./providers/"+sourceName+"/links?q="+souceQuery, function(response,status,xhr){
+                addIdsToEditPane(response);
+                $thisDiv.find("span.loading")
+                    .empty()
+                    .append(
+                        $("<span class='response'><span class='count'>"+response.length+"</span> added</span>")
+                        .hide()
+                        .fadeIn(500, function(){
+                            $(this).delay(2000).fadeOut(500, function(){
+                                $(this)
+                                .parent()
+                                .siblings("button")
+                                .fadeIn(500)
+                                .siblings("span.loading")
+                                .remove()
 
-                                })
                             })
-                        )
-                }
+                        })
+                    )
             }, "json");
         }
     });

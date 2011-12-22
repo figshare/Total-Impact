@@ -18,22 +18,60 @@ class ProvidersController extends Zend_Controller_Action {
                         )
                 )
                 ->addActionContext('index', array('html', 'xml', 'json'))
-                ->setAutoJsonSerialization(true)
+                ->setAutoJsonSerialization(false)
                 ->initContext();
+
+    }
+
+    public function preDispatch() {
+        // if the action is a plugin, redirect to the links action
+        $config = new Zend_Config_Ini(APPLICATION_PATH . '/config/application.ini', 'production');
+        $pluginNames = array();
+        foreach ($config->plugins->source->toArray() as $pluginName => $url) {
+            $pluginNames[] = ($pluginName);
+        }
+        $actionName = $this->_request->getActionName();
+        if (in_array($actionName, $pluginNames)) {
+            $this->_request->setParam("pluginName", $actionName);
+            $this->_forward('links');;
+        }
     }
 
     public function indexAction() {
 
     }
 
-    public function dryadAction() {
-        $id = "Otto, Sarah P.";
+    /**
+     * Gets a list of identifiers associated with a particular query to a particular provider.
+     *
+     * URL: /providers/:provider/links?q=(query)
+     * example: /providers/Dryad/links?q=Otto%2C%20Sarah%20P.
+     */
+    public function linksAction() {
+        # metrics/10.5061/dryad.8048
+        # links/Otto%2C%20Sarah%20P.
+        $q = urldecode($this->_request->getParam("q"));
+        $pluginName = $this->_request->getParam("pluginName");
+        $client = new Zend_Http_Client();
         $dryad = new Models_Dryad();
-        $data = $dryad->getDryadProfileArtifacts($id);
-        
+
+        $pluginClassName = "Models_" . $pluginName;
+        $plugin = new $pluginClassName();
+
+        if ($q) {
+            $data = $plugin->fetchLinks($q, $client);
+        }
+        else {
+            $this->getResponse()->setHttpresponseCode(404)
+                    ->appendBody("This action requires a value for the 'q' argument.\n");
+            $this->_helper->ViewRenderer->setNoRender(true);
+            $this->_helper->layout()->disableLayout();
+            return false;
+        }
         $this->view->data = $data;
         $this->_forward('index');
     }
+
 
 
 
