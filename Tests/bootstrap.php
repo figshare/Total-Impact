@@ -3,11 +3,11 @@ error_reporting( E_ALL | E_STRICT );
 ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 
-defined('APP_PATH') || define('APP_PATH', realpath(dirname(__FILE__) ) . "/../application");
-set_include_path(get_include_path() . PATH_SEPARATOR .APP_PATH . '/library/');
-set_include_path(get_include_path() . PATH_SEPARATOR .APP_PATH);
+defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) ) . "/../application");
+set_include_path(get_include_path() . PATH_SEPARATOR .APPLICATION_PATH . '/library/');
+set_include_path(get_include_path() . PATH_SEPARATOR .APPLICATION_PATH);
 
-# ! IMPORTANT: this may very depending on where you've got your Zend Framework installed...
+# ! IMPORTANT: this may vary depending on where you've got your Zend Framework installed...
 set_include_path(get_include_path() . PATH_SEPARATOR .'/usr/share/php/libzend-framework-php');
 date_default_timezone_set('UTC');
 

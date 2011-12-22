@@ -1,24 +1,20 @@
 <?php
 
-class Models_DryadTest extends Zend_Test_PHPUnit_ControllerTestCase {
+class Models_PubMedTest extends Zend_Test_PHPUnit_ControllerTestCase {
 
     protected $obj;
 
     protected function setUp() {
-        $this->obj = new Models_Dryad;
+        $this->obj = new Models_PubMed();
         $adapter = new Zend_Http_Client_Adapter_Test();
         $this->http = new Zend_Http_Client();
         $this->creds = new Zend_Config_Ini(APPLICATION_PATH . '/config/creds.ini');
     }
 
-    protected function tearDown() {
-
-    }
-
-    public function testFetchLinks() {
-        $response = $this->obj->fetchLinks("Otto, Sarah P.", $this->http, $this->creds);
+    public function testfetchLinks() {
+        $response = $this->obj->fetchLinks("U54-CA121852", $this->http, $this->creds);
         $this->assertContains(
-                "10.5061/dryad.18",
+                "21670202",
                 $response
                 );
     }

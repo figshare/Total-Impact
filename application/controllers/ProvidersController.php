@@ -48,8 +48,7 @@ class ProvidersController extends Zend_Controller_Action {
      * example: /providers/Dryad/links?q=Otto%2C%20Sarah%20P.
      */
     public function linksAction() {
-        # metrics/10.5061/dryad.8048
-        # links/Otto%2C%20Sarah%20P.
+    
         $q = urldecode($this->_request->getParam("q"));
         $pluginName = $this->_request->getParam("pluginName");
         $client = new Zend_Http_Client();
@@ -57,9 +56,10 @@ class ProvidersController extends Zend_Controller_Action {
 
         $pluginClassName = "Models_" . $pluginName;
         $plugin = new $pluginClassName();
+        $creds = new Zend_Config_Ini(APPLICATION_PATH . '/config/creds.ini');
 
         if ($q) {
-            $data = $plugin->fetchLinks($q, $client);
+            $data = $plugin->fetchLinks($q, $client, $creds);
         }
         else {
             $this->getResponse()->setHttpresponseCode(404)
