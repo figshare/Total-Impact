@@ -8,6 +8,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $loader->setFallbackAutoloader(true);
         return $loader;
     }
+    protected function _initRestRoute()
+    {
+        $front     = Zend_Controller_Front::getInstance();
+        $restRoute = new Zend_Rest_Route($front, array(), array('default' => array("items")));
+        $front->getRouter()->addRoute('rest', $restRoute);
+    }
 
 }
 
