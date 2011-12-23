@@ -2,6 +2,7 @@
 /*
  * this makes an array of test documents that are used to test couchdb views.
  * because of this, it also defines how these docs should be formatted.
+ * you can test the views with the couchdbtesttest.php class.
  */
 
 function makeTestDocs($num) {
