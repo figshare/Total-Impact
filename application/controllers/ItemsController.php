@@ -28,10 +28,12 @@ class ItemsController extends Zend_Rest_Controller {
     }
 
     public function indexAction() {
-
+        echo "index";
     }
 
     public function getAction() {
+        var_dump($this->_request);
+        $this->_forward('index');
 
     }
 

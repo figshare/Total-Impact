@@ -2,6 +2,30 @@
 
 class Models_Item {
 
+
+    protected $couch;
+    protected $doc;
+
+    function __construct(Couch_Client $couch) {
+        $this->couch = $couch;
+    }
+
+    public function retrieveItem($id, $namespace) {
+        $result = $this->couch->getView("main", "by_name")
+                ->include_docs(true)
+                -limit(1)
+                ->key(array($namespace, $id));
+        if ($result->rows) {
+            $this->doc = $result->rows->doc;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+
     public function consolidateAliases($pluginQueryDataInitial, $doc) {
         $pluginQueryDataResponse = $pluginQueryDataInitial;
         foreach ($doc->aliases as $aliasName => $content) {
