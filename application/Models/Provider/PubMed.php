@@ -3,7 +3,7 @@
 class Models_Provider_PubMed extends Models_Provider_Provider {
 
     private $grantEsearchUrl = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmax=100&tool=[NAME]&email=[EMAIL]&term=[ID]";
-
+    protected $namespace = "PubMed";
     /**
      * Gets PubMed IDs for articles associate with a given grant#
      *
@@ -28,7 +28,7 @@ class Models_Provider_PubMed extends Models_Provider_Provider {
         $regex_pattern = '/<Id>(.*)<\/Id>/U';
         preg_match_all($regex_pattern,  $response->getBody(), $matches);
         $artifactIds = $matches[1];
-        return $artifactIds;
+        return $this->makeFetchLinksResponse($artifactIds);
     }
 
 }

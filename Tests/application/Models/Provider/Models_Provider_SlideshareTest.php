@@ -13,8 +13,9 @@ class Models_Provider_SlideshareTest extends Zend_Test_PHPUnit_ControllerTestCas
 
     public function testfetchLinks() {
         $response = $this->obj->fetchLinks("cavlec", $this->http, $this->creds);
+        print_r($response);
         $this->assertContains(
-                "http://www.slideshare.net/cavlec/rdf-rda-and-other-tlas",
+                array("namespace"=>"Slideshare", "id" => "cavlec/rdf-rda-and-other-tlas"),
                 $response
                 );
     }

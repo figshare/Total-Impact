@@ -15,7 +15,7 @@ class Models_Provider_GitHubUserTest extends PHPUnit_Framework_TestCase {
     public function testFetchLinks() {
         $response = $this->obj->fetchLinks("egonw", $this->http, $this->creds);
         $this->assertContains(
-                "http://github.com/egonw/gtd",
+                array("namespace"=>"GitHub", "id" => "egonw/gtd"),
                 $response
                 );
     }

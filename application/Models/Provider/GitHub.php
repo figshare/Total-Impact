@@ -2,6 +2,8 @@
 
 class Models_Provider_GitHub extends Models_Provider_Provider {
 
+    protected $namespace = "GitHub";
+
     /**
      * Gets GitHub repo URLs for a given user or org
      *
@@ -31,10 +33,10 @@ class Models_Provider_GitHub extends Models_Provider_Provider {
         $id_list = array();
         foreach ($body as $repo) {
             if (isset($repo->name)) {
-                $id_list[] = "http://github.com/" . $profileId . "/" . $repo->name;
+                $id_list[] = $profileId . "/" . $repo->name;
             }
         }
-        return $id_list;
+        return $this->makeFetchLinksResponse($id_list);
     }
 
 }

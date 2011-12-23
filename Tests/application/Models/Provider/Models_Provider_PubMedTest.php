@@ -13,8 +13,9 @@ class Models_Provider_PubMedTest extends Zend_Test_PHPUnit_ControllerTestCase {
 
     public function testfetchLinks() {
         $response = $this->obj->fetchLinks("U54-CA121852", $this->http, $this->creds);
+        print_r($response);
         $this->assertContains(
-                "21670202",
+                array("namespace"=>"PubMed", "id" => "21670202"),
                 $response
                 );
     }

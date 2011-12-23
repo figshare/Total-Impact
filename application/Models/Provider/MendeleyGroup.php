@@ -27,7 +27,7 @@ class Models_Provider_MendeleyGroup extends Models_Provider_Mendeley {
             }
         }
 
-        return $id_list;
+        return $this->makeFetchLinksResponse($id_list);
     }
 
 }

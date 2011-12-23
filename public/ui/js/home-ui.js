@@ -12,6 +12,26 @@ parseImporterArgs = function(argStr){
     return urlArgs
 }
 
+// puts the textarea-entered ids in a format that addIdsToEditPane likes
+parseTextareaArtifacts = function(str) {
+    var ids = str.split("\n");
+    var ret = [];
+    for (i=0; i<ids.length; i++){
+        var artifact = {};
+        var thisId = ids[i];
+        if (thisId.indexOf(":") > 0) {
+            artifact.namespace = thisId.split(':')[0];
+            artifact.id = thisId.substr(artifact.namespace.length + 1)
+        }
+        else {
+            artifact.namespace = "unknown";
+            artifact.id = thisId;
+        }
+        ret.push(artifact);
+    }
+    return ret;
+}
+
 addIdsToEditPane = function(returnedIds){
     if ($("#importers").width() > 340){
         $("#pullers")
@@ -34,7 +54,11 @@ addIdsToEditPane = function(returnedIds){
     else {
         var len = returnedIds.length
         for (i=0; i<len; i++) {
-          returnedIds[i] = "<li><a class='remove' href='#'>remove</a><span class='object-id'>"+returnedIds[i]+"</span></li>";
+            var namespace = returnedIds[i].namespace
+            var id = returnedIds[i].id;
+          returnedIds[i] = "<li><a class='remove' href='#'>remove</a><span class='object-id'>";
+          returnedIds[i] += "<span class='namespace'>"+namespace+": </span>";
+          returnedIds[i] += "<span class='id'>"+id+"</span></span></li>";
         }
         $("ul#collection-list").append(
             $(returnedIds.join("")).hide().fadeIn(1000)
@@ -101,7 +125,7 @@ $(document).ready(function(){
         var providerIdQuery = "?id=" + $(this).siblings("input").val();
 
         if ($thisDiv.find("textarea")[0]) { // there's a sibling textarea
-            addIdsToEditPane($thisDiv.find("textarea").val());
+            addIdsToEditPane(parseTextareaArtifacts($thisDiv.find("textarea").val()));
         }
         else {
             $(this).hide().after("<span class='loading'><img src='./ui/img/ajax-loader.gif'> Loading...<span>");

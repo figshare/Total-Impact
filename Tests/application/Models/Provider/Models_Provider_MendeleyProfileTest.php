@@ -20,12 +20,14 @@ class Models_Provider_MendeleyProfileTest extends PHPUnit_Framework_TestCase {
 
     public function testFetchLinks() {
         $response = $this->obj->fetchLinks("heather-piwowar", $this->http, $this->creds);
+        print_r($response);
+
         $this->assertContains(
-                "18998885", //pmid
+                array("namespace"=>"PubMed", "id" => "18998885"),
                 $response
                 );
         $this->assertContains(
-                "10.1038/npre.2008.1701.1",  // doi
+                array("namespace"=>"DOI", "id" => "10.1038/npre.2008.1701.1"),
                 $response
                 );
     }

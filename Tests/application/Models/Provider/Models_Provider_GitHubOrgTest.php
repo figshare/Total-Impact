@@ -14,8 +14,9 @@ class Models_Provider_GitHubOrgTest extends PHPUnit_Framework_TestCase {
 
     public function testFetchLinks() {
         $response = $this->obj->fetchLinks("bioperl", $this->http, $this->creds);
+        print_r($response);
         $this->assertContains(
-                "http://github.com/bioperl/Bio-Community",
+                array("namespace"=>"GitHub", "id" => "bioperl/Bio-Community"),
                 $response
                 );
     }

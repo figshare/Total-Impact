@@ -3,6 +3,7 @@
 class Models_Provider_Slideshare extends Models_Provider_Provider {
 
     private $profilePageUrl = "http://www.slideshare.net/[ID]/presentations";
+    protected $namespace = "Slideshare";
 
     /**
      * Gets slideshare presentation urls based on a username
@@ -17,13 +18,11 @@ class Models_Provider_Slideshare extends Models_Provider_Provider {
         $http->setUri($url);
         $response = $http->request();
 
-        $regex_pattern = '/<a title=.* href="(.' . $profileId . '.*)"/U';
+        $regex_pattern = '/<a title=.* href="\/(' . $profileId . '.*)"/U';
         preg_match_all($regex_pattern, $response->getBody(), $matches);
         $artifactIds = $matches[1];
-        foreach ($artifactIds as &$value) {
-            $value = "http://www.slideshare.net" . $value;
-        }
-        return $artifactIds;
+
+        return $this->makeFetchLinksResponse($artifactIds);
     }
 
 }

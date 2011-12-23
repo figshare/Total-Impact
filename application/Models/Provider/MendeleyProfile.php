@@ -45,7 +45,30 @@ class Models_Provider_MendeleyProfile extends Models_Provider_Mendeley {
                 }
             }
         }
-        return($ids);
+        return($this->makeFetchLinksResponse($ids));
+    }
+
+    /**
+     * marks PMID, DOI, and "unknown" namespaces in the return array
+     * overrides the Models_Provider_Provider's method
+     * 
+     * @param string $ids
+     * @return array of namespace => ids arrays
+     */
+    protected function makeFetchLinksResponse($ids){
+        $ret = array();
+        foreach ($ids as $id){
+            $namespace = "unknown";
+            if (strpos($id, "10.") === 0) {
+                $namespace = "DOI";
+            }
+            else if (preg_match("#^\d+$#", $id)) {
+                $namespace = "PubMed";
+            }
+
+            $ret[] = array("namespace" => $namespace, "id" => $id);
+        }
+        return $ret;
     }
 
     public function getMendeleyProfilePage($profileId, $suffix="") {

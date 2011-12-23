@@ -17,11 +17,13 @@ class Models_Provider_DryadTest extends Zend_Test_PHPUnit_ControllerTestCase {
 
     public function testFetchLinks() {
         $response = $this->obj->fetchLinks("Otto, Sarah P.", $this->http, $this->creds);
+        print_r($response);
         $this->assertContains(
-                "10.5061/dryad.18",
+                array("namespace"=>"Dryad", "id" => "18"),
                 $response
                 );
     }
+
 
 }
 

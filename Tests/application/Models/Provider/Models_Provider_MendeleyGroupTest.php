@@ -20,8 +20,9 @@ class Models_Provider_MendeleyGroupTest extends PHPUnit_Framework_TestCase {
 
     public function testFetchLinks() {
         $response = $this->obj->fetchLinks("530031", $this->http, $this->creds);
+        print_r($response);
         $this->assertContains(
-                "b1684880-6724-11e0-a2d8-0024e8453de6",
+                array("namespace"=>"Mendeley", "id" => "b1684880-6724-11e0-a2d8-0024e8453de6"),
                 $response
                 );
     }
