@@ -1,4 +1,9 @@
 <?php
+/*
+ * this makes an array of test documents that are used to test couchdb views.
+ * because of this, it also defines how these docs should be formatted.
+ */
+
 function makeTestDocs($num) {
     $testDocs = array();
     for ($i=1; $i<$num; $i++) {
@@ -26,8 +31,6 @@ function makeTestDocs($num) {
 
     $testDocs[4]->aliases->URL = "http://www.github.com/jasonpriem";
     $testDocs[4]->aliases->GitHub = "jasonpriem";
-
-
 
     return $testDocs;
 }

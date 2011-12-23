@@ -3,26 +3,49 @@
 class Models_Item {
 
 
-    protected $couch;
     protected $doc;
+    protected $id;
+    protected $namespace;
+    protected $couch;
 
-    function __construct(Couch_Client $couch) {
+    function __construct($id, $namespace, Couch_Client $couch) {
+        $this->id = $id;
+        $this->namespace = $namespace;
         $this->couch = $couch;
     }
 
-    public function retrieveItem($id, $namespace) {
-        $result = $this->couch->getView("main", "by_name")
+    public function retrieve($id, $namespace) {
+        $result = $this->couch
                 ->include_docs(true)
                 -limit(1)
-                ->key(array($namespace, $id));
+                ->key(array($namespace, $id))
+                ->getView("main", "by_name");
+
         if ($result->rows) {
-            $this->doc = $result->rows->doc;
+            $this->doc = $result->rows[0]->doc;
             return true;
         }
         else {
             return false;
         }
     }
+    
+    public function update() {
+        
+    }
+
+    private function store() {
+
+    }
+    
+    private function getMetrics() {
+        
+    }
+
+    private function getAliases() {
+
+    }
+
 
 
 
