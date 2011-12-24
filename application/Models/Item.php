@@ -9,7 +9,6 @@ class Models_Item {
 
     function __construct(Models_Aliases $aliases, Couch_Client $couch) {
         $this->AliasesObj = $aliases;
-        $this->namespace = $namespace;
         $this->couch = $couch;
     }
 
@@ -21,7 +20,7 @@ class Models_Item {
         $alias = $this->AliasesObj->getBestAlias(true);
         $result = $this->couch
                 ->include_docs(true)
-                -limit(1)
+                ->limit(1)
                 ->key($alias)
                 ->getView("main", "by_name");
 

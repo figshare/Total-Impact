@@ -2,6 +2,9 @@
 
 class ItemsController extends Zend_Rest_Controller {
 
+    private $couch;
+    private $creds;
+
     public function init() {
         // hack b/c ContextSwitch::setDefaultContext doesn't work: http://framework.zend.com/issues/browse/ZF-8257
         if (!$this->_request->getParam('format')) {
@@ -20,6 +23,9 @@ class ItemsController extends Zend_Rest_Controller {
                 ->addActionContext('index', array('html', 'xml', 'json'))
                 ->setAutoJsonSerialization(false)
                 ->initContext();
+        $this->creds = new Zend_Config_Ini(APPLICATION_PATH . '/config/creds.ini');
+        $this->couch = new Couch_Client($this->creds->db->dsn, "mytestdb");
+
 
     }
 
@@ -32,7 +38,15 @@ class ItemsController extends Zend_Rest_Controller {
     }
 
     public function getAction() {
-        var_dump($this->_request);
+        $namespace = $this->_request->getParam("namespace");
+        $id = $this->_request->getParam("id");
+        if (!$namespace) {
+            $namespace = "totalimpact";
+        }
+        $aliases = new Models_Aliases(array($namespace => $id));
+        $item = new Models_Item($aliases, $this->couch);
+        $item->retrieve();
+        $this->view->data = $item->getDoc();
         $this->_forward('index');
 
     }
