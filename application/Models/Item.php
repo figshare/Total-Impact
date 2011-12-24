@@ -4,11 +4,11 @@ class Models_Item {
 
 
     protected $doc;
-    protected $aliases;
+    protected $AliasesObj;
     protected $couch;
 
     function __construct(Models_Aliases $aliases, Couch_Client $couch) {
-        $this->aliases = $aliases;
+        $this->AliasesObj = $aliases;
         $this->namespace = $namespace;
         $this->couch = $couch;
     }
@@ -18,7 +18,7 @@ class Models_Item {
     }
 
     public function retrieve() {
-        $alias = $this->aliases->getBestAlias(true);
+        $alias = $this->AliasesObj->getBestAlias(true);
         $result = $this->couch
                 ->include_docs(true)
                 -limit(1)
@@ -52,7 +52,7 @@ class Models_Item {
         $doc->type = "item";
         $doc->created_at = date("c"); // current time in ISO 8601 format
         $doc->metrics = new stdClass();
-        $doc->aliases = (object)$this->aliases;
+        $doc->aliases = (object)$this->AliasesObj;
         $this->doc = $doc;
     }
 
@@ -69,8 +69,8 @@ class Models_Item {
             throw new Exception("didn't get any providers to use for the update");
         }
         foreach ($providers as $provider) {
-            $this->aliases = $provider->fetchAliases($this->aliases);
-            $this->doc->aliases = $this->aliases; // smells bad...
+            $this->AliasesObj = $provider->fetchAliases($this->AliasesObj);
+            $this->doc->aliases = $this->AliasesObj; // smells bad...
         }
     }
 

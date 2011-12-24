@@ -3,13 +3,22 @@
 class Models_Provider_DryadTest extends Zend_Test_PHPUnit_ControllerTestCase {
 
     protected $obj;
+    protected $aliasesObj = array(
+        "DOI" => "10.1038/nature04863",
+        "PubMed" => "0000000001"
+    );
+    protected $aliasesObjNoHits = array(
+        "DOI" => "10.100.fake/1",
+        "PubMed" => "0000000001"
+    );
 
     protected function setUp() {
-        
-        $this->obj = new Models_Provider_Dryad;
         $adapter = new Zend_Http_Client_Adapter_Test();
-        $this->http = new Zend_Http_Client();
-        $this->creds = new Zend_Config_Ini(APPLICATION_PATH . '/config/creds.ini');
+        $http = new Zend_Http_Client();
+        $creds = new Zend_Config_Ini(APPLICATION_PATH . '/config/creds.ini');
+        $this->aliasesObj = new Models_Aliases($this->aliasesObj);
+
+        $this->obj = new Models_Provider_Dryad($http, $creds);
     }
 
     protected function tearDown() {
@@ -17,11 +26,19 @@ class Models_Provider_DryadTest extends Zend_Test_PHPUnit_ControllerTestCase {
     }
 
     public function testFetchLinks() {
-        $response = $this->obj->fetchLinks("Otto, Sarah P.", $this->http, $this->creds);
-        print_r($response);
+        $response = $this->obj->fetchLinks("Otto, Sarah P.");
         $this->assertContains(
                 array("namespace"=>"Dryad", "id" => "18"),
                 $response
+                );
+    }
+
+    public function testFetchAliases() {
+        $dryadDoi = $this->obj->fetchAliases($this->aliasesObj);
+        print_r($dryadDoi);
+        $this->assertEquals(
+                "8426",
+                $this->aliasesObj->getId("Dryad")
                 );
     }
 

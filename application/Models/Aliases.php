@@ -2,10 +2,23 @@
 
 class Models_Aliases {
     private $aliases = array();
-    private $preferredNamespace = "totalimpact";
+    private $preferredNamespace;
+
+    function __construct(Array $aliases=NULL, $preferredNamespace="totalimpact") {
+        if (is_array($aliases)) {
+            $this->addAliases($aliases);
+        }
+        else {
+            $this->aliases = array();
+        }
+        $this->preferredNamespace = $preferredNamespace;
+    }
 
     public function setPreferredNamespace($preferredNamespace) {
         $this->preferredNamespace = $preferredNamespace;
+    }
+    public function getPreferredNamespace() {
+        return $this->preferredNamespace;
     }
 
     public function addAlias($namespace, $id) {

@@ -21,6 +21,21 @@ class Models_AliasesTest extends PHPUnit_Framework_TestCase {
         $this->obj->clearAliases();
     }
 
+    public function testConstructorSetsAliasesArray() {
+        $aliases = new Models_Aliases($this->aliasesArr);
+        $this->assertEquals(
+                $this->aliasesArr,
+                $aliases->getAliases()
+                );
+    }
+
+    public function testConstructorSetsPreferredNamespace() {
+        $aliases = new Models_Aliases(NULL, "DOI");
+        $this->assertEquals(
+                "DOI",
+                $aliases->getPreferredNamespace()
+                );
+    }
 
 
     public function testAddAliasesThrowsExceptionWithStringArg() {
