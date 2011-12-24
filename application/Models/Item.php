@@ -4,21 +4,21 @@ class Models_Item {
 
 
     protected $doc;
-    protected $id;
-    protected $namespace;
+    protected $aliases;
     protected $couch;
 
-    function __construct($id, $namespace, Couch_Client $couch) {
-        $this->id = $id;
+    function __construct(Models_Aliases $aliases, Couch_Client $couch) {
+        $this->aliases = $aliases;
         $this->namespace = $namespace;
         $this->couch = $couch;
     }
 
-    public function retrieve($id, $namespace) {
+    public function retrieve() {
+        $alias = $this->aliases->getBestAlias(true);
         $result = $this->couch
                 ->include_docs(true)
                 -limit(1)
-                ->key(array($namespace, $id))
+                ->key($alias)
                 ->getView("main", "by_name");
 
         if ($result->rows) {
@@ -31,7 +31,10 @@ class Models_Item {
     }
     
     public function update() {
-        
+        $this->retrieve();
+        $this->getAliases();
+        $this->getMetrics();
+        $this->store();
     }
 
     private function store() {

@@ -18,14 +18,14 @@ class couchdb_TestTest extends couchDbTestCase {
                 );
     }
 
-    public function testBy_nameWorksForUrlAlias() {
+    public function testBy_nameWorksForTotalImpactAlias() {
         $result = $this->couch
-                ->key(array("URL", "http://www.example.com"))
+                ->key(array("totalimpact", "4"))
                 ->getView("main", "by_name");
 
         $resultId = ($result->rows) ? $result->rows[0]->id : false;
         $this->assertEquals(
-                "3",
+                "4",
                 $resultId
                 );
     }

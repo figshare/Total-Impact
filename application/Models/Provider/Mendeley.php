@@ -8,5 +8,9 @@ class Models_Provider_Mendeley extends Models_Provider_Provider {
     public function fetchLinks($identifier, Zend_Http_Client $http, Zend_Config_Ini $creds) {
         throw new Exception("fetchLinks needs to be overridden");
     }
+
+    public function getAliases($id, Zend_Http_Client $http) {
+
+    }
 }
 ?>

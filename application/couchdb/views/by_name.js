@@ -8,5 +8,6 @@
              key = [namespace, doc.aliases[namespace]];
              emit(key, doc.created_at);
          }
+         emit (["totalimpact", doc._id], doc.created_at); // for the total-impact namespace
      }
 }
