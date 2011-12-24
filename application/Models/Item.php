@@ -13,6 +13,10 @@ class Models_Item {
         $this->couch = $couch;
     }
 
+    public function getDoc() {
+        return $this->doc;
+    }
+
     public function retrieve() {
         $alias = $this->aliases->getBestAlias(true);
         $result = $this->couch
@@ -30,23 +34,44 @@ class Models_Item {
         }
     }
     
-    public function update() {
-        $this->retrieve();
-        $this->getAliases();
-        $this->getMetrics();
+    public function update(Array $providers) {
+        if (!$this->doc) {
+            $this->retrieve();
+        }
+        if (!$this->doc) {
+            throw new Exception("This item needs to be created before it can be updated.");
+        }
+        $this->fetchAliases($providers);
+        $this->fetchMetrics();
         $this->store();
     }
 
-    private function store() {
+    public function createDoc() {
+        $doc = new stdClass();
+        $doc->_id = md5(mt_rand());
+        $doc->type = "item";
+        $doc->created_at = date("c"); // current time in ISO 8601 format
+        $doc->metrics = new stdClass();
+        $doc->aliases = (object)$this->aliases;
+        $this->doc = $doc;
+    }
 
+    private function store() {
+        $this->couch->storeDoc($this->doc);
     }
     
-    private function getMetrics() {
+    private function fetchMetrics() {
         
     }
 
-    private function getAliases() {
-
+    private function fetchAliases(Array $providers) {
+        if (!count($providers)) {
+            throw new Exception("didn't get any providers to use for the update");
+        }
+        foreach ($providers as $provider) {
+            $this->aliases = $provider->fetchAliases($this->aliases);
+            $this->doc->aliases = $this->aliases; // smells bad...
+        }
     }
 
 
@@ -127,21 +152,21 @@ class Models_Item {
     /**
      * Updates the collection by calling alias plugins
      * */
-    public function getAliases($id) {
-        #get initial list
-        $pluginQueryData = new stdClass();
-        $pluginQueryData->id = $id;
-        $pluginQueryData->aliases = new stdClass();
-        $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
-
-        # call alias plugins sequentially
-        $pluginUrls = $config->plugins->alias;
-        foreach ($pluginUrls as $sourceName => $pluginUrl) {
-            $doc = $this->queryPlugins(array("alias" => $pluginUrl), $pluginQueryData, "aliases");
-            $pluginQueryData = $this->consolidateAliases($pluginQueryData, $doc);
-        }
-        return($pluginQueryData);
-    }
+//    public function getAliases($id) {
+//        #get initial list
+//        $pluginQueryData = new stdClass();
+//        $pluginQueryData->id = $id;
+//        $pluginQueryData->aliases = new stdClass();
+//        $config = new Zend_Config_Ini(CONFIG_PATH, ENV);
+//
+//        # call alias plugins sequentially
+//        $pluginUrls = $config->plugins->alias;
+//        foreach ($pluginUrls as $sourceName => $pluginUrl) {
+//            $doc = $this->queryPlugins(array("alias" => $pluginUrl), $pluginQueryData, "aliases");
+//            $pluginQueryData = $this->consolidateAliases($pluginQueryData, $doc);
+//        }
+//        return($pluginQueryData);
+//    }
 
     /**
      * Makes an array of artifacts to genre decisions
@@ -296,13 +321,13 @@ class Models_Item {
     /**
      * Updates the collection by calling metrics plugins
      * */
-    public function getMetrics($id, $itemsWithAliases) {
-        $doc = $this->getMetricsAndBiblio($id, $itemsWithAliases);
-
-        $response = new stdClass();
-        $response->$id = $this->extractMetricsInfo($id, $doc->sources);
-        return($response);
-    }
+//    public function getMetrics($id, $itemsWithAliases) {
+//        $doc = $this->getMetricsAndBiblio($id, $itemsWithAliases);
+//
+//        $response = new stdClass();
+//        $response->$id = $this->extractMetricsInfo($id, $doc->sources);
+//        return($response);
+//    }
 
     public function getBiblio($id, $itemsWithAliases, $showZeros=false) {
         $doc = $this->getMetricsAndBiblio($id, $itemsWithAliases);

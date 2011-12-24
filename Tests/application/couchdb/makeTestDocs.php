@@ -11,7 +11,7 @@ function makeTestDocs($num) {
         $doc = new stdClass();
         $doc->_id = (string)$i;
         $doc->type = "item";
-        $doc->created_at = date("c"); // current time in ISO 8601 format, plus microseconds
+        $doc->created_at = date("c"); // current time in ISO 8601 format
         $doc->metrics = new stdClass();
         $doc->metrics->GitHub = new stdClass();  // add more metrics when we need them...
         $doc->aliases = new stdClass();

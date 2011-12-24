@@ -1,5 +1,5 @@
 <?php
-require_once './makeTestDocs.php';
+require_once  realpath(dirname(__FILE__) )  . '/makeTestDocs.php';
 
 class couchDbTestCase extends PHPUnit_Framework_TestCase {
 

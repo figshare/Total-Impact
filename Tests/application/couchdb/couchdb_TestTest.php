@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__FILE__) . '/couchDbTestCase.php';
+require_once 'application/couchdb/couchDbTestCase.php';
 /**
  * this runs unit tests for all the views in couchdb.
  * the wierd classname is so I can leverage Netbeans' autorun for PHPUnit... -j
