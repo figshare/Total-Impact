@@ -51,51 +51,21 @@ class ItemsController extends Zend_Rest_Controller {
 
     }
 
+    // curl -i -H "Accept: application/json" -X POST -d "name=10.1038/nature04863&namespace=DOI" http://total-impact.org.vm/items/create
     public function postAction() {
-        echo "post time!";
+        var_dump($this->_request);
         $this->_forward('index');
     }
 
-    public function putAction() {
 
+    public function putAction() {
+        // strangely, Zend_Rest_Router directs any POST requests with parameters
+        // to the PUT action.
+        // this is a a hacky fix
+        $this->_forward('post');
     }
 
     public function deleteAction() {
 
     }
-
-    /**
-     * Gets a list of identifiers associated with a particular query to a particular provider.
-     *
-     * URL: /providers/:provider/links?id=(query)&type=[type]
-     * example: /providers/Dryad/links?id=Otto%2C%20Sarah%20P.
-     */
-    public function linksAction() {
-
-        $id = urldecode($this->_request->getParam("id"));
-        $pluginName = $this->_request->getParam("pluginName");
-        $type = $this->_request->getParam("type");
-        $client = new Zend_Http_Client();
-
-        $pluginClassName = "Models_Provider_" . $pluginName . ucfirst($type);
-        $plugin = new $pluginClassName();
-        $creds = new Zend_Config_Ini(APPLICATION_PATH . '/config/creds.ini');
-
-        if ($id) {
-            $data = $plugin->fetchLinks($id, $client, $creds);
-        }
-        else {
-            $this->getResponse()->setHttpresponseCode(404)
-                    ->appendBody("This action requires a value for the 'id' argument.\n");
-            $this->_helper->ViewRenderer->setNoRender(true);
-            $this->_helper->layout()->disableLayout();
-            return false;
-        }
-        $this->view->data = $data;
-        $this->_forward('index');
-    }
-
-
-
-
 }
