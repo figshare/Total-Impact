@@ -85,7 +85,13 @@ class ItemsController extends Zend_Rest_Controller {
         $this->item->update($this->aliasProviders);
         $this->view->data = true;
         $this->_forward('index');
-        
+    }
+
+    // curl -i -H "Accept: application/json" -X POST -d "name=10.1038/nature04863&namespace=DOI" http://total-impact.org.vm/items/update
+    public function updateAction() {
+        $this->item->update($this->aliasProviders);
+        $this->view->data = true;
+        $this->_forward('index');
     }
 
 
