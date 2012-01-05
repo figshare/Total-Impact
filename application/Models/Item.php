@@ -10,10 +10,7 @@ class Models_Item {
     function __construct(Models_Aliases $aliases, Couch_Client $couch) {
         $this->AliasesObj = $aliases;
         $this->couch = $couch;
-    }
-
-    public function getDoc() {
-        return $this->doc;
+        $this->doc= NULL;
     }
 
     public function retrieve() {
@@ -26,7 +23,7 @@ class Models_Item {
 
         if ($result->rows) {
             $this->doc = $result->rows[0]->doc;
-            return true;
+            return $this->doc;
         }
         else {
             return false;
@@ -34,44 +31,46 @@ class Models_Item {
     }
     
     public function update(Array $providers) {
+
         if (!$this->doc) {
             $this->retrieve();
         }
+
         if (!$this->doc) {
-            throw new Exception("This item needs to be created before it can be updated.");
+            throw new Exception("The item hasn't been created, and couldn't be found in the DB");
         }
-        $this->fetchAliases($providers);
+        // update with new aliases
+        if (!count($providers)) {
+            throw new Exception("didn't get any providers to use for the update");
+        }
+        foreach ($providers as $provider) {
+            $this->AliasesObj = $provider->addAliases($this->AliasesObj);
+        }
+
+        // update with new metrics and store
         $this->fetchMetrics();
-        $this->store();
+        $this->storeDoc();
     }
 
-    public function createDoc() {
+    public function create() {
         $doc = new stdClass();
         $doc->_id = md5(mt_rand());
         $doc->type = "item";
         $doc->created_at = date("c"); // current time in ISO 8601 format
         $doc->metrics = new stdClass();
-        $doc->aliases = (object)$this->AliasesObj;
+        $doc->aliases = new stdClass();
         $this->doc = $doc;
     }
 
-    private function store() {
-        $this->couch->storeDoc($this->doc);
-    }
-    
-    private function fetchMetrics() {
-        
+    private function storeDoc() {
+        $this->doc->aliases = $this->AliasesObj->getAliases();
+        $this->couch->storeDoc($this->doc);        
     }
 
-    private function fetchAliases(Array $providers) {
-        if (!count($providers)) {
-            throw new Exception("didn't get any providers to use for the update");
-        }
-        foreach ($providers as $provider) {
-            $this->AliasesObj = $provider->fetchAliases($this->AliasesObj);
-            $this->doc->aliases = $this->AliasesObj; // smells bad...
-        }
+    private function fetchMetrics() {
+        // make web calls to get the metrics.
     }
+
 
 
 

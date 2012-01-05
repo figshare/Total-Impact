@@ -33,8 +33,8 @@ class Models_Provider_DryadTest extends Zend_Test_PHPUnit_ControllerTestCase {
                 );
     }
 
-    public function testFetchAliases() {
-        $dryadDoi = $this->obj->fetchAliases($this->aliasesObj);
+    public function testAddAliases() {
+        $dryadDoi = $this->obj->addAliases($this->aliasesObj);
         print_r($dryadDoi);
         $this->assertEquals(
                 "8426",

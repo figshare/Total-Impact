@@ -28,7 +28,7 @@ class Models_Provider_Dryad extends Models_Provider_Provider {
         return $this->makeFetchLinksResponse($artifactIds);
     }
 
-    public function fetchAliases(Models_Aliases $aliasesObj) {
+    public function addAliases(Models_Aliases $aliasesObj) {
         $doi = $aliasesObj->getId("DOI");
         if ($doi) {
             $url = str_replace('[ID]', $doi, $this->doiLookupUrl);
