@@ -12,8 +12,8 @@ class Models_Provider_GitHub extends Models_Provider_Provider {
      * @param Zend_Config_Ini $creds
      * @return array URLs of github repos
      */
-    public function fetchLinks($identifier, Zend_Http_Client $http, Zend_Config_Ini $creds) {
-        return $this->getGithubArtifacts($this->apiUrl, $identifier, $http);
+    public function fetchLinks($identifier) {
+        return $this->getGithubArtifacts($this->apiUrl, $identifier, $this->http);
     }
 
     /**

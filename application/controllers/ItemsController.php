@@ -89,8 +89,12 @@ class ItemsController extends Zend_Rest_Controller {
 
     // curl -i -H "Accept: application/json" -X POST -d "name=10.1038/nature04863&namespace=DOI" http://total-impact.org.vm/items/update
     public function updateAction() {
-        $this->item->update($this->aliasProviders);
-        $this->view->data = true;
+        try {
+            $this->item->update($this->aliasProviders);
+            $this->view->data = true;
+        } catch (Exception $e) {
+            $this->getResponse()->setHeader('Status', '404 Item not found');
+        }
         $this->_forward('index');
     }
 

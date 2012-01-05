@@ -45,11 +45,11 @@ class ProvidersController extends Zend_Controller_Action {
     /**
      * Gets a list of identifiers associated with a particular query to a particular provider.
      *
-     * URL: /providers/:provider/links?name=(query)&type=[type]
-     * example: /providers/Dryad/links?name=Otto%2C%20Sarah%20P.
+     * URL: /providers/:provider/links?query=(query)&type=[type]
+     * example: /providers/Dryad/links?query=Otto%2C%20Sarah%20P.
      */
     public function linksAction() {
-        $id = urldecode($this->_request->getParam("id"));
+        $query = urldecode($this->_request->getParam("query"));
         $pluginName = $this->_request->getParam("pluginName");
         $type = $this->_request->getParam("type");
         $client = new Zend_Http_Client();
@@ -58,8 +58,8 @@ class ProvidersController extends Zend_Controller_Action {
         $creds = new Zend_Config_Ini(APPLICATION_PATH . '/config/creds.ini');
         $plugin = new $pluginClassName($client, $creds);
 
-        if ($id) {
-            $data = $plugin->fetchLinks($id, $client, $creds);
+        if ($query) {
+            $data = $plugin->fetchLinks($query, $client, $creds);
         }
         else {
             $this->getResponse()->setHttpresponseCode(404)
