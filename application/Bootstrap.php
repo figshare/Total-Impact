@@ -8,11 +8,25 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $loader->setFallbackAutoloader(true);
         return $loader;
     }
-    protected function _initRestRoute()
+
+    protected function _initSpecialRoutes()
     {
-        $front     = Zend_Controller_Front::getInstance();
-        $restRoute = new Zend_Rest_Route($front, array(), array('default' => array("items")));
-        $front->getRouter()->addRoute('rest', $restRoute);
+        $router = Zend_Controller_Front::getInstance()->getRouter();
+        $route = new Zend_Controller_Router_Route_Regex(
+                'items/([^/]+)/([^/]+?)(?:/(.*?))?(?:\.(json|html|xml))?',
+                array(
+                    'controller' => 'items',
+                    'action' => 'index',
+                    'format' => 'json'
+                    ),
+                array(
+                    1 => "namespace",
+                    2 => "id",
+                    3 => "action",
+                    4 => "format"
+                    )
+                );
+        $router->addRoute("items", $route);
     }
 
 }

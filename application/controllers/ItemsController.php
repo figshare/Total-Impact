@@ -1,14 +1,14 @@
 <?php
 
-class ItemsController extends Zend_Rest_Controller {
+class ItemsController extends Zend_Controller_Action {
 
     private $item;
     private $aliasProviders;
 
     public function init() {
-        // hack b/c ContextSwitch::setDefaultContext doesn't work: http://framework.zend.com/issues/browse/ZF-8257
-        if (!$this->_request->getParam('format')) {
-            $this->_request->setParam('format', 'json');
+
+        if (!$this->_request->getActionName()) {
+            $this->_request->setActionName('index');
         }
 
         // display stuff
@@ -25,10 +25,8 @@ class ItemsController extends Zend_Rest_Controller {
 
         // params stuff
         $namespace = $this->_request->getParam("namespace");
-        $id = $this->_request->getParam("name"); // annoyingly, "id" is a reserved param used by the Zend Request obj
-        if (!$namespace) {
-            $namespace = "totalimpact";
-        }
+        $id = $this->_request->getParam("id");
+
 
         // wiring up the object graph
         $creds = new Zend_Config_Ini(APPLICATION_PATH . '/config/creds.ini');
@@ -51,7 +49,8 @@ class ItemsController extends Zend_Rest_Controller {
     }
 
     public function indexAction() {
-        
+        print_r($this->_request);
+        $this->view->data = $this->item->retrieve();
     }
 
     /*
@@ -60,8 +59,7 @@ class ItemsController extends Zend_Rest_Controller {
      * /items/0000000002?namespace=PubMed #item with PMID=0000000002
      */
     public function getAction() {
-        $this->item->retrieve();
-        $this->view->data = $this->item->retrieve();
+        echo "i am the get action";
         $this->_forward('index');
 
     }
@@ -70,13 +68,10 @@ class ItemsController extends Zend_Rest_Controller {
      * handles POST requests by forwarding them to the appropriate action
      */
     public function postAction() {
-        $methodName = $this->_request->getParam("id");
-        if (method_exists($this, $methodName. "Action")) {
-            $this->_forward($methodName);
-        }
-        else {
-            // throw a useful exception
-        }
+        $namespace = $this->_request->getParam("namespace");
+        $id = $this->_request->getParam("id");
+        print_r($this->_request);
+        $this->_forward('index');
     }
 
     // curl -i -H "Accept: application/json" -X POST -d "name=10.1038/nature04863&namespace=DOI" http://total-impact.org.vm/items/create
@@ -89,6 +84,7 @@ class ItemsController extends Zend_Rest_Controller {
 
     // curl -i -H "Accept: application/json" -X POST -d "name=10.1038/nature04863&namespace=DOI" http://total-impact.org.vm/items/update
     public function updateAction() {
+
         try {
             $this->item->update($this->aliasProviders);
             $this->view->data = true;
@@ -98,15 +94,4 @@ class ItemsController extends Zend_Rest_Controller {
         $this->_forward('index');
     }
 
-
-    public function putAction() {
-        // strangely, Zend_Rest_Router directs any POST requests with parameters
-        // to the PUT action.
-        // this is a a hacky fix...should be fixed by extending the REST router.
-        $this->_forward('post');
-    }
-
-    public function deleteAction() {
-
-    }
 }

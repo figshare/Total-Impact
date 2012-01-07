@@ -9,10 +9,11 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
+        <h1>This! Is! HTML!!!</h1>
+        <pre>
         <?php
-            foreach($this->data as $k => $v) {
-                echo "The value for key '$k' is '$v'<br>";
-            }
+            print_r($this->data);
         ?>
+        </pre>
     </body>
 </html>
