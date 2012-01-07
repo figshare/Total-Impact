@@ -24,8 +24,8 @@ class ItemsController extends Zend_Controller_Action {
                 ->initContext();
 
         // params stuff
-        $namespace = $this->_request->getParam("namespace");
-        $id = $this->_request->getParam("id");
+        $namespace = urldecode($this->_request->getParam("namespace"));
+        $id = urldecode($this->_request->getParam("id"));
 
 
         // wiring up the object graph
@@ -49,49 +49,35 @@ class ItemsController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-        print_r($this->_request);
         $this->view->data = $this->item->retrieve();
     }
 
-    /*
-     * For testing with items from the testdb:
-     * /items/1 #item with total-impact ID= 1
-     * /items/0000000002?namespace=PubMed #item with PMID=0000000002
-     */
-    public function getAction() {
-        echo "i am the get action";
-        $this->_forward('index');
 
-    }
 
-    /*
-     * handles POST requests by forwarding them to the appropriate action
-     */
-    public function postAction() {
-        $namespace = $this->_request->getParam("namespace");
-        $id = $this->_request->getParam("id");
-        print_r($this->_request);
-        $this->_forward('index');
-    }
-
-    // curl -i -H "Accept: application/json" -X POST -d "name=10.1038/nature04863&namespace=DOI" http://total-impact.org.vm/items/create
+    // curl -X POST http://total-impact.org.vm/items/DOI/10.1038%2Fnature04863/create.html
     public function createAction() {
+        $this->requirePost();
         $this->item->create();
         $this->item->update($this->aliasProviders);
-        $this->view->data = true;
         $this->_forward('index');
     }
 
-    // curl -i -H "Accept: application/json" -X POST -d "name=10.1038/nature04863&namespace=DOI" http://total-impact.org.vm/items/update
+    // curl -X POST http://total-impact.org.vm/items/DOI/10.1038%2Fnature04863/update.html
     public function updateAction() {
-
+        $this->requirePost();
         try {
             $this->item->update($this->aliasProviders);
-            $this->view->data = true;
         } catch (Exception $e) {
             $this->getResponse()->setHeader('Status', '404 Item not found');
         }
         $this->_forward('index');
+    }
+
+    private function requirePost() {
+        if (!$this->_request->isPost()) {
+            $this->getResponse()->setHeader('Status', '404 Item not found');
+            $this->_forward('index');
+        }
     }
 
 }

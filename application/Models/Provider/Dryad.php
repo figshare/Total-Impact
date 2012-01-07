@@ -41,7 +41,6 @@ class Models_Provider_Dryad extends Models_Provider_Provider {
             $aliasesObj->addAlias("Dryad", $m[1]);
 
         }
-
         return $aliasesObj;
     }
 

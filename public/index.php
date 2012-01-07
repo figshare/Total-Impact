@@ -1,4 +1,7 @@
 <?php
+// make sure you have your Zend Framework directory on the global PHP input path
+// or none of this will work.
+//
 // Define path to application directory
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));

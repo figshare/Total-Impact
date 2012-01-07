@@ -68,7 +68,7 @@ class Models_Item {
     }
 
     private function fetchMetrics() {
-        // make web calls to get the metrics.
+        // do like with the aliases, but for metrics.
     }
 
 

@@ -12,7 +12,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initSpecialRoutes()
     {
         $router = Zend_Controller_Front::getInstance()->getRouter();
-        $route = new Zend_Controller_Router_Route_Regex(
+        $route = new Custom_Zend_Controller_Router_Route_Regex(
                 'items/([^/]+)/([^/]+?)(?:/(.*?))?(?:\.(json|html|xml))?',
                 array(
                     'controller' => 'items',
