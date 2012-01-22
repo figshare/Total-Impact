@@ -1,5 +1,5 @@
 <?php
-
+#require_once './../bootstrap.php'; 
 #require_once 'FirePHPCore/fb.php';
 
 /**
@@ -64,7 +64,7 @@ class Models_Seeder {
 
 	public function lookUpMendeleyPaper($biblio) {
 		$MENDELEY_LOOKUP_FROM_DOI_URL_PART1 = "http://api.mendeley.com/oapi/documents/search/title%3A";
-		$MENDELEY_LOOKUP_FROM_DOI_URL_PART2 = "/?consumer_key=" . $this->creds->mendeley->key;
+		$MENDELEY_LOOKUP_FROM_DOI_URL_PART2 = "/?consumer_key=" . $this->creds->apis->Mendeley_key;
 
 		$title = $biblio["rft.atitle"];
 		$title = preg_replace('/%\w\w/', '', $title);
@@ -149,7 +149,7 @@ class Models_Seeder {
     public function getMendeleyGroupArtifacts($groupId) {
 	
 	    $MENDELEY_LOOKUP_FROM_DOI_URL_PART1 = "http://api.mendeley.com/oapi/documents/groups/";
-		$MENDELEY_LOOKUP_FROM_DOI_URL_PART2 = "/docs/?details=true&items=100&consumer_key=" . $this->creds->mendeley->key;
+		$MENDELEY_LOOKUP_FROM_DOI_URL_PART2 = "/docs/?details=true&items=100&consumer_key=" . $this->creds->apis->Mendeley_key;
 		$mendeleyUrlGroupPage = $MENDELEY_LOOKUP_FROM_DOI_URL_PART1 . $groupId . $MENDELEY_LOOKUP_FROM_DOI_URL_PART2;
 		$requestGroupPage = new HttpRequest($mendeleyUrlGroupPage, HTTP_METH_GET);
 		$responseGroupPage = $requestGroupPage->send();
@@ -241,7 +241,7 @@ class Models_Seeder {
 }
 
 	
-	#$a = new Models_Seeder();
+        #$a = new Models_Seeder( new Zend_Config_Ini(CREDS_PATH) );
 	#var_dump($a->getGithubOrgArtifacts("bioperl")); 
 	#var_dump($a->getMendeleyProfileArtifacts("aliaksandr-birukou")); 
 	#var_dump($a->getMendeleyProfileArtifacts("bill-hooker")); 
