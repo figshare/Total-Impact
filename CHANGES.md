@@ -1,3 +1,4 @@
+* Jan 21, 2012: fixed ID importing bugs
 * Dec 17, 2011: easy install using deploy.sh script; memcached for caching
 * Nov 19, 2011: UI v2: new look, js UX, and ajax collection create/update; new URL scheme 
 * Nov 16, 2011: Moves toward v2 of UI, esp. homepage
