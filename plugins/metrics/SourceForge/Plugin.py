@@ -63,7 +63,10 @@ class PluginClass(BasePluginClass):
         soup = BeautifulStoneSoup(content)
         #print(soup.prettify())
         recommenders_text = soup.find("a", title="Browse reviews").text
-        number_of_recommenders = re.search("(\d+) users", recommenders_text).group(1)
+        try:
+            number_of_recommenders = re.search("(\d+) Recommendations", recommenders_text).group(1)
+        except AttributeError:
+            number_of_recommenders = 0
         upload_year = soup.find("h3", text = "Registered").findNext().text[0:4]
         title = soup.h1.text
         show_details_url = id + "/reviews/" 
