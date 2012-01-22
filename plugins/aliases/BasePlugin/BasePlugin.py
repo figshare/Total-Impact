@@ -7,6 +7,8 @@ import urllib2
 import nose
 from nose.tools import assert_equals
 import os
+import hashlib
+import memcache
 import collections
 from collections import defaultdict
 
