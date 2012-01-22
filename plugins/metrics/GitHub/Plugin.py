@@ -3,6 +3,7 @@ import simplejson
 import json
 import urllib
 import urllib2
+import httplib2
 import time
 import re
 import nose
@@ -47,12 +48,10 @@ class PluginClass(BasePluginClass):
             return(None)
         if (self.DEBUG):
             print url
-        try:
-            page = self.get_cache_timeout_response(url)
-            if (self.DEBUG):
-                print page
-        except:
-            page = None
+        page = httplib2.Http(disable_ssl_certificate_validation=True).request(url)
+#        page = self.get_cache_timeout_response(url)
+        if (self.DEBUG):
+            print page
         return(page)
 
     # each plugin needs to write one of these    
