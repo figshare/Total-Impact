@@ -194,8 +194,8 @@ include('./header.php');
 
             <h2 id="who">who developed total-Impact?</h2>
 
-            <p>Concept originally hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>. <a href="https://github.com/mhahnel/Total-Impact/contributors">Contributors</a>.
-                Continued development effort on this skunkworks project was done on personal time, plus some discretionary time while funded through <a href="http://dataone.org">DataONE</a> (Heather Piwowar) and a UNC Royster Fellowship (Jason Priem).
+            <p>Concept originally hacked at the <a href="http://www.beyond-impact.org/">Beyond Impact Workshop</a>, part of the Beyond Impact project funded by the Open Society Foundations <a href="https://github.com/mhahnel/Total-Impact/contributors">(initial ontributors)</a>.
+                Continued development was done on personal time, plus some discretionary time while funded through <a href="http://dataone.org">DataONE</a> (Heather Piwowar) and a UNC Royster Fellowship (Jason Priem). Recently, Total-Impact was selected for £17,000 of further development funding from the Beyond Impact project.
 
             <h2 id="learned">what have you learned?</h2>
 
