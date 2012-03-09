@@ -49,8 +49,9 @@
             <div class="wrapper">
                 <h1><span class="loathsome-hack"></span><a href="/">total-impact</a><span class="loathsome-hack"></span></h1>
                 <ul id="nav">
+                    <li><a href="http://twitter.com/#!/totalimpactdev">twitter</a></li>
+                    <li><a href="http://total-impact.tumblr.com/">blog</a></li>
                     <li><a href="/about">about</a></li>
-                    <li><a href="http://twitter.com/#!/totalImpactdev">twitter</a></li>
                 </ul>
             </div>
         </div><!-- end header -->
