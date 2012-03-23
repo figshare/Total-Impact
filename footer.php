@@ -38,7 +38,7 @@
                             }
                         }).render().start();
                     </script>
-                </div><a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a>
+                </div>
                 <div class="recent-changes footercol">
                     <h4>Latest changes on <a href="https://github.com/mhahnel/Total-Impact/blob/master/CHANGES.md">GitHub</a></h4>
                     <?php
