@@ -293,6 +293,12 @@ div.altmetrics p {
     margin: 0;
 }
 
+#footer div.altmetrics li {
+	list-style-type: none;
+	display: block;
+	height: 30px;
+}
+
 
 /** TinyBox (modal js dialog) styles
 *******************************************************************************/
