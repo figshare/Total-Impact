@@ -298,6 +298,7 @@ div.altmetrics p {
 	display: block;
 	width: 117px;
 	margin: 3px;
+	float:left;
 }
 #footer div.altmetrics li img {
 	width: 100%;
