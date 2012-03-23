@@ -60,7 +60,7 @@
                 </div>
                 <div class="altmetrics footercol">
 
-                    total-impact is an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project. We're (directly and indirectly) supported by:
+                    total-impact is an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project, supported by:
 <ul>
 	<li><a class="img" href="http://www.nsf.gov/"><img src="./ui/img/nsf-logo.gif" alt="altmetrics" width="80"/></a></li>
 	<li><a class="img" href="http://www.dataone.org/"><img src="./ui/img/DataONE_LOGO.jpg" alt="altmetrics" width="80"/></a></li>
