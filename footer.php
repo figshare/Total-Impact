@@ -38,7 +38,7 @@
                             }
                         }).render().start();
                     </script>
-                </div>
+                </div><a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a>
                 <div class="recent-changes footercol">
                     <h4>Latest changes on <a href="https://github.com/mhahnel/Total-Impact/blob/master/CHANGES.md">GitHub</a></h4>
                     <?php
@@ -60,7 +60,21 @@
                 </div>
                 <div class="altmetrics footercol">
 
-                    an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project.<br/>
+                    total-impact is an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project. We're (directly and indirectly) supported by:
+<ul>
+	<li><a class="img" href="http://www.nsf.gov/"><img src="./ui/img/nsf-logo.gif" alt="altmetrics" width="80"/></a></li>
+	<li><a class="img" href="http://www.dataone.org/"><img src="./ui/img/DataONE_LOGO.jpg" alt="altmetrics" width="80"/></a></li>
+	<li><a class="img" href="http://www.soros.org/"><img src="./ui/img/OSF_logo.jpg" alt="altmetrics" width="80"/></a></li>
+	<li><a href="http://gradschool.unc.edu/programs/royster">Royster Society of Fellows</a></li>
+</ul>
+
                 </div>
             </div>
         </div> <!-- end footer -->
+
+
+
+
+
+
+
