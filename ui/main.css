@@ -296,7 +296,8 @@ div.altmetrics p {
 #footer div.altmetrics li {
 	list-style-type: none;
 	display: block;
-	width: 120px;
+	width: 117px;
+	margin: 3px;
 }
 #footer div.altmetrics li img {
 	width: 100%;
