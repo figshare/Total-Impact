@@ -62,9 +62,9 @@
 
                     total-impact is an <a class="img" href="http://altmetrics.org" title="an altmetrics project"><img src="./ui/img/altmetrics_logo.png" alt="altmetrics" width="80"/></a> project, supported by:
 <ul>
+	<li><a class="img" href="http://sloan.org/"><img src="./ui/img/sloan-logo.jpg"  width="80"/></a></li>
 	<li><a class="img" href="http://www.nsf.gov/"><img src="./ui/img/nsf-logo.gif"  width="80"/></a></li>
 	<li><a class="img" href="http://www.dataone.org/"><img src="./ui/img/DataONE_LOGO.jpg"  width="80"/></a></li>
-	<li><a class="img" href="http://sloan.org/"><img src="./ui/img/sloan-logo.jpg"  width="80"/></a></li>
 	<li><a class="img" href="http://www.soros.org/"><img src="./ui/img/OSF_logo.jpg" width="80"/></a></li>
 	<li><a href="http://gradschool.unc.edu/programs/royster">Royster Society of Fellows</a></li>
 </ul>

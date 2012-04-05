@@ -296,12 +296,13 @@ div.altmetrics p {
 #footer div.altmetrics li {
 	list-style-type: none;
 	display: block;
-	width: 117px;
-	margin: 3px;
-	float:left;
+	float:right;
+	margin:0 3px;
 }
 #footer div.altmetrics li img {
-	width: 100%;
+	width: auto;
+	height:40px;
+	border: 2px solid #fff;
 }
 
 /** TinyBox (modal js dialog) styles
